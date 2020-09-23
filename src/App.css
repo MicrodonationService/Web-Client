@@ -1,0 +1,82 @@
+.App {
+  text-align: center;
+}
+
+.body > div{
+  display: block !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+::-webkit-scrollbar-track
+{
+ background: transparent !important;
+}
+
+::-webkit-scrollbar
+{
+ height: 8px !important;
+ width: 5px !important;
+ background: transparent !important;
+
+}
+
+::-webkit-scrollbar-thumb
+{
+ background-color: #c3ccd9 !important;
+ border-radius: 10px !important;
+ width: 3px !important;
+}
+
+:-webkit-scrollbar:horizontal {
+ height: 3px !important;
+ filter: opacity(0.6) !important;
+ border-radius: 10px !important;
+}
+[class*="ant-layout-sider"]{
+    width: 400px !important;
+    flex: 0 0 !important;
+    max-width: 400px !important;
+    min-width: 400px !important;
+}
+[class*="ant-form-item"]{
+  margin-bottom: 0px !important;
+}
+.inputPassClass [class*="ant-input"]{
+  border-radius: 25px !important;
+}
+.tabCss [class*="ant-tabs-nav ant-tabs-nav-animated"]{
+  margin-left: 261px !important;
+}
+[class*="ant-input"]{
+  border-radius: 25px !important;
+}

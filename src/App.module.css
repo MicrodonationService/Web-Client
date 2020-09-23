@@ -1,0 +1,181 @@
+.App
+{
+  text-align: center;
+}
+
+
+.tab [class*="ant-tabs-tab-active"]
+{
+background:#f8a500 !important;
+border-Radius: 5px !important;
+color: #fff !important;
+}
+
+.App-logo
+{
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+  .modalPopUp [class*="ant-btn"]
+{
+  margin-left: -230px;
+}
+
+.Date [class*="ant-form ant-form-horizontal"]
+{
+  display: inline-flex;
+}
+
+.slick-active
+{
+  MIN-WIDTH: 117PX !important;
+}
+
+.inputBoxCss input
+{
+  background:white !important;
+  border-radius: 0px;
+  padding-Top: 0px !important;
+}
+
+.inputBoxCss1 input
+{
+  padding-top: -1px;
+}
+
+[class*="ant-form-item-required"]{
+  color:#888888 !important;
+  font-weight: 200 !important;
+  font-size: medium !important;
+  margin-left: 20px !important;
+}
+
+
+.second1
+{
+  border-radius:15px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  min-height: 10%;
+  max-height: 80%;
+}
+
+.img1
+{
+  margin-top: 17px !important;
+  height: 55px !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  margin-left: -7px !important;
+}
+
+.logo
+{
+  min-width: 10%;
+  max-width: 100%;
+}
+
+.second
+{
+  border-radius: 5px;
+  border:1px solid;
+  padding:28px;
+  height:478px !important;
+  background: #ffffff;
+  width: 388px !important;
+  position: absolute;
+  margin: auto;
+  top: 18%;
+  left: 47%;
+
+}
+
+.second2
+{
+  border-radius: 5px;
+  border:1px solid;
+  padding:28px;
+  height:478px !important;
+  background: #ffffff;
+  width: 320px !important;
+  position: absolute;
+  margin: auto;
+  top: 18%;
+  left: 24%;
+
+}
+
+.second3
+{
+  border-radius: 5px;
+  border:1px solid #ffffff;
+  padding:28px;
+  height:420px !important;
+  background: #ffffff;
+  width: 604px !important;
+  position: absolute;
+  margin: auto;
+  top: 23%;
+  left: 36%;
+
+}
+.Back
+{
+  background-position: center center !important;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+  background-color: Black;
+  max-height: 100%;
+  margin-bottom: -10px;
+  overflow: auto !important;
+}
+.img
+{
+borderRadius:10px;
+width:96%;
+height:510px;
+}
+
+.App-header
+{
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link
+{
+  color: #61dafb;
+}
+
+
+@keyframes App-logo-spin
+{
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ellipsisVisible h4:hover{
+  overflow: visible !important;
+}
+
+[class*="ant-tooltip-inner"] {
+    border : 1px solid rgba(0, 0, 0, 0.65) !important;
+    color: rgb(131, 10, 58) !important;
+    width : 230px !important;
+    background-color: #ffffff !important;
+
+}

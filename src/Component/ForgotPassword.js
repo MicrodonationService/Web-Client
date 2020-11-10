@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import '../App.module.css';
 import '../index.css';
 import UISetNewPassword from "./UISetNewPassword.js";
+import GlobalHelper from '../utils/GlobalHelper.js'
 import {Route,Link,Switch,Redirect} from 'react-router-dom';
 import { Layout, Menu,Collapse, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge} from 'antd';
 
@@ -31,8 +32,60 @@ const {Panel} = Collapse;
           this.handleChange = this.handleChange.bind(this);
           this.state={ mess : "",data:"", loading:false}
           this.onChange=this.onChange.bind(this);
+          this.state = { time: {}, seconds: 59 };
+          this.timer = 0;
+          this.startTimer = this.startTimer.bind(this);
+          this.countDown = this.countDown.bind(this);
 
         }
+
+        secondsToTime(secs){
+             let hours = Math.floor(secs / (60 * 60));
+
+             let divisor_for_minutes = secs % (60 * 60);
+             let minutes = Math.floor(divisor_for_minutes / 60);
+
+             let divisor_for_seconds = divisor_for_minutes % 60;
+             let seconds = Math.ceil(divisor_for_seconds);
+
+             let obj = {
+               "h": hours,
+               "m": minutes,
+               "s": seconds
+             };
+             return obj;
+           }
+
+     componentDidMount() {
+           let timeLeftVar = this.secondsToTime(this.state.seconds);
+           this.setState({ time: timeLeftVar });
+     }
+
+     startTimer() {
+           if (this.timer == 0 && this.state.seconds > 0) {
+             this.timer = setInterval(this.countDown, 1000);
+           }
+         }
+
+     countDown() {
+           // Remove one second, set state so a re-render happens.
+           let seconds = this.state.seconds - 1;
+           this.setState({
+             time: this.secondsToTime(seconds),
+             seconds: seconds,
+           });
+
+           // Check if we're at zero.
+           if (seconds == 0) {
+             clearInterval(this.timer);
+           }
+     }
+
+        componentWillReceiveProps(nextProps)
+        {
+             this.setState({mess : ""});
+        };
+
 
             onChange = e =>
             {
@@ -49,7 +102,7 @@ const {Panel} = Collapse;
             };
               const superagent = require('superagent');
             superagent
-            .post('http://13.234.225.242:8880/api/auth/forgotPassword')
+            .post(GlobalHelper.getContextPath()+'/forgotPassword')
             .send(forgotPassRequest) // sends a JSON post body
             .set('X-API-Key', 'foobar')
             .set('accept', 'application/json')
@@ -59,7 +112,14 @@ const {Panel} = Collapse;
                 console.log("respJson11",respJson);
                   if(respJson.success=== true){
                        //this.setState({flag:true})
-                       this.setState({mess:respJson.message})
+                       if(e.target.value === "E"){
+                        this.setState({mess:"OTP sent to your register Email"})
+                       }
+                       else{
+                        this.setState({mess:"OTP sent to your register Phone Number"})
+                       }
+
+                       this.startTimer();
                        //ReactDOM.render(<WrappedNormalPasswordSetSeccessInnerForm mess={this.state.mess}/>,document.getElementById('root'));
                   }else if (respJson.success=== false){
                     this.setState({mess:respJson.message})
@@ -84,7 +144,7 @@ const {Panel} = Collapse;
           };
             const superagent = require('superagent');
           superagent
-          .post('http://13.234.225.242:8880/api/auth/verifyOTP')
+          .post(GlobalHelper.getContextPath()+'/verifyOTP')
           .send(verifyOTPRequest) // sends a JSON post body
           .set('X-API-Key', 'foobar')
           .set('accept', 'application/json')
@@ -169,7 +229,7 @@ const {Panel} = Collapse;
               </div>
              <div style={{display:'flex',marginBottom:'-10px'}}>
               <h4 style={{marginLeft:'28px',marginTop:'14px'}}>Enter OTP </h4>
-              <h4 style={{marginLeft:'160px',marginTop:'14px'}}>OTP time out : </h4>
+              <h4 style={{marginLeft:'160px',marginTop:'14px'}}>OTP time out : {this.state.time.m} : {this.state.time.s}</h4>
               </div>
              <Form style={{marginLeft:'96px',marginTop:'-38px'}}>
                   <Form.Item>
@@ -208,6 +268,8 @@ const {Panel} = Collapse;
                             <Button type="submit" onClick={this.handleSubmit}
                               style={{background:'#f8a500', color: 'Black' ,height:'',margin:'16px 0px 5px 80px',borderRadius:'20px',width:'38%',height:'33px'}} >CONTINUE</Button><br></br>
                       </Spin>
+                      <h4 style={{position: 'relative', color: 'red',top:'10px',left:'-90px', textAlign: 'center'}}>{this.state.mess}</h4>
+
                 </div>
                 </Content>
                 <Footer style={{padding:'0px'}}>

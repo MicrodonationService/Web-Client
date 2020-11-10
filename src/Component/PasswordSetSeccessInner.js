@@ -61,7 +61,7 @@ class PasswordSetSeccessInner extends React.Component
           <Content style={{background:'white',marginTop:'1px',marginLeft:'2px',overflow : 'unset'}}>
           <div style={{width:'80%', height: '80%', margin: '47px 0px 0px 320px'}}>
           <img src="img/rightSign.png" style={{ position: 'relative',left: '290px',top: '100px',display: 'inline-block'}}/>
-          <h1 style={{display: 'block', position: 'relative', left: '90px',fontWeight: 900, top:'119px'}}>{this.props.mess}</h1>
+          <h1 style={{display: 'block', position: 'relative', left: '134px',fontWeight: 900, top:'119px'}}>{this.props.mess}</h1>
              <Form {...layout}>
                 <Form.Item style={{width: '50%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '356px', top: '142px'}}>
                  <Button type="primary" onClick={this.handleSubmit} htmlType="submit" style={{width:'50%',borderRadius: '25px',background: '#f8a500',color:'#000000', left:'-125px'}}>

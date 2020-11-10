@@ -4,6 +4,7 @@ import {Layout, Form, Button,Col,Input,Tooltip,Checkbox, Row, Cascader, Select, 
 import "../App.css"
 import "antd/dist/antd.css"
 import UIregisterMD from "./UIRegisterMD.js";
+import GlobalHelper from '../utils/GlobalHelper.js'
 import WrappedNormalPasswordSetSeccessInnerForm from "./PasswordSetSeccessInner.js"
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
@@ -25,7 +26,7 @@ class ChangePassword extends React.Component
     }
     isValidPassword(value){
 
-          var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+          var strongRegex = new RegExp("[a-zA-Z0-9!@#%*]{8,}$");
           if(strongRegex.test(value)) {
           return true ;
         }
@@ -41,13 +42,14 @@ class ChangePassword extends React.Component
             if(this.isValidPassword(values.newPassword)){
             if (!err){
               let changePassRequest  = {
+                "oldPassword" : values.currentPassword,
                 "confirmPassword": values.confirmPassword,
                 "password": values.newPassword,
                 "username": this.props.data.data.user.userName
               };
                 const superagent = require('superagent');
               superagent
-              .post('http://13.234.225.242:8880/api/auth/changePassword')
+              .post(GlobalHelper.getContextPath()+'/changePassword')
               .send(changePassRequest) // sends a JSON post body
               .set('X-API-Key', 'foobar')
               .set('accept', 'application/json')
@@ -64,7 +66,7 @@ class ChangePassword extends React.Component
               });
             }
           }else{
-              this.setState({mess : "Password must have 1 Uppercase, 1 Lower case, 1 digit and 1 special character. And password should be atleast 8 characters long"});
+              this.setState({mess : "Password should be a minimum of 8 characters long"});
           }
           })
 
@@ -83,7 +85,7 @@ class ChangePassword extends React.Component
         </Switch>
         </div>
       )
-    }*/
+}*/
      return(
        <div>
        <Layout>
@@ -148,6 +150,8 @@ class ChangePassword extends React.Component
                       </Button>
                       </Form.Item>
                 </Form>
+                <a href="" style={{textDecoration:'underline',position: 'relative', top: '12px', left: '266px'}}><Router><Link style={{color: 'red'}}>Home</Link></Router></a>
+
                 <h4 style={{position: 'relative',top: '25px', left: '114px', color: 'red'}}>{this.state.mess}</h4>
              </div>
           </Content>

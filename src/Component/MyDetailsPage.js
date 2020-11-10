@@ -4,12 +4,9 @@ import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
 import '../index.css';
-import tabsjson from './json/tabJson.js'
 import {Route,Link,Switch,Redirect} from 'react-router-dom';
 import {Layout, Menu,Collapse,Row,Col, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge,Select,Upload,message,Tabs } from 'antd';
-import GlobalHelper from '../utils/GlobalHelper.js';
 import { Spin} from 'antd';
-import tabJson from './json/tabJson.js'
 import {ReloadOutlined} from '@ant-design/icons';
 const { TabPane } = Tabs;
 const {Option} =Select;
@@ -103,19 +100,6 @@ const layout = {
                );
 
 
-            if(this.registerResponse === true)
-            {
-                return(<Switch>
-
-                <Route path="/*" render={() => (
-                  <Redirect to={GlobalHelper.globlevar['contextpath']+ "OtpGenerate"} />
-                 )} />
-                   </Switch>)
-
-            }
-
-              //var bgimg = "url('"+ window.origin+"/background.png')";
-              var bgimg = "url('"+  GlobalHelper.globlevar['contextpath'] +"background.png')";
               const { getFieldDecorator } = this.props.form;
               const {posts} = this.state;
 

@@ -4,6 +4,7 @@ import {Layout, Form, Button,Col,Input,Tooltip,Checkbox, Row, Cascader, Select, 
 import "../App.css"
 import "antd/dist/antd.css"
 import UIregisterMD from "./UIRegisterMD.js";
+import GlobalHelper from '../utils/GlobalHelper.js'
 import PasswordSetSuccess from "./PasswordSetSuccess.js"
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
@@ -33,7 +34,7 @@ class UISetNewPassword extends React.Component
     }
     isValidPassword(value){
 
-          var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+          var strongRegex = new RegExp("[a-zA-Z0-9!@#%*]{8,}$");
           if(strongRegex.test(value)) {
           return true ;
         }
@@ -42,6 +43,12 @@ class UISetNewPassword extends React.Component
           return false;
         }
     }
+
+    componentWillReceiveProps(nextProps)
+    {
+         this.setState({mess : ""});
+    };
+
 
        handleSubmit(e){
          e.preventDefault();
@@ -55,7 +62,7 @@ class UISetNewPassword extends React.Component
               };
                 const superagent = require('superagent');
               superagent
-              .post('http://13.234.225.242:8880/api/auth/changePassword')
+              .post(GlobalHelper.getContextPath()+'/updatePassword')
               .send(changePassRequest) // sends a JSON post body
               .set('X-API-Key', 'foobar')
               .set('accept', 'application/json')
@@ -73,7 +80,7 @@ class UISetNewPassword extends React.Component
               this.setState({flag:true})
             }
           }else{
-              this.setState({mess : "Password must have 1 Uppercase, 1 Lower case, 1 digit and 1 special character. And password should be atleast 8 characters long"});
+              this.setState({mess : "Password should be a minimum of 8 characters long"});
           }
           })
 
@@ -150,7 +157,7 @@ class UISetNewPassword extends React.Component
                     </Button>
                     </Form.Item>
                 </Form>
-                <h4 style={{position: 'relative', color: 'red'}}>{this.state.mess}</h4>
+                <h4 style={{position: 'relative', color: 'red', top:'150px', textAlign: 'center'}}>{this.state.mess}</h4>
              </div>
           </Content>
           </Layout>

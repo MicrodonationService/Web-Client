@@ -3,6 +3,7 @@ import React from 'react';
 import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
+import GlobalHelper from '../utils/GlobalHelper.js'
 import '../index.css';
 import {Route,Link,Switch,Redirect} from 'react-router-dom';
 import { Layout, Menu,Row, Col,Collapse, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge} from 'antd';
@@ -25,7 +26,7 @@ const layout = {
        constructor(props)
            {
           super(props);
-          this.state =  {posts :"",value:1} ;
+          this.state =  {posts :"",value:1,handleFlag : true, mess : "", verifyFlag1 : false, verifyFlag2 : false, updateFlag : false} ;
           this.handleSubmit = this.handleSubmit.bind(this);
           this.handleChange = this.handleChange.bind(this);
           this.state={ mess : "", loading:false}
@@ -39,6 +40,11 @@ const layout = {
           this.mobile = this.props.data.data.user.mobile;
 
         }
+
+        componentWillReceiveProps(nextProps)
+        {
+             this.setState({mess : ""});
+        };
 
             onChange = e =>
             {
@@ -54,7 +60,127 @@ const layout = {
         }
         handleSubmit(e)
         {
+          e.preventDefault();
+           this.props.form.validateFields((err, values) => {
+             this.setState({handleFlag:true})
+             if (!err){
+
+               if(this.state.verifyFlag1 === true){
+                 let forgotPassRequest  = {
+                   "emailId":(this.handleFlag === undefined ? this.email : values.email),
+                   "templateId":"2"
+                 };
+                   const superagent = require('superagent');
+                 superagent
+                 .post(GlobalHelper.getContextPath()+'/confirmEmail')
+                 .send(forgotPassRequest) // sends a JSON post body
+                 .set('X-API-Key', 'foobar')
+                 .set('accept', 'application/json')
+                 .end((err, res) => {
+                     // Calling the end function will send the request
+                     let respJson = JSON.parse(res.text);
+                     console.log("respJson11",respJson);
+                       if(respJson.success=== true){
+                         this.setState({updateFlag : true})
+                         this.setState({mess :"Verification link sent to your registered Email Id!"})
+                       }else if (respJson.success=== false){
+                         this.setState({mess:respJson.message})
+                       }
+                     })
                }
+
+               if(this.state.verifyFlag2 === true){
+                 let generateOtpOnPhoneRequest  = {
+                   "phoneNumber": (this.handleFlag === undefined ? this.mobile : values.mobile),
+                   "username": this.props.data.data.user.userName
+                 };
+                   const superagent = require('superagent');
+                 superagent
+                 .post(GlobalHelper.getContextPath()+'/confirmPhoneNumber')
+                 .send(generateOtpOnPhoneRequest) // sends a JSON post body
+                 .set('X-API-Key', 'foobar')
+                 .set('accept', 'application/json')
+                 .end((err, res) => {
+                     // Calling the end function will send the request
+                     let respJson = JSON.parse(res.text);
+                     console.log("respJson11",respJson);
+                       if(respJson.success=== true){
+                         this.setState({updateFlag : true})
+                         this.setState({mess:"OTP sent to your register Mobile Number"})
+                       }else if (respJson.success=== false){
+                         this.setState({mess:respJson.message})
+                       }
+                     })
+               }
+
+               if(this.state.updateFlag === true){
+
+               let updateProfileRequest  = {
+                 "userId":this.props.data.data.user.userId,
+                 "donorName":(this.handleFlag === undefined ? this.name : values.name),
+                 "email":(this.handleFlag === undefined ? this.email : values.email),
+                 "addressLine1":(this.handleFlag === undefined ? this.address : values.address),
+                 "addressLine2":"Parkhe Vasati, Susgaon",
+                 "city":(this.handleFlag === undefined ? this.city : values.city),
+                 "state":"MH",
+                 "country":"India",
+                 "pincode":"411021",
+                 "mobile":(this.handleFlag === undefined ? this.mobile : values.mobile)
+               };
+                 const superagent = require('superagent');
+               superagent
+               .post(GlobalHelper.getContextPath()+'/updateProfileDonor')
+               .send(updateProfileRequest) // sends a JSON post body
+               .set('X-API-Key', 'foobar')
+               .set('accept', 'application/json')
+               .end((err, res) => {
+                   // Calling the end function will send the request
+                   console.log("service call",res);
+                   let respJson = JSON.parse(res.text);
+                   console.log("respJson",respJson);
+                     if(respJson.success=== true){
+                       console.log("hi",respJson);
+                       this.setState({mess:respJson.message})
+                     }else if (respJson.success=== false){
+                       this.setState({mess:respJson.message})
+                     }
+               });
+             }else{
+               let updateProfileRequest  = {
+                 "userId":this.props.data.data.user.userId,
+                 "donorName":(this.handleFlag === undefined ? this.name : values.name),
+                 "email":(this.handleFlag === undefined ? this.email : values.email),
+                 "addressLine1":(this.handleFlag === undefined ? this.address : values.address),
+                 "addressLine2":"Parkhe Vasati, Susgaon",
+                 "city":(this.handleFlag === undefined ? this.city : values.city),
+                 "state":"MH",
+                 "country":"India",
+                 "pincode":"411021",
+                 "mobile":(this.handleFlag === undefined ? this.mobile : values.mobile)
+               };
+                 const superagent = require('superagent');
+               superagent
+               .post(GlobalHelper.getContextPath()+'/updateProfileDonor')
+               .send(updateProfileRequest) // sends a JSON post body
+               .set('X-API-Key', 'foobar')
+               .set('accept', 'application/json')
+               .end((err, res) => {
+                   // Calling the end function will send the request
+                   console.log("service call",res);
+                   let respJson = JSON.parse(res.text);
+                   console.log("respJson",respJson);
+                     if(respJson.success=== true){
+                       console.log("hi",respJson);
+                       this.setState({mess:respJson.message})
+                     }else if (respJson.success=== false){
+                       this.setState({mess:respJson.message})
+                     }
+               });
+             }
+          }
+        }
+          )
+        }
 
                componentDidMount() {
                  //setTimeout(()=>{
@@ -130,10 +256,7 @@ const layout = {
                  //document.getElementById("Mobile").value=this.mobile;
                }
 
-
     render(){
-
-
 
               //var bgimg = "url('"+ window.origin+"/background.png')";
 
@@ -160,7 +283,7 @@ const layout = {
                       {getFieldDecorator('name', {
 
                           })(
-                        <Input style={{borderRadius: '25px'}}/>)}
+                        <Input style={{borderRadius: '25px'}} />)}
                       </Form.Item>
                       <h4 style={{marginTop:'-41px',marginLeft:'427px'}}>AGE</h4>
                       <Form.Item
@@ -214,8 +337,13 @@ const layout = {
                       {getFieldDecorator('email', {
 
                           })(
-                        <Input style={{borderRadius: '25px', width: '70%'}}/>)}
-                        <a href="" style={{textDecoration:'underline',position: 'relative', right: '358px', top: '30px', color:'#000000'}}>Verify E-mail </a>
+                        <Input style={{borderRadius: '25px', width: '70%'}}
+                          onChange={
+                            (e)=>{
+                              this.setState({verifyFlag1 : true})
+                            }
+                          }
+                        />)}
                       </Form.Item>
 
                       <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px',top:'-38px'}}>
@@ -227,27 +355,30 @@ const layout = {
                       >{getFieldDecorator('mobile', {
 
                           })(
-                        <Input />)}
-                        <a href="" style={{textDecoration:'underline',position: 'relative', right: '0px', top: '-10px', color:'#000000'}}>Verify Phone Number</a>
+                        <Input
+                        onChange={
+                          (e)=>{
+                            this.setState({verifyFlag2 : true})
+                          }
+                        }
+                        />)}
                       </Form.Item>
                       <Form.Item style={{ alignContent: 'center', position: 'relative', left: '62px',top:'-62px'}}>
-                      <a href="" style={{textDecoration:'underline',position: 'relative', right: '-8px', top: '-34px', color:'#000000',fontSize:'17px'}}>Change Password</a>
                        </Form.Item>
-                     <Form.Item style={{width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-134px'}}>
+                     <Form.Item style={{width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-80px'}}>
                         <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{width:'32%',borderRadius: '25px',background: '#f8a500',color:'Black',borderColor:'white'}}>
                           Update
                         </Button>
                         </Form.Item>
 
                         </div>
-
+                                <h4 style={{position: 'relative',top: '-15px', color: 'red', textAlign:'center',right:'-86px'}}>{this.state.mess}</h4>
 
             <Form.Item style={{width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', top: '-100px',left: '170px'}}>
                                     <h4>Have you tried our mobile app yet? </h4>
                                     <a href="" style={{textDecoration:'underline',position: 'relative', top: '-30px', color:'#000000', fontWeight:"bold"}}>Dowmload Now</a>
             </Form.Item>
                     </Form>
-
 
                  </div>
                 </Content>

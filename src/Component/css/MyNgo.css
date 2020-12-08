@@ -1,0 +1,98 @@
+
+
+/* css for the Mycharity Page */
+
+
+.grid{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 60px;
+    margin-left: 30px;
+  }
+
+  .cardgrid{
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    grid-gap: 60px;
+    margin-left: 30px;
+    margin-top: 110px;
+  }
+[class*="ant-card-body"]{
+  background: #f8a500 !important;
+}
+
+  .card{
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 ;
+    border: 1px solid white;
+    transition: 0.3s;
+    /* margin-top: 30px; */
+    width: 377px;
+  }
+  .insidecardgrid{
+  display: grid;
+  grid-template-columns: auto auto;
+  }
+  .cardimg img{
+    width: 200px;
+  }
+  .carddescription{
+  display: grid;
+  grid-template-columns: auto auto;
+  background: #f8a500;
+  height: 130px;
+
+  }
+  .mydonation{
+  color: white;
+  }
+
+  .colorperecent{
+  background-color: rosybrown;
+
+  }
+  .cardtitle{
+    height: 200px;
+  }
+
+  .CardCss[class*="ant-input-group-wrapper"]{
+    position: absolute;
+    top: 15px;
+
+  }
+
+
+  .box{
+
+    box-shadow: 0 4px 4px 0 black;
+    border: 1px solid #f8a500;
+    box-sizing: content-box;
+    width: 50%;
+  }
+  .boxcontent{
+    box-sizing: border-box;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  .title{
+    color: #f8a500;
+  }
+  .close {
+  color: black;
+  float: right;
+  font-size: 48px;
+  margin-right: 20px;
+  font-weight: bold;
+  }
+  button{
+    background: #f8a500;
+    color: Black;
+    margin: -40px 0px 5px 75px;
+    border-radius: 20px;
+    width: 50%;
+    height: 40px;
+  }
+
+
+
+  /* css for Mycharity page ends Here */

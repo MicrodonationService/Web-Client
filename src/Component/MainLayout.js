@@ -1,18 +1,23 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import {Layout, Form, Button,Col,Input,Tooltip,Checkbox, Row,Card, Cascader,Divider, Select, AutoComplete,Tabs, Radio} from 'antd';
+import {Layout, Avatar,Form, Button,Col,Input,Tooltip,Checkbox, Row,Card, Cascader,Divider, Select, AutoComplete,Tabs, Radio} from 'antd';
+//import {Pie} from 'react-chartjs-2';
 import "../App.css"
 import "antd/dist/antd.css"
+
 import UIregisterMD from "./UIRegisterMD.js";
 import PasswordSetSuccess from "./PasswordSetSuccess.js"
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import WrappedNormalReferPage from "./ReferPage.js"
 import WrappedNormalEditProfileForm from "./EditProfile.js"
+import MyNGO from "./MyNGO.js"
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
+
 const {Group} = Radio;
 const { Option } = Select;
 const { TabPane } = Tabs;
+const { Meta } = Card;
 const AutoCompleteOption = AutoComplete.Option
 const layout = {
   labelCol: {
@@ -22,20 +27,31 @@ const layout = {
     span: 16,
   },
 };
+
+
 class MainLayout extends React.Component
 {
     constructor(props)
     {
       super(props);
-      this.state ={
+      this.state = {
         flag: "",
         flag1: "",
         profileUpdateFlag : "",
         changePasswordFlag : "",
+        MycHarity:""   ,//MY CHARITY APP
+        labels:['Under18','Age 18-54','Age 55+'],
+        datasets: [{
+          data:[2000,4000,2850],
+          backgroundColor:['red','blue','green']
+
+
+        }]
 
       }
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
+
       //this.userName1 = this.props.data.data.user.name;
     }
 
@@ -63,6 +79,13 @@ class MainLayout extends React.Component
          this.setState({profileUpdateFlag : ""})
        }
 
+        MyCharity(data)
+        {
+          this.setState({MycHarity:data})
+         this.setState({changePasswordFlag : ""})
+         this.setState({flag:""})
+         this.setState({profileUpdateFlag : ""})
+        }
        profileUpdateClick(data){
          this.setState ({profileUpdateFlag : data })
          this.setState({changePasswordFlag : ""})
@@ -101,6 +124,7 @@ class MainLayout extends React.Component
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-978px'}} onClick={this.profileUpdateClick.bind(this,"profile_update")}><Router><Link >My Profile</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1005px'}} onClick={this.handleSubmit.bind(this,"refer")}><Router><Link >Refer</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1033px'}} onClick={this.handleChange.bind(this,"change_password")}><Router><Link >Change Password</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1033px'}} onClick={this.MyCharity.bind(this,"my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
               <a  href="" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1062px', color:'40a9ff'}}>Logout</a>
         </div>
         <Row style={{width: window.innerWidth, position: 'relative', left: '-50px', top: '-64px', height: '100px',boxShadow: '0 2px 5px #efc940', border: '1px solid #efc940'}}>
@@ -171,13 +195,267 @@ class MainLayout extends React.Component
                              (this.state.flag=== "refer")?<WrappedNormalReferPage />:null
                            }
                            {
+                             (this.state.MycHarity=== "my_charity")?<MyNGO />:null
+                           }
+                           {
                              (this.state.flag1==="home")?<div>
                                   <img src="img/newMidImg.png" style={{marginTop: '82px'}}/>
                              </div>:null
                            }
-                           <div>
-                                <img src="img/newMidImg.png" style={{marginTop: '82px'}}/>
-                           </div>
+
+
+      <div>
+                           <br></br>
+
+
+                            {/* <Card
+                                     style={{ width: 300, marginTop: 60}}    >
+
+                                <Meta
+                          avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                             }
+                                  title="Card title"
+                              description="This is the description"
+                         />
+
+                        </Card> */}
+            <Row style={{marginTop:40}}>
+                <Row style={{position:"absolute"}}>
+                    <Col span={4} style={{position:"absolute"}} >
+                       <Card style={{ width: 300, marginTop: 60}}    >
+                       <img src="img/p1.png"></img>
+                            {/* <Meta
+                                              avatar={
+                                              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                 }
+                                               title="Add Chart Here"
+                                              description="This is the description"
+                            /> */}
+                            <div>
+                            {/*<Pie
+                              data={{
+
+                                datasets :this.state.datasets
+                              }}
+                              height='100%'
+
+                            />*/}
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col span={4} style={{marginLeft:320}}>
+                        <Card
+                                     style={{ width: 300, marginTop: 60}}>
+
+                                <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                    }
+                                      title="Card title"
+                                      description="This is the description"
+                                   />
+
+                        </Card>
+                    </Col>
+
+                </Row>
+
+                <Row  style={{marginLeft:600}}>
+                <h6 style={{marginTop:60,marginLeft:30}}>Other NGO that  I have Donated</h6>
+                  <Col span={4}  style={{marginLeft:30}}>
+                      <Card  style={{ width: 300}}  >
+                        <Meta
+                                        avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                            }
+                                  title="Card title"
+                              description="This is the description"
+                         />
+
+                      </Card>
+                  </Col>
+                  <Col span={4} style={{marginLeft:150}}>
+                      <Card
+                                     style={{ width: 300}}    >
+
+                                <Meta
+                                      avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                             }
+                                  title="Card title"
+                              description="This is the description"
+                         />
+
+                        </Card>
+                    </Col>
+                    <Col span={4}  style={{marginLeft:160}}>
+                        <Card
+                                     style={{ width: 300}}    >
+
+                                <Meta
+                          avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                             }
+                                  title="Card title"
+                              description="This is the description"
+                         />
+
+                        </Card>
+                    </Col>
+
+
+                </Row>
+
+          </Row>
+
+                          {/*Second row three cards  */}
+          <div >
+              <Row style={{borderWidth: 4}}>
+                  <h6 style={{marginTop:80}}>Other Charities Similar to my Charities</h6>
+                      <Col span={8}>
+                            <Card
+                                     style={{ width: 400,height:100, marginTop: 0 , borderRadius:25 }}    >
+
+                                {/* <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                  }
+                                  title="Card title"
+                                description="This is the description"
+                                    />
+          */}
+                              <Col span={8}>
+                                <img src="img/rightSign.png"></img>
+                              </Col>
+                              <Col span={8}>
+                                <p>
+                                  NGO 14
+                                  <br></br>
+                                  Health
+
+                                </p>
+                              </Col>
+                              <Col span={8}>
+                              <p>
+                                  Total Donars
+                                  <br></br>
+                                  Health
+
+                                </p>
+
+                              </Col>
+
+                              </Card>
+
+                      </Col>
+                      <Col span={8}>
+                      <Card
+                                     style={{ width: 400,height:100, marginTop: 0 , borderRadius:25 }}    >
+
+                                {/* <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                  }
+                                  title="Card title"
+                                description="This is the description"
+                                    />
+          */}
+                              <Col span={8}>
+                                <img src="img/rightSign.png"></img>
+                              </Col>
+                              <Col span={8}>
+                                <p>
+                                  NGO 15
+                                  <br></br>
+                                  Orphanage
+
+                                </p>
+                              </Col>
+                              <Col span={8}>
+                              <p>
+                                  Total Donars
+                                  <br></br>
+                                  Health
+
+                                </p>
+
+                              </Col>
+
+                              </Card>
+
+                      </Col>
+
+
+                      <Col span={8}>
+                      <Card
+                                     style={{ width: 400,height:100, marginTop: 0 , borderRadius:25 }}    >
+
+                                {/* <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                  }
+                                  title="Card title"
+                                description="This is the description"
+                                    />
+          */}
+                              <Col span={8}>
+                                <img src="img/rightSign.png"></img>
+                              </Col>
+                              <Col span={8}>
+                                <p>
+                                  NGO 16
+                                  <br></br>
+                                  Education
+
+                                </p>
+                              </Col>
+                              <Col span={8}>
+                              <p>
+                                  Total Donars
+                                  <br></br>
+                                  Health
+
+                                </p>
+
+                              </Col>
+
+                              </Card>
+
+                    </Col>
+
+              </Row>
+          </div>
+
+          <Row style={{marginTop:40}}>
+              <Col span={5} >
+                  <p>
+                  <h3>Have You Tried Our Mobile App Yet? </h3>
+                  <h1>Download Now</h1>
+                  </p>
+              </Col>
+              <Col span={4} style={{marginLeft:30}}>
+                                  <Button style={{borderRadius:10,height:35,width:250}}>Recurring Donation</Button>
+
+              </Col>
+              <Col span={4} style={{marginLeft:20}}>
+                <Button style={{borderRadius:10,height:35,width:250}}>Repeat Last Donation</Button>
+
+              </Col>
+              <Col span={4} style={{marginLeft:20}}>
+                <Button style={{borderRadius:10,height:35,width:250}}>One Time Donation</Button>
+
+              </Col>
+              <Col span={4} style={{marginLeft:20}}>
+                <Button style={{borderRadius:10,height:35,width:250}}>REfer Donor or Charity</Button>
+
+             </Col>
+
+        </Row>
+
+                                {/* <img src="img/newMidImg.png" style={{marginTop: '82px'}}/> */}
+    </div>
+
 
           </Content>
           </Layout>

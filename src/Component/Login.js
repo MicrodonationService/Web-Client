@@ -7,7 +7,7 @@ import WrappedVerificationMDForm from "./verificationMD.js"
 import MainLayout from "./MainLayout.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
 import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js"
-import { Layout, Tabs, Button, Form, Input } from 'antd';
+import { Layout, Tabs, Button, Form, Input, Modal } from 'antd';
 import WrappedNormalForPassForm from './ForgotPassword.js'
 import { Spin } from 'antd';
 var styles = require('../App.module.css');
@@ -22,7 +22,7 @@ function callback(key) {
 class Loginpage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false, verifyFlag: false, mailResp: "", phoneResp: "", value: "", flag: false, regFlag: false, loginFlag: false, mess: "" };
+    this.state = { visible: false,visible1: false, verifyFlag: false, mailResp: "", phoneResp: "", value: "", flag: false, regFlag: false, loginFlag: false, mess: "" };
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -51,6 +51,7 @@ class Loginpage extends React.Component {
   handleLogin(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+      console.log("values",values);
       if (!err) {
         let loginRequest = {
           "usernameOrEmail": values.username,
@@ -77,7 +78,6 @@ class Loginpage extends React.Component {
                 this.setState({ phoneResp: loginRespJson.data.contact })
               }, 5000);      // Set timeout for 5 sec while user is inactive and redirect to the verifiction screen
             }
-
             else if (loginRespJson.success === true && loginRespJson.data.user.role === "D") {
               //this.setState({loginFlag:true})
               ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
@@ -90,6 +90,27 @@ class Loginpage extends React.Component {
 
     })
   }
+
+
+  showModal = () => {
+    this.setState({
+      visible1: true,
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible1: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible1: false,
+    });
+  };
 
   render() {               // Start Render
     const { visible, confirmLoading } = this.state;
@@ -122,17 +143,17 @@ class Loginpage extends React.Component {
           <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '70px', top: '0px', left: '0px' }} />
         </div>
         <Content >
-          <div style={{ display: 'inlineFlex' }} className={styles.second2}>
-            <img src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
-          </div>
+            <div style={{ display: 'inlineFlex' }} className={styles.second2}>
+              <img src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
+            </div>
           <div className={styles.second} >
 
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
             <Tabs defaultActiveKey="1" onChange={callback} className={styles.tab}>
-              <TabPane tab="Login AS Donar" key="1" >
+              <TabPane tab="LOGIN AS DONOR" key="1" >
               </TabPane>
-              <TabPane tab="Login AS NGO" key="2" >
+              <TabPane tab="LOGIN AS NGO" key="2" >
               </TabPane>
             </Tabs>
 
@@ -163,7 +184,7 @@ class Loginpage extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: (!this.state.checked ? 'Please enter password' : 'Please enter OTP'),
+                      message: ('Please enter password'),
                     }
                   ],
                 })(
@@ -181,6 +202,24 @@ class Loginpage extends React.Component {
                 style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
             <h4 style={{ position: 'relative', top: '25px', color: 'red', textAlign: 'center' }}>{this.state.mess}</h4>
+            {/*<div style={{textAlign: 'center',position: 'relative',top: '11px', left: '-3px'}}>
+              <a style={{ color: '#000', textDecoration: 'underline'}} onClick={this.showModal}>
+                 One Time Donation
+              </a>
+                 <Modal
+                   title="One Time Donation"
+                   visible={this.state.visible1}
+                   onOk={this.handleOk}
+                   onCancel={this.handleCancel}
+                   width={500}
+                   footer={null}
+                   centered={true}
+                 >
+                   <p>Some contents...</p>
+                   <p>Some contents...</p>
+                   <p>Some contents...</p>
+                 </Modal>
+            </div>*/}
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
             </div>
           </div>

@@ -64,7 +64,7 @@ class UIregisterMD extends React.Component {
       if (this.isValidPassword(values.password)) {
         if (!err) {
 
-          /*let registerRequest = {
+          let registerRequest = {
             "address": values.address,
             "age": values.age,
             "agreeToTerms": true,
@@ -83,53 +83,15 @@ class UIregisterMD extends React.Component {
             "role": this.state.roll,
             "userIdType": "E",
             "username": values.email
-          };  */
-          let registerRequest = {
-            "SeqNO": "234",
-            "name": values.username,
-            "username": values.email,
-            "password": values.password,
-            "userIdType": "E",
-            "email":values.email,
-            "userType": "D",
-            "age": values.age,
-            "address": values.address,
-            "Address2": "Shivaji Nagar, Nashik",
-            "city": values.city,
-            "State": "Maharashtra",
-            "Country": "India",
-            "PostalCode": "123456",
-            "role": "Admin",
-            "contactNo": values.phNo,
-            "occupation": values.occupation,
-            "pancard": values.pan,
-            "referrerId": "1"
-          }                                       // End Post Request
+          };                                                    // End Post Request
           const superagent = require('superagent');
           superagent
-            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/signup') // Ajax Call
+            .post(GlobalHelper.getContextPath()+'/signup') // Ajax Call
             .send(registerRequest)                              // Sends a JSON post body
             .set('X-API-Key', 'foobar')
-            .set('Content-Type','application/json')
-            //.set('Referer','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-            //.set('Authorization','AWS4-HMAC-SHA256 Credential=AKIAWP5ZRQ4J4LKBZCVI/20201218/ap-south-1/execute-api/aws4_request,SignedHeaders=host;x-amz-content-sha256;x-amz-date,Signature=66f679e2b02e825b7da0c7a057c5d2d549d6d3f05697bd618870085bfcfb68b5')
-            //.set('SignedHeaders','host')
-            //.set('x-amz-content-sha256','beaead3198f7da1e70d03ab969765e0821b24fc913697e929e726aeaebf0eba3')
-            //.set('Signature','66f679e2b02e825b7da0c7a057c5d2d549d6d3f05697bd618870085bfcfb68b5')
-            //.set('X-Amz-Date','20201218T071423Z')
-            //.set('AWS-Region','ap-south-1')
-              .set('accept', '*/*')
-              .set('Access-Control-Request-Headers','content-type,x-api-key')
-              .set('Access-Control-Request-Method','POST')
-              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-              .set('Origin','http://localhost')
-              .set('Accept-Encoding','gzip, deflate, br')
-              .set('Sec-Fetch-Dest','empty')
-              .set('Sec-Fetch-Mode', 'cors')
-            //.set('Sec-Fetch-Site','cross-site')
+            .set('accept', 'application/json')
             .end((err, res) => {                                // Calling the end function will send the request
               console.log("service call", res);
-              if(res != null){
               let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
               console.log("respJson", respJson);
               if (respJson.success === true) {
@@ -140,7 +102,7 @@ class UIregisterMD extends React.Component {
               } else if (respJson.success === false) {
                 this.setState({ mess: "Please fill all the field" })
               }
-            }});
+            });
 
         } //ENDIF
       } else {
@@ -522,7 +484,7 @@ class UIregisterMD extends React.Component {
                           </Checkbox>
                         </Form.Item>
                         <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '308px', top: '-15px' }}>
-                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit}  style={{ width: '50%', borderRadius: '25px', background: '#f8a500', color: '#000000', marginLeft: '-34px' }}>
+                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%', borderRadius: '25px', background: '#f8a500', color: '#000000', marginLeft: '-34px' }}>
                             Continue
                      </Button>
                         </Form.Item>

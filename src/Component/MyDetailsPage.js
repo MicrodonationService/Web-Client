@@ -53,6 +53,17 @@ const layout = {
           this.state={ mess : "", loading:false}
           this.onChange=this.onChange.bind(this);
 
+          this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
+          this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
+          this.name = this.props.ngoupdateprofile.Body.SZ_NGO_NAME;
+          this.city = this.props.ngoupdateprofile.Body.SZ_CITY;
+          this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
+          /*this.website = this.props.ngoupdateprofile.Body.SZ_WEBSITE;
+          this.accountnumber = this.props.ngoupdateprofile.Body.SZ_BANK_ACCOUNT_NO;
+          this.accname = this.props.ngoupdateprofile.Body.SZ_BANK_ACCT_NAME;
+          this.ifsccode = this.props.ngoupdateprofile.Body.SZ_IFSC_CODE;*/
+          this.address = this.props.ngoupdateprofile.Body.SZ_ADDRESS_LINE1;
+
         }
 
             onChange = e =>
@@ -93,7 +104,102 @@ const layout = {
         {
                }
 
+               componentDidMount() {
+                //setTimeout(()=>{
+
+                  document.getElementById("ngoname").value=this.name;
+                  document.getElementById("mobile").value=this.mobile;
+                  document.getElementById("email").value=this.email;
+                  document.getElementById("city").value=this.city;
+                /*  document.getElementById("website").value=this.website;
+                  document.getElementById("accountnumber").value=this.accountnumber;
+                  document.getElementById("accname").value=this.accname;
+                  document.getElementById("ifsccode").value=this.ifsccode;*/
+                  document.getElementById("address").value= this.address;
+
+                //},500)
+              }
+
+              componentDidUpdate(prevProps, prevState)
+               {
+                 try{
+                   if( document.getElementById("ngoname").value === ""){
+                     this.name = this.name;
+                   }else {
+                     this.name = document.getElementById("ngoname").value;
+                   }
+                   document.getElementById("ngoname").value=this.name;
+                 }catch(e){console.error(e)}
+                   //document.getElementById("EmailID").value=this.email;
+                 try{
+                   if( document.getElementById("mobile").value === ""){
+                     this.mobile = this.mobile;
+                   }else {
+                     this.mobile = document.getElementById("mobile").value;
+                   }
+                   document.getElementById("mobile").value=this.mobile;
+                 }catch(e){console.error(e)}
+                 try{
+                   if( document.getElementById("email").value === ""){
+                     this.email = this.email;
+                   }else {
+                     this.email = document.getElementById("email").value;
+                   }
+                   document.getElementById("email").value=this.email;
+                 }catch(e){console.error(e)}
+                 try{
+                  if( document.getElementById("city").value === ""){
+                    this.city = this.city;
+                  }else {
+                    this.city = document.getElementById("city").value;
+                  }
+                  document.getElementById("city").value=this.city;
+                }catch(e){console.error(e)}
+                try{
+                  if( document.getElementById("pinCode").value === ""){
+                    this.pincode = this.pincode;
+                  }else {
+                    this.pincode = document.getElementById("pinCode").value;
+                  }
+                  document.getElementById("pinCode").value=this.pincode;
+                }catch(e){console.error(e)}
+                /*try{
+                  if( document.getElementById("accountnumber").value === ""){
+                    this.accountnumber = this.accountnumber;
+                  }else {
+                    this.accountnumber = document.getElementById("accountnumber").value;
+                  }
+                  document.getElementById("accountnumber").value=this.accountnumber;
+                }catch(e){console.error(e)}
+                try{
+                  if( document.getElementById("accname").value === ""){
+                    this.accname = this.accname;
+                  }else {
+                    this.accname = document.getElementById("accname").value;
+                  }
+                  document.getElementById("accname").value=this.accname;
+                }catch(e){console.error(e)}
+                try{
+                  if( document.getElementById("ifsccode").value === ""){
+                    this.ifsccode = this.ifsccode;
+                  }else {
+                    this.ifsccode = document.getElementById("ifsccode").value;
+                  }
+                  document.getElementById("ifsccode").value=this.ifsccode;
+                }catch(e){console.error(e)}*/
+                try{
+                  if( document.getElementById("address").value === ""){
+                    this.address = this.address;
+                  }else {
+                    this.address = document.getElementById("address").value;
+                  }
+                  document.getElementById("address").value=this.address;
+                }catch(e){console.error(e)}
+
+               }
+
     render(){
+      console.log("Mydetails", this.props.ngoupdateprofile)
                   const { loading, imageUrl } = this.state;
                    const uploadButton = (
                    <div style={{ marginTop: 8 }}>Upload</div>
@@ -124,18 +230,18 @@ const layout = {
 
                   </div>
 
-                  <div style={{width:'80%',height:'96%',marginTop:'-200px',marginLeft:'50px',overflowY:'auto',overflowX:'hidden'}}>
+                  <div style={{width:'80%',height:'96%',marginTop:'-220px',marginLeft:'50px',overflowY:'auto',overflowX:'hidden'}}>
                     <Form {...layout} style={{border:'1px solid #FFFFFF'}}>
-                    <h4 style={{marginTop:'-70px',marginLeft:'220px'}}>NGO NAME</h4>
+                    <h4 style={{marginTop:'-30px',marginLeft:'220px'}}>NGO NAME</h4>
                           <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
+
                       style={{width: '45%', alignContent: 'center', position: 'relative',  top: '0px',left:'220px'}}
                       >
-                        <Input style={{borderRadius: '25px'}}/>
+                        {getFieldDecorator('ngoname', {
+
+})(
+<Input style={{borderRadius: '25px'}} />)}
+
                       </Form.Item>
                       <h4 style={{marginTop:'-69px',marginLeft:'530px'}}>NGO CATEGORY</h4>
                       <Form.Item style={{left:'530px',top:'-41px',width:'53%'}}>
@@ -150,36 +256,33 @@ const layout = {
                       <h4 style={{marginTop:'-43px',marginLeft:'70px'}}>NGO ADDRESS</h4>
                       </Form.Item>
                             <Form.Item
-                        rules={[
-                            {
-                              required: true,
-                            },
-                          ]}
+
                         style={{width: '45%', alignContent: 'center', position: 'relative',  top: '-15px',left:'220px'}}
                         >
-                          <Input style={{borderRadius: '25px'}}/>
+                           {getFieldDecorator('address', {
+
+})(
+<Input style={{borderRadius: '25px'}}/>)}
+
                         </Form.Item>
                        <h4 style={{marginTop:'-75px',marginLeft:'530px'}}>CITY</h4>
                    <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
+
                       style={{width: '86%', alignContent: 'center', position: 'relative', left: '530px', top: '-55px'}}
                       >
-                        <Input style={{borderRadius: '25px',width: '24%'}}/>
+                         {getFieldDecorator('city', {
+
+})(
+  <Input style={{borderRadius: '25px',width: '24%'}}/>)}
+
                       </Form.Item>
                  <h4 style={{marginTop:'-115px',marginLeft:'680px'}}>PIN CODE</h4>
                       <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
                       style={{width: '100%', alignContent: 'center', position: 'relative', left: '680px', top: '-95px'}}
-                      >
-                        <Input style={{borderRadius: '25px', width: '22%'}}/>
+                      >{getFieldDecorator('pinCode', {
+
+})(
+                        <Input style={{borderRadius: '25px', width: '22%'}}/>)}
                       </Form.Item>
 
                       <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px',top:'0px'}}>
@@ -187,14 +290,14 @@ const layout = {
                       </Form.Item>
 
                        <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
+
                       style={{width: '65%', alignContent: 'center', position: 'relative', top: '-65px',left:'220px'}}
                       >
-                        <Input style={{borderRadius: '25px', width: '144%'}}/>
+                        {getFieldDecorator('email', {
+
+})(
+  <Input style={{borderRadius: '25px', width: '144%'}}/>)}
+
                       </Form.Item>
 
                       <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px',top:'0px'}}>
@@ -202,31 +305,32 @@ const layout = {
                       </Form.Item>
 
                        <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
+
                       style={{width: '65%', alignContent: 'center', position: 'relative', top: '-40px',left:'220px'}}
                       >
-                        <Input style={{borderRadius: '25px', width: '144%'}}/>
+                        {getFieldDecorator('website', {
+
+})(
+  <Input style={{borderRadius: '25px', width: '144%'}}/>)}
+
+
                       </Form.Item>
                       <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-35px'}}>
                        BANK ACCOUNT DETAILS</h4>
                       <div style={{width:'63%',height:'214px',marginLeft:'220px',marginTop:'-40px',background:'#e8e8e8'}}>
                       <Form.Item style={{ alignContent: 'center', position: 'relative',top:'0px'}}>
-                      <h4 style={{marginTop:'0px',marginLeft:'-190px'}}>BANK ACCOUNT NUMBER</h4>
+                      <h4 style={{marginTop:'0px',marginLeft:'-170px'}}>BANK ACCOUNT NUMBER</h4>
                       </Form.Item>
 
                        <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
+
                       style={{width: '145%', alignContent: 'center', position: 'relative', top: '-10px',left:'10px'}}
                       >
-                        <Input style={{borderRadius: '25px'}}/>
+                        {getFieldDecorator('accountnumber', {
+
+})(
+  <Input style={{borderRadius: '25px'}}/>)}
+
                       </Form.Item>
 
                       <Form.Item style={{ alignContent: 'center', position: 'relative',top:'0px'}}>
@@ -234,14 +338,14 @@ const layout = {
                       </Form.Item>
 
                        <Form.Item
-                      rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
+
                       style={{width: '90%', alignContent: 'center', position: 'relative', top: '-15px',left:'10px'}}
                       >
-                        <Input style={{borderRadius: '25px'}}/>
+                         {getFieldDecorator('ifsccode', {
+
+})(
+  <Input style={{borderRadius: '25px'}}/>)}
+
                       </Form.Item>
 
                       <Form.Item style={{ alignContent: 'center', position: 'relative',top:'0px'}}>
@@ -254,7 +358,7 @@ const layout = {
                            required: true,
                          },
                        ]}
-                     style={{width: '53%', alignContent: 'center', position: 'relative', top: '-54px',left:'390px'}}
+                     style={{width: '53%', alignContent: 'center', position: 'relative', top: '-54px',left:'385px'}}
                      >
                        <Input style={{borderRadius: '25px'}}/>
                      </Form.Item>
@@ -263,14 +367,14 @@ const layout = {
                      </Form.Item>
 
                      <Form.Item
-                    rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
+
                     style={{width: '145%', alignContent: 'center', position: 'relative', top: '-32px',left:'10px'}}
                     >
-                      <Input style={{borderRadius: '25px'}}/>
+                       {getFieldDecorator('accname', {
+
+})(
+  <Input style={{borderRadius: '25px'}}/>)}
+
                     </Form.Item>
 
                     <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-18px'}}>
@@ -297,15 +401,15 @@ const layout = {
                      </Form.Item>
 
                      <Form.Item
-                     rules={[
-                         {
-                           required: true,
-                         },
-                       ]}
+
 
                      style={{width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '10px', top: '-15px'}}
                      >
-                       <Input style={{borderRadius: '25px', width: '100%'}}/>
+                       {getFieldDecorator('mobile', {
+
+})(
+<Input style={{borderRadius: '25px', width: '100%'}}/>)}
+
                        <a href="" style={{position: 'relative', right: '0px', top: '-7px', color:'#000000'}}>Verify Phone Number</a>
                      </Form.Item>
 
@@ -318,7 +422,7 @@ const layout = {
                            required: true,
                          },
                        ]}
-                     style={{width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '433px', top: '-96px'}}
+                     style={{width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '438px', top: '-96px'}}
                      >
                        <Input style={{borderRadius: '25px', width: '58%'}}/>
                        <a href="" style={{position: 'relative', right: '155px', top: '30px', color:'#000000'}}>Resend OTP</a>

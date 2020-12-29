@@ -144,8 +144,8 @@ class ChangePassword extends React.Component
                         })(
                       <Input.Password style={{borderRadius: '25px'}} />,)}
                     </Form.Item>
-                     <Form.Item style={{width: '30%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '200px', top: '15px'}}>
-                      <Button type="primary" onClick={this.handleSubmit} htmlType="submit" style={{width:'50%',borderRadius: '25px',background: '#f8a500'}}>
+                     <Form.Item style={{width: '30%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '143px', top: '15px'}}>
+                      <Button type="primary" onClick={this.handleSubmit} htmlType="submit" style={{width:'40%',borderRadius: '25px',background: '#f8a500'}}>
                         SUBMIT
                       </Button>
                       </Form.Item>

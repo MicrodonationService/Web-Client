@@ -5,6 +5,7 @@ import { Layout, Form, Button, Input, Checkbox, Select, AutoComplete, Tabs, Radi
 import "../App.css"
 import "antd/dist/antd.css"
 import GlobalHelper from '../utils/GlobalHelper.js'
+import WrappedNormalLoginForm from "./Login.js";
 import WrappedUISetNewPasswordForm from "./UISetNewPassword.js";
 import WrappedVerificationMDForm from "./verificationMD.js"
 
@@ -38,6 +39,7 @@ class UIregisterMD extends React.Component {
     super(props);
     this.state = { flag: false, mailResp: undefined, phoneResp: undefined, mess: "", roll: "D", userId: undefined };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNgoSubmit = this.handleNgoSubmit.bind(this);
     this.isValidPassword = this.isValidPassword.bind(this);
     this.callback = this.callback.bind(this);
   }
@@ -57,6 +59,65 @@ class UIregisterMD extends React.Component {
     console.log(key);
   }
 
+
+  handleNgoSubmit(e){
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (this.isValidPassword(values.password)) {
+        if (!err) {
+        let registerRequest = {
+            "ClientId": "288",
+            "name": values.ngoname,
+            "username": values.ngoContactPerson,
+            "password": values.ngopassword,
+            "userIdType": "E",
+            "email":values.ngoemail,
+            "userType": "N",
+            "address": values.ngoaddress,
+            "addressLine2": "Shivaji Nagar, Nashik",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "ngoCategory": "Children",
+            "country": "India",
+            "postalCode": "123456",
+            "role": "Admin",
+            "contactNo": values.ngophNo1,
+            "referrerId": "0"
+          }               // End Post Request
+
+          const superagent = require('superagent');
+          superagent
+            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerngo') // Ajax Call
+            .send(registerRequest)                              // Sends a JSON post body
+            .set('X-API-Key', 'foobar')
+            .set('Content-Type','application/json')
+              .set('accept', '*/*')
+              .set('Access-Control-Request-Headers','content-type,x-api-key')
+              .set('Access-Control-Request-Method','POST')
+              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+              .set('Origin','http://localhost')
+              .set('Accept-Encoding','gzip, deflate, br')
+              .set('Sec-Fetch-Dest','empty')
+              .set('Sec-Fetch-Mode', 'cors')
+            //.set('Sec-Fetch-Site','cross-site')
+            .end((err, res) => {                                // Calling the end function will send the request
+              console.log("service call", res);
+              if(res != null){
+              let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
+              console.log("respJsonNGO", respJson);
+              if (respJson.Status === "SUCCESS") {
+                  this.setState({ mess: respJson.Message })
+                  setTimeout(() => {
+                    this.setState({ flag: true })
+                  }, 5000);
+              } else if (respJson.Status === "FAILED") {
+                this.setState({ mess: "Please fill all the field" })
+              }
+            }});
+        }
+      }
+    })
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -83,11 +144,11 @@ class UIregisterMD extends React.Component {
             "role": this.state.roll,
             "userIdType": "E",
             "username": values.email
-          };  */
+};*/
           let registerRequest = {
-            "SeqNO": "234",
-            "name": values.username,
-            "username": values.email,
+            "SeqNO": "278",
+            "name": values.name,
+            "username": values.username,
             "password": values.password,
             "userIdType": "E",
             "email":values.email,
@@ -107,7 +168,7 @@ class UIregisterMD extends React.Component {
           }                                       // End Post Request
           const superagent = require('superagent');
           superagent
-            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/signup') // Ajax Call
+            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registeruser') // Ajax Call
             .send(registerRequest)                              // Sends a JSON post body
             .set('X-API-Key', 'foobar')
             .set('Content-Type','application/json')
@@ -132,11 +193,11 @@ class UIregisterMD extends React.Component {
               if(res != null){
               let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
               console.log("respJson", respJson);
-              if (respJson.success === true) {
-                this.setState({ flag: true })
-                this.setState({ mailResp: respJson.data.szEmail })
-                this.setState({ phoneResp: respJson.data.szMobile })
-                this.setState({ userId: respJson.data.szUsername })
+              if (respJson.Status === "SUCCESS") {
+                  this.setState({ mess: respJson.Message })
+                  setTimeout(() => {
+                    this.setState({ flag: true })
+                  }, 5000);
               } else if (respJson.success === false) {
                 this.setState({ mess: "Please fill all the field" })
               }
@@ -150,17 +211,28 @@ class UIregisterMD extends React.Component {
   }
   render() {            // Start Render();
 
+    if (this.state.flag === true) {
+      return (
+        <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
+          <Router>
+            <Route exact component={WrappedNormalLoginForm} />
+          </Router>
+
+        </div>
+      )
+    }
+
     const { visible, confirmLoading } = this.state;
     const { getFieldDecorator } = this.props.form;
 
-    if (this.state.flag === true) {
+    /*if (this.state.flag === true) {
       return (<div style={{ display: "inline-block", height: "100%", width: "100%" }}>
         <Router>
           <WrappedVerificationMDForm mailResp={this.state.mailResp} phoneResp={this.state.phoneResp} userId={this.state.userId} />
         </Router>
       </div>)
 
-    }
+}*/
     return (     // Returning HTML on screen
       <div>
         <Layout>
@@ -178,15 +250,30 @@ class UIregisterMD extends React.Component {
                 <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
                   <TabPane tab="Register As Doner" key="D">
 
-                    <div style={{ width: '80%', height: '80%', marginLeft: '38px', marginTop: '-20px' }}>
+                    <div style={{ width: '80%', height: '80%', marginLeft: '38px', marginTop: '-55px' }}>
                       <Form {...layout}>
                         <div>
+                        <Form.Item
+                          label="USERNAME"
+
+                          style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '42px' }}
+                        >
+                          {getFieldDecorator('username', {
+                            rules: [
+                              {
+                                //required: true,
+
+                              }
+                            ],
+                          })(
+                            <Input autoComplete="off" style={{ borderRadius: '25px' }} />)}
+                        </Form.Item>
                           <Form.Item
                             label="NAME"
 
-                            style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '42px' }}
+                            style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '48px' }}
                           >
-                            {getFieldDecorator('username', {
+                            {getFieldDecorator('name', {
                               rules: [
                                 {
                                   //required: true,
@@ -376,7 +463,7 @@ class UIregisterMD extends React.Component {
 
                           style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px' }}
                         >
-                          {getFieldDecorator('username', {
+                          {getFieldDecorator('ngoname', {
                             rules: [
                               {
                                 //required: true,
@@ -392,7 +479,7 @@ class UIregisterMD extends React.Component {
                           label=" NGO ADDRESS"
                           style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '-2px' }}
                         >
-                          {getFieldDecorator('address', {
+                          {getFieldDecorator('ngoaddress', {
                             rules: [
                               {
                                 //required: true,
@@ -420,7 +507,7 @@ class UIregisterMD extends React.Component {
                         <div style={{ width: '85%', height: '230px', marginLeft: '40px', marginTop: '-3px', background: '#e8e8e8' }}>
                           <Form  {...layout1}>
                             <Form.Item
-                              label=" NAME"
+                              label=" USERNAME"
 
                               style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '65px', top: '3px' }}
                             >
@@ -449,7 +536,7 @@ class UIregisterMD extends React.Component {
                               label="E-MAIL ID "
                               style={{ width: '80%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '75px', top: '-35px' }}
                             >
-                              {getFieldDecorator('email', {
+                              {getFieldDecorator('ngoemail', {
                                 rules: [
                                   {
                                     //required: true,
@@ -463,7 +550,7 @@ class UIregisterMD extends React.Component {
                               label="PHONE NUMBER"
                               style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '45px', top: '-32px' }}
                             >
-                              {getFieldDecorator('phNo1', {
+                              {getFieldDecorator('ngophNo1', {
                                 rules: [
                                   {
                                     //required: true,
@@ -491,7 +578,7 @@ class UIregisterMD extends React.Component {
                               label="PASSWORD"
                               style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '45px', top: '-30px' }}
                             >
-                              {getFieldDecorator('password', {
+                              {getFieldDecorator('ngopassword', {
                                 rules: [
                                   {
                                     //required: true,
@@ -522,7 +609,7 @@ class UIregisterMD extends React.Component {
                           </Checkbox>
                         </Form.Item>
                         <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '308px', top: '-15px' }}>
-                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit}  style={{ width: '50%', borderRadius: '25px', background: '#f8a500', color: '#000000', marginLeft: '-34px' }}>
+                          <Button type="primary" htmlType="submit" onClick={this.handleNgoSubmit}  style={{ width: '50%', borderRadius: '25px', background: '#f8a500', color: '#000000', marginLeft: '-34px' }}>
                             Continue
                      </Button>
                         </Form.Item>

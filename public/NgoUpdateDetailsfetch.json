@@ -1,0 +1,16 @@
+{
+    "statusCode": 200,
+    "body": {
+        "SZ_NGO_NAME": "Smile Foundation2",
+        "SZ_CITY": "Mumbai",
+        "SZ_PHONE1": "+918600250073",
+        "SZ_CATEGORY_PRIMARY": "Children",
+        "SZ_ADDRESS_LINE1": "Alandi Pune ,411021",
+        "SZ_ADDRESS_LINE2": "Pune, Maharashtra",
+        "SZ_STATE": "Maharashtra",
+        "SZ_COUNTRY": "INDIA",
+        "SZ_EMAIL": "smile2@ebixcash.com",
+        "SZ_WEBSITE": "www.smilefoundation2.org",
+        "SZ_WHAT_WE_DO": "An orphange houses children of various ages who either have no family or have lost thier families in natural calamities. The home usually has a care-taker who monitors the children of the orphanage and a few helpers to take care of the residents."
+    }
+}

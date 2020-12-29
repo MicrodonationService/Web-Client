@@ -31,13 +31,15 @@ const layout = {
           this.handleChange = this.handleChange.bind(this);
           this.state={ mess : "", loading:false}
           this.onChange=this.onChange.bind(this);
-          this.name= this.props.data.data.user.name;
-          this.age = this.props.data.data.user.age;
-          this.occupation = this.props.data.data.user.occupation;
-          this.city = this.props.data.data.user.city;
-          this.address = this.props.data.data.user.addressLine1;
-          this.email = this.props.data.data.user.email;
-          this.mobile = this.props.data.data.user.mobile;
+
+          this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
+          this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
+          this.city = this.props.donorfetchdata.body.SZ_CITY;
+          this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
+          this.email = this.props.donorfetchdata.body.SZ_EMAIL;
+          this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
+          this.panCard = this.props.donorfetchdata.body.SZ_PANCARD;
+          this.age = this.props.donorfetchdata.Body1.SZ_AGE;
 
         }
 
@@ -60,127 +62,183 @@ const layout = {
         }
         handleSubmit(e)
         {
+        //   e.preventDefault();
+        //    this.props.form.validateFields((err, values) => {
+        //      this.setState({handleFlag:true})
+        //      if (!err){
+
+        //        if(this.state.verifyFlag1 === true){
+        //          let forgotPassRequest  = {
+        //            "emailId":(this.handleFlag === undefined ? this.email : values.email),
+        //            "templateId":"2"
+        //          };
+        //            const superagent = require('superagent');
+        //          superagent
+        //          .post(GlobalHelper.getContextPath()+'/confirmEmail')
+        //          .send(forgotPassRequest) // sends a JSON post body
+        //          .set('X-API-Key', 'foobar')
+        //          .set('accept', 'application/json')
+        //          .end((err, res) => {
+        //              // Calling the end function will send the request
+        //              let respJson = JSON.parse(res.text);
+        //              console.log("respJson11",respJson);
+        //                if(respJson.success=== true){
+        //                  this.setState({updateFlag : true})
+        //                  this.setState({mess :"Verification link sent to your registered Email Id!"})
+        //                }else if (respJson.success=== false){
+        //                  this.setState({mess:respJson.message})
+        //                }
+        //              })
+        //        }
+
+        //        if(this.state.verifyFlag2 === true){
+        //          let generateOtpOnPhoneRequest  = {
+        //            "phoneNumber": (this.handleFlag === undefined ? this.mobile : values.mobile),
+        //            "username": this.props.data.data.user.userName
+        //          };
+        //            const superagent = require('superagent');
+        //          superagent
+        //          .post(GlobalHelper.getContextPath()+'/confirmPhoneNumber')
+        //          .send(generateOtpOnPhoneRequest) // sends a JSON post body
+        //          .set('X-API-Key', 'foobar')
+        //          .set('accept', 'application/json')
+        //          .end((err, res) => {
+        //              // Calling the end function will send the request
+        //              let respJson = JSON.parse(res.text);
+        //              console.log("respJson11",respJson);
+        //                if(respJson.success=== true){
+        //                  this.setState({updateFlag : true})
+        //                  this.setState({mess:"OTP sent to your register Mobile Number"})
+        //                }else if (respJson.success=== false){
+        //                  this.setState({mess:respJson.message})
+        //                }
+        //              })
+        //        }
+
+        //        if(this.state.updateFlag === true){
+
+        //        let updateProfileRequest  = {
+        //          "userId":this.props.data.data.user.userId,
+        //          "donorName":(this.handleFlag === undefined ? this.name : values.name),
+        //          "email":(this.handleFlag === undefined ? this.email : values.email),
+        //          "addressLine1":(this.handleFlag === undefined ? this.address : values.address),
+        //          "addressLine2":"Parkhe Vasati, Susgaon",
+        //          "city":(this.handleFlag === undefined ? this.city : values.city),
+        //          "state":"MH",
+        //          "country":"India",
+        //          "pincode":"411021",
+        //          "mobile":(this.handleFlag === undefined ? this.mobile : values.mobile)
+        //        };
+        //          const superagent = require('superagent');
+        //        superagent
+        //        .post(GlobalHelper.getContextPath()+'/updateProfileDonor')
+        //        .send(updateProfileRequest) // sends a JSON post body
+        //        .set('X-API-Key', 'foobar')
+        //        .set('accept', 'application/json')
+        //        .end((err, res) => {
+        //            // Calling the end function will send the request
+        //            console.log("service call",res);
+        //            let respJson = JSON.parse(res.text);
+        //            console.log("respJson",respJson);
+        //              if(respJson.success=== true){
+        //                console.log("hi",respJson);
+        //                this.setState({mess:respJson.message})
+        //              }else if (respJson.success=== false){
+        //                this.setState({mess:respJson.message})
+        //              }
+        //        });
+        //      }else{
+        //        let updateProfileRequest  = {
+        //          "userId":this.props.data.data.user.userId,
+        //          "donorName":(this.handleFlag === undefined ? this.name : values.name),
+        //          "email":(this.handleFlag === undefined ? this.email : values.email),
+        //          "addressLine1":(this.handleFlag === undefined ? this.address : values.address),
+        //          "addressLine2":"Parkhe Vasati, Susgaon",
+        //          "city":(this.handleFlag === undefined ? this.city : values.city),
+        //          "state":"MH",
+        //          "country":"India",
+        //          "pincode":"411021",
+        //          "mobile":(this.handleFlag === undefined ? this.mobile : values.mobile)
+        //        };
+        //          const superagent = require('superagent');
+        //        superagent
+        //        .post(GlobalHelper.getContextPath()+'/updateProfileDonor')
+        //        .send(updateProfileRequest) // sends a JSON post body
+        //        .set('X-API-Key', 'foobar')
+        //        .set('accept', 'application/json')
+        //        .end((err, res) => {
+        //            // Calling the end function will send the request
+        //            console.log("service call",res);
+        //            let respJson = JSON.parse(res.text);
+        //            console.log("respJson",respJson);
+        //              if(respJson.success=== true){
+        //                console.log("hi",respJson);
+        //                this.setState({mess:respJson.message})
+        //              }else if (respJson.success=== false){
+        //                this.setState({mess:respJson.message})
+        //              }
+        //        });
+        //      }
+        //   }
+        // }
+        //   )
+        }
+        handleSubmit(e)
+        {
           e.preventDefault();
-           this.props.form.validateFields((err, values) => {
-             this.setState({handleFlag:true})
-             if (!err){
+             this.props.form.validateFields((err, values) => {
+              this.setState({handleFlag:true})
+              if (!err){
 
-               if(this.state.verifyFlag1 === true){
-                 let forgotPassRequest  = {
-                   "emailId":(this.handleFlag === undefined ? this.email : values.email),
-                   "templateId":"2"
-                 };
-                   const superagent = require('superagent');
-                 superagent
-                 .post(GlobalHelper.getContextPath()+'/confirmEmail')
-                 .send(forgotPassRequest) // sends a JSON post body
-                 .set('X-API-Key', 'foobar')
-                 .set('accept', 'application/json')
-                 .end((err, res) => {
-                     // Calling the end function will send the request
-                     let respJson = JSON.parse(res.text);
-                     console.log("respJson11",respJson);
-                       if(respJson.success=== true){
-                         this.setState({updateFlag : true})
-                         this.setState({mess :"Verification link sent to your registered Email Id!"})
-                       }else if (respJson.success=== false){
-                         this.setState({mess:respJson.message})
-                       }
-                     })
-               }
-
-               if(this.state.verifyFlag2 === true){
-                 let generateOtpOnPhoneRequest  = {
-                   "phoneNumber": (this.handleFlag === undefined ? this.mobile : values.mobile),
-                   "username": this.props.data.data.user.userName
-                 };
-                   const superagent = require('superagent');
-                 superagent
-                 .post(GlobalHelper.getContextPath()+'/confirmPhoneNumber')
-                 .send(generateOtpOnPhoneRequest) // sends a JSON post body
-                 .set('X-API-Key', 'foobar')
-                 .set('accept', 'application/json')
-                 .end((err, res) => {
-                     // Calling the end function will send the request
-                     let respJson = JSON.parse(res.text);
-                     console.log("respJson11",respJson);
-                       if(respJson.success=== true){
-                         this.setState({updateFlag : true})
-                         this.setState({mess:"OTP sent to your register Mobile Number"})
-                       }else if (respJson.success=== false){
-                         this.setState({mess:respJson.message})
-                       }
-                     })
-               }
-
-               if(this.state.updateFlag === true){
-
-               let updateProfileRequest  = {
-                 "userId":this.props.data.data.user.userId,
-                 "donorName":(this.handleFlag === undefined ? this.name : values.name),
-                 "email":(this.handleFlag === undefined ? this.email : values.email),
-                 "addressLine1":(this.handleFlag === undefined ? this.address : values.address),
-                 "addressLine2":"Parkhe Vasati, Susgaon",
+                let updateProfileRequest = {
+                 "CognitoID": this.props.donorfetchdata.body.SZ_COGNITO_ID,
+                 "username": (this.handleFlag === undefined ? this.name : values.name),
+                 "name": (this.handleFlag === undefined ? this.name : values.name),
+                 "userIdType": "E",
+                 "userType": "D",
+                 "age": 23,
+                 "address":(this.handleFlag === undefined ? this.address : values.address),
+                 "Address2":"Shivaji Nagar, Delhi",
                  "city":(this.handleFlag === undefined ? this.city : values.city),
-                 "state":"MH",
-                 "country":"India",
-                 "pincode":"411021",
-                 "mobile":(this.handleFlag === undefined ? this.mobile : values.mobile)
+                 "State":this.props.donorfetchdata.body.SZ_STATE,
+                 "Country":this.props.donorfetchdata.body.SZ_COUNTRY,
+                 "PostalCode":"121211",
+                 "role":"Admin",
+                 "contactNo":(this.handleFlag === undefined ? this.mobile : values.mobile),
+                 "occupation":(this.handleFlag === undefined ? this.occupation : values.occupation),
+                 "pancard": this.props.donorfetchdata.body.SZ_PANCARD,
+                 "referrerId": 0
                };
-                 const superagent = require('superagent');
-               superagent
-               .post(GlobalHelper.getContextPath()+'/updateProfileDonor')
-               .send(updateProfileRequest) // sends a JSON post body
+                  const superagent = require('superagent');
+             superagent
+               .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/microdonar-donar-update')
+                .send(updateProfileRequest) // sends a JSON post body
                .set('X-API-Key', 'foobar')
-               .set('accept', 'application/json')
-               .end((err, res) => {
+                .set('accept', 'application/json')
+                .set('accept', '*/*')
+                .set('Access-Control-Request-Headers','content-type,x-api-key')
+                .set('Access-Control-Request-Method','POST')
+                .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+                .set('Origin','http://localhost')
+                .set('Accept-Encoding','gzip, deflate, br')
+                .set('Sec-Fetch-Dest','empty')
+                .set('Sec-Fetch-Mode', 'cors')
+                .end((err, res) => {
                    // Calling the end function will send the request
                    console.log("service call",res);
-                   let respJson = JSON.parse(res.text);
-                   console.log("respJson",respJson);
-                     if(respJson.success=== true){
-                       console.log("hi",respJson);
-                       this.setState({mess:respJson.message})
-                     }else if (respJson.success=== false){
-                       this.setState({mess:respJson.message})
-                     }
-               });
-             }else{
-               let updateProfileRequest  = {
-                 "userId":this.props.data.data.user.userId,
-                 "donorName":(this.handleFlag === undefined ? this.name : values.name),
-                 "email":(this.handleFlag === undefined ? this.email : values.email),
-                 "addressLine1":(this.handleFlag === undefined ? this.address : values.address),
-                 "addressLine2":"Parkhe Vasati, Susgaon",
-                 "city":(this.handleFlag === undefined ? this.city : values.city),
-                 "state":"MH",
-                 "country":"India",
-                 "pincode":"411021",
-                 "mobile":(this.handleFlag === undefined ? this.mobile : values.mobile)
-               };
-                 const superagent = require('superagent');
-               superagent
-               .post(GlobalHelper.getContextPath()+'/updateProfileDonor')
-               .send(updateProfileRequest) // sends a JSON post body
-               .set('X-API-Key', 'foobar')
-               .set('accept', 'application/json')
-               .end((err, res) => {
-                   // Calling the end function will send the request
-                   console.log("service call",res);
-                   let respJson = JSON.parse(res.text);
-                   console.log("respJson",respJson);
-                     if(respJson.success=== true){
-                       console.log("hi",respJson);
-                       this.setState({mess:respJson.message})
-                     }else if (respJson.success=== false){
-                       this.setState({mess:respJson.message})
-                     }
+                    let respJson = JSON.parse(res.text);
+                  console.log("respJson",respJson);
+                     if(respJson.Status=== "SUCCESS"){
+                        console.log("hi",respJson);
+                        this.setState({mess:respJson.Messege})
+                      }else if (respJson.success=== false){
+                        this.setState({mess:respJson.message})
+                      }
                });
              }
-          }
-        }
-          )
-        }
+
+         })
+      }
 
                componentDidMount() {
                  //setTimeout(()=>{
@@ -192,6 +250,8 @@ const layout = {
                    document.getElementById("address").value=this.address;
                    document.getElementById("email").value=this.email;
                    document.getElementById("mobile").value=this.mobile;
+                   document.getElementById("pancard").value=this.panCard;
+                   document.getElementById("age").value=this.age;
                  //},500)
                }
                componentDidUpdate(prevProps, prevState)
@@ -204,15 +264,23 @@ const layout = {
                    }
                    document.getElementById("name").value=this.name;
                  }catch(e){console.error(e)}
+                 try{
+                 if( document.getElementById("pancard").value === ""){
+                   this.panCard = this.panCard;
+                 }else {
+                   this.panCard = document.getElementById("pancard").value;
+                 }
+                 document.getElementById("pancard").value=this.panCard;
+               }catch(e){console.error(e)}
                    //document.getElementById("EmailID").value=this.email;
                  try{
                    if( document.getElementById("age").value === ""){
-                     this.age = this.age;
-                   }else {
+                      this.age = this.age;
+                 }else {
                      this.age = document.getElementById("age").value;
-                   }
-                   document.getElementById("age").value=this.age;
-                 }catch(e){console.error(e)}
+                    }
+                  document.getElementById("age").value=this.age;
+                  }catch(e){console.error(e)}
                  try{
                    if( document.getElementById("occupation").value === ""){
                      this.occupation = this.occupation;
@@ -257,7 +325,7 @@ const layout = {
                }
 
     render(){
-
+      console.log("Donor Details", this.props.donorfetchdata)
               //var bgimg = "url('"+ window.origin+"/background.png')";
 
               const { getFieldDecorator } = this.props.form;
@@ -363,8 +431,23 @@ const layout = {
                         }
                         />)}
                       </Form.Item>
-                      <Form.Item style={{ alignContent: 'center', position: 'relative', left: '62px',top:'-62px'}}>
+                      <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px',top:'-38px'}}>
+                      <h4 style={{marginTop:'-127px',position: 'relative', left: '72px', top: '54px'}}>PAN CARD</h4>
                        </Form.Item>
+                      <Form.Item
+
+                          style={{width: '58.6%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '70px', top: '-81px'}}
+                          >{getFieldDecorator('pancard', {
+
+                              })(
+                            <Input
+                            onChange={
+                              (e)=>{
+                                this.setState({verifyFlag2 : true})
+                              }
+                            }
+                            />)}
+                          </Form.Item>
                      <Form.Item style={{width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-80px'}}>
                         <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{width:'32%',borderRadius: '25px',background: '#f8a500',color:'Black',borderColor:'white'}}>
                           Update

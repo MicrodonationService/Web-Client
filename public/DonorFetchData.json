@@ -1,0 +1,17 @@
+{
+    "statusCode":"200",
+    "body":{
+        "SZ_DONOR_NAME": "Yogesh1",
+        "SZ_ADDRESS_LINE1": "Gandhi Road Delhi ,411021",
+        "SZ_ADDRESS_LINE2": "Shivaji Nagar, Delhi",
+        "SZ_CITY": "Delhi",
+        "SZ_STATE": "Delhi",
+        "SZ_COUNTRY": "India",
+        "SZ_PHONE": "+918600250073",
+        "SZ_OCCUPATION": "service",
+        "SZ_PANCARD": "ABCDE3322R",
+        "SZ_COGNITO_ID": "4021411d-0fd3-474f-9347-ddf4496c28a8",
+        "SZ_EMAIL": "vishal.padol@ebixcash.com"
+    }
+    
+}

@@ -64,7 +64,6 @@ const layout = {
 
             onChange = e =>
             {
-            console.log('radio checked', e.target.value);
             this.setState({
               value: e.target.value,
             });
@@ -92,7 +91,6 @@ const layout = {
          };
           clickChange(value)
           {
-            console.log(`selected ${value}`);
             this.NGOCATEGORY = value;
           }
 
@@ -120,9 +118,6 @@ const layout = {
                    <div style={{ marginTop: 8 }}>Upload</div>
                );
 
-
-              //var bgimg = "url('"+ window.origin+"/background.png')";
-
               const { getFieldDecorator } = this.props.form;
               const {posts} = this.state;
 
@@ -132,14 +127,11 @@ const layout = {
             <Header>
                 <div style={{marginLeft:'-50px',width:(window.innerWidth),background:'white',marginTop:'-20px'}}>
                     <img src="img/mdHeader.png" style={{width: window.innerWidth ,height: '50px',top: '0px',left: '0px'}}/>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-950PX'}}><Router><Link onClick={this.homeClick.bind(this,"home")} style={{color:'#FFFFFF'}} to={'Home'}>HOME</Link></Router></a>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-970px'}}><Router><Link onClick={this.myDetailClick.bind(this,"my_detail")} style={{color:'#FFFFFF'}}>MY DETAILS</Link></Router></a>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-990px'}}><Router><Link onClick={this.handleChange.bind(this,"change_password")} style={{color:'#FFFFFF'}}>CHANGE PASSWORD</Link></Router></a>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1010px'}}>NGO</a>
-                    <a  href = "" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1030px'}}>LOGOUT</a>
-
-
-
+                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-950PX'}}><Router><Link onClick={this.homeClick.bind(this,"home")} style={{color:'#FFFFFF'}} to={'Home'}>HOME</Link></Router></a>
+                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-970px'}}><Router><Link onClick={this.myDetailClick.bind(this,"my_detail")} style={{color:'#FFFFFF'}}>MY DETAILS</Link></Router></a>
+                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-990px'}}><Router><Link onClick={this.handleChange.bind(this,"change_password")} style={{color:'#FFFFFF'}}>CHANGE PASSWORD</Link></Router></a>
+                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1010px'}}>NGO</a>
+                      <a  href = "" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1030px'}}>LOGOUT</a>
                 </div>
             </Header>
 
@@ -152,18 +144,17 @@ const layout = {
                     </div>:null
                   }
                  {
-                   (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage/>:null
+                   (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngoupdateprofile={this.props.ngoupdateprofile}/>:null
                  }
                  <div>
                       <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>
                  </div>
                 </Content>
                 </Layout>
-            <Footer style={{marginLeft:'-50px',background:'#FFFFFF'}}>
-        <img src="img/footerMD.png" style={{width: window.innerWidth+22 ,height: '45px',marginLeft:'-9px'}} />
-          </Footer>
+                <Footer style={{marginLeft:'-50px',background:'#FFFFFF'}}>
+                        <img src="img/footerMD.png" style={{width: window.innerWidth+22 ,height: '45px',marginLeft:'-9px'}} />
+                </Footer>
           </Layout>
-
           </div>
            );
            }

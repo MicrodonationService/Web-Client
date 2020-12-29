@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import '../App.module.css';
 import '../index.css';
 import UISetNewPassword from "./UISetNewPassword.js";
+import PasswordSetSuccess from "./PasswordSetSuccess.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
 import {Route,Link,Switch,Redirect} from 'react-router-dom';
 import { Layout, Menu,Collapse, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge} from 'antd';
@@ -96,29 +97,28 @@ const {Panel} = Collapse;
              this.props.form.validateFields((err, values) => {
                if (!err){
             let forgotPassRequest  = {
-              "sendOTP": e.target.value,
-              "username": values.username,
-              "templateId": 3
-            };
+                      "username": values.username
+                    }
               const superagent = require('superagent');
             superagent
-            .post(GlobalHelper.getContextPath()+'/forgotPassword')
+            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/forgotpassword')
             .send(forgotPassRequest) // sends a JSON post body
             .set('X-API-Key', 'foobar')
             .set('accept', 'application/json')
+            .set('accept', '*/*')
+            .set('Access-Control-Request-Headers','content-type,x-api-key')
+            .set('Access-Control-Request-Method','POST')
+            .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+            .set('Origin','http://localhost')
+            .set('Accept-Encoding','gzip, deflate, br')
+            .set('Sec-Fetch-Dest','empty')
+            .set('Sec-Fetch-Mode', 'cors')
             .end((err, res) => {
                 // Calling the end function will send the request
                 let respJson = JSON.parse(res.text);
                 console.log("respJson11",respJson);
-                  if(respJson.success=== true){
-                       //this.setState({flag:true})
-                       if(e.target.value === "E"){
+                  if(respJson.Status=== "SUCCESS"){
                         this.setState({mess:"OTP sent to your register Email"})
-                       }
-                       else{
-                        this.setState({mess:"OTP sent to your register Phone Number"})
-                       }
-
                        this.startTimer();
                        //ReactDOM.render(<WrappedNormalPasswordSetSeccessInnerForm mess={this.state.mess}/>,document.getElementById('root'));
                   }else if (respJson.success=== false){
@@ -139,23 +139,32 @@ const {Panel} = Collapse;
            this.props.form.validateFields((err, values) => {
              if (!err){
           let verifyOTPRequest  = {
-            "otp": values.sendOtp,
-            "username": values.username
+            "Username": values.username,
+            "Password": values.ConfirmPassword,
+            "ConfirmationCode": values.sendOtp
           };
             const superagent = require('superagent');
           superagent
-          .post(GlobalHelper.getContextPath()+'/verifyOTP')
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/confirmforgotpassword')
           .send(verifyOTPRequest) // sends a JSON post body
           .set('X-API-Key', 'foobar')
           .set('accept', 'application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers','content-type,x-api-key')
+          .set('Access-Control-Request-Method','POST')
+          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin','http://localhost')
+          .set('Accept-Encoding','gzip, deflate, br')
+          .set('Sec-Fetch-Dest','empty')
+          .set('Sec-Fetch-Mode', 'cors')
           .end((err, res) => {
               // Calling the end function will send the request
               let respJson = JSON.parse(res.text);
               console.log("respJson12",respJson);
-                if(respJson.success=== true){
+                if(respJson.Status=== "SUCCESS"){
                      //this.setState({flag:true})
                      //this.setState({mess:respJson.message})
-                     ReactDOM.render(<UISetNewPassword data={values.username}/>,document.getElementById('root'));
+                     ReactDOM.render(<PasswordSetSuccess data={values.username}/>,document.getElementById('root'));
                 }else if (respJson.success=== false){
                   this.setState({mess:respJson.message})
                 }
@@ -197,7 +206,7 @@ const {Panel} = Collapse;
               </div>
                 <div  className={styles.second3}>
 
-                  <h2 style={{color:'#f8a500',margin:'-15px 0px 10px -282px',fontWeight:'Bold',textAlign:'center'}}>RESET PASSWORD</h2>
+                  <h2 style={{color:'#f8a500',margin:'-15px 0px 10px -282px',fontWeight:'Bold',textAlign:'center'}}>FORGET PASSWORD</h2>
 
                   <Form >
                   <h4 style={{marginTop:'20px',marginBottom:'7px',marginLeft:'28px'}}>User ID (E-MAIL/MOBILE) </h4>
@@ -212,7 +221,7 @@ const {Panel} = Collapse;
                               <Input
                                autoComplete="off"
                                maxLength={30}
-                               style={{textAlign:'left',borderRadius:'20px',marginLeft:'25px',height:'40px',width:'330px'}}
+                               style={{textAlign:'left',borderRadius:'20px',marginLeft:'25px',height:'32px',width:'330px'}}
                                //console.log(e.target.value)
 
                                />,)}
@@ -229,7 +238,7 @@ const {Panel} = Collapse;
               </div>
              <div style={{display:'flex',marginBottom:'-10px'}}>
               <h4 style={{marginLeft:'28px',marginTop:'14px'}}>Enter OTP </h4>
-              <h4 style={{marginLeft:'160px',marginTop:'14px'}}>OTP time out : {this.state.time.m} : {this.state.time.s}</h4>
+              <h4 style={{marginLeft:'160px',marginTop:'-28px'}}>OTP time out : {this.state.time.m} : {this.state.time.s}</h4>
               </div>
              <Form style={{marginLeft:'96px',marginTop:'-38px'}}>
                   <Form.Item>
@@ -243,7 +252,7 @@ const {Panel} = Collapse;
                                     <Input
                                     autoComplete="off"
                                     maxLength={25}
-                                    style={{textAlign:'left',borderRadius:'20px',height:'40px',width:'112px'}}
+                                    style={{textAlign:'left',borderRadius:'20px',height:'32px',width:'58%'}}
                                     onChange={(e)=>{
                                       //this.username = e.target.value;
                                       if(this.username ==="")
@@ -257,9 +266,23 @@ const {Panel} = Collapse;
                                      }}
                                      />,)}
                                 </Form.Item>
+                                <Form.Item
+                                label = "CONFIRM PASSWORD"
+                                style={{width: '72%', position: 'relative', left: '-95px'}}
+                                >
+                                {getFieldDecorator('ConfirmPassword', {
+                                         rules: [
+                                            {
+                                              required: false,
+                                              message: 'Please enter Comfirm Password!',
+                                            }
+                                         ],
+                                    })(
+                                  <Input.Password autoComplete="off" style={{borderRadius: '25px',marginLeft: '26px'}} />,)}
+                                </Form.Item>
                                 </Form>
                       </Form>
-                      <div style={{display:'flex',marginLeft:'97px'}}>
+                      <div style={{display:'flex',marginLeft:'248px', position:'relative', top:'-74px'}}>
                     <img  src="img/refresh.png" style={{width: '20px', height:'20px',margin:'4px 6px 0px 0px'}} />
                     <a style={{color:'#000000',textDecoration:'underline'}} onClick={this.handleClick}><Link  style={{color:'#000'}}>Resend OTP</Link></a>
                       </div>

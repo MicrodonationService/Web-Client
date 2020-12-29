@@ -54,20 +54,28 @@ class Loginpage extends React.Component {
       console.log("values",values);
       if (!err) {
         let loginRequest = {
-          "usernameOrEmail": values.username,
+          "userid": values.username,
           "password": values.password
         };
         const superagent = require('superagent');
         superagent
-          .post(GlobalHelper.getContextPath()+'/signin') // Ajax call
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/signin') // Ajax call
           .send(loginRequest)                                 // sends a JSON post body
           .set('X-API-Key', 'foobar')
-          .set('accept', 'application/json')
+          .set('Content-Type','application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers','content-type,x-api-key')
+          .set('Access-Control-Request-Method','POST')
+          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin','http://localhost')
+          .set('Accept-Encoding','gzip, deflate, br')
+          .set('Sec-Fetch-Dest','empty')
+          .set('Sec-Fetch-Mode', 'cors')
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let loginRespJson = JSON.parse(res.text);
             console.log("respJson", loginRespJson);
-            if (loginRespJson.success === false && loginRespJson.message === "Bad credentials") {
+            if (loginRespJson.Status === "FAILED" && loginRespJson.Body.message === "Incorrect username or password.") {
               this.setState({ mess: "Invalid User Id or Password!" })
             }
             else if (loginRespJson.success === false && loginRespJson.data.flag === "I") { // "I" stand for Inactive user
@@ -78,11 +86,55 @@ class Loginpage extends React.Component {
                 this.setState({ phoneResp: loginRespJson.data.contact })
               }, 5000);      // Set timeout for 5 sec while user is inactive and redirect to the verifiction screen
             }
-            else if (loginRespJson.success === true && loginRespJson.data.user.role === "D") {
+            else if (loginRespJson.Status === "SUCCESS" && loginRespJson.Body.SZ_USER_TYPE === "D") {
+              let loginRequest = {
+                "SZ_USER_NAME": values.username
+              };
+              const superagent = require('superagent');
+              superagent
+                .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+                .send(loginRequest)                                 // sends a JSON post body
+                .set('X-API-Key', 'foobar')
+                .set('Content-Type','application/json')
+                .set('accept', '*/*')
+                .set('Access-Control-Request-Headers','content-type,x-api-key')
+                .set('Access-Control-Request-Method','POST')
+                .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+                .set('Origin','http://localhost')
+                .set('Accept-Encoding','gzip, deflate, br')
+                .set('Sec-Fetch-Dest','empty')
+                .set('Sec-Fetch-Mode', 'cors')
+                .end((err, res) => {                               // Calling the end function will send the request
+                  console.log("service call", res);
+                  let fatchDetailsRespJson = JSON.parse(res.text);
+                  ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                })
+
               //this.setState({loginFlag:true})
-              ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
-            } else if (loginRespJson.success === true && loginRespJson.data.user.role === "N") {
-              ReactDOM.render(<WrappedNormalMainLayoutNGO data={loginRespJson} />, document.getElementById('root'));
+
+            } else if (loginRespJson.Status === "SUCCESS" && loginRespJson.Body.SZ_USER_TYPE === "N") {
+              let loginRequest = {
+                "username": values.username
+              };
+              const superagent = require('superagent');
+              superagent
+                .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoupdateprofile') // Ajax call
+                .send(loginRequest)                                 // sends a JSON post body
+                .set('X-API-Key', 'foobar')
+                .set('Content-Type','application/json')
+                .set('accept', '*/*')
+                .set('Access-Control-Request-Headers','content-type,x-api-key')
+                .set('Access-Control-Request-Method','POST')
+                .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+                .set('Origin','http://localhost')
+                .set('Accept-Encoding','gzip, deflate, br')
+                .set('Sec-Fetch-Dest','empty')
+                .set('Sec-Fetch-Mode', 'cors')
+                .end((err, res) => {                               // Calling the end function will send the request
+                  console.log("service call", res);
+                  let fatchDetailsRespJson = JSON.parse(res.text);
+              ReactDOM.render(<WrappedNormalMainLayoutNGO ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
+            })
             }
 
           });
@@ -219,7 +271,7 @@ class Loginpage extends React.Component {
                    <p>Some contents...</p>
                    <p>Some contents...</p>
                  </Modal>
-            </div>*/}
+</div>*/}
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
             </div>
           </div>

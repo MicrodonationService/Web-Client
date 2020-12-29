@@ -1,0 +1,19 @@
+{
+    "statusCode":"200",
+    "body":{
+        "SZ_NGO_NAME": "Smile Foundation1",
+        "SZ_ADDRESS_LINE1": "Alandi, Dehu",
+        "SZ_ADDRESS_LINE2": "Pune Road",
+        "SZ_CITY": "Pune",
+        "SZ_STATE": "Maharashtra",
+        "SZ_COUNTRY": "India",
+        "SZ_MOBILE": "9420827255",
+        "SZ_EMAIL": "smile1@gmail.com",
+        "SZ_CATEGORY_PRIMARY": "Children",
+        "SZ_WEBSITE": "simle1.org",
+        "SZ_IFSC_CODE": "BIN909090",
+        "SZ_BANK_ACCOUNT_NO": "000000000000",
+        "SZ_BANK_ACCT_NAME": "Smile Foundation"
+    }
+    
+}

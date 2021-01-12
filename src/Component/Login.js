@@ -65,48 +65,10 @@ class Loginpage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-    this.handleUpload = this.handleUpload.bind(this);
+    //this.handleUpload = this.handleUpload.bind(this);
   }; // End Constructor
 
-  handleUpload(e){
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      console.log("values",values);
-      if (!err) {
-        let loginRequest = {
-          "ngoname": "smileFoundation",
-          "filename": "people"
 
-        };
-        const superagent = require('superagent');
-        superagent
-          .put('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/presignedurl') // Ajax call
-          .send(loginRequest)                                 // sends a JSON post body
-          .set('X-API-Key', 'foobar')
-          .set('Content-Type','application/json')
-          .set('accept', '*/*')
-          .set('Access-Control-Request-Headers','content-type,x-api-key')
-          .set('Access-Control-Request-Method','POST')
-          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-          .set('Origin','http://localhost:3000')
-          .set('Accept-Encoding','gzip, deflate, br')
-          .set('Sec-Fetch-Dest','empty')
-          .set('Sec-Fetch-Mode', 'cors')
-          .end((err, res) => {                               // Calling the end function will send the request
-            console.log("service call", res);
-            let loginRespJson = JSON.parse(res.text);
-            console.log("respJson", loginRespJson);
-            if (loginRespJson.Status === "FAILED" && loginRespJson.Body.message === "Incorrect username or password.") {
-              this.setState({ mess: "Invalid User Id or Password!" })
-            }else if (loginRespJson.Status === "FAILED") { // "I" stand for Inactive user
-              this.setState({ mess: "Something went wrong please try again later!" })
-            }
-
-          });
-      }//ENDIF
-
-    })
-  }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
@@ -350,8 +312,6 @@ class Loginpage extends React.Component {
                 style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
             <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Something went wrong please try again later!")? 'red': 'blue', textAlign: 'center' }}>{this.state.mess}</h4>
-            <Button type="submit" onClick={this.handleUpload}
-              style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
 
             {/*<div style={{textAlign: 'center',position: 'relative',top: '11px', left: '-3px'}}>
               <a style={{ color: '#000', textDecoration: 'underline'}} onClick={this.showModal}>

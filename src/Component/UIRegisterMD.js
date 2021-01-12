@@ -1,13 +1,18 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+//import { FacebookLoginButton } from "react-social-login-buttons";
+//import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
-import { Layout, Form, Button, Input, Checkbox, Select, AutoComplete, Tabs, Radio } from 'antd';
+import { Layout, Form, Button, Input, Checkbox, Select, AutoComplete, Tabs, Radio, Row, Col } from 'antd';
 import "../App.css"
 import "antd/dist/antd.css"
+import WrappedNormalCreateProfileForm from "./DonorEditProfile.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
-import WrappedNormalLoginForm from "./Login.js";
 import WrappedUISetNewPasswordForm from "./UISetNewPassword.js";
 import WrappedVerificationMDForm from "./verificationMD.js"
+import WrappedNormalLoginForm from "./Login.js";
+import { QuestionCircleOutlined } from '@ant-design/icons';
+
 
 var styles = require('../App.module.css');
 
@@ -34,15 +39,26 @@ const layout1 = {
   },
 };
 
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
+
 class UIregisterMD extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { flag: false, mailResp: undefined, phoneResp: undefined, mess: "", roll: "D", userId: undefined };
+    this.state = {
+      flag: false, mailResp: undefined, phoneResp: undefined, mess: "", roll: "D", userId: undefined, userType: "D", isprofileupdatedflag: 0, email: ""
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleNgoSubmit = this.handleNgoSubmit.bind(this);
+    //this.HandleSubmit = this.HandleSubmit.bind(this);
     this.isValidPassword = this.isValidPassword.bind(this);
     this.callback = this.callback.bind(this);
+
   }
+
 
   isValidPassword(value) {
 
@@ -60,157 +76,123 @@ class UIregisterMD extends React.Component {
   }
 
 
-  handleNgoSubmit(e){
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (this.isValidPassword(values.password)) {
-        if (!err) {
-        let registerRequest = {
-            "ClientId": "288",
-            "name": values.ngoname,
-            "username": values.ngoContactPerson,
-            "password": values.ngopassword,
-            "userIdType": "E",
-            "email":values.ngoemail,
-            "userType": "N",
-            "address": values.ngoaddress,
-            "addressLine2": "Shivaji Nagar, Nashik",
-            "city": "Pune",
-            "state": "Maharashtra",
-            "ngoCategory": "Children",
-            "country": "India",
-            "postalCode": "123456",
-            "role": "Admin",
-            "contactNo": values.ngophNo1,
-            "referrerId": "0"
-          }               // End Post Request
+  // HandleSubmit(e) {
+  //   e.preventDefault();
 
-          const superagent = require('superagent');
-          superagent
-            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerngo') // Ajax Call
-            .send(registerRequest)                              // Sends a JSON post body
-            .set('X-API-Key', 'foobar')
-            .set('Content-Type','application/json')
-              .set('accept', '*/*')
-              .set('Access-Control-Request-Headers','content-type,x-api-key')
-              .set('Access-Control-Request-Method','POST')
-              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-              .set('Origin','http://localhost')
-              .set('Accept-Encoding','gzip, deflate, br')
-              .set('Sec-Fetch-Dest','empty')
-              .set('Sec-Fetch-Mode', 'cors')
-            //.set('Sec-Fetch-Site','cross-site')
-            .end((err, res) => {                                // Calling the end function will send the request
-              console.log("service call", res);
-              if(res != null){
-              let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
-              console.log("respJsonNGO", respJson);
-              if (respJson.Status === "SUCCESS") {
-                  this.setState({ mess: respJson.Message })
-                  setTimeout(() => {
-                    this.setState({ flag: true })
-                  }, 5000);
-              } else if (respJson.Status === "FAILED") {
-                this.setState({ mess: "Please fill all the field" })
-              }
-            }});
-        }
-      }
-    })
-  }
+  //   this.props.form.validateFields((err, values) => {
+  //     if (this.isValidPassword(values.password)) {
+  //       if (!err) {
+
+  //         let registerRequest = {
+
+  //           "email": values.email,
+  //           "password": values.Password,
+  //           "userType": "N"
+  //         };                                                    // End Post Request
+  //         const superagent = require('superagent');
+  //         superagent
+  //           .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerngo') // Ajax Call
+  //           .send(registerRequest)                              // Sends a JSON post body
+  //           .set('X-API-Key', 'foobar')
+  //           .set('Content-Type', 'application/json')
+  //           .set('accept', '*/*')
+  //           .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+  //           .set('Access-Control-Request-Method', 'POST')
+  //           .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+  //           .set('Origin', 'http://localhost:3000')
+  //           .set('Accept-Encoding', 'gzip, deflate, br')
+  //           .set('Sec-Fetch-Dest', 'empty')
+  //           .set('Sec-Fetch-Mode', 'cors')
+  //           .end((err, res) => {                                // Calling the end function will send the request
+  //             console.log("service call", res);
+  //             if (res != null) {
+  //               let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
+  //               console.log("respJson", respJson);
+  //               if (respJson.Status === "SUCCESS") {
+
+  //                 this.setState({ mess: respJson.Message })
+  //                 setTimeout(() => {
+  //                   this.setState({ flag: true })
+  //                 }, 5000);
+  //               } else if (respJson.Status === false) {
+  //                 this.setState({ mess: "Please fill all the field" })
+  //               }
+  //             }
+
+
+  //           });
+
+  //       } //ENDIF
+  //     }
+  //   })
+  // }
 
   handleSubmit(e) {
+
     e.preventDefault();
+    console.log("Handle");
     this.props.form.validateFields((err, values) => {
+      console.log("Invalid", values, err)
       if (this.isValidPassword(values.password)) {
         if (!err) {
 
-          /*let registerRequest = {
-            "address": values.address,
-            "age": values.age,
-            "agreeToTerms": true,
-            "city": values.city,
-            "contactNo": (this.state.roll === "D" ? values.phNo : values.phNo1),
-            "email": values.email,
-            "name": values.username,
-            "occupation": values.occupation,
-            "pancard": values.pan,
-            "password": values.password,
-            "ngoCategory": values.NGOCATEGORY,
-            "ngoContPerson": values.ngoContactPerson,
-            "privacyFlag": "Y",
-            "referrerId": 5,
-            "registrationId": "1",
-            "role": this.state.roll,
-            "userIdType": "E",
-            "username": values.email
-};*/
           let registerRequest = {
-            "SeqNO": "278",
-            "name": values.name,
-            "username": values.username,
-            "password": values.password,
-            "userIdType": "E",
-            "email":values.email,
-            "userType": "D",
-            "age": values.age,
-            "address": values.address,
-            "Address2": "Shivaji Nagar, Nashik",
-            "city": values.city,
-            "State": "Maharashtra",
-            "Country": "India",
-            "PostalCode": "123456",
-            "role": "Admin",
-            "contactNo": values.phNo,
-            "occupation": values.occupation,
-            "pancard": values.pan,
-            "referrerId": "1"
-          }                                       // End Post Request
+
+            "email": values.email,
+            "password": values.Password,
+            "userType": this.props.tabFlag
+
+          };
+          var url = "";
+          if(this.props.tabFlag == "N"){
+            url = 'https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerngo';
+          }else{
+           url = "https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerdonor";
+          }                                            // End Post Request
           const superagent = require('superagent');
           superagent
-            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registeruser') // Ajax Call
+          .post(url)// Ajax Call
             .send(registerRequest)                              // Sends a JSON post body
             .set('X-API-Key', 'foobar')
-            .set('Content-Type','application/json')
-            //.set('Referer','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-            //.set('Authorization','AWS4-HMAC-SHA256 Credential=AKIAWP5ZRQ4J4LKBZCVI/20201218/ap-south-1/execute-api/aws4_request,SignedHeaders=host;x-amz-content-sha256;x-amz-date,Signature=66f679e2b02e825b7da0c7a057c5d2d549d6d3f05697bd618870085bfcfb68b5')
-            //.set('SignedHeaders','host')
-            //.set('x-amz-content-sha256','beaead3198f7da1e70d03ab969765e0821b24fc913697e929e726aeaebf0eba3')
-            //.set('Signature','66f679e2b02e825b7da0c7a057c5d2d549d6d3f05697bd618870085bfcfb68b5')
-            //.set('X-Amz-Date','20201218T071423Z')
-            //.set('AWS-Region','ap-south-1')
-              .set('accept', '*/*')
-              .set('Access-Control-Request-Headers','content-type,x-api-key')
-              .set('Access-Control-Request-Method','POST')
-              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-              .set('Origin','http://localhost')
-              .set('Accept-Encoding','gzip, deflate, br')
-              .set('Sec-Fetch-Dest','empty')
-              .set('Sec-Fetch-Mode', 'cors')
-            //.set('Sec-Fetch-Site','cross-site')
+            .set('Content-Type', 'application/json')
+            .set('accept', '*/*')
+            .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+            .set('Access-Control-Request-Method', 'POST')
+            .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+            .set('Origin', 'http://localhost:3000')
+            .set('Accept-Encoding', 'gzip, deflate, br')
+            .set('Sec-Fetch-Dest', 'empty')
+            .set('Sec-Fetch-Mode', 'cors')
             .end((err, res) => {                                // Calling the end function will send the request
               console.log("service call", res);
-              if(res != null){
-              let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
-              console.log("respJson", respJson);
-              if (respJson.Status === "SUCCESS") {
+              if (res != null) {
+                let respJson = JSON.parse(res.text);              // Getting response in respJson veriable
+                console.log("respJson", respJson);
+                if (respJson.Status === "SUCCESS") {
+
                   this.setState({ mess: respJson.Message })
                   setTimeout(() => {
                     this.setState({ flag: true })
                   }, 5000);
-              } else if (respJson.success === false) {
-                this.setState({ mess: "Please fill all the field" })
+                } else if (respJson.Status === false) {
+                  this.setState({ mess: "Please fill all the field" })
+                }
               }
-            }});
+
+
+            });
 
         } //ENDIF
-      } else {
-        this.setState({ mess: "Password should be a minimum of 8 characters long" });
       }
     })
   }
+
+
   render() {            // Start Render();
 
+    const { visible, confirmLoading } = this.state;
+    const { getFieldDecorator } = this.props.form;
+    console.log("Tabflag", this.props.tabFlag);
     if (this.state.flag === true) {
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
@@ -222,17 +204,19 @@ class UIregisterMD extends React.Component {
       )
     }
 
-    const { visible, confirmLoading } = this.state;
-    const { getFieldDecorator } = this.props.form;
 
-    /*if (this.state.flag === true) {
-      return (<div style={{ display: "inline-block", height: "100%", width: "100%" }}>
-        <Router>
-          <WrappedVerificationMDForm mailResp={this.state.mailResp} phoneResp={this.state.phoneResp} userId={this.state.userId} />
-        </Router>
-      </div>)
 
-}*/
+
+
+
+    // if (this.state.flag === true) {
+    //   return (<div style={{ display: "inline-block", height: "100%", width: "100%" }}>
+    //     <Router>
+    //       <WrappedVerificationMDForm mailResp={this.state.mailResp} phoneResp={this.state.phoneResp} userId={this.state.userId} />
+    //     </Router>
+    //   </div>)
+
+    // }
     return (     // Returning HTML on screen
       <div>
         <Layout>
@@ -245,357 +229,99 @@ class UIregisterMD extends React.Component {
             <Sider style={{ background: 'white', width: '400px', flex: '0 0 0px', minWidth: "400px" }}>
               <img src="img/siderMD.png" style={{ width: window.innerWidth - 966, height: '550px', top: '0px', left: '0px' }} />
             </Sider>
-            <Content style={{ background: 'white', top: '30px', left: '30px', overflow: 'unset' }}>
+            <Content style={{ background: 'white', top: '30px', overflow: 'unset' }}>
+
+
               <div className="tabCss">
-                <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
-                  <TabPane tab="Register As Doner" key="D">
+                <div style={{ marginLeft: '180px' }}>
 
-                    <div style={{ width: '80%', height: '80%', marginLeft: '38px', marginTop: '-55px' }}>
-                      <Form {...layout}>
-                        <div>
+                  <div style={{ marginTop: '50px' }}>
+
+                    <Form {...layout}>
+
+                      <div>
                         <Form.Item
-                          label="USERNAME"
+                          name="email"
 
-                          style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '42px' }}
                         >
-                          {getFieldDecorator('username', {
-                            rules: [
-                              {
-                                //required: true,
 
+                          {getFieldDecorator('email', {
+                            rules:[
+                              {
+                                required: true,
+                                message: 'Please Enter Email Address',
                               }
-                            ],
+                            ]
+
                           })(
-                            <Input autoComplete="off" style={{ borderRadius: '25px' }} />)}
+                            <Input placeholder="EMAIL ID" autoComplete="off" />)}
                         </Form.Item>
-                          <Form.Item
-                            label="NAME"
 
-                            style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '48px' }}
-                          >
-                            {getFieldDecorator('name', {
-                              rules: [
-                                {
-                                  //required: true,
+                        <Form.Item>
 
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" style={{ borderRadius: '25px' }} />)}
-                          </Form.Item>
-                          <br />
-                          <Form.Item
-                            label="AGE"
-                            style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '100px', top: '55px' }}
-                          >
-                            {getFieldDecorator('age', {
-                              rules: [
-                                {
-                                  //required: true,
-
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" style={{ borderRadius: '25px', width: '24%' }} />)}
-                          </Form.Item>
-                          <Form.Item
-                            label="OCCUPATION"
-                            style={{ width: '76%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '280px', top: '15px' }}
-                          >
-                            {getFieldDecorator('occupation', {
-                              rules: [
-                                {
-                                  //required: true,
-
-                                }
-                              ],
-                            })(
-                              <Select
-                                showSearch
-                                style={{ width: 112 }}
-                                placeholder="Occupation"
-                                filterOption={(input, option) =>
-                                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                              >
-                                <Option value="Service">Service</Option>
-                                <Option value="Teacher">Teacher</Option>
-                                <Option value="Doctor">Doctor</Option>
-                                <Option value="Bussinessman">Bussinessman</Option>
-                                <Option value="Engineer">Engineer</Option>
-                                <Option value="Other">Other</Option>
-                              </Select>)}
-                          </Form.Item>
-                          <Form.Item
-                            label="CITY"
-                            style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '448px', top: '-25px' }}
-                          >
-                            {getFieldDecorator('city', {
-                              rules: [
-                                {
-                                  //required: true,
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" style={{ borderRadius: '25px', width: '24%' }} />)}
-                          </Form.Item>
-                          <br />
-                          <Form.Item
-                            label="ADDRESS"
-                            style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '-15px' }}
-                          >
-                            {getFieldDecorator('address', {
-                              rules: [
-                                {
-                                  //required: true,
-
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" style={{ borderRadius: '25px' }} />)}
-                          </Form.Item>
-                          <Form.Item label="USER ID" style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '-15px' }}>
-                            <div>
-                              <Radio.Group
-                                style={{ margin: '0px 22px 22px 22px' }}>
-                                <Radio value="E">E-mail</Radio>
-                                <Radio value="P">Phone Number</Radio>
-                              </Radio.Group>
-                            </div>
-                          </Form.Item>
-                          <Form.Item
-                            label="E-MAIL ID"
-                            style={{ width: '80%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '89px', top: '-29px' }}
-                          >
-                            {getFieldDecorator('email', {
-                              rules: [
-                                {
-                                  //  required: true,
-
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" style={{ borderRadius: '25px', width: '105%' }} />)}
-                          </Form.Item>
-
-                          <Form.Item
-                            label="PHONE NUMBER"
-                            style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '64px', top: '-20px' }}
-                          >
-                            {getFieldDecorator('phNo', {
-                              rules: [
-                                {
-                                  //  required: true,
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" maxLength={10}
-                                onChange={
-                                  (e) => {
-                                    const { value } = e.target;
-                                    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;    // Regex Expression
-                                    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-
-                                    }
-                                    else {
-                                      e.target.value = e.target.value.substring(0, e.target.value.length - 1);
-                                      return;
-                                    }
-                                  }
-                                }
-                                style={{ borderRadius: '25px', width: '84%' }} />)}
-                          </Form.Item>
-                          <Form.Item
-                            label="PASSWORD"
-                            style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '101px', top: '-12px' }}
-                          >
-                            {getFieldDecorator('password', {
-                              rules: [
-                                {
-                                  //  required: true,
-                                }
-                              ],
-                            })(
-                              <Input.Password autoComplete="off" style={{ borderRadius: '25px', width: '120%' }} />)}
-                          </Form.Item>
-                          <Form.Item
-                            label="PAN CARD"
-                            style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '101px', top: '-6px' }}
-                          >
-                            {getFieldDecorator('pan', {
-                              rules: [
-                                {
-                                  //  required: true,
-                                }
-                              ],
-                            })(
-                              <Input autoComplete="off" style={{ borderRadius: '25px', width: '120%' }} />)}
-                          </Form.Item>
-                          <Form.Item
-                            name="agreement"
-                            style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '194px', top: '-11px' }}
-                            valuePropName="checked"
-                            rules={[
+                          {getFieldDecorator('Password', {
+                            rules:[
                               {
-                                validator: (_, value) =>
-                                  value ? Promise.resolve() : Promise.reject('Should accept agreement'),
+                                required:true,
+                                message: "Please Enter Password",
                               },
-                            ]}
-                          >
-                            <Checkbox>
-                              I agreed to the <a >Term and Conditions</a>
-                            </Checkbox>
-                          </Form.Item>
-                          <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '308px', top: '-12px' }}>
-                            <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%', borderRadius: '25px', background: '#f8a500' }}>
-                              Continue
-                     </Button>
-                          </Form.Item>
-                        </div>
-                      </Form>
-                    </div>
-                  </TabPane>
-                  <TabPane tab="Register As NGO" key="N">
-                    <div style={{ width: '80%', marginTop: '-11px', marginLeft: '100px', overflowY: 'auto', overflowX: 'hidden' }}>
-                      <Form {...layout}>
-                        <Form.Item
-                          label=" NGO NAME"
-
-                          style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px' }}
-                        >
-                          {getFieldDecorator('ngoname', {
-                            rules: [
                               {
-                                //required: true,
+                                validator: this.validateToNextPassword,
+                              },
 
-                              }
-                            ],
+                            ]
+                            // rules: [
+                            //   {
+                            //     required: false,
+                            //   },
+                            //   {
+                            //     validator: this.validateToNextPassword,
+                            //   },
+                            // ],
                           })(
-                            <Input autoComplete="off" style={{ borderRadius: '25px' }} />)}
-                        </Form.Item>
-                        <br />
+                            <Input.Password
+                              //style={{ borderRadius: '15px' }}
+                              //className={styless.inputBoxCss}
+                              placeholder='PASSWORD'
+                              autoComplete="off"
+                            />)}
 
-                        <Form.Item
-                          label=" NGO ADDRESS"
-                          style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '81px', top: '-2px' }}
-                        >
-                          {getFieldDecorator('ngoaddress', {
-                            rules: [
+                        </Form.Item>
+
+                        <Form.Item>
+
+                          {getFieldDecorator('confirmPin', {
+                            rules:[
                               {
-                                //required: true,
-
-                              }
-                            ],
-                          })(
-                            <Input autoComplete="off" style={{ borderRadius: '25px', marginTop: '1Opx' }} />)}
+                                required:true,
+                                message: "Please Re-Enter Password",
+                              },
+                              {
+                                validator: this.compareToFirstPassword,
+                              },
+                            ]
+                            // rules: [
+                            //   {
+                            //     required: false,
+                            //   },
+                            //   {
+                            //     validator: this.compareToFirstPassword,
+                            //   },
+                            // ],
+                          })(<Input.Password
+                            //style={{ borderRadius: '15px' }}
+                            //className={styless.inputBoxCss}
+                            autoComplete="off"
+                            placeholder='CONFIRM PASSWORD'
+                          />)}
                         </Form.Item>
 
 
-                        <Form.Item label="NGO CATEGORY" style={{ left: '63px', top: '-5px' }}>
-                          {getFieldDecorator('NGOCATEGORY')}
-                          <Select defaultValue="1" onChange={this.handleChange} style={{ width: '85%' }}>
-                            <Option value="Health">Health</Option>
-                            <Option value="NGO2">NGO2</Option>
-                            <Option value="NGO3">NGO3</Option>
-                            <Option value="NGO4">NGO4</Option>
-                          </Select>
-                        </Form.Item>
 
-                        <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '91px', top: '0px' }}>
-                          CONTACT PERSON DETAILS</h4>
 
-                        <div style={{ width: '85%', height: '230px', marginLeft: '40px', marginTop: '-3px', background: '#e8e8e8' }}>
-                          <Form  {...layout1}>
-                            <Form.Item
-                              label=" USERNAME"
-
-                              style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '65px', top: '3px' }}
-                            >
-                              {getFieldDecorator('ngoContactPerson', {
-                                rules: [
-                                  {
-                                    //required: true,
-                                  }
-                                ],
-                              })(
-                                <Input autoComplete="off" style={{ borderRadius: '25px' }} />)}
-                            </Form.Item>
-
-                            <Form.Item label="USER ID" style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '65px', top: '0px' }}>
-                              <div>
-                                <Radio.Group
-                                  style={{ margin: '0px 22px 22px 0px' }}>
-                                  <Radio value="E">E-mail</Radio>
-                                  <Radio value="P">Phone Number</Radio>
-                                </Radio.Group>
-                              </div>
-                            </Form.Item>
-                            <h5 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '130px', top: '-30px' }}>
-                              (User ID can be E-mail or Phone Number)</h5>
-                            <Form.Item
-                              label="E-MAIL ID "
-                              style={{ width: '80%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '75px', top: '-35px' }}
-                            >
-                              {getFieldDecorator('ngoemail', {
-                                rules: [
-                                  {
-                                    //required: true,
-                                  }
-                                ],
-                              })(
-                                <Input autoComplete="off" style={{ borderRadius: '25px', width: '70%' }} />)}
-                            </Form.Item>
-
-                            <Form.Item
-                              label="PHONE NUMBER"
-                              style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '45px', top: '-32px' }}
-                            >
-                              {getFieldDecorator('ngophNo1', {
-                                rules: [
-                                  {
-                                    //required: true,
-                                  }
-                                ],
-                              })(
-                                <Input autoComplete="off" maxLength={10}
-                                  onChange={
-                                    (e) => {
-                                      const { value } = e.target;
-                                      const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-                                      if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-
-                                      }
-                                      else {
-                                        e.target.value = e.target.value.substring(0, e.target.value.length - 1);
-                                        return;
-                                      }
-                                    }
-                                  }
-                                  style={{ borderRadius: '25px', width: '56%' }} />)}
-                            </Form.Item>
-
-                            <Form.Item
-                              label="PASSWORD"
-                              style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '45px', top: '-30px' }}
-                            >
-                              {getFieldDecorator('ngopassword', {
-                                rules: [
-                                  {
-                                    //required: true,
-
-                                  }
-                                ],
-                              })(
-                                <Input.Password autoComplete="off" style={{ borderRadius: '25px', width: '56%' }} />)}
-                            </Form.Item>
-                          </Form>
-
-                        </div>
-                        <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '91px', top: '5px' }}>
-                          You will be able to add photos and details post login</h4>
                         <Form.Item
                           name="agreement"
-                          style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '94px', top: '-5px' }}
+                          style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '150px', top: '-11px' }}
                           valuePropName="checked"
                           rules={[
                             {
@@ -604,22 +330,45 @@ class UIregisterMD extends React.Component {
                             },
                           ]}
                         >
+
                           <Checkbox>
                             I agreed to the <a >Term and Conditions</a>
                           </Checkbox>
-                        </Form.Item>
-                        <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '308px', top: '-15px' }}>
-                          <Button type="primary" htmlType="submit" onClick={this.handleNgoSubmit}  style={{ width: '50%', borderRadius: '25px', background: '#f8a500', color: '#000000', marginLeft: '-34px' }}>
-                            Continue
-                     </Button>
-                        </Form.Item>
-                      </Form>
-                    </div>
-                  </TabPane>
 
-                </Tabs>
+
+                        </Form.Item>
+
+
+                        <Form.Item style={{ width: '85%', display: 'inline-block', position: 'relative', top: '-12px' }}>
+                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%',left:"150px", borderRadius: '25px', background: '#f8a500' }}>
+                            Continue
+                          </Button>
+                          <br />
+
+                        { /* <h4 style={{marginLeft:'200px'}}>Or Sign Up With</h4>
+
+
+                          <Row >
+                            <Col span={8} >
+                              <FacebookLoginButton onClick={() => alert("Hello")} style={{ width: '130px', height: '30px' ,marginLeft:"80px" }}>
+                                <span>Facebook</span>
+                              </FacebookLoginButton>
+                            </Col>
+                            <Col span={8} >
+                              <GoogleLoginButton onClick={() => alert("Hello")} style={{ width: '130px', height: '30px' , marginLeft:"130px"}}>
+                                <span>Google</span>
+                              </GoogleLoginButton>
+                            </Col>
+                          </Row>*/}
+
+                        </Form.Item>
+                      </div>
+                    </Form>
+                  </div>
+                </div>
+
               </div>
-              <h4 style={{ color: "red", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
+              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
             </Content>
           </Layout>
           <Footer style={{ padding: '0px' }}>
@@ -630,7 +379,29 @@ class UIregisterMD extends React.Component {
         </Layout>
       </div>
     );   // End Render Return
-  }      // End Render();
+  }
+  validateToNextPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirmPin'], { force: true });
+    }
+    callback();
+  };
+
+  compareToFirstPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    if (value && value !== form.getFieldValue('Password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  };
+
+
+  handleConfirmBlur = e => {
+    const { value } = e.target;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  };// End Render();
 }
 
 const WrappedUIregisterMDForm = Form.create()(UIregisterMD);

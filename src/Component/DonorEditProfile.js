@@ -5,9 +5,9 @@ import 'antd/dist/antd.css';
 import '../App.module.css';
 import GlobalHelper from '../utils/GlobalHelper.js'
 import '../index.css';
+import WrappedOtpVerifyForm from './OtpVerify.js'
 import {Route,Link,Switch,Redirect} from 'react-router-dom';
-import { Layout, Menu,Row, Col,Collapse, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge} from 'antd';
-
+import { Layout, Menu,Row,Modal, Col,Collapse, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge} from 'antd';
 import { Spin} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
 const { Header, Content, Sider ,Footer} = Layout;
@@ -21,25 +21,21 @@ const layout = {
   },
 };
 
-   class EditProfile extends React.Component
+   class DonorEditProfile extends React.Component
            {
        constructor(props)
            {
           super(props);
-          this.state =  {posts :"",value:1,handleFlag : true, mess : "", verifyFlag1 : false, verifyFlag2 : true, updateFlag : false} ;
+          this.state =  {posts :"",visible: false,value:1,mobileReadOnlyField:"",handleFlag : true, mess : "", verifyFlag1 : false, verifyFlag2 : true, updateFlag : false} ;
           this.handleSubmit = this.handleSubmit.bind(this);
           this.handleChange = this.handleChange.bind(this);
           this.state={ mess : "", loading:false}
           this.onChange=this.onChange.bind(this);
+          this.showModal = this.showModal.bind(this);
 
-          this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
-          this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
-          this.city = this.props.donorfetchdata.body.SZ_CITY;
-          this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
-          this.email = this.props.donorfetchdata.body.SZ_EMAIL;
-          this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
-          this.panCard = this.props.donorfetchdata.body.SZ_PANCARD;
-          this.age = this.props.donorfetchdata.Body1.SZ_AGE;
+
+          this.email = this.props.email;
+
 
         }
 
@@ -60,13 +56,71 @@ const layout = {
              this.setState({ value: event.target.value });
                window.location.reload();
         }
-        handleSubmit(e)
-        {
+        showModal = (e) => {
+          console.log("In showModal");
 
-        }
+          e.preventDefault();
+          this.props.form.validateFields((err, values) => {
+            if (!err) {
+
+              let confirmOtpOnPhoneRequest = {
+
+                  "SZ_USER_TYPE": "D",
+                  "I_USER_ID": values.mobile,
+                  "SZ_Purpose": "Mobile OTP",
+                  "SZ_OTP_MODE": "M",
+                  "I_OTP_COUNT": "1",
+                  "I_OTP_ERROR_COUNT": "0"
+              };
+              const superagent = require('superagent');
+              superagent
+                .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/otpgenration')
+                .send(confirmOtpOnPhoneRequest) // sends a JSON post body
+                .set('X-API-Key', 'foobar')
+                .set('accept', 'application/json')
+                .end((err, res) => {
+                  // Calling the end function will send the request
+                  let respJson = JSON.parse(res.text);
+                  console.log("respJson11", respJson);
+                  if (respJson.Status === "SUCCESS") {
+                    this.setState({ mess: respJson.Message,visible: true, mobileReadOnlyField : respJson.Body })
+
+
+                  } else if (respJson.success === false) {
+                    this.setState({ mess: respJson.message })
+                  }
+                })
+
+              //this.setState({mess:respJson.message})
+              //ReactDOM.render(<WrappedNormalPasswordSetSeccessInnerForm mess={this.state.mess}/>,document.getElementById('root'));
+
+            }
+          })
+        };
+
+        handleOk = () => {
+          this.setState({
+            confirmLoading: true,
+          });
+          setTimeout(() => {
+            this.setState({
+              visible: false,
+              confirmLoading: false,
+            });
+          }, 2000);
+        };
+
+
+        handleCancel = () => {
+          this.setState({
+            visible: false,
+          });
+        };
+
         handleSubmit(e)
         {
           e.preventDefault();
+          console.log("Data");
              this.props.form.validateFields((err, values) => {
               this.setState({handleFlag:true})
               // var mobilen
@@ -75,18 +129,18 @@ const layout = {
               if (!err){
 
                 let updateProfileRequest = {
-                 "CognitoID": this.props.donorfetchdata.body.SZ_COGNITO_ID,
-                 "name": (this.handleFlag === undefined ? this.name : values.name),
-                 "age": ""+(this.handleFlag === undefined ? this.age : values.age),
-                 "address":(this.handleFlag === undefined ? this.address : values.address),
-                 "city":(this.handleFlag === undefined ? this.city : values.city),
+                 "CognitoID": this.props.loginResponse,
+                 "name": values.name,
+                 "age": ""+values.age,
+                 "address":values.address,
+                 "city":values.city,
                  "State":"Maharashtra",
                  "Country":"India",
                  "PostalCode":"121211",
-                 "email":this.props.donorfetchdata.body.SZ_EMAIL,
-                 "contactNo":(this.handleFlag === undefined ? this.mobile : values.mobile),
-                 "Occupation":(this.handleFlag === undefined ? this.occupation : values.occupation),
-                 "pancard": (this.handleFlag === undefined ? this.panCard : values.panCard)//this.props.donorfetchdata.body.SZ_PANCARD
+                 "email":this.props.email,
+                 "contactNo":values.mobile,
+                 "Occupation":values.occupation,
+                 "pancard": ""+values.pancard//this.props.donorfetchdata.body.SZ_PANCARD
                };
                   const superagent = require('superagent');
              superagent
@@ -122,68 +176,14 @@ const layout = {
                componentDidMount() {
                  //setTimeout(()=>{
 
-                   document.getElementById("name").value=this.name;
-                   document.getElementById("age").value=this.age;
-                   document.getElementById("occupation").value=this.occupation;
-                   document.getElementById("city").value=this.city;
-                   document.getElementById("address").value=this.address;
+
                    document.getElementById("email").value=this.email;
-                   document.getElementById("mobile").value=this.mobile;
-                   document.getElementById("pancard").value=this.panCard;
-                   document.getElementById("age").value=this.age;
+
                  //},500)
                }
                componentDidUpdate(prevProps, prevState)
                {
-                 try{
-                   if( document.getElementById("name").value === ""){
-                     this.name = this.name;
-                   }else {
-                     this.name = document.getElementById("name").value;
-                   }
-                   document.getElementById("name").value=this.name;
-                 }catch(e){console.error(e)}
-                 try{
-                 if( document.getElementById("pancard").value === ""){
-                   this.panCard = this.panCard;
-                 }else {
-                   this.panCard = document.getElementById("pancard").value;
-                 }
-                 document.getElementById("pancard").value=this.panCard;
-               }catch(e){console.error(e)}
-                   //document.getElementById("EmailID").value=this.email;
-                 try{
-                   if( document.getElementById("age").value === ""){
-                      this.age = this.age;
-                 }else {
-                     this.age = document.getElementById("age").value;
-                    }
-                  document.getElementById("age").value=this.age;
-                  }catch(e){console.error(e)}
-                 try{
-                   if( document.getElementById("occupation").value === ""){
-                     this.occupation = this.occupation;
-                   }else {
-                     this.occupation = document.getElementById("occupation").value;
-                   }
-                   document.getElementById("occupation").value=this.occupation;
-                 }catch(e){console.error(e)}
-                 try{
-                   if( document.getElementById("city").value === ""){
-                     this.city = this.city;
-                   }else {
-                     this.city = document.getElementById("city").value;
-                   }
-                   document.getElementById("city").value=this.city;
-                 }catch(e){console.error(e)}
-                 try{
-                   if( document.getElementById("address").value === ""){
-                     this.address = this.address;
-                   }else {
-                     this.address = document.getElementById("address").value;
-                   }
-                   document.getElementById("address").value=this.address;
-                 }catch(e){console.error(e)}
+
                  try{
                    if( document.getElementById("email").value === ""){
                      this.email = this.email;
@@ -192,19 +192,13 @@ const layout = {
                    }
                    document.getElementById("email").value=this.email;
                  }catch(e){console.error(e)}
-                 try {
-                  if (document.getElementById("mobile").value === "") {
-                    this.mobile = this.mobile;
-                  } else {
-                    this.mobile = document.getElementById("mobile").value;
-                  }
-                  document.getElementById("mobile").value = this.mobile;
-                } catch (e) { console.error(e) }
+
                  //document.getElementById("Mobile").value=this.mobile;
                }
 
     render(){
       console.log("Donor Details", this.props.donorfetchdata)
+        const { visible, confirmLoading } = this.state;
               //var bgimg = "url('"+ window.origin+"/background.png')";
 
               const { getFieldDecorator } = this.props.form;
@@ -212,10 +206,18 @@ const layout = {
 
         return(
         <div style={{height:(window.innerHeight),backgroundPosition: 'center center' , backgroundRepeat: 'no-repeat',backgroundAttachment: 'fixed',backgroundSize:'cover'}}>
+          <Header>
+        <div style={{marginLeft:'-50px',width:(window.innerWidth),background:'white'}}>
+            <img src="img/mdHeader.png" style={{width: window.innerWidth ,height: '70px',top: '0px',left: '0px'}}/>
+
+        </div>
+
+
+        </Header>
         <Layout>
-              <Content style={{background:'white',marginLeft:'2px',overflow : 'unset'}}>
-              <h1 style={{display: 'block', position: 'relative', left: '680px',fontWeight: 900, color:'#f8a500', top:'135px', fontSize: 'x-large'}}>MY PROFILE</h1>
-                 <div style={{width:(window.innerWidth -400), height:(window.innerHeight-300), margin: '38px 0px 0px 160px', border: '1px solid #ffffff'}}>
+              <Content style={{background:'white',overflow : 'unset'}}>
+              <h1 style={{display: 'block', position: 'relative', left: '680px', top:'44px',fontWeight: 900, color:'#f8a500', fontSize: 'x-large'}}>MY PROFILE</h1>
+                 <div style={{width:(window.innerWidth -400), height:(window.innerHeight-300), margin: '0px 0px 0px 160px', position:'relative',bottom:'40px', border: '1px solid #ffffff'}}>
 
                     <Form {...layout}>
 
@@ -252,11 +254,11 @@ const layout = {
                           })(
                         <Input style={{borderRadius: '25px', width: '22%'}}/>)}
                       </Form.Item>
-                           <h4 style={{marginTop:'-119px',marginLeft:'670px'}}>CITY</h4>
+                           <h4 style={{ position: 'relative', top: '-118px', left: '669px'}}>CITY</h4>
 
                       <Form.Item
 
-                      style={{width: '68%', alignContent: 'center', position: 'relative', left: '668px', top: '-98px'}}
+                      style={{width: '68%', alignContent: 'center', position: 'relative', left: '668px', top: '-126px'}}
                       >
                       {getFieldDecorator('city', {
 
@@ -265,10 +267,10 @@ const layout = {
                       </Form.Item>
                     </div>
                       <Form.Item style={{display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px',top:'-55px'}}>
-                      <h4 style={{marginTop:'-46px',marginLeft:'72px'}}>ADDRESS</h4>
+                      <h4 style={{marginTop:'-74px',marginLeft:'72px'}}>ADDRESS</h4>
                        </Form.Item>
                       <Form.Item
-                      style={{width: '123%',left: '69px',top:'-90px'}}
+                      style={{width: '123%',left: '69px',top:'-115px'}}
                       >{getFieldDecorator('address', {
 
                           })(
@@ -307,9 +309,26 @@ const layout = {
                           this.setState({reqFlag1 : true})
                           }}*/
                         />)}
+
                       </Form.Item>
+                      <a onClick={this.showModal} style={{ position: 'relative', color: '#000000',top: '-64px', left: '-95px', textDecoration: 'underline' }}>Verify Mobile Number</a>
+                      <div>
+                        <Modal
+                          title="Verify Mobile"
+                          visible={visible}
+                          okText={"Submit"}
+                          closable={false}
+                          onCancel={this.handleCancel}
+                          width={400}
+                          footer={null}
+                          centered={true}
+                          style={{position: 'relative', left: '0px', top: '0px' }}
+                        >
+                        <WrappedOtpVerifyForm mobileReadOnlyField={this.state.mobileReadOnlyField} onCancel={this.handleCancel} />
+                        </Modal>
+                      </div>
                       <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px',top:'-38px'}}>
-                      <h4 style={{marginTop:'-127px',position: 'relative', left: '72px', top: '54px'}}>PAN CARD</h4>
+                      <h4 style={{marginTop:'-127px',position: 'relative', left: '72px', top: '54px',width:'50%'}}>PAN CARD</h4>
                        </Form.Item>
                       <Form.Item
 
@@ -318,11 +337,11 @@ const layout = {
 
                               })(
                             <Input
-                            onChange={
-                              (e)=>{
-                                this.setState({verifyFlag2 : true})
-                              }
-                            }
+                            // onChange={
+                            //   (e)=>{
+                            //     this.setState({verifyFlag2 : true})
+                            //   }
+                            // }
                             />)}
                           </Form.Item>
                      <Form.Item style={{width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-80px'}}>
@@ -332,7 +351,7 @@ const layout = {
                         </Form.Item>
 
                         </div>
-                                <h4 style={{position: 'relative',top: '-15px', color: 'red', textAlign:'center',right:'-86px'}}>{this.state.mess}</h4>
+                                <h4 style={{position: 'relative',top: '30px', color: 'blue', textAlign:'center',right:'-86px'}}>{this.state.mess}</h4>
 
 
                     </Form>
@@ -345,5 +364,5 @@ const layout = {
            );
            }
            }
-   const WrappedNormalEditProfileForm = Form.create()(EditProfile);
-   export default WrappedNormalEditProfileForm;
+   const WrappedDonorEditProfile = Form.create()(DonorEditProfile);
+   export default WrappedDonorEditProfile;

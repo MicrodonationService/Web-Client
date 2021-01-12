@@ -5,28 +5,108 @@ import { Link, Route, Switch, Redirect, BrowserRouter as Router } from "react-ro
 import WrappedUIregisterMDForm from "./UIRegisterMD.js";
 import WrappedVerificationMDForm from "./verificationMD.js"
 import MainLayout from "./MainLayout.js"
+import {GoogleLogin} from 'react-google-login';
 import GlobalHelper from '../utils/GlobalHelper.js'
 import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js"
+import WrappedNormalEditProfileForm from "./EditProfile.js"
+import WrappedNormalCreateProfileForm from "./DonorEditProfile.js"
 import { Layout, Tabs, Button, Form, Input, Modal } from 'antd';
 import WrappedNormalForPassForm from './ForgotPassword.js'
+import WrappedDonorEditProfile from './DonorEditProfile.js'
+import WrappedNgoEditProfile from './NgoEditProfile.js'
+
 import { Spin } from 'antd';
 var styles = require('../App.module.css');
-
+const clientId= '124654413589-6fetlcfplfted7k6hbl8nib9s7qcduso.apps.googleusercontent.com';
 const { Header, Content, Footer } = Layout;
 const { TabPane } = Tabs;
-
-function callback(key) {
-  console.log(key);
+/*const onGoogleFail=(e)=>{
+  console.log(e);
 }
+const onGoogleLogin=(e)=>{
+  console.log(e);
+  if (e.profileObj.email=="pdpatil@mitaoe.ac.in"){
+    ReactDOM.render(<WrappedDonorEditProfile data={e.profileObj.email}/>, document.getElementById('root'));
+  }
+  else{
+  const superagent = require('superagent');
+  superagent
+  .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/loginwithgoogle')
+  .send({
+          "IdToken":e.tokenId,
+          "email":e.profileObj.email,
+          "name":e.profileObj.name
+        })
+  .set('X-API-Key', 'foobar')
+  .set('accept', 'application/json')
+  .set('Access-Control-Request-Headers','content-type,x-api-key')
+  .set('Access-Control-Request-Method','POST')
+  .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+  .set('Origin','http://localhost')
+  .end((err, res) => {
+    console.log(res)
+    let loginRespJson = JSON.parse(JSON.parse(res.text));
+    console.log(typeof(loginRespJson))
+    if (loginRespJson.success === true){
+      console.log("ok")
+    }
+    if (loginRespJson.success === true && loginRespJson.user === "D") {
+      //this.setState({loginFlag:true})
+      ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+    }
+  })
+}
+}*/
 
 class Loginpage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false,visible1: false, verifyFlag: false, mailResp: "", phoneResp: "", value: "", flag: false, regFlag: false, loginFlag: false, mess: "" };
+    this.state = { visible: false,visible1: false,tabFlag:"D", verifyFlag: false, mailResp: "", phoneResp: "", value: "", flag: false, regFlag: false, loginFlag: false, mess: "" };
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }; // End Constructor
+
+  handleUpload(e){
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      console.log("values",values);
+      if (!err) {
+        let loginRequest = {
+          "ngoname": "smileFoundation",
+          "filename": "people"
+
+        };
+        const superagent = require('superagent');
+        superagent
+          .put('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/presignedurl') // Ajax call
+          .send(loginRequest)                                 // sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('Content-Type','application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers','content-type,x-api-key')
+          .set('Access-Control-Request-Method','POST')
+          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin','http://localhost:3000')
+          .set('Accept-Encoding','gzip, deflate, br')
+          .set('Sec-Fetch-Dest','empty')
+          .set('Sec-Fetch-Mode', 'cors')
+          .end((err, res) => {                               // Calling the end function will send the request
+            console.log("service call", res);
+            let loginRespJson = JSON.parse(res.text);
+            console.log("respJson", loginRespJson);
+            if (loginRespJson.Status === "FAILED" && loginRespJson.Body.message === "Incorrect username or password.") {
+              this.setState({ mess: "Invalid User Id or Password!" })
+            }else if (loginRespJson.Status === "FAILED") { // "I" stand for Inactive user
+              this.setState({ mess: "Something went wrong please try again later!" })
+            }
+
+          });
+      }//ENDIF
+
+    })
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
@@ -37,14 +117,18 @@ class Loginpage extends React.Component {
       visible: false,
     });
   };
+  callback=(key) => {
+    console.log("Tab key",key);
+    this.setState({tabFlag:key})
 
+  }
   handleClick() {
     console.log("flag1", this.state.flag);
     this.setState({ flag: true })
   }
 
   handleSubmit() {
-    ReactDOM.render(<WrappedUIregisterMDForm />, document.getElementById('root'));
+    ReactDOM.render(<WrappedUIregisterMDForm tabFlag={this.state.tabFlag} />, document.getElementById('root'));
     this.setState({ regFlag: true })
   }
 
@@ -54,8 +138,9 @@ class Loginpage extends React.Component {
       console.log("values",values);
       if (!err) {
         let loginRequest = {
-          "userid": values.username,
-          "password": values.password
+          "email": values.email,
+          "password": values.password,
+
         };
         const superagent = require('superagent');
         superagent
@@ -67,7 +152,7 @@ class Loginpage extends React.Component {
           .set('Access-Control-Request-Headers','content-type,x-api-key')
           .set('Access-Control-Request-Method','POST')
           .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-          .set('Origin','http://localhost')
+          .set('Origin','http://localhost:3000')
           .set('Accept-Encoding','gzip, deflate, br')
           .set('Sec-Fetch-Dest','empty')
           .set('Sec-Fetch-Mode', 'cors')
@@ -78,17 +163,26 @@ class Loginpage extends React.Component {
             if (loginRespJson.Status === "FAILED" && loginRespJson.Body.message === "Incorrect username or password.") {
               this.setState({ mess: "Invalid User Id or Password!" })
             }
-            else if (loginRespJson.success === false && loginRespJson.data.flag === "I") { // "I" stand for Inactive user
-              this.setState({ mess: "Email-Id and Phone Number is not Verified, Please Verify!" })
+            else if(loginRespJson.Status == "SUCCESS" && loginRespJson.Body.B_IS_PROFILE_UPDATED === "N" &&loginRespJson.Body.SZ_USER_TYPE === "D" ){
+
+              this.setState({ mess: "Please update profile" })
               setTimeout(() => {
-                this.setState({ verifyFlag: true })
-                this.setState({ mailResp: loginRespJson.data.Email })
-                this.setState({ phoneResp: loginRespJson.data.contact })
-              }, 5000);      // Set timeout for 5 sec while user is inactive and redirect to the verifiction screen
+
+               ReactDOM.render(<WrappedDonorEditProfile email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
+              }, 5000);
             }
+            else if(loginRespJson.Status == "SUCCESS" && loginRespJson.Body.B_IS_PROFILE_UPDATED === "N" &&loginRespJson.Body.SZ_USER_TYPE === "N" ){
+
+              this.setState({ mess: "Please update profile" })
+              setTimeout(() => {
+
+               ReactDOM.render(<WrappedNgoEditProfile email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
+              }, 5000);
+            }
+
             else if (loginRespJson.Status === "SUCCESS" && loginRespJson.Body.SZ_USER_TYPE === "D") {
               let loginRequest = {
-                "SZ_USER_NAME": values.username
+                "email": values.email
               };
               const superagent = require('superagent');
               superagent
@@ -100,21 +194,21 @@ class Loginpage extends React.Component {
                 .set('Access-Control-Request-Headers','content-type,x-api-key')
                 .set('Access-Control-Request-Method','POST')
                 .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-                .set('Origin','http://localhost')
+                .set('Origin','http://localhost:3000')
                 .set('Accept-Encoding','gzip, deflate, br')
                 .set('Sec-Fetch-Dest','empty')
                 .set('Sec-Fetch-Mode', 'cors')
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-                  ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                  ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
                 })
 
               //this.setState({loginFlag:true})
 
             } else if (loginRespJson.Status === "SUCCESS" && loginRespJson.Body.SZ_USER_TYPE === "N") {
               let loginRequest = {
-                "username": values.username
+                "email": values.email
               };
               const superagent = require('superagent');
               superagent
@@ -126,7 +220,7 @@ class Loginpage extends React.Component {
                 .set('Access-Control-Request-Headers','content-type,x-api-key')
                 .set('Access-Control-Request-Method','POST')
                 .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-                .set('Origin','http://localhost')
+                .set('Origin','http://localhost:3000')
                 .set('Accept-Encoding','gzip, deflate, br')
                 .set('Sec-Fetch-Dest','empty')
                 .set('Sec-Fetch-Mode', 'cors')
@@ -135,6 +229,8 @@ class Loginpage extends React.Component {
                   let fatchDetailsRespJson = JSON.parse(res.text);
               ReactDOM.render(<WrappedNormalMainLayoutNGO ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
             })
+            }else if (loginRespJson.Status === "FAILED") { // "I" stand for Inactive user
+              this.setState({ mess: "Something went wrong please try again later!" })
             }
 
           });
@@ -202,17 +298,17 @@ class Loginpage extends React.Component {
 
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
-            <Tabs defaultActiveKey="1" onChange={callback} className={styles.tab}>
-              <TabPane tab="LOGIN AS DONOR" key="1" >
+            <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
+              <TabPane tab="LOGIN AS DONOR" key="D" >
               </TabPane>
-              <TabPane tab="LOGIN AS NGO" key="2" >
+              <TabPane tab="LOGIN AS NGO" key="N" >
               </TabPane>
             </Tabs>
 
             <Form >
               <h4 style={{ marginTop: '20px', marginBottom: '7px' }}>User ID(E-MAIL/MOBILE) </h4>
               <Form.Item >
-                {getFieldDecorator('username', {
+                {getFieldDecorator('email', {
                   rules: [
                     {
                       required: true,
@@ -253,7 +349,10 @@ class Loginpage extends React.Component {
               <Button type="submit" onClick={this.handleLogin}
                 style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
-            <h4 style={{ position: 'relative', top: '25px', color: 'red', textAlign: 'center' }}>{this.state.mess}</h4>
+            <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Something went wrong please try again later!")? 'red': 'blue', textAlign: 'center' }}>{this.state.mess}</h4>
+            <Button type="submit" onClick={this.handleUpload}
+              style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
+
             {/*<div style={{textAlign: 'center',position: 'relative',top: '11px', left: '-3px'}}>
               <a style={{ color: '#000', textDecoration: 'underline'}} onClick={this.showModal}>
                  One Time Donation
@@ -272,6 +371,13 @@ class Loginpage extends React.Component {
                    <p>Some contents...</p>
                  </Modal>
 </div>*/}
+              {/*<GoogleLogin
+              clientId={clientId}
+              buttonText="Login"
+              onSuccess={onGoogleLogin}
+              onFailure={onGoogleFail}
+              isSignedIn={true}
+/>*/}
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
             </div>
           </div>

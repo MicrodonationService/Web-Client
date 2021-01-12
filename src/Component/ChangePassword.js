@@ -4,7 +4,9 @@ import {Layout, Form, Button,Col,Input,Tooltip,Checkbox, Row, Cascader, Select, 
 import "../App.css"
 import "antd/dist/antd.css"
 import UIregisterMD from "./UIRegisterMD.js";
+import MainLayout from "./MainLayout.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
+import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js"
 import WrappedNormalPasswordSetSeccessInnerForm from "./PasswordSetSeccessInner.js"
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
@@ -22,6 +24,7 @@ class ChangePassword extends React.Component
         mess: ""
       }
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.reDirectLoginPage = this.reDirectLoginPage.bind(this);
       this.isValidPassword = this.isValidPassword.bind(this);
     }
     isValidPassword(value){
@@ -35,6 +38,14 @@ class ChangePassword extends React.Component
           return false;
         }
     }
+
+      reDirectLoginPage(){
+        if(this.props.data.Body.SZ_USER_TYPE==="D"){
+          ReactDOM.render(<MainLayout />, document.getElementById('root'));
+        }else if(this.props.data.Body.SZ_USER_TYPE==="N"){
+          ReactDOM.render(<WrappedNormalMainLayoutNGO />, document.getElementById('root'));
+        }
+      }
 
        handleSubmit(e){
          e.preventDefault();
@@ -150,7 +161,7 @@ class ChangePassword extends React.Component
                       </Button>
                       </Form.Item>
                 </Form>
-                <a href="" style={{textDecoration:'underline',position: 'relative', top: '12px', left: '266px'}}><Router><Link style={{color: 'red'}}>Home</Link></Router></a>
+                <a  style={{textDecoration:'underline',position: 'relative', top: '12px', left: '266px'}} onClick={this.reDirectLoginPage}><Router><Link style={{color: 'red'}}>Home</Link></Router></a>
 
                 <h4 style={{position: 'relative',top: '25px', left: '114px', color: 'red'}}>{this.state.mess}</h4>
              </div>

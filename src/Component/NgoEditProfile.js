@@ -8,6 +8,7 @@ import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js";
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import { Layout, Menu, Collapse, Row, Col, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select, Upload, message, Tabs } from 'antd';
 import { Spin } from 'antd';
+
 import { ReloadOutlined } from '@ant-design/icons';
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -42,7 +43,7 @@ function beforeUpload(file) {
 }
 
 
-class MyDetailsPage extends React.Component {
+class NgoEditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = { posts: "", value: 1 };
@@ -55,16 +56,18 @@ class MyDetailsPage extends React.Component {
 
     this.state = {ngoupdatedetails:"", ngoupdateprofile:""};
 
-    this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
-    this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
-    this.city = this.props.ngoupdateprofile.Body.SZ_CITY;
-    this.name = this.props.ngoupdateprofile.Body.SZ_NGO_NAME;
-    this.website = this.props.ngoupdateprofile.Body.SZ_WEBSITE;
-    this.accountnumber = this.props.ngoupdateprofile.Body.SZ_BANK_ACCOUNT_NO;
-    this.accname = this.props.ngoupdateprofile.Body.SZ_BANK_ACCT_NAME;
-    this.ifsccode = this.props.ngoupdateprofile.Body.SZ_IFSC_CODE;
-    this.address = this.props.ngoupdateprofile.Body.SZ_ADDRESS_LINE1;
-    this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
+    this.email = this.props.email;
+
+    // this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
+    // this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
+    // this.city = this.props.ngoupdateprofile.Body.SZ_CITY;
+    // this.name = this.props.ngoupdateprofile.Body.SZ_NGO_NAME;
+    // this.website = this.props.ngoupdateprofile.Body.SZ_WEBSITE;
+    // this.accountnumber = this.props.ngoupdateprofile.Body.SZ_BANK_ACCOUNT_NO;
+    // this.accname = this.props.ngoupdateprofile.Body.SZ_BANK_ACCT_NAME;
+    // this.ifsccode = this.props.ngoupdateprofile.Body.SZ_IFSC_CODE;
+    // this.address = this.props.ngoupdateprofile.Body.SZ_ADDRESS_LINE1;
+    // this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
 
   }
 
@@ -112,40 +115,23 @@ class MyDetailsPage extends React.Component {
           if (!err){
     let ngoupdatedetails = {
 
-      "cognitoID": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID,
-      "name": (this.state.reqFlag1=== undefined ?this.name:values.ngoname),
+      "cognitoID": this.props.loginResponse,
+      "name": values.ngoname,
 
-      "address": (this.state.reqFlag1=== undefined ?this.address:values.address),
+      "address": values.address,
 
-      "city": (this.reqFlag1=== undefined  ?this.city:values.city),
+      "city": values.city,
       "state":"Maharashtra",
       "country":"India",
-      "email": (this.reqFlag1=== undefined ?this.email:values.email),
-      "website":(this.reqFlag1=== undefined ?this.website:values.website),
-      "ifsc":(this.reqFlag1=== undefined ?this.ifsccode:values.ifsccode),
-      "bank_acc_no": (this.reqFlag1=== undefined ?this.accountnumber:values.accountnumber),
-      "bank_acc_name": (this.reqFlag1=== undefined ?this.accname:values.accname),
-      "postalCode":""+(this.reqFlag1=== undefined ?this.pincode:values.pincode), //Converted to String
+      "email": this.props.email,
+      "website":values.website,
+      "ifsc":values.ifsccode,
+      "bank_acc_no": values.accountnumber,
+      "bank_acc_name": values.accname,
+      "postalCode":""+values.pincode, //Converted to String
       "role": "Admin",
-      "contactNo": (this.reqFlag1=== undefined ?this.mobile:values.mobile),
+      "contactNo": values.mobile,
       "ngoCategory": "Education",
-
-
-  //     "cognitoID": "94115a76-92a8-456f-aa3f-d0d4af0adb02",
-  // "name": "Gaurav Jagdish Medhane",
-  // "address": "Alandi Pune",
-  // "city": "Pune",
-  // "postalCode": "425203",
-  // "role": "Admin",
-  // "contactNo": "+918669740166",
-  // "ngoCategory": "Education",
-  // "email": "gjmedhane@mitoe.ac",
-  // "website": "www.gjmedhane.org",
-  // "ifsc": "BIN909090",
-  // "bank_acc_no": "942276574414",
-  // "bank_acc_name": "GJMeD_BankOfIndia
-
-
     };
 
 
@@ -181,38 +167,15 @@ class MyDetailsPage extends React.Component {
   componentDidMount() {
     //setTimeout(()=>{
 
-    document.getElementById("ngoname").value = this.name;
-    document.getElementById("mobile").value = this.mobile;
+
     document.getElementById("email").value = this.email;
-    document.getElementById("city").value = this.city;
-    document.getElementById("website").value = this.website;
-    document.getElementById("accountnumber").value = this.accountnumber;
-    document.getElementById("accname").value = this.accname;
-    document.getElementById("ifsccode").value = this.ifsccode;
-    document.getElementById("address").value = this.address;
-    document.getElementById("pincode").value = this.pincode;
+
 
     //},500)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    try {
-      if (document.getElementById("ngoname").value === "") {
-        this.name = this.name;
-      } else {
-        this.name = document.getElementById("ngoname").value;
-      }
-      document.getElementById("ngoname").value = this.name;
-    } catch (e) { console.error(e) }
-    //document.getElementById("EmailID").value=this.email;
-    try {
-      if (document.getElementById("mobile").value === "") {
-        this.mobile = this.mobile;
-      } else {
-        this.mobile = document.getElementById("mobile").value;
-      }
-      document.getElementById("mobile").value = this.mobile;
-    } catch (e) { console.error(e) }
+
     try {
       if (document.getElementById("email").value === "") {
         this.email = this.email;
@@ -221,63 +184,7 @@ class MyDetailsPage extends React.Component {
       }
       document.getElementById("email").value = this.email;
     } catch (e) { console.error(e) }
-    try {
-      if (document.getElementById("city").value === "") {
-        this.city = this.city;
-      } else {
-        this.city = document.getElementById("city").value;
-      }
-      document.getElementById("city").value = this.city;
-    } catch (e) { console.error(e) }
-    try {
-      if (document.getElementById("website").value === "") {
-        this.website = this.website;
-      } else {
-        this.website = document.getElementById("website").value;
-      }
-      document.getElementById("website").value = this.website;
-    } catch (e) { console.error(e) }
-    try {
-      if (document.getElementById("accountnumber").value === "") {
-        this.accountnumber = this.accountnumber;
-      } else {
-        this.accountnumber = document.getElementById("accountnumber").value;
-      }
-      document.getElementById("accountnumber").value = this.accountnumber;
-    } catch (e) { console.error(e) }
-    try {
-      if (document.getElementById("accname").value === "") {
-        this.accname = this.accname;
-      } else {
-        this.accname = document.getElementById("accname").value;
-      }
-      document.getElementById("accname").value = this.accname;
-    } catch (e) { console.error(e) }
-    try {
-      if (document.getElementById("ifsccode").value === "") {
-        this.ifsccode = this.ifsccode;
-      } else {
-        this.ifsccode = document.getElementById("ifsccode").value;
-      }
-      document.getElementById("ifsccode").value = this.ifsccode;
-    } catch (e) { console.error(e) }
-    try {
-      if (document.getElementById("address").value === "") {
-        this.address = this.address;
-      } else {
-        this.address = document.getElementById("address").value;
-      }
-      document.getElementById("address").value = this.address;
-    } catch (e) { console.error(e) }
 
-    try {
-      if (document.getElementById("pincode").value === "") {
-        this.pincode = this.pincode;
-      } else {
-        this.pincode = document.getElementById("pincode").value;
-      }
-      document.getElementById("pincode").value = this.pincode;
-    } catch (e) { console.error(e) }
 
   }
 
@@ -293,12 +200,21 @@ class MyDetailsPage extends React.Component {
     const { posts } = this.state;
 
     return (
-      <div style={{ width: '90%', height: '100%', marginLeft: '0px', border: '1px solid #FFFFFF' }}>
+        <div style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
+
+          <Header>
+            <div style={{ marginLeft: '-50px', width: (window.innerWidth), background: 'white', marginTop: '-20px' }}>
+              <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '50px', top: '0px', left: '0px' }} />
+            </div>
+          </Header>
+
+
+      <div style={{ width: '90%', height: '100%', marginLeft: '0px'}}>
         <h5 style={{ display: 'block', position: 'relative', left: '70px', top: '7px', fontWeight: 800, color: '#f8a500', fontSize: 'x-large' }}>MY DETAILS</h5>
         <span style={{ margin: '60px 0px 0px 105px' }}>
-          <Avatar size={64} shape="circle" src="img/NGO.png" />
+          <Avatar size={64} shape="circle" src="img/NGO.png"/>
         </span>
-        <div style={{ margin: '15px 0px 0px 85px ' }}>
+        <div style={{ margin: '15px 0px 0px 85px'}}>
           <Upload
             name="avatar"
             listType="picture-card"
@@ -307,15 +223,15 @@ class MyDetailsPage extends React.Component {
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             beforeUpload={beforeUpload}
             onChange={this.handleChange1}
-          >
+            >
             {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
           </Upload>
 
         </div>
 
-        <div style={{ width: '80%', height: '96%', marginTop: '-220px', marginLeft: '50px', overflowY: 'auto', overflowX: 'hidden' }}>
+        <div style={{ width: '80%', height: '80%', marginTop: '-180px', marginLeft: '50px', overflowY: 'auto', overflowX: 'hidden' }}>
           <Form {...layout} style={{ border: '1px solid #FFFFFF' }}>
-            <h4 style={{ marginTop: '-30px', marginLeft: '220px' }}>NGO NAME</h4>
+            <h4 style={{ marginTop: '-20x', marginLeft: '220px' }}>NGO NAME</h4>
             <Form.Item
 
               style={{ width: '45%', alignContent: 'center', position: 'relative', top: '0px', left: '220px' }}
@@ -475,7 +391,7 @@ class MyDetailsPage extends React.Component {
                     required: true,
                   },
                 ]}
-                style={{ width: '53%', alignContent: 'center', position: 'relative', top: '-54px', left: '360px' }}
+                style={{ width: '53%', alignContent: 'center', position: 'relative', top: '-54px', left: '388px' }}
               >
                 <Input style={{ borderRadius: '25px' }} />
               </Form.Item>
@@ -501,7 +417,7 @@ class MyDetailsPage extends React.Component {
               <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-18px' }}>
                 CONTACT PERSON DETAILS</h4>
 
-              <div style={{ width: '100%', height: '180px', marginLeft: '0px', marginTop: '-17px', background: '#e8e8e8' }}>
+              <div style={{ width: '100%', height: '180px', marginLeft: '0px', marginTop: '-10px', background: '#e8e8e8' }}>
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                   <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>NAME</h4>
                 </Form.Item>
@@ -547,7 +463,7 @@ class MyDetailsPage extends React.Component {
                       required: true,
                     },
                   ]}
-                  style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '400px', top: '-96px' }}
+                  style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '440px', top: '-96px' }}
                 >
                   <Input style={{ borderRadius: '25px', width: '58%' }} />
                   <a href="" style={{ position: 'relative', right: '155px', top: '30px', color: '#000000' }}>Resend OTP</a>
@@ -557,7 +473,7 @@ class MyDetailsPage extends React.Component {
 
               <a href="" style={{ position: 'relative', left: '10px', top: '20px', color: '#000000' }}>Change Your Password</a>
 
-              <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '430px', top: '-15px' }}>
+              <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '430px', top: '-10px' }}>
                 <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%', borderRadius: '25px', background: '#f8a500', border: '#FFFFFF', color: '#000000' }}>
                   Update
                       </Button>
@@ -572,8 +488,10 @@ class MyDetailsPage extends React.Component {
         </div>
 
       </div>
+
+      </div>
     );
   }
 }
-const WrappedNormalMyDetailsPage = Form.create()(MyDetailsPage);
-export default WrappedNormalMyDetailsPage;
+const WrappedNgoEditProfile = Form.create()(NgoEditProfile);
+export default WrappedNgoEditProfile;

@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import '../App.module.css';
 import GlobalHelper from '../utils/GlobalHelper.js'
 import '../index.css';
+import MainLayout from "./MainLayout.js"
 import WrappedOtpVerifyForm from './OtpVerify.js'
 import {Route,Link,Switch,Redirect} from 'react-router-dom';
 import { Layout, Menu,Row,Modal, Col,Collapse, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge} from 'antd';
@@ -164,6 +165,28 @@ const layout = {
                      if(respJson.Status=== "SUCCESS"){
                         console.log("hi",respJson);
                         this.setState({mess:respJson.Messege})
+                        let loginRequest = {
+                          "email": this.props.email
+                        };
+                        const superagent = require('superagent');
+                        superagent
+                          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+                          .send(loginRequest)                                 // sends a JSON post body
+                          .set('X-API-Key', 'foobar')
+                          .set('Content-Type','application/json')
+                          .set('accept', '*/*')
+                          .set('Access-Control-Request-Headers','content-type,x-api-key')
+                          .set('Access-Control-Request-Method','POST')
+                          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+                          .set('Origin','http://localhost:3000')
+                          .set('Accept-Encoding','gzip, deflate, br')
+                          .set('Sec-Fetch-Dest','empty')
+                          .set('Sec-Fetch-Mode', 'cors')
+                          .end((err, res) => {                               // Calling the end function will send the request
+                            console.log("service call", res);
+                            let fatchDetailsRespJson = JSON.parse(res.text);
+                            ReactDOM.render(<MainLayout donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                          })
                       }else if (respJson.success=== false){
                         this.setState({mess:respJson.message})
                       }

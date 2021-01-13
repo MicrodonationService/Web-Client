@@ -174,8 +174,8 @@ class UIregisterMD extends React.Component {
                   setTimeout(() => {
                     this.setState({ flag: true })
                   }, 5000);
-                } else if (respJson.Status === false) {
-                  this.setState({ mess: "Please fill all the field" })
+                } else if (respJson.Status === "FAILED") {
+                  this.setState({ mess: "Something went wrong please try again later!" })
                 }
               }
 
@@ -359,7 +359,7 @@ class UIregisterMD extends React.Component {
                                 <span>Google</span>
                               </GoogleLoginButton>
                             </Col>
-                          </Row>*/}
+</Row>*/}
 
                         </Form.Item>
                       </div>
@@ -368,7 +368,7 @@ class UIregisterMD extends React.Component {
                 </div>
 
               </div>
-              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
+              <h4 style={{ color:(this.state.mess==="User Register Successfully, Please check your Email id for Email id confirmation code !")?  "blue":"red", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
             </Content>
           </Layout>
           <Footer style={{ padding: '0px' }}>

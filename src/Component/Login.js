@@ -65,10 +65,8 @@ class Loginpage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-    //this.handleUpload = this.handleUpload.bind(this);
+
   }; // End Constructor
-
-
 
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
@@ -191,7 +189,11 @@ class Loginpage extends React.Component {
                   let fatchDetailsRespJson = JSON.parse(res.text);
               ReactDOM.render(<WrappedNormalMainLayoutNGO ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
             })
-            }else if (loginRespJson.Status === "FAILED") { // "I" stand for Inactive user
+          }else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User is not Confirmed.") { // "I" stand for Inactive user
+
+              this.setState({ mess: "User is not Confirmed." })
+
+            }else{
               this.setState({ mess: "Something went wrong please try again later!" })
             }
 
@@ -311,8 +313,7 @@ class Loginpage extends React.Component {
               <Button type="submit" onClick={this.handleLogin}
                 style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
-            <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Something went wrong please try again later!")? 'red': 'blue', textAlign: 'center' }}>{this.state.mess}</h4>
-
+            <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Please update profile")? 'blue': 'red', textAlign: 'center' }}>{this.state.mess}</h4>
             {/*<div style={{textAlign: 'center',position: 'relative',top: '11px', left: '-3px'}}>
               <a style={{ color: '#000', textDecoration: 'underline'}} onClick={this.showModal}>
                  One Time Donation

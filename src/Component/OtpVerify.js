@@ -8,9 +8,10 @@ class OtpVerify extends React.Component{
     this.state={mess:""}
     this.readOnlyPhoneText = this.props.mobileReadOnlyField;
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     document.getElementById("readOnlyPhoneText").value = this.readOnlyPhoneText;
   }
   componentDidUpdate(prevProps, prevState) {
@@ -22,10 +23,11 @@ class OtpVerify extends React.Component{
       }
       document.getElementById("readOnlyPhoneText").value = this.readOnlyPhoneText;
     } catch (e) { console.error(e) }
-  }
+  }*/
 
   handleSubmit(e){
     e.preventDefault();
+    this.readOnlyPhoneText = this.props.mobileReadOnlyField;
     this.props.form.validateFields((err, values) => {
       if (!err) {
 
@@ -49,8 +51,18 @@ class OtpVerify extends React.Component{
                 this.props.onCancel();
               }, 5000);
 
-            } else if (respJson.success === false) {
-              this.setState({ mess: respJson.message })
+            } else if (respJson.Status === "FAILED" && respJson.Message === "Invalid OTP") {
+              this.setState({ mess: respJson.Message })
+              setTimeout(() => {
+                this.props.onCancel();
+                this.handleCancel();
+              }, 3000);
+            }else if(respJson.Status === "FAILED" && respJson.Message === "Expired"){
+              this.setState({ mess: "Expired OTP" })
+              setTimeout(() => {
+                this.props.onCancel();
+                this.handleCancel();
+              }, 3000);
             }
           })
 
@@ -60,8 +72,15 @@ class OtpVerify extends React.Component{
       }
     })
   }
+  handleCancel()
+  {
+    this.props.form.resetFields();
+   this.setState({mess :""});
+    this.props.onCancel()
+  }
   render(){
     const { getFieldDecorator } = this.props.form;
+    this.readOnlyPhoneText = this.props.mobileReadOnlyField;
     return(
       <div style={{ width: '80%', height: '80%', margin: '-7px 0px 0px 29px' }}>
         <Form>
@@ -77,7 +96,7 @@ class OtpVerify extends React.Component{
           >
             {getFieldDecorator('readOnlyPhoneText', {
             })(
-              <Input disabled style={{ borderRadius: '25px', position: 'relative', top: '-6px' }} />)}
+              <Input placeholder = {this.props.mobileReadOnlyField} disabled style={{ borderRadius: '25px', position: 'relative', top: '-6px' }} />)}
           </Form.Item>
           <Form.Item
             rules={[
@@ -99,7 +118,7 @@ class OtpVerify extends React.Component{
               <Input style={{ position: 'relative', top: '-8px', marginLeft: '26px' }} />)}
           </Form.Item>
           <Form.Item style={{ width: '90%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '71px'}}>
-            <Button onClick={this.handleSubmit} type="primary" htmlType="submit" style={{ width: '54%', borderRadius: '25px', background: '#f8a500' }}>
+            <Button onClick={this.handleSubmit} type="primary" htmlType="submit" style={{ width: '42%', borderRadius: '25px', background: '#f8a500' }}>
               VERIFY
              </Button>
           </Form.Item>

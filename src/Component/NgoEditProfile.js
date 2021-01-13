@@ -5,8 +5,9 @@ import 'antd/dist/antd.css';
 import '../App.module.css';
 import '../index.css';
 import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js";
+import WrappedOtpVerifyForm from './OtpVerify.js'
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Collapse, Row, Col, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select, Upload, message, Tabs } from 'antd';
+import { Layout, Menu, Collapse, Row, Col, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge,Modal, Select, Upload, message, Tabs } from 'antd';
 import { Spin } from 'antd';
 
 import { ReloadOutlined } from '@ant-design/icons';
@@ -46,13 +47,14 @@ function beforeUpload(file) {
 class NgoEditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", value: 1 };
+    this.state = { posts: "", value: 1,visible: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
     this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage:"" }
     this.onChange = this.onChange.bind(this);
+    this.showModal = this.showModal.bind(this);
 
     this.state = {ngoupdatedetails:"", ngoupdateprofile:""};
 
@@ -70,6 +72,66 @@ class NgoEditProfile extends React.Component {
     // this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
 
   }
+  showModal = (e) => {
+    console.log("In showModal");
+
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+
+        let confirmOtpOnPhoneRequest = {
+
+            "SZ_USER_TYPE": "D",
+            "I_USER_ID": values.mobile,
+            "SZ_Purpose": "Mobile OTP",
+            "SZ_OTP_MODE": "M",
+            "I_OTP_COUNT": "1",
+            "I_OTP_ERROR_COUNT": "0"
+        };
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/otpgenration')
+          .send(confirmOtpOnPhoneRequest) // sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('accept', 'application/json')
+          .end((err, res) => {
+            // Calling the end function will send the request
+            let respJson = JSON.parse(res.text);
+            console.log("respJson11", respJson);
+            if (respJson.Status === "SUCCESS") {
+              this.setState({ mess: respJson.Message,visible: true, mobileReadOnlyField : respJson.Body })
+
+
+            } else if (respJson.success === false) {
+              this.setState({ mess: respJson.message })
+            }
+          })
+
+        //this.setState({mess:respJson.message})
+        //ReactDOM.render(<WrappedNormalPasswordSetSeccessInnerForm mess={this.state.mess}/>,document.getElementById('root'));
+
+      }
+    })
+  };
+
+  handleOk = () => {
+    this.setState({
+      confirmLoading: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  };
+
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
   componentWillReceiveProps(nextProps)
   {
@@ -152,13 +214,31 @@ class NgoEditProfile extends React.Component {
     .end((err, res)=>{
       console.log("Updated Data", res);
       ngoupdateres = JSON.parse(res.text);
-      console.log("Updated Data", ngoupdateres);
-      this.setState(
-        {
-          updatedmessage : "Profile Updated Successfully"
-        }
-      )
-
+      if(ngoupdateres.Status ==="SUCCESS"){
+        this.setState({updatedmessage : "Profile Updated Successfully"})
+        let loginRequest = {
+          "email": this.props.email
+        };
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoupdateprofile') // Ajax call
+          .send(loginRequest)                                 // sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('Content-Type','application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers','content-type,x-api-key')
+          .set('Access-Control-Request-Method','POST')
+          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin','http://localhost:3000')
+          .set('Accept-Encoding','gzip, deflate, br')
+          .set('Sec-Fetch-Dest','empty')
+          .set('Sec-Fetch-Mode', 'cors')
+          .end((err, res) => {                               // Calling the end function will send the request
+            console.log("service call", res);
+            let fatchDetailsRespJson = JSON.parse(res.text);
+        ReactDOM.render(<WrappedNormalMainLayoutNGO ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
+      })
+      }
     })
   }
 })
@@ -451,35 +531,32 @@ class NgoEditProfile extends React.Component {
                       }}*/
                     />)}
 
-                  <a href="" style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a>
-                </Form.Item>
-
-                <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                  <h4 style={{ marginTop: '-125px', marginLeft: '450px' }}>OTP</h4>
-                </Form.Item>
-                <Form.Item
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                  style={{ width: '70%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '440px', top: '-96px' }}
-                >
-                  <Input style={{ borderRadius: '25px', width: '58%' }} />
-                  <a href="" style={{ position: 'relative', right: '155px', top: '30px', color: '#000000' }}>Resend OTP</a>
+                  <a onClick={this.showModal} style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a>
+                  <div>
+                    <Modal
+                      title="Verify Mobile"
+                      visible={this.state.visible}
+                      okText={"Submit"}
+                      closable={false}
+                      onCancel={this.handleCancel}
+                      width={400}
+                      footer={null}
+                      centered={true}
+                      style={{position: 'relative', left: '0px', top: '0px' }}
+                    >
+                    <WrappedOtpVerifyForm mobileReadOnlyField={this.state.mobileReadOnlyField} onCancel={this.handleCancel} />
+                    </Modal>
+                  </div>
                 </Form.Item>
 
               </div>
-
-              <a href="" style={{ position: 'relative', left: '10px', top: '20px', color: '#000000' }}>Change Your Password</a>
-
               <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '430px', top: '-10px' }}>
                 <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%', borderRadius: '25px', background: '#f8a500', border: '#FFFFFF', color: '#000000' }}>
                   Update
                       </Button>
               </Form.Item>
               <center>
-              <p style={{color:'blue'}}>{this.state.updatedmessage}</p>
+              <p style={{ color:(this.state.updatedmessage==="Profile Updated Successfully")? 'blue':'red'}}>{this.state.updatedmessage}</p>
                 </center>
 
             </div>

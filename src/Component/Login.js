@@ -3,28 +3,38 @@ import ReactDOM from 'react-dom';
 import App from '../App';
 import { Link, Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
 import WrappedUIregisterMDForm from "./UIRegisterMD.js";
-import WrappedVerificationMDForm from "./verificationMD.js"
-import MainLayout from "./MainLayout.js"
-import {GoogleLogin} from 'react-google-login';
-import GlobalHelper from '../utils/GlobalHelper.js'
-import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js"
+import WrappedVerificationMDForm from "./verificationMD.js";
+import MainLayout from "./MainLayout.js";
+import GlobalHelper from '../utils/GlobalHelper.js';
+import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js";
 import WrappedNormalEditProfileForm from "./EditProfile.js"
 import WrappedNormalCreateProfileForm from "./DonorEditProfile.js"
 import { Layout, Tabs, Button, Form, Input, Modal } from 'antd';
 import WrappedNormalForPassForm from './ForgotPassword.js'
 import WrappedDonorEditProfile from './DonorEditProfile.js'
 import WrappedNgoEditProfile from './NgoEditProfile.js'
-
 import { Spin } from 'antd';
+import {GoogleLogin} from 'react-google-login';
+//import {DonorEditProfile} from './DonorEditProfile';
+//import {WrappedNormalEditProfileForm} from './EditProfile'
+// import WrappedDonorEditProfile from './DonorEditProfile.js'
 var styles = require('../App.module.css');
-const clientId= '124654413589-6fetlcfplfted7k6hbl8nib9s7qcduso.apps.googleusercontent.com';
 const { Header, Content, Footer } = Layout;
 const { TabPane } = Tabs;
-/*const onGoogleFail=(e)=>{
+const clientId= '124654413589-6fetlcfplfted7k6hbl8nib9s7qcduso.apps.googleusercontent.com';
+function callback(key) {
+  console.log(key);
+}
+const onGoogleFail=(e)=>{
   console.log(e);
 }
 const onGoogleLogin=(e)=>{
   console.log(e);
+  console.log({
+    "IdToken":e.tokenId,
+    "email":e.profileObj.email,
+    "name":e.profileObj.name
+  });
   if (e.profileObj.email=="pdpatil@mitaoe.ac.in"){
     ReactDOM.render(<WrappedDonorEditProfile data={e.profileObj.email}/>, document.getElementById('root'));
   }
@@ -39,10 +49,6 @@ const onGoogleLogin=(e)=>{
         })
   .set('X-API-Key', 'foobar')
   .set('accept', 'application/json')
-  .set('Access-Control-Request-Headers','content-type,x-api-key')
-  .set('Access-Control-Request-Method','POST')
-  .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-  .set('Origin','http://localhost')
   .end((err, res) => {
     console.log(res)
     let loginRespJson = JSON.parse(JSON.parse(res.text));
@@ -53,19 +59,18 @@ const onGoogleLogin=(e)=>{
     if (loginRespJson.success === true && loginRespJson.user === "D") {
       //this.setState({loginFlag:true})
       ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+      console.log(loginRespJson)
     }
   })
 }
-}*/
-
+}
 class Loginpage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { visible: false,visible1: false,tabFlag:"D", verifyFlag: false, mailResp: "", phoneResp: "", value: "", flag: false, regFlag: false, loginFlag: false, mess: "" };
+    this.state = { visible: false,visible1: false,tabFlag:"D", verifyFlag: false, mailResp: "", phoneResp: "", value: "", flag: false, regFlag: false, loginFlag: false, mess: "",donorcategorys:"" };
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-
   }; // End Constructor
 
   componentWillReceiveProps(nextProps) {
@@ -77,11 +82,7 @@ class Loginpage extends React.Component {
       visible: false,
     });
   };
-  callback=(key) => {
-    console.log("Tab key",key);
-    this.setState({tabFlag:key})
 
-  }
   handleClick() {
     console.log("flag1", this.state.flag);
     this.setState({ flag: true })
@@ -91,6 +92,32 @@ class Loginpage extends React.Component {
     ReactDOM.render(<WrappedUIregisterMDForm tabFlag={this.state.tabFlag} />, document.getElementById('root'));
     this.setState({ regFlag: true })
   }
+  callback=(key) => {
+    console.log("Tab key",key);
+    this.setState({tabFlag:key})
+
+  }
+
+  showModal = () => {
+    this.setState({
+      visible1: true,
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible1: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible1: false,
+    });
+  };
+
 
   handleLogin(e) {
     e.preventDefault();
@@ -128,7 +155,7 @@ class Loginpage extends React.Component {
               this.setState({ mess: "Please update profile" })
               setTimeout(() => {
 
-               ReactDOM.render(<WrappedDonorEditProfile email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
+               ReactDOM.render(<WrappedDonorEditProfile donordropdown={this.state.donorcategorys} email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
               }, 5000);
             }
             else if(loginRespJson.Status == "SUCCESS" && loginRespJson.Body.B_IS_PROFILE_UPDATED === "N" &&loginRespJson.Body.SZ_USER_TYPE === "N" ){
@@ -136,7 +163,7 @@ class Loginpage extends React.Component {
               this.setState({ mess: "Please update profile" })
               setTimeout(() => {
 
-               ReactDOM.render(<WrappedNgoEditProfile email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
+               ReactDOM.render(<WrappedNgoEditProfile  email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
               }, 5000);
             }
 
@@ -202,32 +229,9 @@ class Loginpage extends React.Component {
 
     })
   }
-
-
-  showModal = () => {
-    this.setState({
-      visible1: true,
-    });
-  };
-
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible1: false,
-    });
-  };
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible1: false,
-    });
-  };
-
   render() {               // Start Render
     const { visible, confirmLoading } = this.state;
     const { getFieldDecorator } = this.props.form;
-
     if (this.state.flag === true) {
       console.log("flag", this.state.flag);
       return (
@@ -236,9 +240,7 @@ class Loginpage extends React.Component {
             <Route exact component={WrappedNormalForPassForm} />
           </Switch>
         </div>)
-
     }
-
     if (this.state.verifyFlag === true) {
       console.log("flag", this.state.flag);
       return (
@@ -255,17 +257,17 @@ class Loginpage extends React.Component {
           <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '70px', top: '0px', left: '0px' }} />
         </div>
         <Content >
-            <div style={{ display: 'inlineFlex' }} className={styles.second2}>
-              <img src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
-            </div>
+          <div style={{ display: 'inlineFlex' }} className={styles.second2}>
+            <img src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
+          </div>
           <div className={styles.second} >
 
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
             <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
-              <TabPane tab="LOGIN AS DONOR" key="D" >
+              <TabPane tab="Login AS Donar" key="D" >
               </TabPane>
-              <TabPane tab="LOGIN AS NGO" key="N" >
+              <TabPane tab="Login AS NGO" key="N" >
               </TabPane>
             </Tabs>
 
@@ -296,7 +298,7 @@ class Loginpage extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: ('Please enter password'),
+                      message: (!this.state.checked ? 'Please enter password' : 'Please enter OTP'),
                     }
                   ],
                 })(
@@ -314,32 +316,15 @@ class Loginpage extends React.Component {
                 style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
             <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Please update profile")? 'blue': 'red', textAlign: 'center' }}>{this.state.mess}</h4>
-            {/*<div style={{textAlign: 'center',position: 'relative',top: '11px', left: '-3px'}}>
-              <a style={{ color: '#000', textDecoration: 'underline'}} onClick={this.showModal}>
-                 One Time Donation
-              </a>
-                 <Modal
-                   title="One Time Donation"
-                   visible={this.state.visible1}
-                   onOk={this.handleOk}
-                   onCancel={this.handleCancel}
-                   width={500}
-                   footer={null}
-                   centered={true}
-                 >
-                   <p>Some contents...</p>
-                   <p>Some contents...</p>
-                   <p>Some contents...</p>
-                 </Modal>
-</div>*/}
-              {/*<GoogleLogin
+            <GoogleLogin
               clientId={clientId}
               buttonText="Login"
               onSuccess={onGoogleLogin}
               onFailure={onGoogleFail}
               isSignedIn={true}
-/>*/}
+            />
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
+            
             </div>
           </div>
         </Content>

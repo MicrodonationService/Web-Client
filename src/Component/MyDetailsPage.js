@@ -50,10 +50,10 @@ class MyDetailsPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
-    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage:"" }
+    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "", ngocatgdropdown: "" }
     this.onChange = this.onChange.bind(this);
 
-    this.state = {ngoupdatedetails:"", ngoupdateprofile:""};
+    this.state = { ngoupdatedetails: "", ngoupdateprofile: "", ngocategorydropdown: "" };
 
     this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
     this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
@@ -65,12 +65,17 @@ class MyDetailsPage extends React.Component {
     this.ifsccode = this.props.ngoupdateprofile.Body.SZ_IFSC_CODE;
     this.address = this.props.ngoupdateprofile.Body.SZ_ADDRESS_LINE1;
     this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
+    this.ngocategory = this.props.ngoupdateprofile.Body.SZ_CATEGORY_PRIMARY;
+    this.operationalsince = this.props.ngoupdateprofile.Body1.I_OPERATIONAL_SINCE;
+    this.bankname = this.props.ngoupdateprofile.Body.SZ_BANK_NAME;
+    this.bankbranch = this.props.ngoupdateprofile.Body.SZ_BANK_BRANCH;
+    this.contactpersonname = this.props.ngoupdateprofile.Body.SZ_CONTACT_PERSON_NAME;
+    this.registrationnumber = this.props.ngoupdateprofile.Body.SZ_REGISTRATION_ID;
 
   }
 
-  componentWillReceiveProps(nextProps)
-  {
-       this.setState({mess : ""});
+  componentWillReceiveProps(nextProps) {
+    this.setState({ mess: "" });
   };
 
   onChange = e => {
@@ -102,80 +107,72 @@ class MyDetailsPage extends React.Component {
   clickChange(value) {
     console.log(`selected ${value}`);
     this.NGOCATEGORY = value;
+    this.setState({
+      ngocatgdropdown: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngocatgdropdown)
   }
 
   handleSubmit(e) {
     console.log(this.state.reqFlag1);
     e.preventDefault();
-      this.props.form.validateFields((err, values) => {
-          this.setState({reqFlag1:true})
-          if (!err){
-    let ngoupdatedetails = {
+    this.props.form.validateFields((err, values) => {
+      this.setState({ reqFlag1: true })
+      if (!err) {
+        let ngoupdatedetails = {
 
-      "cognitoID": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID,
-      "name": (this.state.reqFlag1=== undefined ?this.name:values.ngoname),
-
-      "address": (this.state.reqFlag1=== undefined ?this.address:values.address),
-
-      "city": (this.reqFlag1=== undefined  ?this.city:values.city),
-      "state":"Maharashtra",
-      "country":"India",
-      "email": (this.reqFlag1=== undefined ?this.email:values.email),
-      "website":(this.reqFlag1=== undefined ?this.website:values.website),
-      "ifsc":(this.reqFlag1=== undefined ?this.ifsccode:values.ifsccode),
-      "bank_acc_no": (this.reqFlag1=== undefined ?this.accountnumber:values.accountnumber),
-      "bank_acc_name": (this.reqFlag1=== undefined ?this.accname:values.accname),
-      "postalCode":""+(this.reqFlag1=== undefined ?this.pincode:values.pincode), //Converted to String
-      "role": "Admin",
-      "contactNo": (this.reqFlag1=== undefined ?this.mobile:values.mobile),
-      "ngoCategory": "Education",
-
-
-  //     "cognitoID": "94115a76-92a8-456f-aa3f-d0d4af0adb02",
-  // "name": "Gaurav Jagdish Medhane",
-  // "address": "Alandi Pune",
-  // "city": "Pune",
-  // "postalCode": "425203",
-  // "role": "Admin",
-  // "contactNo": "+918669740166",
-  // "ngoCategory": "Education",
-  // "email": "gjmedhane@mitoe.ac",
-  // "website": "www.gjmedhane.org",
-  // "ifsc": "BIN909090",
-  // "bank_acc_no": "942276574414",
-  // "bank_acc_name": "GJMeD_BankOfIndia
+          "cognitoID": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID,
+          "name": (this.state.reqFlag1 === undefined ? this.name : values.ngoname),
+          "address": (this.state.reqFlag1 === undefined ? this.address : values.address),
+          "city": (this.reqFlag1 === undefined ? this.city : values.city),
+          "state": "Maharashtra",
+          "country": "India",
+          "email": (this.reqFlag1 === undefined ? this.email : values.email),
+          "website": (this.reqFlag1 === undefined ? this.website : values.website),
+          "ifsc": (this.reqFlag1 === undefined ? this.ifsccode : values.ifsccode),
+          "bank_acc_no": (this.reqFlag1 === undefined ? this.accountnumber : values.accountnumber),
+          "bank_acc_name": (this.reqFlag1 === undefined ? this.accname : values.accname),
+          "postalCode": "" + (this.reqFlag1 === undefined ? this.pincode : values.pincode), //Converted to String
+          "contactNo": (this.reqFlag1 === undefined ? this.mobile : values.mobile),
+          "ngoCategory": (this.reqFlag1 === undefined ? this.ngocategory : values.ngocategory),
+          "bankbranch" : (this.reqFlag1 === undefined ? this.bankbranch : values.bankbranch),
+          "contactpersonname" : (this.reqFlag1 === undefined ? this.contactpersonname : values.contactpersonname),
+          "bankname" : (this.reqFlag1 === undefined ? this.bankname : values.bankname),
+          "operationalsince" : ""+(this.reqFlag1 === undefined ? this.operationalsince : values.operationalsince),
+          "registrationnumber" : (this.reqFlag1 === undefined ? this.registrationnumber : values.registrationnumber)
 
 
-    };
+        };
 
 
-    let ngoupdateres;
-    const superagent = require('superagent');
-    superagent
-    .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/microdonorngoupdate')
-    .send(ngoupdatedetails)
-    .set('X-API-Key', 'foobar')
-    .set('accept', 'application/json')
-    .set('accept', '*/*')
-    .set('Access-Control-Request-Headers','content-type,x-api-key')
-    .set('Access-Control-Request-Method','POST')
-    .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-    .set('Origin','http://localhost:3000')
-    .set('Accept-Encoding','gzip, deflate, br')
-    .set('Sec-Fetch-Dest','empty')
-    .end((err, res)=>{
-      console.log("Updated Data", res);
-      ngoupdateres = JSON.parse(res.text);
-      console.log("Updated Data", ngoupdateres);
-      this.setState(
-        {
-          updatedmessage : "Profile Updated Successfully"
-        }
-      )
+        let ngoupdateres;
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/microdonorngoupdate')
+          .send(ngoupdatedetails)
+          .set('X-API-Key', 'foobar')
+          .set('accept', 'application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+          .set('Access-Control-Request-Method', 'POST')
+          .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin', 'http://localhost:3000')
+          .set('Accept-Encoding', 'gzip, deflate, br')
+          .set('Sec-Fetch-Dest', 'empty')
+          .end((err, res) => {
+            console.log("Updated Data", res);
+            ngoupdateres = JSON.parse(res.text);
+            console.log("Updated Data", ngoupdateres);
+            this.setState(
+              {
+                updatedmessage: "Profile Updated Successfully"
+              }
+            )
 
+          })
+      }
     })
-  }
-})
   }
 
   componentDidMount() {
@@ -191,6 +188,12 @@ class MyDetailsPage extends React.Component {
     document.getElementById("ifsccode").value = this.ifsccode;
     document.getElementById("address").value = this.address;
     document.getElementById("pincode").value = this.pincode;
+    document.getElementById("ngocategory").value = this.ngocategory;
+    document.getElementById("operationalsince").value = this.operationalsince;
+    document.getElementById("bankname").value = this.bankname;
+    document.getElementById("bankbranch").value = this.bankbranch;
+    document.getElementById("contactpersonname").value = this.contactpersonname;
+    document.getElementById("registrationnumber").value = this.registrationnumber;
 
     //},500)
   }
@@ -279,10 +282,65 @@ class MyDetailsPage extends React.Component {
       document.getElementById("pincode").value = this.pincode;
     } catch (e) { console.error(e) }
 
+    try {
+      if (document.getElementById("ngocategory").value === "") {
+        this.ngocategory = this.ngocategory;
+      } else {
+        this.ngocategory = document.getElementById("ngocategory").value;
+      }
+      document.getElementById("ngocategory").value = this.ngocategory;
+    } catch (e) { console.error(e) }
+
+    try {
+      if (document.getElementById("operationalsince").value === "") {
+        this.operationalsince = this.operationalsince;
+      } else {
+        this.operationalsince = document.getElementById("operationalsince").value;
+      }
+      document.getElementById("operationalsince").value = this.operationalsince;
+    } catch (e) { console.error(e) }
+
+    try {
+      if (document.getElementById("bankbranch").value === "") {
+        this.bankbranch = this.bankbranch;
+      } else {
+        this.bankbranch = document.getElementById("bankbranch").value;
+      }
+      document.getElementById("bankbranch").value = this.bankbranch;
+    } catch (e) { console.error(e) }
+
+    try {
+      if (document.getElementById("bankname").value === "") {
+        this.bankname = this.bankname;
+      } else {
+        this.bankname = document.getElementById("bankname").value;
+      }
+      document.getElementById("bankname").value = this.bankname;
+    } catch (e) { console.error(e) }
+
+    try {
+      if (document.getElementById("contactpersonname").value === "") {
+        this.contactpersonname = this.contactpersonname;
+      } else {
+        this.contactpersonname = document.getElementById("contactpersonname").value;
+      }
+      document.getElementById("contactpersonname").value = this.contactpersonname;
+    } catch (e) { console.error(e) }
+
+    try {
+      if (document.getElementById("registrationnumber").value === "") {
+        this.registrationnumber = this.registrationnumber;
+      } else {
+        this.registrationnumber = document.getElementById("registrationnumber").value;
+      }
+      document.getElementById("registrationnumber").value = this.registrationnumber;
+    } catch (e) { console.error(e) }
+
   }
 
   render() {
     console.log("Mydetails", this.props.ngoupdateprofile)
+    console.log("NGO Drop Down Vales", this.props.ngocatgdropdown)
     const { loading, imageUrl } = this.state;
     const uploadButton = (
       <div style={{ marginTop: 8 }}>Upload</div>
@@ -313,14 +371,20 @@ class MyDetailsPage extends React.Component {
 
         </div>
 
-        <div style={{ width: '80%', height: '96%', marginTop: '-220px', marginLeft: '50px', overflowY: 'auto', overflowX: 'hidden' }}>
+        <div style={{ width: '80%', height: '90%', marginTop: '-240px', marginLeft: '50px', overflowY: 'auto', overflowX: 'hidden' }}>
           <Form {...layout} style={{ border: '1px solid #FFFFFF' }}>
-            <h4 style={{ marginTop: '-30px', marginLeft: '220px' }}>NGO NAME</h4>
+            <h4 style={{ marginTop: '-05px', marginLeft: '220px' }}>NGO NAME</h4>
             <Form.Item
 
               style={{ width: '45%', alignContent: 'center', position: 'relative', top: '0px', left: '220px' }}
             >
               {getFieldDecorator('ngoname', {
+                // rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter NGO Name',
+                //   }
+                // ],
 
               })(
                 <Input style={{ borderRadius: '25px' }}
@@ -331,12 +395,17 @@ class MyDetailsPage extends React.Component {
             </Form.Item>
             <h4 style={{ marginTop: '-69px', marginLeft: '530px' }}>NGO CATEGORY</h4>
             <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}>
-              <Select defaultValue="1" onChange={this.clickChange} style={{ width: '85%' }}>
-                <Option value="1">Health</Option>
-                <Option value="2">NGO2</Option>
-                <Option value="3">NGO3</Option>
-                <Option value="4">NGO4</Option>
-              </Select>
+              {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
+                  {
+                this.props.ngocatgdropdown.Body.map((value) => (
+                <option value={value}>{value}</option>
+      ))
+  }
+                </Select> */}
+              {getFieldDecorator('ngocategory', {
+
+              })(
+                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%' }} />)}
             </Form.Item>
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
               <h4 style={{ marginTop: '-43px', marginLeft: '70px' }}>NGO ADDRESS</h4>
@@ -346,6 +415,12 @@ class MyDetailsPage extends React.Component {
               style={{ width: '45%', alignContent: 'center', position: 'relative', top: '-15px', left: '220px' }}
             >
               {getFieldDecorator('address', {
+                // rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter NGO Address',
+                //   }
+                // ],
 
               })(
                 <Input style={{ borderRadius: '25px' }}
@@ -361,6 +436,12 @@ class MyDetailsPage extends React.Component {
               style={{ width: '86%', alignContent: 'center', position: 'relative', left: '530px', top: '-55px' }}
             >
               {getFieldDecorator('city', {
+                // rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter NGO City',
+                //   }
+                // ],
 
               })(
                 <Input style={{ borderRadius: '25px', width: '24%' }}
@@ -375,10 +456,16 @@ class MyDetailsPage extends React.Component {
 
               style={{ width: '100%', alignContent: 'center', position: 'relative', left: '680px', top: '-95px' }}
             >
-                {getFieldDecorator('pincode', {
+              {getFieldDecorator('pincode', {
+                // rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter Pincode',
+                //   }
+                // ],
 
-})(
-  <Input style={{ borderRadius: '25px', width: '22%' }}
+              })(
+                <Input type="number" style={{ borderRadius: '25px', width: '22%' }}
   /*onChange={(e) =>{
     this.setState({reqFlag1 : true})
     }}*//>)}
@@ -397,7 +484,7 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('email', {
 
               })(
-                <Input style={{ borderRadius: '25px', width: '144%' }}
+                <Input readOnly={true} style={{ borderRadius: '25px', width: '144%' }}
                 /*onChange={(e) =>{
                   this.setState({reqFlag1 : true})
                   }}*/
@@ -416,19 +503,93 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('website', {
 
               })(
-                <Input style={{ borderRadius: '25px', width: '144%' }}
-               /* onChange={(e) =>{
-                  this.setState({reqFlag1 : true})
-                  }}*/
+                <Input type="text" style={{ borderRadius: '25px', width: '144%' }}
+                /* onChange={(e) =>{
+                   this.setState({reqFlag1 : true})
+                   }}*/
                 />)}
 
 
             </Form.Item>
-            <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-35px' }}>
+            <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
+              <h4 style={{ marginTop: '-50px', marginLeft: '70px' }}>OPERATIONAL SINCE</h4>
+            </Form.Item>
+
+            <Form.Item
+
+              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-20px', left: '220px' }}
+            >
+              {getFieldDecorator('operationalsince', {
+                //  rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter Operational Year',
+                //   }
+                // ],
+
+              })(
+                <Input type="number" style={{ borderRadius: '25px', width: '144%' }}
+                /* onChange={(e) =>{
+                   this.setState({reqFlag1 : true})
+                   }}*/
+                />)}
+
+
+            </Form.Item>
+            <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
+              <h4 style={{ marginTop: '-90px', marginLeft: '410px' }}>REGISTRATION NUMBER</h4>
+            </Form.Item>
+
+            <Form.Item
+
+              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '560px' }}
+            >
+              {getFieldDecorator('registrationnumber', {
+                //  rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter Registration Number',
+                //   }
+                // ],
+
+              })(
+                <Input  style={{ borderRadius: '25px', width: '144%' }}
+                /* onChange={(e) =>{
+                   this.setState({reqFlag1 : true})
+                   }}*/
+                />)}
+
+
+            </Form.Item>
+            <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-40px' }}>
               BANK ACCOUNT DETAILS</h4>
-            <div style={{ width: '63%', height: '214px', marginLeft: '220px', marginTop: '-40px', background: '#e8e8e8' }}>
+            <div style={{ width: '63%', height: '300px', marginLeft: '220px', marginTop: '-20px', background: '#e8e8e8' }}>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '0px', marginLeft: '-170px' }}>BANK ACCOUNT NUMBER</h4>
+                <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>BANK NAME</h4>
+              </Form.Item>
+
+              <Form.Item
+
+                style={{ width: '100%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
+              >
+                {getFieldDecorator('bankname', {
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Please enter Bank Name',
+                  //   }
+                  // ],
+
+                })(
+                  <Input style={{ borderRadius: '25px' }}
+                  /*onChange={(e) =>{
+                    this.setState({reqFlag1 : true})
+                    }}*/
+                  />)}
+
+              </Form.Item>
+              <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
+                <h4 style={{ marginTop: '-20px', marginLeft: '10px' }}>BANK ACCOUNT NUMBER</h4>
               </Form.Item>
 
               <Form.Item
@@ -436,6 +597,12 @@ class MyDetailsPage extends React.Component {
                 style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
               >
                 {getFieldDecorator('accountnumber', {
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Please enter Account Number',
+                  //   }
+                  // ],
 
                 })(
                   <Input style={{ borderRadius: '25px' }}
@@ -455,6 +622,12 @@ class MyDetailsPage extends React.Component {
                 style={{ width: '90%', alignContent: 'center', position: 'relative', top: '-15px', left: '10px' }}
               >
                 {getFieldDecorator('ifsccode', {
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Please enter IFSC CODE',
+                  //   }
+                  // ],
 
                 })(
                   <Input style={{ borderRadius: '25px' }}
@@ -466,21 +639,31 @@ class MyDetailsPage extends React.Component {
               </Form.Item>
 
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '-86px', marginLeft: '390px' }}>BRANCH</h4>
+                <h4 style={{ marginTop: '-86px', marginLeft: '370px' }}>BRANCH</h4>
               </Form.Item>
 
               <Form.Item
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
+               
                 style={{ width: '53%', alignContent: 'center', position: 'relative', top: '-54px', left: '360px' }}
               >
-                <Input style={{ borderRadius: '25px' }} />
+                {getFieldDecorator('bankbranch', {
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Please enter Branch Name',
+                  //   }
+                  // ],
+
+                })(
+                  <Input style={{ borderRadius: '25px' }}
+                  /*onChange={(e) =>{
+                    this.setState({reqFlag1 : true})
+                    }}*/
+                  />)}
+               
               </Form.Item>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '-60px', marginLeft: '10px' }}>REGISTERED NAME</h4>
+                <h4 style={{ marginTop: '-60px', marginLeft: '10px' }}>ACCOUNT HOLDER NAME</h4>
               </Form.Item>
 
               <Form.Item
@@ -488,6 +671,12 @@ class MyDetailsPage extends React.Component {
                 style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-32px', left: '10px' }}
               >
                 {getFieldDecorator('accname', {
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Please enter Account Holder Name',
+                  //   }
+                  // ],
 
                 })(
                   <Input style={{ borderRadius: '25px' }}
@@ -498,23 +687,33 @@ class MyDetailsPage extends React.Component {
 
               </Form.Item>
 
-              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-18px' }}>
+              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-5px' }}>
                 CONTACT PERSON DETAILS</h4>
 
-              <div style={{ width: '100%', height: '180px', marginLeft: '0px', marginTop: '-17px', background: '#e8e8e8' }}>
+              <div style={{ width: '100%', height: '180px', marginLeft: '0px', marginTop: '-10px', background: '#e8e8e8' }}>
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                   <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>NAME</h4>
                 </Form.Item>
 
                 <Form.Item
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
+                  
                   style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
                 >
-                  <Input style={{ borderRadius: '25px' }} />
+                  {getFieldDecorator('contactpersonname', {
+                  // rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Please enter Contact Person Name',
+                  //   }
+                  // ],
+
+                })(
+                  <Input style={{ borderRadius: '25px' }}
+                  /*onChange={(e) =>{
+                    this.setState({reqFlag1 : true})
+                    }}*/
+                  />)}
+                  
                 </Form.Item>
 
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
@@ -527,6 +726,12 @@ class MyDetailsPage extends React.Component {
                   style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '10px', top: '-15px' }}
                 >
                   {getFieldDecorator('mobile', {
+                    // rules: [
+                    //   {
+                    //     required: true,
+                    //     message: 'Please enter Mobile Number',
+                    //   }
+                    // ],
 
                   })(
                     <Input style={{ borderRadius: '25px', width: '100%' }}
@@ -538,7 +743,7 @@ class MyDetailsPage extends React.Component {
                   <a href="" style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a>
                 </Form.Item>
 
-                <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
+                {/* <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                   <h4 style={{ marginTop: '-125px', marginLeft: '450px' }}>OTP</h4>
                 </Form.Item>
                 <Form.Item
@@ -551,20 +756,20 @@ class MyDetailsPage extends React.Component {
                 >
                   <Input style={{ borderRadius: '25px', width: '58%' }} />
                   <a href="" style={{ position: 'relative', right: '155px', top: '30px', color: '#000000' }}>Resend OTP</a>
-                </Form.Item>
+                </Form.Item> */}
 
               </div>
 
-              <a href="" style={{ position: 'relative', left: '10px', top: '20px', color: '#000000' }}>Change Your Password</a>
+              {/* <a href="" style={{ position: 'relative', left: '10px', top: '20px', color: '#000000' }}>Change Your Password</a> */}
 
-              <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '430px', top: '-15px' }}>
+              <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '410px', top: '-01px' }}>
                 <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%', borderRadius: '25px', background: '#f8a500', border: '#FFFFFF', color: '#000000' }}>
                   Update
                       </Button>
               </Form.Item>
               <center>
-              <p style={{color:'blue'}}>{this.state.updatedmessage}</p>
-                </center>
+                <p style={{ color: 'blue' }}>{this.state.updatedmessage}</p>
+              </center>
 
             </div>
 

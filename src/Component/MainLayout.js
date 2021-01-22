@@ -1,18 +1,30 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import {Layout, Form, Button,Col,Input,Tooltip,Checkbox, Row,Card, Cascader,Divider, Select, AutoComplete,Tabs, Radio} from 'antd';
+import {Layout, Avatar,Form, Button,Col,Input,Tooltip,Checkbox, Row,Card, Cascader,Divider, Select, AutoComplete,Tabs, Radio} from 'antd';
+//import {Pie} from 'react-chartjs-2';
 import "../App.css"
 import "antd/dist/antd.css"
+// import { useGoogleLogout } from 'react-google-login';
 import UIregisterMD from "./UIRegisterMD.js";
 import PasswordSetSuccess from "./PasswordSetSuccess.js"
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import WrappedNormalReferPage from "./ReferPage.js"
 import WrappedNormalEditProfileForm from "./EditProfile.js"
+// import MyNGO from "./MyNGO.js"
+// import OneTimeDonation from './onetimedonation.js';
+// import RecurringDonation from './donatetocharity.js';
+
+import { Chart,  registerShape,  Geom,  Axis,    Interval,  Interaction,  Coordinate} from 'bizcharts';
+
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
+import Logout from './Logout';
+
 const { Header, Sider, Content, Footer } = Layout;
+
 const {Group} = Radio;
 const { Option } = Select;
 const { TabPane } = Tabs;
+const { Meta } = Card;
 const AutoCompleteOption = AutoComplete.Option
 const layout = {
   labelCol: {
@@ -22,20 +34,46 @@ const layout = {
     span: 16,
   },
 };
+
+const donationdata = [
+  { charity: 'Helping Hands ', donation: 380 },
+  { charity: 'RobinHood', donation: 520 },
+];
+const data = [
+  {
+    type: "Inactive",
+    value: 38
+  },
+  {
+    type: "Active",
+    value: 62
+  }
+];
+
+
 class MainLayout extends React.Component
 {
     constructor(props)
     {
       super(props);
-      this.state ={
+      this.state = {
         flag: "",
         flag1: "",
         profileUpdateFlag : "",
         changePasswordFlag : "",
+        MycHarity:""   ,//MY CHARITY APP
+        oneTimeDonation : "", //onetimeDonation
+        recurringDonation: "", //recurringDonation 
+        labels:['Under18','Age 18-54','Age 55+'],
+        datasets: [{
+          data:[2000,4000,2850],
+          backgroundColor:['red','blue','green']
+        }]
 
       }
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
+
       //this.userName1 = this.props.data.data.user.name;
     }
 
@@ -61,13 +99,44 @@ class MainLayout extends React.Component
          this.setState({changePasswordFlag : ""})
          this.setState({flag:""})
          this.setState({profileUpdateFlag : ""})
+         this.setState({oneTimeDonation:""})
        }
 
+        MyCharity(data)
+        {
+          this.setState({MycHarity:data})
+         this.setState({changePasswordFlag : ""})
+         this.setState({flag:""})
+         this.setState({profileUpdateFlag : ""})
+         this.setState({oneTimeDonation: ""})
+        }
        profileUpdateClick(data){
          this.setState ({profileUpdateFlag : data })
          this.setState({changePasswordFlag : ""})
          this.setState({flag:""})
+         this.setState({oneTimeDonation:""})
        }
+
+       onetimedonationClick(data)
+       {
+         this.setState({oneTimeDonation:data})
+        this.setState({changePasswordFlag : ""})
+        this.setState({flag:""})
+        this.setState({profileUpdateFlag : ""})
+        this.setState({MycHarity : ""})
+       }
+
+       recurringdonationClick(data)
+       {
+        this.setState({recurringDonation:data})
+         this.setState({oneTimeDonation:data})
+        this.setState({changePasswordFlag : ""})
+        this.setState({flag:""})
+        this.setState({profileUpdateFlag : ""})
+        this.setState({MycHarity : ""})
+       }
+
+
   render(){
 
     /*if(this.state.flag === true){
@@ -97,11 +166,12 @@ class MainLayout extends React.Component
         <div style={{marginLeft:'-50px',width:(window.innerWidth),background:'white'}}>
             <img src="img/mdHeader.png" style={{width: window.innerWidth ,height: '70px',top: '0px',left: '0px'}}/>
 
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF', left: '-416px', float: 'right', color:'40a9ff'}}onClick={this.homeClick.bind(this,"home")}><Router><Link >Home</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF', left: '-416px', float: 'right', color:'40a9ff'}} onClick={this.homeClick.bind(this,"home")}><Router><Link >Home</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-978px'}} onClick={this.profileUpdateClick.bind(this,"profile_update")}><Router><Link >My Profile</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1005px'}} onClick={this.handleSubmit.bind(this,"refer")}><Router><Link >Refer</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1033px'}} onClick={this.handleChange.bind(this,"change_password")}><Router><Link >Change Password</Link></Router></a>
-              <a  href="" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1062px', color:'40a9ff'}}>Logout</a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1039px'}} onClick={this.MyCharity.bind(this,"my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
+              <Logout/>
         </div>
         <Row style={{width: window.innerWidth, position: 'relative', left: '-50px', top: '-64px', height: '100px',boxShadow: '0 2px 5px #efc940', border: '1px solid #efc940'}}>
             <Col span={8}>
@@ -148,7 +218,7 @@ class MainLayout extends React.Component
         </Header>
         <Layout style={{marginTop: '6px',height:( window.innerHeight - 107 )}}>
 
-          <Content style={{background:'white',marginTop:'1px',marginLeft:'2px',overflow : 'unset'}}>
+          <Content style={{background:'white',marginTop:'1px',marginLeft:'2px',overflow : 'scroll'}}>
         {/*  <div className="site-card-wrapper">
               <Row gutter={8}>
                 <Col span={4} onClick={this.handleSubmit} style={{border: '2px solid coral', position: 'relative', top: '150px', left: '400px'}}>
@@ -164,20 +234,321 @@ class MainLayout extends React.Component
               </Row>
 </div>*/}
                            {
-                             (this.state.profileUpdateFlag=== "profile_update")?<WrappedNormalEditProfileForm data={this.props.data} donorfetchdata={this.props.donorfetchdata}/>
+                             (this.state.profileUpdateFlag=== "profile_update")?<WrappedNormalEditProfileForm data={this.props.data} donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={this.props.donorfetchdata}/>
                              : null
                            }
                            {
                              (this.state.flag=== "refer")?<WrappedNormalReferPage />:null
                            }
+                           {/* {
+                             (this.state.MycHarity=== "my_charity")?<MyNGO />:null
+                           }
+                            {
+                             (this.state.oneTimeDonation=== "onetimedonation")?<OneTimeDonation />:null
+                           }
+                            {
+                             (this.state.recurringDonation=== "recurringdonation")?<RecurringDonation />:null
+                           } */}
                            {
                              (this.state.flag1==="home")?<div>
                                   <img src="img/newMidImg.png" style={{marginTop: '82px'}}/>
                              </div>:null
                            }
-                           <div>
-                                <img src="img/newMidImg.png" style={{marginTop: '82px'}}/>
-                           </div>
+
+
+      <div>
+                           <br></br>
+
+
+                            {/* <Card
+                                     style={{ width: 300, marginTop: 60}}    >
+
+                                <Meta
+                          avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                             }
+                                  title="Card title"
+                              description="This is the description"
+                         />
+
+                        </Card> */}
+            <Row style={{marginTop:40}}>
+                <Row style={{position:"absolute"}}>
+                    <Col span={4} style={{position:"absolute"}} >
+                       <Card style={{ width: 200, marginTop: 30}}    >
+                       <Chart data={data} height={300} autoFit >
+                              <Coordinate type="theta" radius={0.8} innerRadius={0.75} />
+                              <Axis visible={false } />
+                              <Tooltip showTitle={true} />
+                              <Interval
+                                adjust="stack"
+                                position="value"
+                                color="type"
+                                shape="sliceShape"
+                              />
+                              <Interaction type="element-single-selected" />
+                            </Chart>
+                            {/* <Meta
+                                              avatar={
+                                              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                 }
+                                               title="Add Chart Here"
+                                              description="This is the description"
+                            /> */}
+                            <div>
+                            {/*<Pie
+                              data={{
+
+                                datasets :this.state.datasets
+                              }}
+                              height='100%'
+
+                            />*/}
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col span={4} style={{marginLeft:320}}>
+                    <Card style={{ width: 250, marginTop: 60}}    >
+                    <Chart height={200} autoFit data={donationdata} interactions={['element-active']} padding={[30, 30, 30, 50]} >
+                                <Interval position="charity*donation"  />
+                              </Chart>
+                            {/* <Meta
+                                              avatar={
+                                              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                 }
+                                               title="Add Chart Here"
+                                              description="This is the description"
+                            /> */}
+                            <div>
+                            {/*<Pie
+                              data={{
+
+                                datasets :this.state.datasets
+                              }}
+                              height='100%'
+
+                            />*/}
+                            </div>
+                        </Card>
+                    </Col>
+
+                </Row>
+
+                <Row  style={{marginLeft:600}}>
+                <h6 style={{marginTop:60,marginLeft:30}}>Other NGO that  I have Donated</h6>
+                  <Col span={4}  style={{marginLeft:30}}>
+                  <Card style={{ width: 190}}    >
+                  <Col span={12}>
+                                <img src="img/rightSign.png" style={{height:50}}></img>
+                              </Col>
+                              <Col span={12}>
+                                <p>
+                                  NGO 14
+                                  <br></br>
+                                  Health
+                                  <br /><br />
+                                  <a>Donate Now</a>
+
+                                </p>
+                              </Col>
+                        </Card>
+                  </Col>
+                  <Col span={4} style={{marginLeft:150}}>
+                  <Card style={{ width: 190}}    >
+                  <Col span={12}>
+                                <img src="img/rightSign.png" style={{height:50}}></img>
+                              </Col>
+                              <Col span={12}>
+                                <p>
+                                  NGO 14
+                                  <br></br>
+                                  Health
+                                  <br /><br />
+                                  <a>Donate Now</a>
+
+                                </p>
+                              </Col>
+                          
+                        </Card>
+                    </Col>
+                    <Col span={4}  style={{marginLeft:160}}>
+                    <Card style={{ width: 190}}    >
+                    <Col span={12}>
+                                <img src="img/rightSign.png" style={{height:50}}></img>
+                              </Col>
+                              <Col span={12}>
+                                <p>
+                                  NGO 14
+                                  <br></br>
+                                  Health
+                                  <br /><br />
+                                  <a>Donate Now</a>
+
+                                </p>
+                              </Col> 
+                          
+                        </Card>
+                    </Col>
+
+
+                </Row>
+
+          </Row>
+
+                          {/*Second row three cards  */}
+          <div >
+              <Row style={{borderWidth: 4}}>
+                  <h6 style={{marginTop:80}}>Other Charities Similar to my Charities</h6>
+                      <Col span={8}>
+                            <Card
+                                     style={{ width: 400,height:100, marginTop: 0 , borderRadius:25 }}    >
+
+                                {/* <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                  }
+                                  title="Card title"
+                                description="This is the description"
+                                    />
+          */}
+                              <Col span={8}>
+                                <img src="img/rightSign.png" ></img>
+                              </Col>
+                              <Col span={8}>
+                                <p>
+                                  NGO 14
+                                  <br></br>
+                                  Health
+                                  <br /><br />
+                                  <a>Donate Now</a>
+
+                                </p>
+                              </Col>
+                              <Col span={8}>
+                              <p>
+                                  Total Donars
+                                  <br></br>
+                                  Health
+
+                                </p>
+
+                              </Col>
+
+                              </Card>
+
+                      </Col>
+                      <Col span={8}>
+                      <Card
+                                     style={{ width: 400,height:100, marginTop: 0 , borderRadius:25 }}    >
+
+                                {/* <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                  }
+                                  title="Card title"
+                                description="This is the description"
+                                    />
+          */}
+                              <Col span={8}>
+                                <img src="img/rightSign.png"></img>
+                              </Col>
+                              <Col span={8}>
+                                <p>
+                                  NGO 15
+                                  <br></br>
+                                  Orphanage
+                                  <br /><br />
+                                  <a>Donate Now</a>
+
+                                </p>
+                              </Col>
+                              <Col span={8}>
+                              <p>
+                                  Total Donars
+                                  <br></br>
+                                  Health
+
+                                </p>
+
+                              </Col>
+
+                              </Card>
+
+                      </Col>
+
+
+                      <Col span={8}>
+                      <Card
+                                     style={{ width: 400,height:100, marginTop: 0 , borderRadius:25 }}    >
+
+                                {/* <Meta
+                                  avatar={
+                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                  }
+                                  title="Card title"
+                                description="This is the description"
+                                    />
+          */}
+                              <Col span={8}>
+                                <img src="img/rightSign.png"></img>
+                              </Col>
+                              <Col span={8}>
+                                <p>
+                                  NGO 16
+                                  <br></br>
+                                  Education
+                                  <br /><br />
+                                  <a>Donate Now</a>
+
+                                </p>
+                              </Col>
+                              <Col span={8}>
+                              <p>
+                                  Total Donars
+                                  <br></br>
+                                  Health
+
+                                </p>
+
+                              </Col>
+
+                              </Card>
+
+                    </Col>
+
+              </Row>
+          </div>
+
+          <Row style={{marginTop:40}}>
+              <Col span={5} >
+                  <p>
+                  <h3>Have You Tried Our Mobile App Yet? </h3>
+                  <h1>Download Now</h1>
+                  </p>
+              </Col>
+              <Col span={4} style={{marginLeft:30}}>
+
+                                  <Button  onClick={this.recurringdonationClick.bind(this,"recurringdonation")} style={{borderRadius:10,height:35,width:250}}><Router><Link >Recurring Donation</Link></Router></Button>
+
+              </Col>
+              <Col span={4} style={{marginLeft:20}}>
+                <Button style={{borderRadius:10,height:35,width:250}}>Repeat Last Donation</Button>
+
+              </Col>
+              <Col span={4} style={{marginLeft:20}}>
+                <Button  onClick={this.onetimedonationClick.bind(this,"onetimedonation")} style={{borderRadius:10,height:35,width:250}}><Router><Link >One time Donation</Link></Router></Button>
+
+              </Col>
+              <Col span={4} style={{marginLeft:20}}>
+                <Button style={{borderRadius:10,height:35,width:250}}>Refer Donor or Charity</Button>
+
+             </Col>
+
+        </Row>
+
+                                {/* <img src="img/newMidImg.png" style={{marginTop: '82px'}}/> */}
+    </div>
+
 
           </Content>
           </Layout>

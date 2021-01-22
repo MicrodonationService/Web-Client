@@ -4,12 +4,16 @@ import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
 import '../index.css';
+import './css/MyNgo.css';
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
-import {Layout, Menu,Collapse,Row,Col, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge,Select,Upload,message,Tabs } from 'antd';
+import {Layout, Menu,Collapse,Row,Col,Table, Result,Breadcrumb, Radio,Icon,Button,DatePicker ,Carousel,Form,Input,Checkbox,Avatar, Badge,Select,Upload,message,Tabs,Card } from 'antd';
 import WrappedNormalMyDetailsPage from './MyDetailsPage.js';
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import { Spin} from 'antd';
+import { Chart,  registerShape,  Geom,  Axis,  Tooltip,  Interval,  Interaction,  Coordinate} from 'bizcharts';
+//import { Pie, yuan } from 'ant-design-pro/lib/Charts';
 import {ReloadOutlined} from '@ant-design/icons';
+import '../App.css';
 const { TabPane } = Tabs;
 const {Option} =Select;
 const { Header, Content, Sider ,Footer} = Layout;
@@ -22,12 +26,12 @@ const layout = {
     span: 16,
   },
 };
-
-      function getBase64(img, callback) {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => callback(reader.result));
-        reader.readAsDataURL(img);
-      }
+const logo ='https://ngouploads.s3.ap-south-1.amazonaws.com/public/icon+give.png';
+//       function getBase64(img, callback) {
+//         const reader = new FileReader();
+//         reader.addEventListener('load', () => callback(reader.result));
+//         reader.readAsDataURL(img);
+//       }
 
       function beforeUpload(file) {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -40,11 +44,14 @@ const layout = {
         }
         return isJpgOrPng && isLt2M;
       }
-
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
   function callback(key) {
       console.log(key);
       }
-
 
    class mainlayoutNGO extends React.Component
            {
@@ -59,11 +66,12 @@ const layout = {
           this.myDetailClick = this.myDetailClick.bind(this);
           this.state={ mess : "", loading:false}
           this.onChange=this.onChange.bind(this);
-
+          this.state = {ngoupdatedetails:"", ngoupdateprofile:""};
         }
 
             onChange = e =>
             {
+            console.log('radio checked', e.target.value);
             this.setState({
               value: e.target.value,
             });
@@ -91,6 +99,7 @@ const layout = {
          };
           clickChange(value)
           {
+            console.log(`selected ${value}`);
             this.NGOCATEGORY = value;
           }
 
@@ -98,7 +107,6 @@ const layout = {
             this.setState({changePasswordFlag:data})
             ReactDOM.render(<WrappedNormalChangePasswordForm data={this.props.data}/>,document.getElementById('root'));
           }
-
         handleSubmit(e)
         {
                }
@@ -118,20 +126,123 @@ const layout = {
                    <div style={{ marginTop: 8 }}>Upload</div>
                );
 
+
+              //var bgimg = "url('"+ window.origin+"/background.png')";
+
               const { getFieldDecorator } = this.props.form;
               const {posts} = this.state;
-
+              const alltimedonation = 43000;
+              const location = "Pune";
+              const currentmonthdonation = 3000;
+              const donarData=[
+                {
+                 Name:"Pratik",
+                 Location: "Pune",
+                 Amount: "₹ 1000",
+                 Date: "Date" 
+                },
+                {
+                  Name:"Name",
+                  Location: "Pune",
+                  Amount: "₹ 1040",
+                  Date: "Date" 
+                 },
+                 {
+                  Name:"Name",
+                  Location: "Pune",
+                  Amount: "₹ 2000",
+                  Date: "Date" 
+                 },
+                 {
+                  Name:"Name",
+                  Location: "Pune",
+                  Amount: "₹ 5000",
+                  Date: "Date" 
+                 }
+              ]
+              const dataSource = [
+                {
+                  key: '1',
+                  Month: 'June 2019',
+                  Donation: '₹ 500',
+                  
+                },
+                {
+                  key: '2',
+                  Month: 'July 2019',
+                  Donation: '₹ 700',
+                 
+                },
+                {
+                    key: '2',
+                    Month: 'Augest 2019',
+                    Donation: '₹ 200',
+                   
+                  },
+                  {
+                    key: '2',
+                    Month: 'Sepetember 2019',
+                    Donation: '₹ 40',
+                   
+                  },
+        
+                  {
+                    key: '2',
+                    Month: 'October 2019',
+                    Donation: '₹ 400',
+                   
+                  },
+                  {
+                    key: '2',
+                    Month: 'November 2019',
+                    Donation: '₹ 400',
+                   
+                  }
+              ];
+              const donationdata = [
+                { day: '1951 ', donation: 38 },
+                { day: '1952 ', donation: 52 },
+                { day: '1956 ', donation: 61 },
+                { day: '1957 ', donation: 45 },
+                { day: '1958 ', donation: 48 },
+                { day: '1959 ', donation: 38 },
+                { day: '1960 ', donation: 38 },
+                { day: '1962 ', donation: 38 },
+              ];
+              const columns = [
+                {
+                  title: 'Month',
+                  dataIndex: 'Month',
+                  key: 'Month',
+                },
+                {
+                  title: 'Donation',
+                  dataIndex: 'Donation',
+                  key: 'Donation Amount',
+                },
+               
+              ];
+              const data = [
+                {
+                  type: "Inactive",
+                  value: 38
+                },
+                {
+                  type: "Active",
+                  value: 62
+                }
+              ];
         return(
         <div style={{height:(window.innerHeight),backgroundPosition: 'center center' , backgroundRepeat: 'no-repeat',backgroundAttachment: 'fixed',backgroundSize:'cover'}}>
         <Layout>
             <Header>
                 <div style={{marginLeft:'-50px',width:(window.innerWidth),background:'white',marginTop:'-20px'}}>
                     <img src="img/mdHeader.png" style={{width: window.innerWidth ,height: '50px',top: '0px',left: '0px'}}/>
-                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-950PX'}}><Router><Link onClick={this.homeClick.bind(this,"home")} style={{color:'#FFFFFF'}} to={'Home'}>HOME</Link></Router></a>
-                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-970px'}}><Router><Link onClick={this.myDetailClick.bind(this,"my_detail")} style={{color:'#FFFFFF'}}>MY DETAILS</Link></Router></a>
-                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-990px'}}><Router><Link onClick={this.handleChange.bind(this,"change_password")} style={{color:'#FFFFFF'}}>CHANGE PASSWORD</Link></Router></a>
-                      <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1010px'}}>NGO</a>
-                      <a  href = "" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1030px'}}>LOGOUT</a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-950PX'}}><Router><Link onClick={this.homeClick.bind(this,"home")} style={{color:'#FFFFFF'}} to={'Home'}>HOME</Link></Router></a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-970px'}}><Router><Link onClick={this.myDetailClick.bind(this,"my_detail")} style={{color:'#FFFFFF'}}>MY DETAILS</Link></Router></a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-990px'}}><Router><Link onClick={this.handleChange.bind(this,"change_password")} style={{color:'#FFFFFF'}}>CHANGE PASSWORD</Link></Router></a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1010px'}}>NGO</a>
+                    <a  href = "" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1030px'}}>LOGOUT</a>
                 </div>
             </Header>
 
@@ -140,20 +251,158 @@ const layout = {
               <Content style={{background:'white',marginLeft:'2px',overflow : 'unset'}}>
                   {
                     (this.state.flag1==="home")?<div>
-                         <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>
+                         <img src="img/NGOLanding.png" style={{width: '100%', height: '100%', paddingBottom:'40px'}}/>
                     </div>:null
                   }
                  {
-                   (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngoupdateprofile={this.props.ngoupdateprofile}/>:null
+                   (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngocategorydropdown={this.props.ngocategorydropdown}  ngoupdateprofile={this.props.ngoupdateprofile}/>:null
                  }
-                 <div>
-                      <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>
+                 <div >
+                   <br/>
+                 <div className="thead" >
+                    <Row >
+                        <Col span={12}>
+                          
+                           <Row >
+                          <Col span={8}>
+                          <div class="NGODonationdisplay1">
+                            All Time <b style={{fontSize:'x-large'}}>₹{alltimedonation}</b>
+                            <img class='giveicon' src={logo} alt="Logo" />
+                          </div>
+                          </Col>
+                          <Col span={2}></Col>
+                          <Col span={8}>
+                          <div class="NGODonationdisplay">
+                            Current Month <b style={{fontSize:'x-large'}}>₹{currentmonthdonation}</b>
+                            <img class='giveicon' src={logo} alt="Logo" />
+                          </div>
+                          </Col>
+                          </Row>
+                          <Row>
+                          <br/>
+                            <h3 marginTop={20}>
+                              Top Donations
+                            </h3>
+                            <Col span={6}>
+                              <div className="Donordisplay"> 
+                                <div className="Cardbody">
+                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
+                                  <div className="CardText">
+                                  <h2>{donarData[0].Name}</h2>  
+                                      <div className="loca">
+                                        {donarData[0].Location} 
+                                      </div>
+                                      <div className="amt">
+                                        <b> {donarData[0].Amount} </b>
+                                      </div>
+                                      <div className="Carddate">
+                                      {donarData[0].Date}
+                                      </div> 
+                              </div>
+                              </div>
+                              </div>
+                            </Col>
+                            <Col span={6}>
+                              <div className="Donordisplay"> 
+                                <div className="Cardbody">
+                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
+                                  <div className="CardText">
+                                  <h2>{donarData[1].Name}</h2>  
+                                      <div className="loca">
+                                        {donarData[1].Location} 
+                                      </div>
+                                      <div className="amt">
+                                        <b> {donarData[1].Amount} </b>
+                                      </div>
+                                      <div className="Carddate">
+                                      {donarData[1].Date}
+                                      </div> 
+                              </div>
+                              </div>
+                              </div>
+                            </Col>
+                            <Col span={6}>
+                              <div className="Donordisplay"> 
+                                <div className="Cardbody">
+                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
+                                  <div className="CardText">
+                                  <h2>{donarData[2].Name}</h2>  
+                                      <div className="loca">
+                                        {donarData[2].Location} 
+                                      </div>
+                                      <div className="amt">
+                                        <b> {donarData[2].Amount} </b>
+                                      </div>
+                                      <div className="Carddate">
+                                      {donarData[2].Date}
+                                      </div> 
+                              </div>
+                              </div>
+                              </div>
+                            </Col>
+                            <Col span={6}>
+                              <div className="Donordisplay"> 
+                                <div className="Cardbody">
+                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
+                                  <div className="CardText">
+                                    <h2>{donarData[3].Name}</h2>  
+                                      <div className="loca">
+                                        {donarData[3].Location} 
+                                      </div>
+                                      <div className="amt">
+                                        <b> {donarData[3].Amount} </b>
+                                      </div>
+                                      <div className="Carddate">
+                                      {donarData[3].Date}
+                                      </div> 
+                              </div>
+                              </div>
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col span={8}>
+                              
+                            <Chart data={data} height={300} autoFit >
+                              <Coordinate type="theta" radius={0.8} innerRadius={0.75} />
+                              <Axis visible={false } />
+                              <Tooltip showTitle={true} />
+                              <Interval
+                                adjust="stack"
+                                position="value"
+                                color="type"
+                                shape="sliceShape"
+                              />
+                              <Interaction type="element-single-selected" />
+                            </Chart>
+                            </Col>
+                            
+                              <Col span={16} >
+
+                              <Card title="Donation Trend" >
+                                <Chart height={200}  autoFit data={donationdata} interactions={['element-active']} padding={[30, 30, 30, 50]} >
+                                  <Interval position="day*donation"  />
+                                </Chart>
+                              </Card>
+
+                              </Col>
+                            
+                          </Row>
+                          
+                        </Col>
+                        <Col span={12}>
+                        <a>Donation Summary</a>&nbsp;&nbsp;<a>Last 6month</a> <a style={{float:'right'}}>Download</a>
+                        <br />
+                        <Table min-height={500} dataSource={dataSource} columns={columns} />
+                        </Col>
+                    </Row>
+                </div>
                  </div>
                 </Content>
                 </Layout>
-                <Footer style={{marginLeft:'-50px',background:'#FFFFFF'}}>
-                        <img src="img/footerMD.png" style={{width: window.innerWidth+22 ,height: '45px',marginLeft:'-9px'}} />
-                </Footer>
+            <Footer style={{marginLeft:'-50px',background:'#FFFFFF'}}>
+        <img src="img/footerMD.png" style={{width: window.innerWidth+22 ,height: '45px',marginLeft:'-9px'}} />
+          </Footer>
           </Layout>
           </div>
            );

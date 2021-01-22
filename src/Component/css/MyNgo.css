@@ -1,114 +1,81 @@
-
-
-/* css for the Mycharity Page */
-
-
-.grid{
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 60px;
-    margin-left: 30px;
-  }
-
-  .cardgrid{
-    display: grid;
-    grid-template-columns: auto auto auto ;
-    grid-gap: 60px;
-    margin-left: 30px;
-    margin-top: 110px;
-  }
-[class*="ant-card-body"]{
-  background: #f8a500 !important;
-}
-
-  .card{
-    box-sizing: border-box;
-    box-shadow: 0 4px 8px 0 ;
-    border: 1px solid white;
-    transition: 0.3s;
-    /* margin-top: 30px; */
-    width: 377px;
-  }
-  .insidecardgrid{
-  display: grid;
-  grid-template-columns: auto auto;
-  }
-  .cardimg img{
-    width: 200px;
-  }
-  .carddescription{
-  display: grid;
-  grid-template-columns: auto auto;
-  background: #f8a500;
-  height: 130px;
-
-  }
-  .mydonation{
-  color: white;
-  }
-
-  .colorperecent{
-  background-color: rosybrown;
-
-  }
-  .cardtitle{
-    height: 200px;
-  }
-
-  .CardCss[class*="ant-input-group-wrapper"]{
-    position: absolute;
-    top: 15px;
-
-  }
-/*
-Css for the One time Donation Component Starts Here */
-
-  .box{
-
-    box-shadow: 0 4px 4px 0 black;
-    border: 1px solid #f8a500;
-    box-sizing: content-box;
-    width: 50%;
-    margin-left: 300px;
-    margin-top: 110px;
-  }
-  .boxcontent{
-    box-sizing: border-box;
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-  .title{
-    color: #f8a500;
-  }
-  .close {
-  color: black;
-  float: right;
-  font-size: 48px;
-  margin-right: 20px;
-  font-weight: bold;
-  }
-  button{
-    background: #f8a500;
-    color: Black;
-    margin: -40px 0px 5px 75px;
+.NGODonationdisplay{
+    
+    background-color: coral;
     border-radius: 20px;
-    width: 50%;
-    height: 40px;
-  }
+    border-width: 1px;
+    font-size: large;
+    padding: 20px;
+}
+.NGODonationdisplay1{
+    background-color:goldenrod;
+    border-radius: 20px;
+    border-width: 1px;
+    font-size: large;
+    padding: 20px;
+}
+.Donordisplay{
+    background-image: radial-gradient(white,rgb(247,242,221));
+    /* background: rgb(247,242,221); */
+    margin: 15px;
+    align-items: center;
+    align-content: center;
+    border: 2px solid orange;
+    border-radius: 15px;
+    height: 250px;
+    width: 200px;
+}
+.Cardbody{
+    margin-left: 60px;
+    margin-top: 15px;
+}
+.Donordisplay img{
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
 
+}
+.Cardbody img{
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
 
-  .contactus{
-    margin-left: 100px;
-    margin-top: 45px;
-    margin-right: 100px;
-  }
-  .contacttitle{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+}
+.loca{
+    color: darkgrey;
+    font-size: 18px;
+}
+.amt{
+    color: rgb(158, 6, 6);
+    font-size: large;
 
-
-
-  [class*="ant-table-thead"]{
-    background-color: orange;
-  }
-  /* css for Mycharity page ends Here */
+}
+.CardText{
+    margin-left: 10px;
+    padding-bottom: 20px;
+}
+.Carddate{
+    color: darkgrey;
+    font-size: 16px;
+}
+.giveicon{
+    width: 17%;
+    margin-left: 20px;
+}
+.ant-table table {
+    min-height: 600px;
+}
+.ant-card-bordered {
+    border: 0px solid #e8e8e8;
+    line-height: 1;
+}
+.ant-card-head {
+    border-bottom: 0px;
+}
+.ant-table-thead > tr > th {
+    background-color: #f8a500;
+}
+.ant-table {
+    border : 1px solid #f8a500;
+    border-radius: 8px;
+}

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-//import { FacebookLoginButton } from "react-social-login-buttons";
-//import { GoogleLoginButton } from "react-social-login-buttons";
+import { FacebookLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import { Link, Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
 import { Layout, Form, Button, Input, Checkbox, Select, AutoComplete, Tabs, Radio, Row, Col } from 'antd';
 import "../App.css"
@@ -50,7 +50,7 @@ class UIregisterMD extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flag: false, mailResp: undefined, phoneResp: undefined, mess: "", roll: "D", userId: undefined, userType: "D", isprofileupdatedflag: 0, email: ""
+      flag: false, mailResp: undefined, phoneResp: undefined, mess: "",mess1:"", roll: "D", userId: undefined, userType: "D", isprofileupdatedflag: 0, email: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.HandleSubmit = this.HandleSubmit.bind(this);
@@ -175,7 +175,7 @@ class UIregisterMD extends React.Component {
                     this.setState({ flag: true })
                   }, 5000);
                 } else if (respJson.Status === "FAILED") {
-                  this.setState({ mess: "Something went wrong please try again later!" })
+                  this.setState({ mess1: respJson.Message })
                 }
               }
 
@@ -233,9 +233,10 @@ class UIregisterMD extends React.Component {
 
 
               <div className="tabCss">
+              <h2 style={{ color: '#f8a500', marginTop:'10px', fontWeight: 'Bold',marginLeft:'350px' }}>REGISTER</h2>
                 <div style={{ marginLeft: '180px' }}>
 
-                  <div style={{ marginTop: '50px' }}>
+                  <div style={{ marginTop: '40px' }}>
 
                     <Form {...layout}>
 
@@ -342,10 +343,10 @@ class UIregisterMD extends React.Component {
                         <Form.Item style={{ width: '85%', display: 'inline-block', position: 'relative', top: '-12px' }}>
                           <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%',left:"150px", borderRadius: '25px', background: '#f8a500' }}>
                             Continue
-                          </Button>
+                        </Button>
                           <br />
 
-                        { /* <h4 style={{marginLeft:'200px'}}>Or Sign Up With</h4>
+                          <h4 style={{marginLeft:'200px'}}>Or Sign Up With</h4>
 
 
                           <Row >
@@ -359,8 +360,7 @@ class UIregisterMD extends React.Component {
                                 <span>Google</span>
                               </GoogleLoginButton>
                             </Col>
-</Row>*/}
-
+                          </Row>
                         </Form.Item>
                       </div>
                     </Form>
@@ -368,7 +368,8 @@ class UIregisterMD extends React.Component {
                 </div>
 
               </div>
-              <h4 style={{ color:(this.state.mess==="User Register Successfully, Please check your Email id for Email id confirmation code !")?  "blue":"red", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
+              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
+              <h4 style={{ color: "red", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess1}</h4>
             </Content>
           </Layout>
           <Footer style={{ padding: '0px' }}>

@@ -5,6 +5,7 @@ import WrappedUIregisterMDForm from "./Component/UIRegisterMD.js";
 import ChangePassword from  "./Component/ChangePassword.js"
 import MainLayout from  "./Component/MainLayout.js"
 import WrappedNormalLoginForm from "./Component/Login.js";
+import FilesUploader from "./Component/UploadPhoto.js"
 import Onetimedonation from "./Component/onetimedonation_after.js";
 import WrappedVerificationMDForm from "./Component/verificationMD.js";
 import UISetNewPassword from "./Component/UISetNewPassword.js";

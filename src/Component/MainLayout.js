@@ -170,7 +170,7 @@ class MainLayout extends React.Component
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-912px'}} onClick={this.profileUpdateClick.bind(this,"profile_update")}><Router><Link >MY PROFILE</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-937px'}} onClick={this.handleSubmit.bind(this,"refer")}><Router><Link >REFER</Link></Router></a>
               <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-963px'}} onClick={this.handleChange.bind(this,"change_password")}><Router><Link >CHANGE PASSWORD</Link></Router></a>
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-985px'}} onClick={this.MyCharity.bind(this,"my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-985px', display:"none"}} onClick={this.MyCharity.bind(this,"my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
               <Logout/>
         </div>
         <Row style={{width: window.innerWidth, position: 'relative', left: '-50px', top: '-64px', height: '100px',boxShadow: '0 2px 5px #efc940', border: '1px solid #efc940'}}>

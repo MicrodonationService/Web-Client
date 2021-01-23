@@ -63,7 +63,7 @@ class MainLayout extends React.Component
         changePasswordFlag : "",
         MycHarity:""   ,//MY CHARITY APP
         oneTimeDonation : "", //onetimeDonation
-        recurringDonation: "", //recurringDonation 
+        recurringDonation: "", //recurringDonation
         labels:['Under18','Age 18-54','Age 55+'],
         datasets: [{
           data:[2000,4000,2850],
@@ -166,11 +166,11 @@ class MainLayout extends React.Component
         <div style={{marginLeft:'-50px',width:(window.innerWidth),background:'white'}}>
             <img src="img/mdHeader.png" style={{width: window.innerWidth ,height: '70px',top: '0px',left: '0px'}}/>
 
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF', left: '-416px', float: 'right', color:'40a9ff'}} onClick={this.homeClick.bind(this,"home")}><Router><Link >Home</Link></Router></a>
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-978px'}} onClick={this.profileUpdateClick.bind(this,"profile_update")}><Router><Link >My Profile</Link></Router></a>
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1005px'}} onClick={this.handleSubmit.bind(this,"refer")}><Router><Link >Refer</Link></Router></a>
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1033px'}} onClick={this.handleChange.bind(this,"change_password")}><Router><Link >Change Password</Link></Router></a>
-              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1039px'}} onClick={this.MyCharity.bind(this,"my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF', left: '-478px', float: 'right', color:'40a9ff'}} onClick={this.homeClick.bind(this,"home")}><Router><Link >HOME</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-912px'}} onClick={this.profileUpdateClick.bind(this,"profile_update")}><Router><Link >MY PROFILE</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-937px'}} onClick={this.handleSubmit.bind(this,"refer")}><Router><Link >REFER</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-963px'}} onClick={this.handleChange.bind(this,"change_password")}><Router><Link >CHANGE PASSWORD</Link></Router></a>
+              <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-985px'}} onClick={this.MyCharity.bind(this,"my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
               <Logout/>
         </div>
         <Row style={{width: window.innerWidth, position: 'relative', left: '-50px', top: '-64px', height: '100px',boxShadow: '0 2px 5px #efc940', border: '1px solid #efc940'}}>
@@ -368,7 +368,7 @@ class MainLayout extends React.Component
 
                                 </p>
                               </Col>
-                          
+
                         </Card>
                     </Col>
                     <Col span={4}  style={{marginLeft:160}}>
@@ -385,8 +385,8 @@ class MainLayout extends React.Component
                                   <a>Donate Now</a>
 
                                 </p>
-                              </Col> 
-                          
+                              </Col>
+
                         </Card>
                     </Col>
 

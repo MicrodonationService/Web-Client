@@ -51,15 +51,41 @@ const onGoogleLogin=(e)=>{
   .set('accept', 'application/json')
   .end((err, res) => {
     console.log(res)
-    let loginRespJson = JSON.parse(JSON.parse(res.text));
+    let loginRespJson = JSON.parse(res.text);
     console.log(typeof(loginRespJson))
-    if (loginRespJson.success === true){
-      console.log("ok")
-    }
-    if (loginRespJson.success === true && loginRespJson.user === "D") {
+
+    if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
       //this.setState({loginFlag:true})
-      ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+      setTimeout(() => {
+
+       ReactDOM.render(<WrappedDonorEditProfile  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
+      }, 5000);
+      //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       console.log(loginRespJson)
+    }else if (loginRespJson.user == "D" && loginRespJson.success == true){
+      let loginRequest = {
+        "email": e.profileObj.email
+      };
+      const superagent = require('superagent');
+      superagent
+        .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+        .send(loginRequest)                                 // sends a JSON post body
+        .set('X-API-Key', 'foobar')
+        .set('Content-Type','application/json')
+        .set('accept', '*/*')
+        .set('Access-Control-Request-Headers','content-type,x-api-key')
+        .set('Access-Control-Request-Method','POST')
+        .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+        .set('Origin','http://localhost:3000')
+        .set('Accept-Encoding','gzip, deflate, br')
+        .set('Sec-Fetch-Dest','empty')
+        .set('Sec-Fetch-Mode', 'cors')
+        .end((err, res) => {                               // Calling the end function will send the request
+          console.log("service call", res);
+          let fatchDetailsRespJson = JSON.parse(res.text);
+          ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+        })
+      //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
     }
   })
 }
@@ -318,13 +344,14 @@ class Loginpage extends React.Component {
             <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Please update profile")? 'blue': 'red', textAlign: 'center' }}>{this.state.mess}</h4>
             <GoogleLogin
               clientId={clientId}
-              buttonText="Login"
+              buttonText="Login with Google"
               onSuccess={onGoogleLogin}
               onFailure={onGoogleFail}
               isSignedIn={true}
+              className="googleButtonCss"
             />
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
-            
+
             </div>
           </div>
         </Content>

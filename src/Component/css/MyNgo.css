@@ -1,10 +1,32 @@
 .NGODonationdisplay{
-    
+
     background-color: coral;
     border-radius: 20px;
     border-width: 1px;
     font-size: large;
     padding: 20px;
+}
+.googleButtonCss{
+        position: relative !important;
+        left: 81px !important;
+        top:25px !important;
+        color: black !important;
+        border-radius: 25px !important;
+        background: #f8a500 !important;
+        box-shadow: none !important;
+        border: none !important;
+}
+.googleButtonCss:focus{
+  outline:none !important;
+}
+.googleButtonCss div{
+    border-radius: 25px !important;
+    margin-right: 1px !important;
+    background: #f8a500 !important;
+    padding: 5px !important;
+    width: 45px !important;
+    position: relative !important;
+    top:3px !important;
 }
 .NGODonationdisplay1{
     background-color:goldenrod;

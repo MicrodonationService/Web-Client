@@ -341,7 +341,7 @@ class UIregisterMD extends React.Component {
 
 
                         <Form.Item style={{ width: '85%', display: 'inline-block', position: 'relative', top: '-12px' }}>
-                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%',left:"150px", borderRadius: '25px', background: '#f8a500' }}>
+                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%',left:"78px", borderRadius: '25px', background: '#f8a500' }}>
                             Continue
                         </Button>
                           <br />

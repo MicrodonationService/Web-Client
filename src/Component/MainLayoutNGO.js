@@ -139,25 +139,25 @@ function getBase64(img, callback) {
                  Name:"Pratik",
                  Location: "Pune",
                  Amount: "₹ 1000",
-                 Date: "Date" 
+                 Date: "Date"
                 },
                 {
                   Name:"Name",
                   Location: "Pune",
                   Amount: "₹ 1040",
-                  Date: "Date" 
+                  Date: "Date"
                  },
                  {
                   Name:"Name",
                   Location: "Pune",
                   Amount: "₹ 2000",
-                  Date: "Date" 
+                  Date: "Date"
                  },
                  {
                   Name:"Name",
                   Location: "Pune",
                   Amount: "₹ 5000",
-                  Date: "Date" 
+                  Date: "Date"
                  }
               ]
               const dataSource = [
@@ -165,38 +165,38 @@ function getBase64(img, callback) {
                   key: '1',
                   Month: 'June 2019',
                   Donation: '₹ 500',
-                  
+
                 },
                 {
                   key: '2',
                   Month: 'July 2019',
                   Donation: '₹ 700',
-                 
+
                 },
                 {
                     key: '2',
                     Month: 'Augest 2019',
                     Donation: '₹ 200',
-                   
+
                   },
                   {
                     key: '2',
                     Month: 'Sepetember 2019',
                     Donation: '₹ 40',
-                   
+
                   },
-        
+
                   {
                     key: '2',
                     Month: 'October 2019',
                     Donation: '₹ 400',
-                   
+
                   },
                   {
                     key: '2',
                     Month: 'November 2019',
                     Donation: '₹ 400',
-                   
+
                   }
               ];
               const donationdata = [
@@ -220,7 +220,7 @@ function getBase64(img, callback) {
                   dataIndex: 'Donation',
                   key: 'Donation Amount',
                 },
-               
+
               ];
               const data = [
                 {
@@ -248,7 +248,7 @@ function getBase64(img, callback) {
 
             <Layout style={{marginTop: '-25px',height:( window.innerHeight - 107 )}}>
                 <img src="img/subHeaderImg.png" style={{width: window.innerWidth+1 ,height: '110px',top: '0px',left: '0px'}}/>
-              <Content style={{background:'white',marginLeft:'2px',overflow : 'unset'}}>
+              <Content style={{background:'white',marginLeft:'2px',overflow : 'scroll'}}>
                   {
                     (this.state.flag1==="home")?<div>
                          <img src="img/NGOLanding.png" style={{width: '100%', height: '100%', paddingBottom:'40px'}}/>
@@ -257,146 +257,8 @@ function getBase64(img, callback) {
                  {
                    (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngocategorydropdown={this.props.ngocategorydropdown}  ngoupdateprofile={this.props.ngoupdateprofile}/>:null
                  }
-                 <div >
-                   <br/>
-                 <div className="thead" >
-                    <Row >
-                        <Col span={12}>
-                          
-                           <Row >
-                          <Col span={8}>
-                          <div class="NGODonationdisplay1">
-                            All Time <b style={{fontSize:'x-large'}}>₹{alltimedonation}</b>
-                            <img class='giveicon' src={logo} alt="Logo" />
-                          </div>
-                          </Col>
-                          <Col span={2}></Col>
-                          <Col span={8}>
-                          <div class="NGODonationdisplay">
-                            Current Month <b style={{fontSize:'x-large'}}>₹{currentmonthdonation}</b>
-                            <img class='giveicon' src={logo} alt="Logo" />
-                          </div>
-                          </Col>
-                          </Row>
-                          <Row>
-                          <br/>
-                            <h3 marginTop={20}>
-                              Top Donations
-                            </h3>
-                            <Col span={6}>
-                              <div className="Donordisplay"> 
-                                <div className="Cardbody">
-                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-                                  <div className="CardText">
-                                  <h2>{donarData[0].Name}</h2>  
-                                      <div className="loca">
-                                        {donarData[0].Location} 
-                                      </div>
-                                      <div className="amt">
-                                        <b> {donarData[0].Amount} </b>
-                                      </div>
-                                      <div className="Carddate">
-                                      {donarData[0].Date}
-                                      </div> 
-                              </div>
-                              </div>
-                              </div>
-                            </Col>
-                            <Col span={6}>
-                              <div className="Donordisplay"> 
-                                <div className="Cardbody">
-                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-                                  <div className="CardText">
-                                  <h2>{donarData[1].Name}</h2>  
-                                      <div className="loca">
-                                        {donarData[1].Location} 
-                                      </div>
-                                      <div className="amt">
-                                        <b> {donarData[1].Amount} </b>
-                                      </div>
-                                      <div className="Carddate">
-                                      {donarData[1].Date}
-                                      </div> 
-                              </div>
-                              </div>
-                              </div>
-                            </Col>
-                            <Col span={6}>
-                              <div className="Donordisplay"> 
-                                <div className="Cardbody">
-                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-                                  <div className="CardText">
-                                  <h2>{donarData[2].Name}</h2>  
-                                      <div className="loca">
-                                        {donarData[2].Location} 
-                                      </div>
-                                      <div className="amt">
-                                        <b> {donarData[2].Amount} </b>
-                                      </div>
-                                      <div className="Carddate">
-                                      {donarData[2].Date}
-                                      </div> 
-                              </div>
-                              </div>
-                              </div>
-                            </Col>
-                            <Col span={6}>
-                              <div className="Donordisplay"> 
-                                <div className="Cardbody">
-                                  <img width={75} height={75} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-                                  <div className="CardText">
-                                    <h2>{donarData[3].Name}</h2>  
-                                      <div className="loca">
-                                        {donarData[3].Location} 
-                                      </div>
-                                      <div className="amt">
-                                        <b> {donarData[3].Amount} </b>
-                                      </div>
-                                      <div className="Carddate">
-                                      {donarData[3].Date}
-                                      </div> 
-                              </div>
-                              </div>
-                              </div>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col span={8}>
-                              
-                            <Chart data={data} height={300} autoFit >
-                              <Coordinate type="theta" radius={0.8} innerRadius={0.75} />
-                              <Axis visible={false } />
-                              <Tooltip showTitle={true} />
-                              <Interval
-                                adjust="stack"
-                                position="value"
-                                color="type"
-                                shape="sliceShape"
-                              />
-                              <Interaction type="element-single-selected" />
-                            </Chart>
-                            </Col>
-                            
-                              <Col span={16} >
-
-                              <Card title="Donation Trend" >
-                                <Chart height={200}  autoFit data={donationdata} interactions={['element-active']} padding={[30, 30, 30, 50]} >
-                                  <Interval position="day*donation"  />
-                                </Chart>
-                              </Card>
-
-                              </Col>
-                            
-                          </Row>
-                          
-                        </Col>
-                        <Col span={12}>
-                        <a>Donation Summary</a>&nbsp;&nbsp;<a>Last 6month</a> <a style={{float:'right'}}>Download</a>
-                        <br />
-                        <Table min-height={500} dataSource={dataSource} columns={columns} />
-                        </Col>
-                    </Row>
-                </div>
+                 <div>
+                      <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>
                  </div>
                 </Content>
                 </Layout>

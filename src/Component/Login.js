@@ -155,9 +155,15 @@ class Loginpage extends React.Component {
           "password": values.password,
 
         };
+        var url = "";
+        if(this.state.tabFlag === "D"){
+          url = "https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorlogin"
+        }else{
+          url = "https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngologin"
+        }
         const superagent = require('superagent');
         superagent
-          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/signin') // Ajax call
+          .post(url) // Ajax call
           .send(loginRequest)                                 // sends a JSON post body
           .set('X-API-Key', 'foobar')
           .set('Content-Type','application/json')

@@ -66,7 +66,7 @@ function getBase64(img, callback) {
           this.myDetailClick = this.myDetailClick.bind(this);
           this.state={ mess : "", loading:false}
           this.onChange=this.onChange.bind(this);
-          this.state = {ngoupdatedetails:"", ngoupdateprofile:""};
+          this.state = {ngoupdatedetails:"", ngoupdateprofile:undefined};
         }
 
             onChange = e =>
@@ -118,6 +118,33 @@ function getBase64(img, callback) {
           myDetailClick(data){
             this.setState({varDetail:data})
             this.setState({flag1:""})
+
+            let loginRequest = {
+              "email": this.props.email
+            };
+            const superagent = require('superagent');
+            superagent
+              .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoupdateprofile') // Ajax call
+              .send(loginRequest)                                 // sends a JSON post body
+              .set('X-API-Key', 'foobar')
+              .set('Content-Type','application/json')
+              .set('accept', '*/*')
+              .set('Access-Control-Request-Headers','content-type,x-api-key')
+              .set('Access-Control-Request-Method','POST')
+              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+              .set('Origin','http://localhost:3000')
+              .set('Accept-Encoding','gzip, deflate, br')
+              .set('Sec-Fetch-Dest','empty')
+              .set('Sec-Fetch-Mode', 'cors')
+              .end((err, res) => {                               // Calling the end function will send the request
+                console.log("service call", res);
+                let fatchDetailsRespJson = JSON.parse(res.text);
+                if(fatchDetailsRespJson.Status === "SUCCESS"){
+                  this.setState({ngoupdateprofile:fatchDetailsRespJson})
+                }
+            // ReactDOM.render(<WrappedNormalMainLayoutNGO email={values.email} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
+          })
+
           }
 
     render(){
@@ -255,7 +282,7 @@ function getBase64(img, callback) {
                     </div>:null
                   }
                  {
-                   (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngocategorydropdown={this.props.ngocategorydropdown}  ngoupdateprofile={this.props.ngoupdateprofile}/>:null
+                   (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngocategorydropdown={this.props.ngocategorydropdown}  ngoupdateprofile={(this.state.ngoupdateprofile == undefined)? this.props.ngoupdateprofile : this.state.ngoupdateprofile}/>:null
                  }
                  <div>
                       <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>

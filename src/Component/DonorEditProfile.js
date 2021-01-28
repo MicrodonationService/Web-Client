@@ -8,7 +8,7 @@ import '../index.css';
 import MainLayout from "./MainLayout.js"
 import WrappedOtpVerifyForm from "./OtpVerify.js"
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Row, Modal, Col, Collapse, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select } from 'antd';
+import { Layout, Menu, Row, Modal, Col, Collapse, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select,message, Upload } from 'antd';
 import { Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 const { Header, Content, Sider, Footer } = Layout;
@@ -22,10 +22,28 @@ const layout = {
   },
 };
 
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  if (!isJpgOrPng) {
+    message.error('You can only upload JPG/PNG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJpgOrPng && isLt2M;
+}
+
 class DonorEditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", visible: false, value: 1, mobileReadOnlyField: "", handleFlag: true, mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false,donorcatgdropdown:"" , donorcategorys:""};
+    this.state = { posts: "", visible: false, value: 1, mobileReadOnlyField: "", message1:"",handleFlag: true,updatefail:"", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false,donorcatgdropdown:"" , donorcategorys:"",ispanvalid:""};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { mess: "", loading: false }
@@ -33,6 +51,7 @@ class DonorEditProfile extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.donorFetchname = this.donorFetchname.bind(this);
     this.clickChange = this.clickChange.bind(this);
+    this.pancardValidation = this.pancardValidation.bind(this);
 
 
     this.email = this.props.email;
@@ -56,6 +75,22 @@ class DonorEditProfile extends React.Component {
     this.setState({ value: event.target.value });
     window.location.reload();
   }
+
+  handleChange1 = info => {
+    if (info.file.status === 'uploading') {
+      this.setState({ loading: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, imageUrl =>
+        this.setState({
+          imageUrl,
+          loading: false,
+        }),
+      );
+    }
+  };
 
   clickChange(value) {
     console.log(`selected ${value}`);
@@ -121,12 +156,42 @@ class DonorEditProfile extends React.Component {
     }, 2000);
   };
 
+  // handleValidation = (event)=>{
+  //   event.preventDefault();
+  //   const {name, value} = event.target;
+  //   let errors = this.state.errors;
+
+  //   switch (name){
+  //     case
+  //   }
+  // }
 
   handleCancel = () => {
     this.setState({
       visible: false,
     });
   };
+
+
+
+
+
+  pancardValidation(value) {
+    let  regex = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+    console.log(`selected${value}`);
+    if(regex.test(value)) {
+      console.log("In True");
+         return true;
+    }
+    else{
+      console.log("In False");
+      this.setState({
+        mess:"Pan Invalid"
+      })
+      return false;
+    }
+
+}
 
 
   donorFetchname(){
@@ -161,6 +226,8 @@ class DonorEditProfile extends React.Component {
       this.setState({ handleFlag: true })
       // var mobilen
       // console.log("Mobile",mobilenumber);
+      if(this.pancardValidation(values.pancard)){
+
 
       if (!err) {
 
@@ -199,7 +266,7 @@ class DonorEditProfile extends React.Component {
             console.log("respJson", respJson);
             if (respJson.Status === "SUCCESS") {
               console.log("hi", respJson);
-              this.setState({ mess: respJson.Messege })
+              this.setState({ mess: "Profile Data Updated Successfully!!!" })
               let loginRequest = {
                 "email": this.props.email
               };
@@ -222,12 +289,15 @@ class DonorEditProfile extends React.Component {
                   let fatchDetailsRespJson = JSON.parse(res.text);
                   ReactDOM.render(<MainLayout donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
                 })
-            } else if (respJson.success === false) {
-              this.setState({ mess: respJson.message })
+            } else if (respJson.Status === "FAILED") {
+              this.setState({ failedmess: "Failed In Updated Data..." })
             }
           });
       }
-
+    }else{
+      console.log('In Pan Else');
+      this.setState({message1:"Invalid PAN Number"})
+    }
     })
   }
 
@@ -256,10 +326,15 @@ class DonorEditProfile extends React.Component {
   render() {
     console.log("Donor Details", this.props.donorfetchdata)
     const { visible, confirmLoading } = this.state;
+    const { loading, imageUrl } = this.state;
     //var bgimg = "url('"+ window.origin+"/background.png')";
 
     const { getFieldDecorator } = this.props.form;
     const { posts } = this.state;
+
+    const uploadButton = (
+      <div style={{ marginTop: 8 }}>Upload</div>
+    );
 
     return (
       <div style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
@@ -270,16 +345,38 @@ class DonorEditProfile extends React.Component {
           </div>
 
 
+
+
         </Header>
         <Layout>
           <Content style={{ background: 'white', overflow: 'unset' }}>
-            <h1 style={{ display: 'block', position: 'relative', left: '680px', top: '44px', fontWeight: 900, color: '#f8a500', fontSize: 'x-large' }}>MY PROFILE</h1>
+            <div style={{}}>
+            <h5 style={{ display: 'block', position: 'relative', left: '70px', top: '7px', fontWeight: 800, color: '#f8a500', fontSize: 'x-large' }}>MY PROFILE</h5>
+          <span style={{ margin: '60px 0px 0px 105px' }}>
+            <Avatar size={64} shape="circle" src="img/NGO.png" />
+          </span>
+          <div style={{ margin: '15px 0px 0px 85px ' }}>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={beforeUpload}
+              onChange={this.handleChange1}
+            >
+              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            </Upload>
+
+          </div>
+            </div>
+            {/* <h1 style={{ display: 'block', position: 'relative', left: '680px', top: '-250px', fontWeight: 900, color: '#f8a500', fontSize: 'x-large' }}>MY PROFILE</h1> */}
             <div style={{ width: (window.innerWidth - 400), height: (window.innerHeight - 300), margin: '0px 0px 0px 160px', position: 'relative', bottom: '40px', border: '1px solid #ffffff' }}>
 
               <Form {...layout}>
 
 
-                <div style={{ width: (window.innerWidth - 450), height: (window.innerHeight - 300), margin: '100px 0px 0px 100px', border: '1px solid #ffffff' }}>
+                <div style={{ width: (window.innerWidth - 450), height: (window.innerHeight - 300), margin: '-180px 0px 0px 100px', border: '1px solid #ffffff' }}>
                   <div style={{ background: '#FFFFFF' }}>
                     <h4 style={{ marginBottom: '-18px', marginLeft: '72px' }}>NAME <span style={{color:'red'}}>*</span> </h4>
                     <Form.Item
@@ -294,10 +391,9 @@ class DonorEditProfile extends React.Component {
                           }
                         ],
 
-
-
                       })(
-                        <Input style={{ borderRadius: '25px' }} />)}
+                        <Input type="text" title="Name must be only letters" oninvalid="setCustomValidity('Name must be only letters')" pattern="[A-Za-z]" style={{ borderRadius: '25px' }} />)}
+                        {/* <span class="validity"  style={{color:'red'}}>Name must be only letters</span> */}
                     </Form.Item>
                     <h4 style={{ marginTop: '-41px', marginLeft: '427px' }}>AGE</h4>
                     <Form.Item
@@ -305,13 +401,29 @@ class DonorEditProfile extends React.Component {
                       style={{ width: '53%', alignContent: 'center', position: 'relative', left: '422px', top: '-19px' }}
                     >
                       {getFieldDecorator('age', {
+                        rules: [
+                          {
+                            required: true,
+                          },{
+                            max:2
+                          }
+                        ],
+
 
                       })(
-                        <Input style={{ borderRadius: '25px', width: '24%' }} />)}
-                    </Form.Item
+                        <Input maxLength={2} onChange={(e) =>{
+                          const {value} = e.target;
+                          const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                                   if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
 
-                    >
-                    <h4 style={{ marginTop: '-80px', marginLeft: '521px' }}>OCCUPATION</h4>
+                                   }
+                                   else{
+                                     e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                                     return ;
+                                   }
+                          }} style={{ borderRadius: '25px', width: '24%' }} />)}
+                    </Form.Item>
+                    <h4 style={{ marginTop: '-80px', marginLeft: '521px' }}>OCCUPATION<span style={{color:'red'}}>*</span></h4>
                     <Form.Item
                      style={{ width: '68%', alignContent: 'center', position: 'relative', left: '520px', top: '-60px' }}
                     >
@@ -350,7 +462,7 @@ class DonorEditProfile extends React.Component {
                         ],
 
                       })(
-                        <Input style={{ borderRadius: '25px', width: '36%' }} />)}
+                        <Input type="text" style={{ borderRadius: '25px', width: '36%' }} />)}
                     </Form.Item>
                   </div>
                   <Form.Item style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-55px' }}>
@@ -367,7 +479,7 @@ class DonorEditProfile extends React.Component {
                     ],
 
                   })(
-                    <Input style={{ borderRadius: '25px' }} />)}
+                    <Input type="text" style={{ borderRadius: '25px' }} />)}
                   </Form.Item>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-45px' }}>
                     <h4 style={{ marginTop: '-46px', marginLeft: '72px' }}>E-MAIL ID</h4>
@@ -379,7 +491,7 @@ class DonorEditProfile extends React.Component {
                     {getFieldDecorator('email', {
 
                     })(
-                      <Input readOnly={true} style={{ borderRadius: '25px', width: '70%' }}
+                      <Input readOnly={true} style={{ borderRadius: '25px', width: '70%',backgroundColor:'	#E0E0E0' }}
                         onChange={
                           (e) => {
                             this.setState({ verifyFlag1: true })
@@ -399,14 +511,27 @@ class DonorEditProfile extends React.Component {
                       {
                         required: true,
                         message: 'Please enter Phone Number',
+
+                      },
+                      {
+                        min:10,
+                        message:"Please enter minimum 10 digits"
                       }
                     ],
 
                   })(
-                    <Input style={{ borderRadius: '25px', width: '100%' }}
-                    /*onChange={(e) =>{
-                      this.setState({reqFlag1 : true})
-                      }}*/
+                    <Input maxLength={10}  style={{ borderRadius: '25px', width: '100%' }}
+                    onChange={(e) =>{
+                      const {value} = e.target;
+                      const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                               if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                               }
+                               else{
+                                 e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                                 return ;
+                               }
+                      }}
                     />)}
 
                   </Form.Item>
@@ -442,12 +567,24 @@ class DonorEditProfile extends React.Component {
 
                   })(
                     <Input
+
+                    className="PAN"
+                    type="text"
+
+                    maxLength="10"
+
+
                     // onChange={
                     //   (e)=>{
                     //     this.setState({verifyFlag2 : true})
                     //   }
                     // }
-                    />)}
+                    />
+
+                    )}
+                    <span style={{color:'red'}}>{this.state.message1}</span>
+
+
                   </Form.Item>
                   <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-80px' }}>
                     <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '32%', borderRadius: '25px', background: '#f8a500', color: 'Black', borderColor: 'white' }}>
@@ -460,7 +597,8 @@ class DonorEditProfile extends React.Component {
 
 
               </Form>
-              <h4 style={{ position: 'relative', top: '2px', color: 'blue', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
+              <h4 style={{ position: 'relative', top: '2px', color: 'blue', textAlign: 'center', right: '-90px' }}>{this.state.mess}</h4>
+              <h4 style={{ position: 'relative', top: '2px', color: 'red', textAlign: 'center', right: '-90px' }}>{this.state.failedmess}</h4>
 
             </div>
           </Content>

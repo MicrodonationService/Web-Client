@@ -46,19 +46,25 @@ function beforeUpload(file) {
 class NgoEditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", value: 1, visible: false, mobileReadOnlyField: "", ngocatgdropdown: "", ngocategory: "" };
+    this.state = { posts: "", value: 1, visible: false, mobileReadOnlyField: "", fetchfail:"",ngocatgdropdown: "",message1:"", ngocategory: "",ngocategoryother:"",ngoorgtype:"",ngotypeoforg:""};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
+    this.ngoCategoryOther = this.ngoCategoryOther.bind(this);
+    this.ngoOrgType = this.ngoOrgType.bind(this);
     this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "" }
     this.onChange = this.onChange.bind(this);
+    this.bankifscvalidation = this.bankifscvalidation.bind(this);
     this.showModal = this.showModal.bind(this);
     this.ngoFetchname = this.ngoFetchname.bind(this);
+    this.typeoforganization = this.typeoforganization.bind(this);
     this.state = { ngoupdatedetails: "", ngoupdateprofile: "" };
     this.email = this.props.email;
 
     this.ngoFetchname();
+    this.ngoOrgType();
+
 
 
 
@@ -90,6 +96,22 @@ class NgoEditProfile extends React.Component {
     window.location.reload();
   }
 
+  bankifscvalidation(value){
+    let regex = new RegExp("^[A-Z]{4}0[A-Z0-9]{6}$");
+    console.log(`selected ${value}`);
+    if(regex.test(value)){
+      console.log("In True");
+      return true;
+    }
+    else{
+      console.log("In False");
+      this.setState({
+        message1:"IFSC CODE INVALID"
+      })
+      return false;
+    }
+  }
+
   handleChange1 = info => {
     if (info.file.status === 'uploading') {
       this.setState({ loading: true });
@@ -114,6 +136,26 @@ class NgoEditProfile extends React.Component {
 
     })
     console.log("NGO CATG Drop Down", this.state.ngocatgdropdown)
+  }
+
+  ngoCategoryOther(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngocatgdropdownother: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngocatgdropdownother)
+  }
+
+  typeoforganization(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngotypeoforg: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngotypeoforg)
   }
 
   showModal = (e) => {
@@ -168,6 +210,32 @@ class NgoEditProfile extends React.Component {
     });
   };
 
+  ngoOrgType(){
+    let ngoCategoryOther = {
+      "lookuptype":"ORG_TYPE"
+    }
+    const superagent = require('superagent');
+    superagent
+      .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
+      .send(ngoCategoryOther)
+      .set('X-API-Key', 'foobar')
+      .set('accept', 'application/json')
+      .end((err, res) => {
+        console.log("Response", res);
+        let detailsRespJSOn = JSON.parse(res.text);
+        console.log("respjson", detailsRespJSOn);
+        if (detailsRespJSOn.Status == "SUCCESS") {
+          console.log("NGO Data", detailsRespJSOn)
+          this.setState({ ngoorgtype: detailsRespJSOn })
+          console.log("NGO CATEGORY", this.state.ngoorgtype)
+
+        }
+
+        console.log("Ngo Category", this.state.ngoorgtype)
+      })
+
+  }
+
   ngoFetchname() {
     let ngocategorys = {
       "lookuptype": "NGO_CATG"
@@ -202,6 +270,10 @@ class NgoEditProfile extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       this.setState({ reqFlag1: true })
+
+      if(this.bankifscvalidation(values.ifsccode)){
+
+
       if (!err) {
         let ngoupdatedetails = {
 
@@ -223,7 +295,9 @@ class NgoEditProfile extends React.Component {
           "contactpersonname": values.contactpersonname,
           "bankname": values.bankname,
           "operationalsince":""+values.operationalsince,
-          "registrationnumber":values.registrationnumber
+          "registrationnumber":values.registrationnumber,
+          "ngocategorysecondary":this.state.ngocatgdropdownother,
+          "typeoforganization": this.state.ngotypeoforg
 
         };
         const superagent = require('superagent');
@@ -245,6 +319,7 @@ class NgoEditProfile extends React.Component {
             console.log("respJson", respJson);
             if (respJson.Status === "SUCCESS") {
               console.log("hi", respJson);
+              this.setState({updatedmessage: "Profile Updated Successfully!!!"})
               let loginRequest = {
                 "email": this.props.email
               };
@@ -266,18 +341,23 @@ class NgoEditProfile extends React.Component {
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
                   if (fatchDetailsRespJson.Status === "SUCCESS") {
-                    ReactDOM.render(<WrappedNormalMainLayoutNGO ngocategorydropdown={this.props.ngocategorydropdown} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
-                  } else if (respJson.success === false) {
-                    this.setState({ mess: respJson.message })
+                    ReactDOM.render(<WrappedNormalMainLayoutNGO email={this.props.email} ngocategorydropdown={this.props.ngocategorydropdown} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
+                  } else if (respJson.Status === "FAILED") {
+                    this.setState({ fetchfail: "Failed In Getting Data..." })
                   }
 
                   // ReactDOM.render(<WrappedNormalMainLayoutNGO data={loginRespJson} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
-                })
+                });
               // this.setState({ mess: respJson.Messege });
               // ReactDOM.render(<WrappedNormalMainLayoutNGO   />, document.getElementById('root'));
             }
 
           });
+        }else{
+          console.log("In IFSC False");
+          this.setState({message1:"Invalid IFSC Code"});
+          console.log("Message", this.state.message1);
+        }
 
       }
     })
@@ -350,7 +430,7 @@ class NgoEditProfile extends React.Component {
 
           </div>
 
-          <div style={{ width: '80%', height: '90%', marginTop: '-240px', marginLeft: '50px', overflowY: 'auto', overflowX: 'hidden' }}>
+          <div style={{ width: '80%', height: '90%', marginTop: '-240px', marginLeft: '50px',overflowX:'hidden',overflowY:'auto' }}>
             <Form {...layout} style={{ border: '1px solid #FFFFFF' }}>
               <h4 style={{ marginTop: '-20x', marginLeft: '220px' }}>NGO NAME<span style={{color:"red"}}>*</span></h4>
               <Form.Item
@@ -366,7 +446,7 @@ class NgoEditProfile extends React.Component {
                   ],
 
                 })(
-                  <Input  style={{ borderRadius: '25px' }}
+                  <Input type="text"  style={{ borderRadius: '25px' }}
                 /*onChange={(e) =>{
                   this.setState({reqFlag1 : true})
                   }}*//>)}
@@ -398,8 +478,63 @@ class NgoEditProfile extends React.Component {
                   )}
 
               </Form.Item>
-              <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-                <h4 style={{ marginTop: '-43px', marginLeft: '70px' }}>NGO ADDRESS <span style={{color:'red'}}>*</span></h4>
+
+              <h4 style={{ marginTop: '0px', marginLeft: '227px' }}>NGO CATEGORY OTHER</h4>
+              <Form.Item style={{ left: '225px', top: '-10px', width: '53%' }}
+
+
+              >
+                 {getFieldDecorator('ngocategoryother', {
+                  //  rules: [
+                  //   {
+                  //     required: true,
+                  //     message: 'Select Category',
+                  //   }
+                  // ],
+
+                })(
+                  <Select placeholder='Select Category' onChange={this.ngoCategoryOther} style={{ width: '85%' }} >
+
+                  {
+                    (this.state.ngocategory !== undefined ) ?
+                    this.state.ngocategory.Body.map((value) => (
+                      <option value={value}>{value}</option>
+                    )):""
+                  }
+                </Select>
+                  )}
+
+              </Form.Item>
+
+              <h4 style={{ marginTop: '-70px', marginLeft: '525px' }}>TYPE OF ORGANIZATION<span style={{color:'red'}}>*</span></h4>
+              <Form.Item style={{ left: '525px', top: '-50px', width: '53%' }}
+
+
+              >
+                 {getFieldDecorator('typeoforganization', {
+                   rules: [
+                    {
+                      required: true,
+                      message: 'Select Organization Type',
+                    }
+                  ],
+
+                })(
+                  <Select placeholder='Select Organization Type' onChange={this.typeoforganization} style={{ width: '85%' }} >
+
+                  {
+                    (this.state.ngoorgtype !== undefined ) ?
+                    this.state.ngoorgtype.Body.map((value) => (
+                      <option value={value}>{value}</option>
+                    )):""
+                  }
+                </Select>
+                  )}
+
+              </Form.Item>
+
+              <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '20px' }}>
+                <h4 style={{ marginTop: '-65px', marginLeft: '70px' }}>NGO ADDRESS <span style={{color:'red'}}>*</span></h4>
               </Form.Item>
               <Form.Item
 
@@ -414,7 +549,7 @@ class NgoEditProfile extends React.Component {
                   ],
 
                 })(
-                  <Input  style={{ borderRadius: '25px' }}
+                  <Input type="text"  style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -435,7 +570,7 @@ class NgoEditProfile extends React.Component {
                     ],
 
                 })(
-                  <Input  style={{ borderRadius: '25px', width: '24%' }}
+                  <Input type="text" style={{ borderRadius: '25px', width: '24%' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -452,14 +587,26 @@ class NgoEditProfile extends React.Component {
                     {
                       required: true,
                       message: 'Please enter Pincode',
+                    },
+                    {
+                      max:6,
+                      message:"Please enter correct pincode"
                     }
                   ],
 
                 })(
-                  <Input style={{ borderRadius: '25px', width: '22%' }}
-  /*onChange={(e) =>{
-    this.setState({reqFlag1 : true})
-    }}*//>)}
+                  <Input   maxLength={6} style={{ borderRadius: '25px', width: '22%' }}
+                  onChange={(e) =>{
+                    const {value} = e.target;
+                    const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                             if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                             }
+                             else{
+                               e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                               return ;
+                             }
+                    }}/>)}
 
 
               </Form.Item>
@@ -475,7 +622,7 @@ class NgoEditProfile extends React.Component {
                 {getFieldDecorator('email', {
 
                 })(
-                  <Input readOnly={true} style={{ borderRadius: '25px', width: '144%' }}
+                  <Input readOnly={true} style={{ borderRadius: '25px', width: '144%', backgroundColor:'	#E0E0E0' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -494,7 +641,7 @@ class NgoEditProfile extends React.Component {
                 {getFieldDecorator('website', {
 
                 })(
-                  <Input style={{ borderRadius: '25px', width: '144%' }}
+                  <Input type="url" placeholder="https://example.com" pattern="https://.*" size="30" style={{ borderRadius: '25px', width: '144%' }}
                   /* onChange={(e) =>{
                      this.setState({reqFlag1 : true})
                      }}*/
@@ -515,26 +662,38 @@ class NgoEditProfile extends React.Component {
                   {
                     required: true,
                     message: 'Please enter Operational Year',
+                  },
+                  {
+                    max:4,
+                    message:'Please enter Year in YYYY Format'
                   }
                 ],
 
               })(
-                <Input  style={{ borderRadius: '25px', width: '144%' }}
-                /* onChange={(e) =>{
-                   this.setState({reqFlag1 : true})
-                   }}*/
+                <Input  pattern="/^[0-9]+$/" maxLength={4}  placeholder="Year Ex:1999" style={{ borderRadius: '25px', width: '144%' }}
+                onChange={(e) =>{
+                  const {value} = e.target;
+                  const reg = /^[0-9]+$/;
+                           if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                           }
+                           else{
+                             e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                             return ;
+                           }
+                  }}
                 />)}
 
 
             </Form.Item>
 
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-90px', marginLeft: '400px' }}>REGISTRATION NUMBER <span style={{color:'red'}}>*</span></h4>
+              <h4 style={{ marginTop: '-90px', marginLeft: '280px' }}>REGISTRATION NUMBER <span style={{color:'red'}}>*</span></h4>
             </Form.Item>
 
             <Form.Item
 
-              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '550px' }}
+              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '425px' }}
             >
               {getFieldDecorator('registrationnumber', {
                  rules: [
@@ -545,7 +704,7 @@ class NgoEditProfile extends React.Component {
                 ],
 
               })(
-                <Input   style={{ borderRadius: '25px', width: '144%' }}
+                <Input type="text"  style={{ borderRadius: '25px', width: '144%' }}
                 /* onChange={(e) =>{
                    this.setState({reqFlag1 : true})
                    }}*/
@@ -553,9 +712,37 @@ class NgoEditProfile extends React.Component {
 
 
             </Form.Item>
-              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-40px' }}>
+
+            <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
+              <h4 style={{ marginTop: '-130px', marginLeft: '475px' }}>REFERRER</h4>
+            </Form.Item>
+
+            <Form.Item
+
+              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-100px', left: '625px' }}
+            >
+              {getFieldDecorator('referrer', {
+                //  rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter Registration Number',
+                //   }
+                // ],
+
+              })(
+                <Input type="text" readOnly={true} style={{ borderRadius: '25px', width: '144%',backgroundColor:'	#E0E0E0' }}
+                /* onChange={(e) =>{
+                   this.setState({reqFlag1 : true})
+                   }}*/
+                />)}
+
+
+            </Form.Item>
+
+
+              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-70px' }}>
                 BANK ACCOUNT DETAILS</h4>
-              <div style={{ width: '63%', height: '300px', marginLeft: '220px', marginTop: '-20px', background: '#e8e8e8' }}>
+              <div style={{ width: '63%', height: '325px', marginLeft: '220px', marginTop: '-45px', background: '#e8e8e8' }}>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                 <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>BANK NAME <span style={{color:'red'}}>*</span> </h4>
               </Form.Item>
@@ -573,7 +760,7 @@ class NgoEditProfile extends React.Component {
                   ],
 
                 })(
-                  <Input  style={{ borderRadius: '25px' }}
+                  <Input type="text"  style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -593,14 +780,26 @@ class NgoEditProfile extends React.Component {
                       {
                         required: true,
                         message: 'Please enter Account Number',
+                      },
+                      {
+                        max:15,
+                        message:'Please enter correct account number'
                       }
                     ],
 
                   })(
-                    <Input  style={{ borderRadius: '25px' }}
-                    /*onChange={(e) =>{
-                      this.setState({reqFlag1 : true})
-                      }}*/
+                    <Input maxLength={15}   style={{ borderRadius: '25px' }}
+                    onChange={(e) =>{
+                      const {value} = e.target;
+                      const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                               if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                               }
+                               else{
+                                 e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                                 return ;
+                               }
+                      }}
                     />)}
 
                 </Form.Item>
@@ -618,16 +817,19 @@ class NgoEditProfile extends React.Component {
                       {
                         required: true,
                         message: 'Please enter IFSC CODE',
+                      },{
+                        max:11,
+                        message:'Please enter correct IFSC CODE'
                       }
                     ],
 
                   })(
-                    <Input  style={{ borderRadius: '25px' }}
-                    /*onChange={(e) =>{
-                      this.setState({reqFlag1 : true})
-                      }}*/
+                    <Input  maxLength={11} style={{ borderRadius: '25px' }}
+                    onChange={(e) =>{
+                      this.setState({message1 : ""})
+                      }}
                     />)}
-
+                    <span style={{color:'red'}}>{this.state.message1}</span>
                 </Form.Item>
 
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
@@ -647,7 +849,7 @@ class NgoEditProfile extends React.Component {
                     ],
 
                   })(
-                    <Input  style={{ borderRadius: '25px' }}
+                    <Input type="text" style={{ borderRadius: '25px' }}
                     /*onChange={(e) =>{
                       this.setState({reqFlag1 : true})
                       }}*/
@@ -671,7 +873,7 @@ class NgoEditProfile extends React.Component {
                     ],
 
                   })(
-                    <Input   style={{ borderRadius: '25px' }}
+                    <Input  type="text" style={{ borderRadius: '25px' }}
                     /*onChange={(e) =>{
                       this.setState({reqFlag1 : true})
                       }}*/
@@ -679,10 +881,10 @@ class NgoEditProfile extends React.Component {
 
                 </Form.Item>
 
-                <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-5px' }}>
+                <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '25px' }}>
                   CONTACT PERSON DETAILS</h4>
 
-                <div style={{ width: '100%', height: '200px', marginLeft: '0px', marginTop: '-10px', background: '#e8e8e8' }}>
+                <div style={{ width: '100%', height: '225px', marginLeft: '0px', marginTop: '20px', background: '#e8e8e8' }}>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                     <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>NAME <span style={{color:'red'}}>*</span></h4>
                   </Form.Item>
@@ -700,7 +902,7 @@ class NgoEditProfile extends React.Component {
                     ],
 
                   })(
-                    <Input  style={{ borderRadius: '25px' }}
+                    <Input type="text" style={{ borderRadius: '25px' }}
                     /*onChange={(e) =>{
                       this.setState({reqFlag1 : true})
                       }}*/
@@ -722,17 +924,28 @@ class NgoEditProfile extends React.Component {
                         {
                           required: true,
                           message: 'Please enter Mobile Number',
+                        },{
+                          min:10,
+                          message:"Please enter 10 digits mobile number"
                         }
                       ],
 
                     })(
-                      <Input  style={{ borderRadius: '25px', width: '100%' }}
-                      /*onChange={(e) =>{
-                        this.setState({reqFlag1 : true})
-                        }}*/
+                      <Input  maxLength={10} style={{ borderRadius: '25px', width: '100%' }}
+                      onChange={(e) =>{
+                        const {value} = e.target;
+                        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                                 if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                                 }
+                                 else{
+                                   e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                                   return ;
+                                 }
+                        }}
                       />)}
 
-                    <a onClick={this.showModal} style={{ position: 'relative', color: '#000000', top: '-20px', left: '0px', textDecoration: 'underline' }}>Verify Mobile Number</a>
+                    <a onClick={this.showModal} style={{ position: 'relative', color: '#000000', top: '-10px', left: '0px', textDecoration: 'underline' }}>Verify Mobile Number</a>
                     <div>
                       <Modal
                         title="Verify Mobile"
@@ -763,6 +976,7 @@ class NgoEditProfile extends React.Component {
                 </Form.Item>
                 <center>
                   <p style={{ color: 'blue' }}>{this.state.updatedmessage}</p>
+                  <p style={{ color: 'red' }}>{this.state.fetchfail}</p>
                 </center>
 
               </div>

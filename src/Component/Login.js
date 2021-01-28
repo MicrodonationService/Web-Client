@@ -25,71 +25,75 @@ const clientId= '124654413589-6fetlcfplfted7k6hbl8nib9s7qcduso.apps.googleuserco
 function callback(key) {
   console.log(key);
 }
-const onGoogleFail=(e)=>{
-  console.log(e);
-}
-const onGoogleLogin=(e)=>{
-  console.log(e);
-  console.log({
-    "IdToken":e.tokenId,
-    "email":e.profileObj.email,
-    "name":e.profileObj.name
-  });
-  if (e.profileObj.email=="pdpatil@mitaoe.ac.in"){
-    ReactDOM.render(<WrappedDonorEditProfile data={e.profileObj.email}/>, document.getElementById('root'));
-  }
-  else{
-  const superagent = require('superagent');
-  superagent
-  .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/loginwithgoogle')
-  .send({
-          "IdToken":e.tokenId,
-          "email":e.profileObj.email,
-          "name":e.profileObj.name
-        })
-  .set('X-API-Key', 'foobar')
-  .set('accept', 'application/json')
-  .end((err, res) => {
-    console.log(res)
-    let loginRespJson = JSON.parse(res.text);
-    console.log(typeof(loginRespJson))
+// const onGoogleFail=(e)=>{
+//   console.log(e);
+// }
+// const onGoogleLogin=(e)=>{
+//   console.log(e);
+//   console.log({
+//     "IdToken":e.tokenId,
+//     "email":e.profileObj.email,
+//     "name":e.profileObj.name
+//   });
+//   if (e.profileObj.email=="pdpatil@mitaoe.ac.in"){
+//     ReactDOM.render(<WrappedDonorEditProfile data={e.profileObj.email}/>, document.getElementById('root'));
+//   }
+//   else{
+//   const superagent = require('superagent');
+//   superagent
+//   .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/loginwithgoogle')
+//   .send({
+//           "IdToken":e.tokenId,
+//           "email":e.profileObj.email,
+//           "name":e.profileObj.name
+//         })
+//   .set('X-API-Key', 'foobar')
+//   .set('accept', 'application/json')
+//   .end((err, res) => {
+//     console.log(res)
+//     let loginRespJson = JSON.parse(res.text);
+//     console.log(typeof(loginRespJson))
 
-    if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
-      //this.setState({loginFlag:true})
-      setTimeout(() => {
+//     if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
+//       //this.setState({loginFlag:true})
+//       setTimeout(() => {
+//        ReactDOM.render(<WrappedDonorEditProfile  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
+//       }, 5000);
+//       //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+//       console.log(loginRespJson)
+//     }else if (loginRespJson.user == "D" && loginRespJson.success == true){
+//       let loginRequest = {
+//         "email": e.profileObj.email,
+//       };
+//       const superagent = require('superagent');
+//       superagent
+//         .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+//         .send(loginRequest)                                 // sends a JSON post body
+//         .set('X-API-Key', 'foobar')
+//         .set('Content-Type','application/json')
+//         .set('accept', '*/*')
+//         .set('Access-Control-Request-Headers','content-type,x-api-key')
+//         .set('Access-Control-Request-Method','POST')
+//         .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+//         .set('Origin','http://localhost:3000')
+//         .set('Accept-Encoding','gzip, deflate, br')
+//         .set('Sec-Fetch-Dest','empty')
+//         .set('Sec-Fetch-Mode', 'cors')
+//         .end((err, res) => {                               // Calling the end function will send the request
+//           console.log("service call", res);
+//           let fatchDetailsRespJson = JSON.parse(res.text);
+//           ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+//         })
+//       //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+//     }
+//     else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User not registered") { // "I" stand for Inactive user
 
-       ReactDOM.render(<WrappedDonorEditProfile  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
-      }, 5000);
-      //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
-      console.log(loginRespJson)
-    }else if (loginRespJson.user == "D" && loginRespJson.success == true){
-      let loginRequest = {
-        "email": e.profileObj.email
-      };
-      const superagent = require('superagent');
-      superagent
-        .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
-        .send(loginRequest)                                 // sends a JSON post body
-        .set('X-API-Key', 'foobar')
-        .set('Content-Type','application/json')
-        .set('accept', '*/*')
-        .set('Access-Control-Request-Headers','content-type,x-api-key')
-        .set('Access-Control-Request-Method','POST')
-        .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-        .set('Origin','http://localhost:3000')
-        .set('Accept-Encoding','gzip, deflate, br')
-        .set('Sec-Fetch-Dest','empty')
-        .set('Sec-Fetch-Mode', 'cors')
-        .end((err, res) => {                               // Calling the end function will send the request
-          console.log("service call", res);
-          let fatchDetailsRespJson = JSON.parse(res.text);
-          ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
-        })
-      //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
-    }
-  })
-}
-}
+//               this.setState({ mess: e.profileObj.email+"User is not registered." })
+
+//             }
+//   })
+// }
+// }
 class Loginpage extends React.Component {
   constructor(props) {
     super(props);
@@ -97,8 +101,12 @@ class Loginpage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.successModal = this.successModal.bind(this);
+    this.errorModal = this.errorModal.bind(this);
   }; // End Constructor
-
+   onGoogleFail=(e)=>{
+    console.log(e);
+  }
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
   };
@@ -143,7 +151,80 @@ class Loginpage extends React.Component {
       visible1: false,
     });
   };
+  successModal() {
+    Modal.success({
+      content: 'Account Verified ! Please Update Profile To Continue',
+    });
+  }
 
+  errorModal() {
+    Modal.error({
+      title: 'Error',
+      content: 'Something Went Wrong Try Again Later...',
+    });
+  }
+  onGoogleLogin=(e)=>{
+    console.log(e);
+    console.log({
+      "IdToken":e.tokenId,
+      "email":e.profileObj.email,
+      "name":e.profileObj.name
+    });
+    const superagent = require('superagent');
+    superagent
+    .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/loginwithgoogle')
+    .send({
+            "IdToken":e.tokenId,
+            "email":e.profileObj.email,
+            "name":e.profileObj.name
+          })
+    .set('X-API-Key', 'foobar')
+    .set('accept', 'application/json')
+    .end((err, res) => {
+      console.log(res)
+      let loginRespJson = JSON.parse(res.text);
+      console.log(typeof(loginRespJson))
+      if (loginRespJson.success === true && loginRespJson.updateflag === "N") {
+        //this.setState({loginFlag:true})
+        console.log("In the edit profile")
+        setTimeout(() => {
+         ReactDOM.render(<WrappedDonorEditProfile  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
+        }, 5000);
+        //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+        console.log(loginRespJson)
+      }else if (loginRespJson.user == "D" && loginRespJson.success == true){
+        let loginRequest = {
+          "email": e.profileObj.email,
+        };
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+          .send(loginRequest)                                 // sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('Content-Type','application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers','content-type,x-api-key')
+          .set('Access-Control-Request-Method','POST')
+          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin','http://localhost:3000')
+          .set('Accept-Encoding','gzip, deflate, br')
+          .set('Sec-Fetch-Dest','empty')
+          .set('Sec-Fetch-Mode', 'cors')
+          .end((err, res) => {                               // Calling the end function will send the request
+            console.log("service call", res);
+            let fatchDetailsRespJson = JSON.parse(res.text);
+            ReactDOM.render(<MainLayout email={e.profileObj.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+          })
+        //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+      }
+      else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User not registered") { // "I" stand for Inactive user
+
+                this.setState({ mess: e.profileObj.email+" User is not registered Please Register" })
+
+              }
+    })
+
+  }
 
   handleLogin(e) {
     e.preventDefault();
@@ -153,7 +234,6 @@ class Loginpage extends React.Component {
         let loginRequest = {
           "email": values.email,
           "password": values.password,
-
         };
         var url = "";
         if(this.state.tabFlag === "D"){
@@ -184,7 +264,8 @@ class Loginpage extends React.Component {
             }
             else if(loginRespJson.Status == "SUCCESS" && loginRespJson.Body.B_IS_PROFILE_UPDATED === "N" &&loginRespJson.Body.SZ_USER_TYPE === "D" ){
 
-              this.setState({ mess: "Please update profile" })
+              //this.setState({ mess: "Please update profile" })
+              this.successModal();
               setTimeout(() => {
 
                ReactDOM.render(<WrappedDonorEditProfile donordropdown={this.state.donorcategorys} email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
@@ -192,7 +273,8 @@ class Loginpage extends React.Component {
             }
             else if(loginRespJson.Status == "SUCCESS" && loginRespJson.Body.B_IS_PROFILE_UPDATED === "N" &&loginRespJson.Body.SZ_USER_TYPE === "N" ){
 
-              this.setState({ mess: "Please update profile" })
+              //this.setState({ mess: "Please update profile" })
+              this.successModal();
               setTimeout(() => {
 
                ReactDOM.render(<WrappedNgoEditProfile  email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
@@ -220,7 +302,7 @@ class Loginpage extends React.Component {
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-                  ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                  ReactDOM.render(<MainLayout email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
                 })
 
               //this.setState({loginFlag:true})
@@ -246,14 +328,15 @@ class Loginpage extends React.Component {
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-              ReactDOM.render(<WrappedNormalMainLayoutNGO ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
+              ReactDOM.render(<WrappedNormalMainLayoutNGO email={values.email} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
             })
           }else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User is not Confirmed.") { // "I" stand for Inactive user
 
               this.setState({ mess: "User is not Confirmed." })
 
             }else{
-              this.setState({ mess: "Something went wrong please try again later!" })
+              this.errorModal();
+              //this.setState({ mess: "Something went wrong please try again later!" })
             }
 
           });
@@ -268,9 +351,9 @@ class Loginpage extends React.Component {
       console.log("flag", this.state.flag);
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
-          <Switch>
-            <Route exact component={WrappedNormalForPassForm} />
-          </Switch>
+        <Router>
+          <WrappedNormalForPassForm tabFlag={this.state.tabFlag}/>
+        </Router>
         </div>)
     }
     if (this.state.verifyFlag === true) {
@@ -297,9 +380,9 @@ class Loginpage extends React.Component {
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
             <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
-              <TabPane tab="Login AS Donar" key="D" >
+              <TabPane tab="Login As Donar" key="D" >
               </TabPane>
-              <TabPane tab="Login AS NGO" key="N" >
+              <TabPane tab="Login As NGO" key="N" >
               </TabPane>
             </Tabs>
 
@@ -351,8 +434,8 @@ class Loginpage extends React.Component {
             <GoogleLogin
               clientId={clientId}
               buttonText="Login with Google"
-              onSuccess={onGoogleLogin}
-              onFailure={onGoogleFail}
+              onSuccess={this.onGoogleLogin}
+              onFailure={this.onGoogleFail}
               isSignedIn={true}
               className="googleButtonCss"
             />

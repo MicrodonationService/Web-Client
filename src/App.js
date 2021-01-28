@@ -8,6 +8,7 @@ import WrappedNormalLoginForm from "./Component/Login.js";
 import FilesUploader from "./Component/UploadPhoto.js"
 import Onetimedonation from "./Component/onetimedonation_after.js";
 import WrappedVerificationMDForm from "./Component/verificationMD.js";
+import WrappedNormalForPassFormField from "./Component/ForgotPasswordPage.js";
 import UISetNewPassword from "./Component/UISetNewPassword.js";
 class App extends React.Component {
 
@@ -17,15 +18,23 @@ class App extends React.Component {
 		}
 
  render(){
+   let visit;
+   if(window.location.pathname.localeCompare("/ForgotPass")==0)
+   {
+     visit=<Route exact component={WrappedNormalForPassFormField}/>;
+   }
+   else{
+     visit=<Route exact component={WrappedNormalLoginForm}/>;
+   }
+    return(
+     <div style={{display:"inline-block",height:"100%",width:"100%"}}>
 
- return(
-  <div style={{display:"inline-block",height:"100%",width:"100%"}}>
+     <Switch>
+     {visit}
 
-  <Switch>
-      <Route exact component={WrappedNormalLoginForm}/>
-  </Switch>
-  </div>
- );
+     </Switch>
+     </div>
+    );
 }
 }
 export default App;

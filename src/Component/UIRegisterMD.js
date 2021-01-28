@@ -12,10 +12,10 @@ import WrappedUISetNewPasswordForm from "./UISetNewPassword.js";
 import WrappedVerificationMDForm from "./verificationMD.js"
 import WrappedNormalLoginForm from "./Login.js";
 import { QuestionCircleOutlined } from '@ant-design/icons';
-
+import LoginHooks from './GoogleRegisterHook';
 
 var styles = require('../App.module.css');
-
+var usertypedisplay=""
 const { Header, Sider, Content, Footer } = Layout;
 const { Group } = Radio;
 const { Option } = Select;
@@ -50,7 +50,7 @@ class UIregisterMD extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flag: false, mailResp: undefined, phoneResp: undefined, mess: "",mess1:"", roll: "D", userId: undefined, userType: "D", isprofileupdatedflag: 0, email: ""
+      flag: false, mailResp: undefined, phoneResp: undefined, mess: "",mess1:"", roll: this.props.tabFlag, userId: undefined, userType: this.props.tabFlag, isprofileupdatedflag: 0, email: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.HandleSubmit = this.HandleSubmit.bind(this);
@@ -193,13 +193,18 @@ class UIregisterMD extends React.Component {
     const { visible, confirmLoading } = this.state;
     const { getFieldDecorator } = this.props.form;
     console.log("Tabflag", this.props.tabFlag);
+    if (this.state.userType=="D"){
+      usertypedisplay= "DONOR"
+    }
+    else if (this.state.userType=="N"){
+        usertypedisplay= "NGO"
+      }
     if (this.state.flag === true) {
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
           <Router>
             <Route exact component={WrappedNormalLoginForm} />
           </Router>
-
         </div>
       )
     }
@@ -233,7 +238,10 @@ class UIregisterMD extends React.Component {
 
 
               <div className="tabCss">
-              <h2 style={{ color: '#f8a500', marginTop:'10px', fontWeight: 'Bold',marginLeft:'350px' }}>REGISTER</h2>
+              <h2 style={{ color: '#f8a500', marginTop:'10px', fontWeight: 'Bold',marginLeft:'350px' }}>
+                REGISTER AS {usertypedisplay}
+                </h2>
+
                 <div style={{ marginLeft: '180px' }}>
 
                   <div style={{ marginTop: '40px' }}>
@@ -345,6 +353,7 @@ class UIregisterMD extends React.Component {
                             Continue
                         </Button>
                           <br />
+                        <a href="" style={{fontSize:'16px',marginLeft:'200px'}}>BACK TO LOGIN</a>
 
                           <h4 style={{marginLeft:'200px'}}>Or Sign Up With</h4>
 
@@ -356,9 +365,7 @@ class UIregisterMD extends React.Component {
                               </FacebookLoginButton>
                             </Col>
                             <Col span={8} >
-                              <GoogleLoginButton onClick={() => alert("Hello")} style={{ width: '130px', height: '30px' , marginLeft:"130px"}}>
-                                <span>Google</span>
-                              </GoogleLoginButton>
+                            <LoginHooks tabFlag={usertypedisplay}/>
                             </Col>
                           </Row>
                         </Form.Item>

@@ -6,7 +6,7 @@ import '../App.module.css';
 import GlobalHelper from '../utils/GlobalHelper.js'
 import '../index.css';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Row, Col, Collapse, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge } from 'antd';
+import { Layout, Menu, Row, Col, Collapse, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge,message, Upload } from 'antd';
 
 import { Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
@@ -21,14 +21,34 @@ const layout = {
   },
 };
 
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  if (!isJpgOrPng) {
+    message.error('You can only upload JPG/PNG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJpgOrPng && isLt2M;
+}
+
+
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", value: 1, handleFlag: true, mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false };
+    this.state = { posts: "", value: 1, handleFlag: true,message1:"",failedmess:"", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { mess: "", loading: false }
     this.onChange = this.onChange.bind(this);
+    // this.pancardValidation = this.pancardValidation.bind(this);
 
     this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
     this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
@@ -36,7 +56,7 @@ class EditProfile extends React.Component {
     this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
     this.email = this.props.donorfetchdata.body.SZ_EMAIL;
     this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
-    this.panCard = this.props.donorfetchdata.body.SZ_PANCARD;
+    this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
     this.age = this.props.donorfetchdata.Body1.SZ_AGE;
 
   }
@@ -55,15 +75,33 @@ class EditProfile extends React.Component {
     this.setState({ value: event.target.value });
     window.location.reload();
   }
-  handleSubmit(e) {
+ 
 
-  }
+
+//   pancardValidation(value) {
+//     let  regex = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+//     console.log(`selected${value}`);
+//     if(regex.test(value)) {
+//       console.log("In True");
+//          return true;
+//     }
+//     else{
+//       console.log("In False");
+//       this.setState({
+//         mess:"Pan Invalid"
+//       })
+//       return false;
+//     }
+   
+// }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       this.setState({ handleFlag: true })
       // var mobilen
       // console.log("Mobile",mobilenumber);
+      
 
       if (!err) {
 
@@ -79,7 +117,7 @@ class EditProfile extends React.Component {
           "email": this.props.donorfetchdata.body.SZ_EMAIL,
           "contactNo": (this.handleFlag === undefined ? this.mobile : values.mobile),
           "Occupation": (this.handleFlag === undefined ? this.occupation : values.occupation),
-          "pancard": (this.handleFlag === undefined ? this.panCard : values.panCard)//this.props.donorfetchdata.body.SZ_PANCARD
+          "pancard": (this.handleFlag === undefined ? this.pancard : values.pancard)//this.props.donorfetchdata.body.SZ_PANCARD
         };
         const superagent = require('superagent');
         superagent
@@ -102,12 +140,13 @@ class EditProfile extends React.Component {
             console.log("respJson", respJson);
             if (respJson.Status === "SUCCESS") {
               console.log("hi", respJson);
-              this.setState({ mess: respJson.Messege })
-            } else if (respJson.success === false) {
-              this.setState({ mess: respJson.message })
+              this.setState({ mess: "Changes Updated Successfully!!!" })
+            } else if (respJson.Status === "FAILED") {
+              this.setState({ failedmess: "Failed To Update..." })
             }
           });
       }
+    
 
     })
   }
@@ -122,7 +161,7 @@ class EditProfile extends React.Component {
     document.getElementById("address").value = this.address;
     document.getElementById("email").value = this.email;
     document.getElementById("mobile").value = this.mobile;
-    document.getElementById("pancard").value = this.panCard;
+    document.getElementById("pancard").value = this.pancard;
     document.getElementById("age").value = this.age;
     //},500)
   }
@@ -137,11 +176,11 @@ class EditProfile extends React.Component {
     } catch (e) { console.error(e) }
     try {
       if (document.getElementById("pancard").value === "") {
-        this.panCard = this.panCard;
+        this.pancard = this.pancard;
       } else {
-        this.panCard = document.getElementById("pancard").value;
+        this.pancard = document.getElementById("pancard").value;
       }
-      document.getElementById("pancard").value = this.panCard;
+      document.getElementById("pancard").value = this.pancard;
     } catch (e) { console.error(e) }
     //document.getElementById("EmailID").value=this.email;
     try {
@@ -198,6 +237,10 @@ class EditProfile extends React.Component {
   render() {
     console.log("Donor Details", this.props.donorfetchdata)
     //var bgimg = "url('"+ window.origin+"/background.png')";
+    const { loading, imageUrl } = this.state;
+    const uploadButton = (
+      <div style={{ marginTop: 8 }}>Upload</div>
+    );
 
     const { getFieldDecorator } = this.props.form;
     const { posts } = this.state;
@@ -206,13 +249,33 @@ class EditProfile extends React.Component {
       <div style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
         <Layout>
           <Content style={{ background: 'white', marginLeft: '2px', overflow: 'unset' }}>
-            <h1 style={{ display: 'block', position: 'relative', left: '680px', fontWeight: 900, color: '#f8a500', top: '135px', fontSize: 'x-large' }}>MY PROFILE</h1>
-            <div style={{ width: (window.innerWidth - 400), height: (window.innerHeight - 300), margin: '38px 0px 0px 160px', border: '1px solid #ffffff' }}>
+          <div style={{}}>
+            <h5 style={{ display: 'block', position: 'relative', left: '70px', top: '130px', fontWeight: 800, color: '#f8a500', fontSize: 'x-large' }}>MY PROFILE</h5>
+          <span style={{ margin: '80px 0px 0px 105px' }}>
+            <Avatar size={64} shape="circle" src="img/NGO.png" style={{marginTop:'130px'}}/>
+          </span>
+          <div style={{ margin: '40px 0px 0px 85px ' }}>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={beforeUpload}
+              onChange={this.handleChange1}
+            >
+              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            </Upload>
+
+          </div>
+            </div>
+            {/* <h1 style={{ display: 'block', position: 'relative', left: '680px', fontWeight: 900, color: '#f8a500', top: '135px', fontSize: 'x-large' }}>MY PROFILE</h1> */}
+            <div style={{ width: (window.innerWidth - 400), height: (window.innerHeight - 300), margin: '0px 0px 0px 160px', border: '1px solid #ffffff' }}>
 
               <Form {...layout}>
 
 
-                <div style={{ width: (window.innerWidth - 450), height: (window.innerHeight - 300), margin: '100px 0px 0px 100px', border: '1px solid #ffffff' }}>
+                <div style={{ width: (window.innerWidth - 450), height: (window.innerHeight - 300), margin: '-250px 0px 0px 100px', border: '1px solid #ffffff' }}>
                   <div style={{ background: '#FFFFFF' }}>
                     <h4 style={{ marginBottom: '-18px', marginLeft: '72px' }}>NAME</h4>
                     <Form.Item
@@ -228,7 +291,7 @@ class EditProfile extends React.Component {
                         // ],
 
                       })(
-                        <Input style={{ borderRadius: '25px' }} />)}
+                        <Input type="text" style={{ borderRadius: '25px' }} />)}
                     </Form.Item>
                     <h4 style={{ marginTop: '-41px', marginLeft: '427px' }}>AGE</h4>
                     <Form.Item
@@ -236,9 +299,24 @@ class EditProfile extends React.Component {
                       style={{ width: '53%', alignContent: 'center', position: 'relative', left: '422px', top: '-19px' }}
                     >
                       {getFieldDecorator('age', {
+                        rules:[
+                          {
+                            max:2
+                          }
+                        ]
 
                       })(
-                        <Input style={{ borderRadius: '25px', width: '24%' }} />)}
+                        <Input maxLength={2} onChange={(e) =>{
+                          const {value} = e.target;
+                          const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                                   if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+    
+                                   }
+                                   else{
+                                     e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                                     return ;
+                                   }
+                          }} style={{ borderRadius: '25px', width: '24%' }} />)}
                     </Form.Item>
                     <h4 style={{ marginTop: '-80px', marginLeft: '521px' }}>OCCUPATION </h4>
                     <Form.Item
@@ -254,7 +332,7 @@ class EditProfile extends React.Component {
                         // ],
 
                       })(
-                        <Input readOnly={true} style={{ borderRadius: '25px', width: '22%' }} />)}
+                        <Input readOnly={true} style={{ borderRadius: '25px', width: '22%',backgroundColor:'	#E0E0E0' }} />)}
                     </Form.Item>
                     <h4 style={{ marginTop: '-119px', marginLeft: '670px' }}>CITY</h4>
 
@@ -271,7 +349,7 @@ class EditProfile extends React.Component {
                         // ],
 
                       })(
-                        <Input style={{ borderRadius: '25px', width: '36%' }} />)}
+                        <Input type="text" style={{ borderRadius: '25px', width: '36%' }} />)}
                     </Form.Item>
                   </div>
                   <Form.Item style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-55px' }}>
@@ -288,7 +366,7 @@ class EditProfile extends React.Component {
                     // ],
 
                   })(
-                    <Input style={{ borderRadius: '25px' }} />)}
+                    <Input type="text" style={{ borderRadius: '25px' }} />)}
                   </Form.Item>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-45px' }}>
                     <h4 style={{ marginTop: '-46px', marginLeft: '72px' }}>E-MAIL ID</h4>
@@ -300,7 +378,7 @@ class EditProfile extends React.Component {
                     {getFieldDecorator('email', {
 
                     })(
-                      <Input readOnly={true} style={{ borderRadius: '25px', width: '70%' }}
+                      <Input readOnly={true} style={{ borderRadius: '25px', width: '70%',backgroundColor:'	#E0E0E0' }}
                         onChange={
                           (e) => {
                             this.setState({ verifyFlag1: true })
@@ -316,6 +394,12 @@ class EditProfile extends React.Component {
 
                     style={{ width: '60%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '450px', top: '-99px' }}
                   > {getFieldDecorator('mobile', {
+                    rules:[
+                      {
+                        min:10,
+                        message:"Please enter minimum 10 digits"
+                      }
+                    ]
                     // rules:[
                     //   {
                     //     required:true,
@@ -324,10 +408,18 @@ class EditProfile extends React.Component {
                     // ],
 
                   })(
-                    <Input style={{ borderRadius: '25px', width: '100%' }}
-                    /*onChange={(e) =>{
-                      this.setState({reqFlag1 : true})
-                      }}*/
+                    <Input maxLength={10}  style={{ borderRadius: '25px', width: '100%' }}
+                    onChange={(e) =>{
+                      const {value} = e.target;
+                      const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                               if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                               }
+                               else{
+                                 e.target.value = e.target.value.substring(0,e.target.value.length-1);
+                                 return ;
+                               }
+                      }}
                     />)}
                   </Form.Item>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
@@ -346,6 +438,7 @@ class EditProfile extends React.Component {
 
                   })(
                     <Input
+                    readOnly={true}
                       onChange={
                         (e) => {
                           this.setState({ verifyFlag2: true })
@@ -365,8 +458,9 @@ class EditProfile extends React.Component {
 
 
                 </div>
-                <h4 style={{ position: 'relative', top: '-20px', color: 'red', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
-
+                <h4 style={{ position: 'relative', top: '-5px', color: 'blue', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
+                <h4 style={{ position: 'relative', top: '-5px', color: 'red', textAlign: 'center', right: '-86px' }}>{this.state.failedmess}</h4>
+                
 
               </Form>
 

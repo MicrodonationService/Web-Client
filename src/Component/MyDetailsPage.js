@@ -50,7 +50,7 @@ class MyDetailsPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
-    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "", ngocatgdropdown: "" }
+    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",updatefail:"", ngocatgdropdown: "" }
     this.onChange = this.onChange.bind(this);
 
     this.state = { ngoupdatedetails: "", ngoupdateprofile: "", ngocategorydropdown: "" };
@@ -71,6 +71,8 @@ class MyDetailsPage extends React.Component {
     this.bankbranch = this.props.ngoupdateprofile.Body.SZ_BANK_BRANCH;
     this.contactpersonname = this.props.ngoupdateprofile.Body.SZ_CONTACT_PERSON_NAME;
     this.registrationnumber = this.props.ngoupdateprofile.Body.SZ_REGISTRATION_ID;
+    this.ngocategoryother = this.props.ngoupdateprofile.Body.SZ_CATEGORY_SECONDARY;
+    this.typeoforganization = this.props.ngoupdateprofile.Body.SZ_TYPE_OF_ORAGANIZATION;
 
   }
 
@@ -140,7 +142,9 @@ class MyDetailsPage extends React.Component {
           "contactpersonname" : (this.reqFlag1 === undefined ? this.contactpersonname : values.contactpersonname),
           "bankname" : (this.reqFlag1 === undefined ? this.bankname : values.bankname),
           "operationalsince" : ""+(this.reqFlag1 === undefined ? this.operationalsince : values.operationalsince),
-          "registrationnumber" : (this.reqFlag1 === undefined ? this.registrationnumber : values.registrationnumber)
+          "registrationnumber" : (this.reqFlag1 === undefined ? this.registrationnumber : values.registrationnumber),
+          "ngocategorysecondary":(this.reqFlag1 === undefined ? this.ngocategoryother : values.ngocategoryother),
+          "typeoforganization":(this.reqFlag1 === undefined ? this.typeoforganization : values.typeoforganization)
 
 
         };
@@ -164,11 +168,18 @@ class MyDetailsPage extends React.Component {
             console.log("Updated Data", res);
             ngoupdateres = JSON.parse(res.text);
             console.log("Updated Data", ngoupdateres);
-            this.setState(
-              {
-                updatedmessage: "Profile Updated Successfully"
-              }
-            )
+            if(ngoupdateres.Status === "SUCCESS"){
+              this.setState(
+                {
+                  updatedmessage: "Profile Updated Successfully!!!"
+                }
+              )
+            }else{
+              this.setState({
+                updatefail : "Failed To Update Profile!!!"
+              })
+            }
+            
 
           })
       }
@@ -194,6 +205,8 @@ class MyDetailsPage extends React.Component {
     document.getElementById("bankbranch").value = this.bankbranch;
     document.getElementById("contactpersonname").value = this.contactpersonname;
     document.getElementById("registrationnumber").value = this.registrationnumber;
+    document.getElementById("ngocategoryother").value = this.ngocategoryother;
+    document.getElementById("typeoforganization").value = this.typeoforganization;
 
     //},500)
   }
@@ -336,7 +349,27 @@ class MyDetailsPage extends React.Component {
       document.getElementById("registrationnumber").value = this.registrationnumber;
     } catch (e) { console.error(e) }
 
+    try {
+      if (document.getElementById("ngocategoryother").value === "") {
+        this.ngocategoryother = this.ngocategoryother;
+      } else {
+        this.ngocategoryother = document.getElementById("ngocategoryother").value;
+      }
+      document.getElementById("ngocategoryother").value = this.ngocategoryother;
+    } catch (e) { console.error(e) }
+
+    try {
+      if (document.getElementById("typeoforganization").value === "") {
+        this.typeoforganization = this.typeoforganization;
+      } else {
+        this.typeoforganization = document.getElementById("typeoforganization").value;
+      }
+      document.getElementById("typeoforganization").value = this.typeoforganization;
+    } catch (e) { console.error(e) }
+
   }
+
+  
 
   render() {
     console.log("Mydetails", this.props.ngoupdateprofile)
@@ -371,7 +404,7 @@ class MyDetailsPage extends React.Component {
 
         </div>
 
-        <div style={{ width: '80%', height: '90%', marginTop: '-240px', marginLeft: '50px', overflowY: 'auto', overflowX: 'hidden' }}>
+        <div style={{ width: '80%', height: '90%', marginTop: '-240px', marginLeft: '50px', overflowX:'hidden',overflowY:'auto' }}>
           <Form {...layout} style={{ border: '1px solid #FFFFFF' }}>
             <h4 style={{ marginTop: '-05px', marginLeft: '220px' }}>NGO NAME</h4>
             <Form.Item
@@ -387,7 +420,7 @@ class MyDetailsPage extends React.Component {
                 // ],
 
               })(
-                <Input style={{ borderRadius: '25px' }}
+                <Input type="text" style={{ borderRadius: '25px' }}
                 /*onChange={(e) =>{
                   this.setState({reqFlag1 : true})
                   }}*//>)}
@@ -405,8 +438,39 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('ngocategory', {
 
               })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%' }} />)}
+                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
             </Form.Item>
+
+            <h4 style={{ marginTop: '0px', marginLeft: '227px' }}>NGO CATEGORY OTHER</h4>
+            <Form.Item style={{ left: '225px', top: '-10px', width: '53%' }}>
+              {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
+                  {
+                this.props.ngocatgdropdown.Body.map((value) => (
+                <option value={value}>{value}</option>
+      ))
+  }
+                </Select> */}
+              {getFieldDecorator('ngocategoryother', {
+
+              })(
+                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
+            </Form.Item>
+
+            <h4 style={{ marginTop: '-69px', marginLeft: '530px' }}>TYPE OF ORGANIZATION</h4>
+            <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}>
+              {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
+                  {
+                this.props.ngocatgdropdown.Body.map((value) => (
+                <option value={value}>{value}</option>
+      ))
+  }
+                </Select> */}
+              {getFieldDecorator('typeoforganization', {
+
+              })(
+                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
+            </Form.Item>
+
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
               <h4 style={{ marginTop: '-43px', marginLeft: '70px' }}>NGO ADDRESS</h4>
             </Form.Item>
@@ -423,7 +487,7 @@ class MyDetailsPage extends React.Component {
                 // ],
 
               })(
-                <Input style={{ borderRadius: '25px' }}
+                <Input type="text" style={{ borderRadius: '25px' }}
                 /*onChange={(e) =>{
                   this.setState({reqFlag1 : true})
                   }}*/
@@ -444,7 +508,7 @@ class MyDetailsPage extends React.Component {
                 // ],
 
               })(
-                <Input style={{ borderRadius: '25px', width: '24%' }}
+                <Input type="text" style={{ borderRadius: '25px', width: '24%' }}
                 /*onChange={(e) =>{
                   this.setState({reqFlag1 : true})
                   }}*/
@@ -465,7 +529,7 @@ class MyDetailsPage extends React.Component {
                 // ],
 
               })(
-                <Input type="number" style={{ borderRadius: '25px', width: '22%' }}
+                <Input type="number" pattern="^[1-9][0-9]{5}$" maxLength="6" style={{ borderRadius: '25px', width: '22%' }}
   /*onChange={(e) =>{
     this.setState({reqFlag1 : true})
     }}*//>)}
@@ -484,7 +548,7 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('email', {
 
               })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '144%' }}
+                <Input readOnly={true} style={{ borderRadius: '25px', width: '144%',backgroundColor:'	#E0E0E0' }}
                 /*onChange={(e) =>{
                   this.setState({reqFlag1 : true})
                   }}*/
@@ -503,7 +567,7 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('website', {
 
               })(
-                <Input type="text" style={{ borderRadius: '25px', width: '144%' }}
+                <Input type="url" placeholder="https://example.com" pattern="https://.*" size="30" style={{ borderRadius: '25px', width: '144%' }}
                 /* onChange={(e) =>{
                    this.setState({reqFlag1 : true})
                    }}*/
@@ -528,7 +592,7 @@ class MyDetailsPage extends React.Component {
                 // ],
 
               })(
-                <Input type="number" style={{ borderRadius: '25px', width: '144%' }}
+                <Input type="number" pattern="/^[0-9]+$/" maxLength="4" placeholder="Year Ex:1999" style={{ borderRadius: '25px', width: '144%' }}
                 /* onChange={(e) =>{
                    this.setState({reqFlag1 : true})
                    }}*/
@@ -537,12 +601,12 @@ class MyDetailsPage extends React.Component {
 
             </Form.Item>
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-90px', marginLeft: '410px' }}>REGISTRATION NUMBER</h4>
+              <h4 style={{ marginTop: '-90px', marginLeft: '280px' }}>REGISTRATION NUMBER</h4>
             </Form.Item>
 
             <Form.Item
 
-              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '560px' }}
+              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '425px' }}
             >
               {getFieldDecorator('registrationnumber', {
                 //  rules: [
@@ -553,7 +617,7 @@ class MyDetailsPage extends React.Component {
                 // ],
 
               })(
-                <Input  style={{ borderRadius: '25px', width: '144%' }}
+                <Input type="text" style={{ borderRadius: '25px', width: '144%' }}
                 /* onChange={(e) =>{
                    this.setState({reqFlag1 : true})
                    }}*/
@@ -561,9 +625,36 @@ class MyDetailsPage extends React.Component {
 
 
             </Form.Item>
-            <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-40px' }}>
+
+            <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
+              <h4 style={{ marginTop: '-130px', marginLeft: '475px' }}>REFERRER</h4>
+            </Form.Item>
+
+            <Form.Item
+
+              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-100px', left: '625px' }}
+            >
+              {getFieldDecorator('referrer', {
+                //  rules: [
+                //   {
+                //     required: true,
+                //     message: 'Please enter Registration Number',
+                //   }
+                // ],
+
+              })(
+                <Input type="text" readOnly={true} style={{ borderRadius: '25px', width: '144%',backgroundColor:'	#E0E0E0' }}
+                /* onChange={(e) =>{
+                   this.setState({reqFlag1 : true})
+                   }}*/
+                />)}
+
+
+            </Form.Item>
+
+            <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-70px' }}>
               BANK ACCOUNT DETAILS</h4>
-            <div style={{ width: '63%', height: '300px', marginLeft: '220px', marginTop: '-20px', background: '#e8e8e8' }}>
+            <div style={{ width: '63%', height: '325px', marginLeft: '220px', marginTop: '-45px', background: '#e8e8e8' }}>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                 <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>BANK NAME</h4>
               </Form.Item>
@@ -581,7 +672,7 @@ class MyDetailsPage extends React.Component {
                   // ],
 
                 })(
-                  <Input style={{ borderRadius: '25px' }}
+                  <Input type="text" style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -605,7 +696,7 @@ class MyDetailsPage extends React.Component {
                   // ],
 
                 })(
-                  <Input style={{ borderRadius: '25px' }}
+                  <Input type="number" style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -630,7 +721,7 @@ class MyDetailsPage extends React.Component {
                   // ],
 
                 })(
-                  <Input style={{ borderRadius: '25px' }}
+                  <Input pattern="^[A-Z]{4}0[A-Z0-9]{6}$" maxLength="11" style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -655,7 +746,7 @@ class MyDetailsPage extends React.Component {
                   // ],
 
                 })(
-                  <Input style={{ borderRadius: '25px' }}
+                  <Input type="text" style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -679,7 +770,7 @@ class MyDetailsPage extends React.Component {
                   // ],
 
                 })(
-                  <Input style={{ borderRadius: '25px' }}
+                  <Input type="text" style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -687,10 +778,10 @@ class MyDetailsPage extends React.Component {
 
               </Form.Item>
 
-              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-5px' }}>
+              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '25px' }}>
                 CONTACT PERSON DETAILS</h4>
 
-              <div style={{ width: '100%', height: '180px', marginLeft: '0px', marginTop: '-10px', background: '#e8e8e8' }}>
+              <div style={{ width: '100%', height: '225px', marginLeft: '0px', marginTop: '20px', background: '#e8e8e8' }}>
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                   <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>NAME</h4>
                 </Form.Item>
@@ -708,7 +799,7 @@ class MyDetailsPage extends React.Component {
                   // ],
 
                 })(
-                  <Input style={{ borderRadius: '25px' }}
+                  <Input type="text" style={{ borderRadius: '25px' }}
                   /*onChange={(e) =>{
                     this.setState({reqFlag1 : true})
                     }}*/
@@ -734,13 +825,13 @@ class MyDetailsPage extends React.Component {
                     // ],
 
                   })(
-                    <Input style={{ borderRadius: '25px', width: '100%' }}
+                    <Input type="tel" pattern="[0-9]{3}[0-9]{2}[0-9]{3}[0-9]{2}" maxLength="10" style={{ borderRadius: '25px', width: '100%' }}
                     /*onChange={(e) =>{
                       this.setState({reqFlag1 : true})
                       }}*/
                     />)}
 
-                  <a href="" style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a>
+                  {/* <a href="" style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a> */}
                 </Form.Item>
 
                 {/* <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
@@ -769,6 +860,7 @@ class MyDetailsPage extends React.Component {
               </Form.Item>
               <center>
                 <p style={{ color: 'blue' }}>{this.state.updatedmessage}</p>
+                <p style={{color:'red'}}>{this.state.updatefail}</p>
               </center>
 
             </div>

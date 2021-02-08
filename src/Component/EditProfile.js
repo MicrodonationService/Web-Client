@@ -3,10 +3,11 @@ import React from 'react';
 import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
+import WrappedOtpVerifyForm from "./OtpVerify.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
 import '../index.css';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Row, Col, Collapse, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge,message, Upload } from 'antd';
+import { Layout, Menu, Row, Col, Collapse, Result,Modal, Breadcrumb, Radio, Icon, Button, Select, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge,message, Upload } from 'antd';
 
 import { Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
@@ -43,11 +44,13 @@ function beforeUpload(file) {
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", value: 1, handleFlag: true,message1:"",failedmess:"", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false };
+    this.state = { posts: "", visible: false, value: 1, handleFlag: true,message1:"",failedmess:"",donorcategorys:"", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { mess: "", loading: false }
     this.onChange = this.onChange.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.donorFetchname = this.donorFetchname.bind(this);
     // this.pancardValidation = this.pancardValidation.bind(this);
 
     this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
@@ -58,9 +61,32 @@ class EditProfile extends React.Component {
     this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
     this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
     this.age = this.props.donorfetchdata.Body1.SZ_AGE;
-
+    this.donorFetchname();
   }
+  donorFetchname(){
+    let donorcategory = {
+     "lookuptype":"DONOR_OCC"
+    }
+   const superagent = require('superagent');
+   superagent
+     .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
+     .send(donorcategory)
+     .set('X-API-Key', 'foobar')
+     .set('accept', 'application/json')
+     .end((err, res) => {
+       console.log("Response", res);
+       let detailsRespJSOn = JSON.parse(res.text);
+       console.log("respjson", detailsRespJSOn);
+       if (detailsRespJSOn.Status == "SUCCESS") {
+        console.log("DONOR Data", detailsRespJSOn)
+        this.setState({ donorcategorys: detailsRespJSOn })
+        console.log("DONOR CATEGORY", this.state.donorcategorys)
 
+      }
+
+       console.log("Donor Category",this.state.donorcategorys)
+     })
+ }
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
   };
@@ -75,8 +101,48 @@ class EditProfile extends React.Component {
     this.setState({ value: event.target.value });
     window.location.reload();
   }
- 
 
+  showModal = (e) => {
+    console.log("In showModal");
+
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+
+        let confirmOtpOnPhoneRequest = {
+
+          "SZ_USER_TYPE": "D",
+          "I_USER_ID": values.mobile,
+          "SZ_Purpose": "Mobile OTP",
+          "SZ_OTP_MODE": "M",
+          "I_OTP_COUNT": "1",
+          "I_OTP_ERROR_COUNT": "0"
+        };
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/otpgenration')
+          .send(confirmOtpOnPhoneRequest) // sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('accept', 'application/json')
+          .end((err, res) => {
+            // Calling the end function will send the request
+            let respJson = JSON.parse(res.text);
+            console.log("respJson11", respJson);
+            if (respJson.Status === "SUCCESS") {
+              this.setState({ mess: respJson.Message, visible: true, mobileReadOnlyField: respJson.Body })
+
+
+            } else if (respJson.success === false) {
+              this.setState({ mess: respJson.message })
+            }
+          })
+
+        //this.setState({mess:respJson.message})
+        //ReactDOM.render(<WrappedNormalPasswordSetSeccessInnerForm mess={this.state.mess}/>,document.getElementById('root'));
+
+      }
+    })
+  };
 
 //   pancardValidation(value) {
 //     let  regex = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
@@ -92,7 +158,7 @@ class EditProfile extends React.Component {
 //       })
 //       return false;
 //     }
-   
+
 // }
 
   handleSubmit(e) {
@@ -101,7 +167,7 @@ class EditProfile extends React.Component {
       this.setState({ handleFlag: true })
       // var mobilen
       // console.log("Mobile",mobilenumber);
-      
+
 
       if (!err) {
 
@@ -146,7 +212,7 @@ class EditProfile extends React.Component {
             }
           });
       }
-    
+
 
     })
   }
@@ -234,9 +300,17 @@ class EditProfile extends React.Component {
     //document.getElementById("Mobile").value=this.mobile;
   }
 
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+
   render() {
     console.log("Donor Details", this.props.donorfetchdata)
     //var bgimg = "url('"+ window.origin+"/background.png')";
+    const { visible} = this.state;
     const { loading, imageUrl } = this.state;
     const uploadButton = (
       <div style={{ marginTop: 8 }}>Upload</div>
@@ -310,7 +384,7 @@ class EditProfile extends React.Component {
                           const {value} = e.target;
                           const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
                                    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-    
+
                                    }
                                    else{
                                      e.target.value = e.target.value.substring(0,e.target.value.length-1);
@@ -323,17 +397,24 @@ class EditProfile extends React.Component {
 
                       style={{ width: '100%', alignContent: 'center', position: 'relative', left: '518px', top: '-58px' }}
                     >
-                      {getFieldDecorator('occupation', {
-                        //  rules:[
-                        //   {
-                        //     required:true,
-                        //     message:'Please enter Occupation'
-                        //   }
-                        // ],
+                    {getFieldDecorator('occupation', {
+                      rules: [
+                       {
+                         required: true,
+                         message: 'Select Occupation',
+                       }
+                     ],
 
-                      })(
-                        <Input readOnly={true} style={{ borderRadius: '25px', width: '22%',backgroundColor:'	#E0E0E0' }} />)}
-                    </Form.Item>
+                   })(
+                     <Select placeholder="Select Occupation"  onChange={this.clickChange}  style={{ width: '22%' }} >
+                 {
+                 (this.state.donorcategorys !== undefined ) ?
+                 this.state.donorcategorys.Body.map((value) => (
+                   <option value={value}>{value}</option>
+                 )):""
+               }
+             </Select>
+                     )}</Form.Item>
                     <h4 style={{ marginTop: '-119px', marginLeft: '670px' }}>CITY</h4>
 
                     <Form.Item
@@ -422,6 +503,22 @@ class EditProfile extends React.Component {
                       }}
                     />)}
                   </Form.Item>
+                  <a onClick={this.showModal} style={{ position: 'relative', color: '#000000', top: '-64px', left: '150px', textDecoration: 'underline' }}>Verify Mobile Number</a>
+                  <div>
+                    <Modal
+                      title="Verify Mobile"
+                      visible={visible}
+                      okText={"Submit"}
+                      closable={false}
+                      onCancel={this.handleCancel}
+                      width={400}
+                      footer={null}
+                      centered={true}
+                      style={{ position: 'relative', left: '0px', top: '0px' }}
+                    >
+                      <WrappedOtpVerifyForm mobileReadOnlyField={this.state.mobileReadOnlyField} onCancel={this.handleCancel} />
+                    </Modal>
+                  </div>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
                     <h4 style={{ marginTop: '-127px', position: 'relative', left: '72px', top: '54px' }}>PAN CARD</h4>
                   </Form.Item>
@@ -460,7 +557,7 @@ class EditProfile extends React.Component {
                 </div>
                 <h4 style={{ position: 'relative', top: '-5px', color: 'blue', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
                 <h4 style={{ position: 'relative', top: '-5px', color: 'red', textAlign: 'center', right: '-86px' }}>{this.state.failedmess}</h4>
-                
+
 
               </Form>
 

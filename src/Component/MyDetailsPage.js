@@ -3,10 +3,11 @@ import React from 'react';
 import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
+import WrappedOtpVerifyForm from './OtpVerify.js'
 import '../index.css';
 import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js";
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Collapse, Row, Col, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select, Upload, message, Tabs } from 'antd';
+import { Layout, Menu, Collapse, Row, Col,Modal, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select, Upload, message, Tabs } from 'antd';
 import { Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 const { TabPane } = Tabs;
@@ -48,12 +49,14 @@ class MyDetailsPage extends React.Component {
     this.state = { posts: "", value: 1 };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.ngoFetchname = this.ngoFetchname.bind(this);
+    this.showModal = this.showModal.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
-    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",updatefail:"", ngocatgdropdown: "" }
+    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",mobileReadOnlyField:"",updatefail:"", ngocatgdropdown: "" }
     this.onChange = this.onChange.bind(this);
-
-    this.state = { ngoupdatedetails: "", ngoupdateprofile: "", ngocategorydropdown: "" };
+    this.ngoFetchname();
+    this.state = { ngoupdatedetails: "",visible:"", ngoupdateprofile: "", ngocategorydropdown: "" };
 
     this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
     this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
@@ -76,10 +79,67 @@ class MyDetailsPage extends React.Component {
 
   }
 
+  showModal = (e) => {
+    console.log("In ShowModal");
+
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        let confirmOtpOnPhoneRequest = {
+          "SZ_USER_TYPE": "N",
+          "I_USER_ID": values.mobile,
+          "SZ_Purpose": "Mobile OTP",
+          "SZ_OTP_MODE": "M",
+          "I_OTP_COUNT": "1",
+          "I_OTP_ERROR_COUNT": "0"
+        };
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/otpgenration')
+          .send(confirmOtpOnPhoneRequest) //sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('accept', 'application/json')
+          .end((err, res) => {
+            let responseJson = JSON.parse(res.text);
+            console.log("Respomse", responseJson);
+            if (responseJson.Status === "SUCCESS") {
+              this.setState({ mess: responseJson.Messege, visible: true, mobileReadOnlyField: responseJson.Body })
+            } else if (responseJson.Status === "FAILED") {
+              this.setState({ mess: responseJson.message })
+            }
+          })
+
+      }
+    })
+  };
+
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
   };
+  ngoFetchname() {
+    let ngocategorys = {
+      "lookuptype": "NGO_CATG"
+    }
+    const superagent = require('superagent');
+    superagent
+      .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
+      .send(ngocategorys)
+      .set('X-API-Key', 'foobar')
+      .set('accept', 'application/json')
+      .end((err, res) => {
+        console.log("Response", res);
+        let detailsRespJSOn = JSON.parse(res.text);
+        console.log("respjson", detailsRespJSOn);
+        if (detailsRespJSOn.Status == "SUCCESS") {
+          console.log("NGO Data", detailsRespJSOn)
+          this.setState({ ngocategory: detailsRespJSOn })
+          console.log("NGO CATEGORY", this.state.ngocategory)
 
+        }
+
+        console.log("Ngo Category", this.state.ngocategory)
+      })
+  }
   onChange = e => {
     console.log('radio checked', e.target.value);
     this.setState({
@@ -106,7 +166,7 @@ class MyDetailsPage extends React.Component {
       );
     }
   };
-  clickChange(value) {
+    clickChange(value) {
     console.log(`selected ${value}`);
     this.NGOCATEGORY = value;
     this.setState({
@@ -179,7 +239,7 @@ class MyDetailsPage extends React.Component {
                 updatefail : "Failed To Update Profile!!!"
               })
             }
-            
+
 
           })
       }
@@ -368,13 +428,17 @@ class MyDetailsPage extends React.Component {
     } catch (e) { console.error(e) }
 
   }
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
-  
 
   render() {
     console.log("Mydetails", this.props.ngoupdateprofile)
     console.log("NGO Drop Down Vales", this.props.ngocatgdropdown)
-    const { loading, imageUrl } = this.state;
+    const { loading, imageUrl,visible } = this.state;
     const uploadButton = (
       <div style={{ marginTop: 8 }}>Upload</div>
     );
@@ -428,18 +492,25 @@ class MyDetailsPage extends React.Component {
             </Form.Item>
             <h4 style={{ marginTop: '-69px', marginLeft: '530px' }}>NGO CATEGORY</h4>
             <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}>
-              {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
-                  {
-                this.props.ngocatgdropdown.Body.map((value) => (
-                <option value={value}>{value}</option>
-      ))
-  }
-                </Select> */}
-              {getFieldDecorator('ngocategory', {
+            {getFieldDecorator('ngocategory', {
+              rules: [
+               {
+                 //required: true,
+                 //message: 'Select Category',
+               }
+             ],
 
-              })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
-            </Form.Item>
+           })(
+             <Select placeholder='Select Category' onChange={this.clickChange} style={{ width: '85%' }} >
+
+             {
+               (this.state.ngocategory !== undefined ) ?
+               this.state.ngocategory.Body.map((value) => (
+                 <option value={value}>{value}</option>
+               )):""
+             }
+           </Select>
+             )}</Form.Item>
 
             <h4 style={{ marginTop: '0px', marginLeft: '227px' }}>NGO CATEGORY OTHER</h4>
             <Form.Item style={{ left: '225px', top: '-10px', width: '53%' }}>
@@ -734,7 +805,7 @@ class MyDetailsPage extends React.Component {
               </Form.Item>
 
               <Form.Item
-               
+
                 style={{ width: '53%', alignContent: 'center', position: 'relative', top: '-54px', left: '360px' }}
               >
                 {getFieldDecorator('bankbranch', {
@@ -751,7 +822,7 @@ class MyDetailsPage extends React.Component {
                     this.setState({reqFlag1 : true})
                     }}*/
                   />)}
-               
+
               </Form.Item>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
                 <h4 style={{ marginTop: '-60px', marginLeft: '10px' }}>ACCOUNT HOLDER NAME</h4>
@@ -787,7 +858,7 @@ class MyDetailsPage extends React.Component {
                 </Form.Item>
 
                 <Form.Item
-                  
+
                   style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
                 >
                   {getFieldDecorator('contactpersonname', {
@@ -804,7 +875,7 @@ class MyDetailsPage extends React.Component {
                     this.setState({reqFlag1 : true})
                     }}*/
                   />)}
-                  
+
                 </Form.Item>
 
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
@@ -830,7 +901,22 @@ class MyDetailsPage extends React.Component {
                       this.setState({reqFlag1 : true})
                       }}*/
                     />)}
-
+                    <a onClick={this.showModal} style={{ position: 'relative', color: '#000000', top: '-10px', left: '0px', textDecoration: 'underline' }}>Verify Mobile Number</a>
+                    <div>
+                      <Modal
+                        title="Verify Mobile"
+                        visible={visible}
+                        okText={"Submit"}
+                        closable={false}
+                        onCancel={this.handleCancel}
+                        width={400}
+                        footer={null}
+                        centered={true}
+                        style={{ position: 'relative', left: '0px', top: '0px' }}
+                      >
+                        <WrappedOtpVerifyForm mobileReadOnlyField={this.state.mobileReadOnlyField} onCancel={this.handleCancel} />
+                      </Modal>
+                    </div>
                   {/* <a href="" style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a> */}
                 </Form.Item>
 

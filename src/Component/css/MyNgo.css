@@ -8,7 +8,7 @@
 }
 .googleButtonCss{
         position: relative !important;
-        left: 81px !important;
+        left: -22px !important;
         top:25px !important;
         color: black !important;
         border-radius: 25px !important;
@@ -16,8 +16,37 @@
         box-shadow: none !important;
         border: none !important;
 }
+.facebookButtonCss{
+  position: relative !important;
+  left: 50% !important;
+  top: -4% !important;
+  font-weight: 800 !important;
+  color: black !important;
+  border-radius: 25px !important;
+  height: 10%;
+  width: 55%;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.facebookButtonCss i{
+  color: darkblue !important;
+    margin: 6px !important;
+}
+.facebookButtonCss:focus{
+  outline:none !important;
+}
 .googleButtonCss:focus{
   outline:none !important;
+}
+.facebookButtonCss div{
+    border-radius: 25px !important;
+    margin-right: 1px !important;
+    background: #f8a500 !important;
+    padding: 5px !important;
+    width: 45px !important;
+    position: relative !important;
+    top:3px !important;
 }
 .googleButtonCss div{
     border-radius: 25px !important;

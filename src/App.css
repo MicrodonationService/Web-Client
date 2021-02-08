@@ -13,6 +13,12 @@
   height: 40vmin;
   pointer-events: none;
 }
+[class*="ant-table-tbody"]>tr>td{
+  padding: 0px !important;
+}
+[class*=".ant-table-thead"] > tr > th{
+  padding: 0px !important;
+}
 
 .App-header {
   background-color: #282c34;

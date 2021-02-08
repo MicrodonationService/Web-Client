@@ -7,6 +7,7 @@ import "antd/dist/antd.css"
 // import { useGoogleLogout } from 'react-google-login';
 import UIregisterMD from "./UIRegisterMD.js";
 import PasswordSetSuccess from "./PasswordSetSuccess.js"
+import MyDonation from "./myDonation.js"
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import WrappedNormalReferPage from "./ReferPage.js"
 import WrappedNormalEditProfileForm from "./EditProfile.js"
@@ -59,6 +60,7 @@ class MainLayout extends React.Component {
       flag: "",
       flag1: "",
       profileUpdateFlag: "",
+      myDonatiion:"",
       changePasswordFlag: "",
       MycHarity: "",//MY CHARITY APP
       oneTimeDonation: "", //onetimeDonation
@@ -73,6 +75,7 @@ class MainLayout extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.myDonatiion = this.myDonatiion.bind(this);
 
     //this.userName1 = this.props.data.data.user.name;
   }
@@ -82,7 +85,14 @@ class MainLayout extends React.Component {
     this.setState({ changePasswordFlag: "" })
   }
 
-
+  myDonatiion(data){
+    this.setState({myDonatiion:data})
+    this.setState({ flag1: "" })
+    this.setState({ changePasswordFlag: "" })
+    this.setState({ flag: "" })
+    this.setState({ profileUpdateFlag: "" })
+    this.setState({ oneTimeDonation: "" })
+  }
   handleSubmit(data) {
     this.setState({ flag: data })
     this.setState({ profileUpdateFlag: "" })
@@ -161,7 +171,7 @@ class MainLayout extends React.Component {
 
 
   render() {
-
+    console.log("this.props.email",this.props.email);
     /*if(this.state.flag === true){
       return(
         <div style={{display:"inline-block",height:"100%",width:"100%"}}>
@@ -189,11 +199,12 @@ class MainLayout extends React.Component {
             <div style={{ marginLeft: '-50px', width: (window.innerWidth), background: 'white' }}>
               <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '70px', top: '0px', left: '0px' }} />
 
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', left: '-478px', float: 'right', color: '40a9ff' }} onClick={this.homeClick.bind(this, "home")}><Router><Link >HOME</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-916px' }} onClick={this.profileUpdateClick.bind(this, "profile_update")}><Router><Link >MY PROFILE</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-950px' }} onClick={this.handleSubmit.bind(this, "refer")}><Router><Link >REFER</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-977px' }} onClick={this.handleChange.bind(this, "change_password")}><Router><Link >CHANGE PASSWORD</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', left: '-580px', float: 'right', color: '40a9ff' }} onClick={this.homeClick.bind(this, "home")}><Router><Link >HOME</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-818px' }} onClick={this.profileUpdateClick.bind(this, "profile_update")}><Router><Link >MY PROFILE</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-853px' }} onClick={this.handleSubmit.bind(this, "refer")}><Router><Link >REFER</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-881px' }} onClick={this.handleChange.bind(this, "change_password")}><Router><Link >CHANGE PASSWORD</Link></Router></a>
               <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-917px', display: "none" }} onClick={this.MyCharity.bind(this, "my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-913px' }} onClick={this.myDonatiion.bind(this, "myDonatiion")}><Router><Link >MY DONATION</Link></Router></a>
               <Logout />
             </div>
             <Row style={{ width: window.innerWidth, position: 'relative', left: '-50px', top: '-64px', height: '100px', boxShadow: '0 2px 5px #efc940', border: '1px solid #efc940' }}>
@@ -241,7 +252,7 @@ class MainLayout extends React.Component {
           </Header>
           <Layout style={{ marginTop: '6px', height: (window.innerHeight - 107) }}>
 
-            <Content style={{ background: 'white', marginTop: '1px', marginLeft: '2px', overflow: 'scroll' }}>
+            <Content style={{ background: 'white', marginTop: '1px', marginLeft: '2px'}}>
               {/*  <div className="site-card-wrapper">
               <Row gutter={8}>
                 <Col span={4} onClick={this.handleSubmit} style={{border: '2px solid coral', position: 'relative', top: '150px', left: '400px'}}>
@@ -262,6 +273,9 @@ class MainLayout extends React.Component {
               }
               {
                 (this.state.flag === "refer") ? <WrappedNormalReferPage /> : null
+              }
+              {
+                (this.state.myDonatiion === "myDonatiion") ? <MyDonation email={this.props.donorfetchdata.body.SZ_EMAIL} /> : null
               }
               {/* {
                              (this.state.MycHarity=== "my_charity")?<MyNGO />:null

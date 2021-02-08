@@ -15,6 +15,7 @@ import WrappedDonorEditProfile from './DonorEditProfile.js'
 import WrappedNgoEditProfile from './NgoEditProfile.js'
 import { Spin } from 'antd';
 import {GoogleLogin} from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 //import {DonorEditProfile} from './DonorEditProfile';
 //import {WrappedNormalEditProfileForm} from './EditProfile'
 // import WrappedDonorEditProfile from './DonorEditProfile.js'
@@ -387,19 +388,20 @@ class Loginpage extends React.Component {
             </Tabs>
 
             <Form >
-              <h4 style={{ marginTop: '20px', marginBottom: '7px' }}>User ID(E-MAIL/MOBILE) </h4>
+              <h4 style={{ marginTop: '20px', marginBottom: '7px' }}>USER ID(E-MAIL) </h4>
               <Form.Item >
                 {getFieldDecorator('email', {
                   rules: [
                     {
                       required: true,
-                      message: 'Please enter User Id!',
+                      message: 'Please enter Email-Id!',
                     }
                   ],
                 })(
                   <Input
                     autoComplete="off"
                     maxLength={30}
+                    placeholder="Enter Email-Id"
                     style={{ textAlign: 'left', borderRadius: '20px', height: '40px', marginBottom: '4px' }}
                   />)}
               </Form.Item>
@@ -413,32 +415,37 @@ class Loginpage extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message: (!this.state.checked ? 'Please enter password' : 'Please enter OTP'),
+                      message:  'Please enter password' ,
                     }
                   ],
                 })(
                   <Input.Password
                     type='password'
+                    placeholder="Enter Password"
                     style={{ borderRadius: '20px', height: '40px', marginBottom: '4px' }}
                     autoComplete="off"
                   ></Input.Password>)}
               </Form.Item>
             </Form>
 
-            <a href="" style={{ color: '#AB1B5C', textDecoration: 'underline', position: 'relative', top: '55px', left: '134px' }} onClick={this.handleSubmit}><Link style={{ color: '#000' }}> REGISTER</Link></a>
+            <a href="" style={{ color: '#AB1B5C', textDecoration: 'underline', position: 'relative', top: '55px', left: '134px' }} onClick={this.handleSubmit}><Link style={{ color: '#000' }}> Register</Link></a>
             <Spin spinning={this.state.loading ? true : false} >
               <Button type="submit" onClick={this.handleLogin}
-                style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
+                style={{ background: '#f8a500', color: 'Black', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
             <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Please update profile")? 'blue': 'red', textAlign: 'center' }}>{this.state.mess}</h4>
             <GoogleLogin
               clientId={clientId}
-              buttonText="Login with Google"
               onSuccess={this.onGoogleLogin}
               onFailure={this.onGoogleFail}
               isSignedIn={true}
               className="googleButtonCss"
-            />
+            ><span style={{fontWeight: 800}}>LOGIN WITH GOOGLE</span></GoogleLogin>
+            <FacebookLogin
+              icon="fa-facebook"
+              textButton = "LOGIN WITH FACEBOOK"
+              cssClass="facebookButtonCss"
+            ></FacebookLogin>
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
 
             </div>

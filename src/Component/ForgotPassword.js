@@ -101,7 +101,7 @@ const {Panel} = Collapse;
              this.props.form.validateFields((err, values) => {
                if (!err){
             let forgotPassRequest  = {
-                      "username": values.username
+                      "username": values.email
                     }
               const superagent = require('superagent');
               var link=(this.props.tabFlag=='D')?"https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorforgotpassword":"https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoforgotpassword";
@@ -124,7 +124,7 @@ const {Panel} = Collapse;
                 //console.log("respJson11",respJson);
                   if(respJson.Status=== "SUCCESS"){
                         this.setState({mess:"Reset Password link sent to your register Email"})
-                        
+
                        this.startTimer();
                        console.log("done");
                        //ReactDOM.render(<WrappedNormalPasswordSetSeccessInnerForm mess={this.state.mess}/>,document.getElementById('root'));
@@ -141,7 +141,7 @@ const {Panel} = Collapse;
              this.setState({ value: event.target.value});
                window.location.reload();
         }
-       
+
     disabledDate(current) {
       // Can not select days before today and today
         return current && current > moment().endOf('day');
@@ -178,26 +178,31 @@ const {Panel} = Collapse;
                   <h2 style={{color:'#f8a500',margin:'-15px 0px 10px -282px',fontWeight:'Bold',textAlign:'center'}}>FORGET PASSWORD</h2>
 
                   <Form >
-                  <h4 style={{marginTop:'20px',marginBottom:'7px',marginLeft:'28px'}}>User ID (E-MAIL/MOBILE) </h4>
-                  <Form.Item >
-                             {getFieldDecorator('username', {
+                  <h4 style={{marginTop:'20px',marginBottom:'7px',marginLeft:'28px'}}>User ID (E-MAIL) </h4>
+                  <Form.Item style={{ marginLeft: '25px'}} >
+                             {getFieldDecorator('email', {
                                       rules: [
                                          {
-                                           message: 'Please enter Customer Id!',
+                                           required: true,
+                                           message: 'Please enter Email Id!',
                                          }
                                       ],
                                  })(
                               <Input
                                autoComplete="off"
                                maxLength={30}
+                               placeholder="Enter Email-Id"
                                onChange={this.toggleDisabled}
-                               style={{textAlign:'left',borderRadius:'20px',marginLeft:'25px',height:'32px',width:'330px'}}
+                               style={{textAlign:'left',borderRadius:'25px',height:'32px',width:'330px'}}
                                //console.log(e.target.value)
 
                                />,)}
                           </Form.Item>
-
-            <h4 style={{marginLeft:'28px',marginTop:'20px'}}>Please enter the id where you would like to receive an OTP</h4>
+                          <Spin spinning={this.state.loading ? true : false} >
+                            <Button type="submit" onClick={this.onChange}
+                              style={{ background: '#f8a500', color: 'Black', height: '36px', margin: '3% 0% 0% 19%',borderRadius: '25px', width: '32%'}} >SUBMIT</Button><br></br>
+                          </Spin>
+          { /* <h4 style={{marginLeft:'28px',marginTop:'20px'}}>Please enter the id where you would like to receive an OTP</h4>
 
               <div style={{display:'flex'}}>
               <h4 style={{marginLeft:'28px',marginTop:'5px'}}>Send OTP</h4>
@@ -209,17 +214,11 @@ const {Panel} = Collapse;
              <div style={{display:'flex',marginBottom:'-10px'}}>
               <h4 style={{marginLeft:'28px',marginTop:'14px'}}> </h4>
               <h4 style={{marginLeft:'230px',marginTop:'-28px'}}>OTP time out : {this.state.time.m} : {this.state.time.s}</h4>
-              </div>
-             
-                                </Form>
-                    
-                      <div style={{display:'flex',marginLeft:'248px', position:'relative', top:'-94px'}}>
-                    <img  src="img/refresh.png" style={{width: '20px', height:'20px',margin:'4px 6px 0px 0px'}} />
-                    <a style={{color:'#000000',textDecoration:'underline'}} onClick={this.handleClick}><Link  style={{color:'#000'}}>Resend OTP</Link></a>
-                      </div>
+              </div>*/}
 
-                      
-                      <h4 style={{position: 'relative', color: 'red',top:'10px',left:'-90px', textAlign: 'center'}}>{this.state.mess}</h4>
+              </Form>
+
+                    <h4 style={{position: 'relative', color:(this.state.mess==="Reset Password link sent to your register Email")? 'blue':'red',top:'10px',left:'-90px', textAlign: 'center'}}>{this.state.mess}</h4>
 
                 </div>
                 </Content>

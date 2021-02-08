@@ -10,6 +10,7 @@ import {Layout, Menu,Collapse,Row,Col,Table, Result,Breadcrumb, Radio,Icon,Butto
 import WrappedNormalMyDetailsPage from './MyDetailsPage.js';
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import { Spin} from 'antd';
+import Update_photos_1 from "./updatephotos.js";
 import { Chart,  registerShape,  Geom,  Axis,  Tooltip,  Interval,  Interaction,  Coordinate} from 'bizcharts';
 //import { Pie, yuan } from 'ant-design-pro/lib/Charts';
 import {ReloadOutlined} from '@ant-design/icons';
@@ -58,17 +59,20 @@ function getBase64(img, callback) {
        constructor(props)
            {
           super(props);
-          this.state =  {posts :"",value:1,varDetail:"", flag1:""} ;
+          this.state =  {posts :"",value:1,varDetail:"", flag1:"",uploadPhoto:""} ;
           this.handleSubmit = this.handleSubmit.bind(this);
           this.handleChange1=this.handleChange1.bind(this);
           this.clickChange=this.clickChange.bind(this);
+          this.uploadPhotos =this.uploadPhotos.bind(this);
           this.handleChange = this.handleChange.bind(this);
           this.myDetailClick = this.myDetailClick.bind(this);
           this.state={ mess : "", loading:false}
           this.onChange=this.onChange.bind(this);
           this.state = {ngoupdatedetails:"", ngoupdateprofile:undefined};
         }
+handleSubmit(){
 
+}
             onChange = e =>
             {
             console.log('radio checked', e.target.value);
@@ -107,17 +111,22 @@ function getBase64(img, callback) {
             this.setState({changePasswordFlag:data})
             ReactDOM.render(<WrappedNormalChangePasswordForm data={this.props.data}/>,document.getElementById('root'));
           }
-        handleSubmit(e)
-        {
-               }
-               homeClick(data){
-                 this.setState({flag1:data})
-                 this.setState({varDetail:""})
-               }
+
+          homeClick(data){
+              this.setState({flag1:data})
+              this.setState({varDetail:""})
+              this.setState({uploadPhoto:""})
+          }
+          uploadPhotos(data){
+            this.setState({uploadPhoto:data})
+            this.setState({flag1:""})
+            this.setState({varDetail:""})
+          }
 
           myDetailClick(data){
             this.setState({varDetail:data})
             this.setState({flag1:""})
+            this.setState({uploadPhoto:""})
 
             let loginRequest = {
               "email": this.props.email
@@ -265,17 +274,17 @@ function getBase64(img, callback) {
             <Header>
                 <div style={{marginLeft:'-50px',width:(window.innerWidth),background:'white',marginTop:'-20px'}}>
                     <img src="img/mdHeader.png" style={{width: window.innerWidth ,height: '50px',top: '0px',left: '0px'}}/>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-950PX'}}><Router><Link onClick={this.homeClick.bind(this,"home")} style={{color:'#FFFFFF'}} to={'Home'}>HOME</Link></Router></a>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-970px'}}><Router><Link onClick={this.myDetailClick.bind(this,"my_detail")} style={{color:'#FFFFFF'}}>MY DETAILS</Link></Router></a>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-990px'}}><Router><Link onClick={this.handleChange.bind(this,"change_password")} style={{color:'#FFFFFF'}}>CHANGE PASSWORD</Link></Router></a>
-                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1010px'}}>NGO</a>
-                    <a  href = "" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-1030px'}}>LOGOUT</a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-890PX'}}><Router><Link onClick={this.homeClick.bind(this,"home")} style={{color:'#FFFFFF'}} to={'Home'}>HOME</Link></Router></a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-910px'}}><Router><Link onClick={this.myDetailClick.bind(this,"my_detail")} style={{color:'#FFFFFF'}}>MY DETAILS</Link></Router></a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-930px'}}><Router><Link onClick={this.handleChange.bind(this,"change_password")} style={{color:'#FFFFFF'}}>CHANGE PASSWORD</Link></Router></a>
+                    <a  style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-950px'}}><Router><Link onClick={this.uploadPhotos.bind(this,"photos")} style={{color:'#FFFFFF'}}>UPLOAD PHOTOS</Link></Router></a>
+                    <a  href = "" style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#FFFFFF',right:'-970px'}}>LOGOUT</a>
                 </div>
             </Header>
 
             <Layout style={{marginTop: '-25px',height:( window.innerHeight - 107 )}}>
                 <img src="img/subHeaderImg.png" style={{width: window.innerWidth+1 ,height: '110px',top: '0px',left: '0px'}}/>
-              <Content style={{background:'white',marginLeft:'2px',overflow : 'scroll'}}>
+              <Content style={{background:'white',marginLeft:'2px'}}>
                   {
                     (this.state.flag1==="home")?<div>
                          <img src="img/NGOLanding.png" style={{width: '100%', height: '100%', paddingBottom:'40px'}}/>
@@ -283,6 +292,9 @@ function getBase64(img, callback) {
                   }
                  {
                    (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngocategorydropdown={this.props.ngocategorydropdown}  ngoupdateprofile={(this.state.ngoupdateprofile == undefined)? this.props.ngoupdateprofile : this.state.ngoupdateprofile}/>:null
+                 }
+                 {
+                   (this.state.uploadPhoto=== "photos")?<Update_photos_1 />:null
                  }
                  <div>
                       <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>

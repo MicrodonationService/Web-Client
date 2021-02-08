@@ -261,10 +261,6 @@ class NgoEditProfile extends React.Component {
       })
   }
 
-
-
-
-
   handleSubmit(e) {
     console.log(this.state.reqFlag1);
     e.preventDefault();
@@ -453,10 +449,7 @@ class NgoEditProfile extends React.Component {
 
               </Form.Item>
               <h4 style={{ marginTop: '-69px', marginLeft: '530px' }}>NGO CATEGORY <span style={{color:"red"}}>*</span></h4>
-              <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}
-
-
-              >
+              <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}>
                  {getFieldDecorator('ngocategory', {
                    rules: [
                     {

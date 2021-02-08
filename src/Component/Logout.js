@@ -23,7 +23,7 @@ const onLogoutSuccess =(res) => {
         <GoogleLogout
             clientId={clientId}
             render={renderProps=>(
-                <a style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#1890ff',right:'-1003px'}} onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                <a style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#1890ff',right:'-950px'}} onClick={renderProps.onClick} disabled={renderProps.disabled}>
                     LOGOUT
                 </a>
             )}

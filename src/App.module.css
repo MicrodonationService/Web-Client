@@ -1,61 +1,50 @@
-.App
-{
+.App {
   text-align: center;
 }
 
-
-.tab [class*="ant-tabs-tab-active"]
-{
-background:#f8a500 !important;
-border-Radius: 5px !important;
-color: #fff !important;
+.tab [class*="ant-tabs-tab-active"] {
+  background: #f8a500 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
 }
 
-.App-logo
-{
+.App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
   pointer-events: none;
 }
 
-  .modalPopUp [class*="ant-btn"]
-{
+.modalPopUp [class*="ant-btn"] {
   margin-left: -230px;
 }
 
-.Date [class*="ant-form ant-form-horizontal"]
-{
+.Date [class*="ant-form ant-form-horizontal"] {
   display: inline-flex;
 }
 
-.slick-active
-{
-  MIN-WIDTH: 117PX !important;
+.slick-active {
+  min-width: 117px !important;
 }
 
-.inputBoxCss input
-{
-  background:white !important;
+.inputBoxCss input {
+  background: white !important;
   border-radius: 0px;
-  padding-Top: 0px !important;
+  padding-top: 0px !important;
 }
 
-.inputBoxCss1 input
-{
+.inputBoxCss1 input {
   padding-top: -1px;
 }
 
-[class*="ant-form-item-required"]{
-  color:#888888 !important;
+[class*="ant-form-item-required"] {
+  color: #888888 !important;
   font-weight: 200 !important;
   font-size: medium !important;
   margin-left: 20px !important;
 }
 
-
-.second1
-{
-  border-radius:15px;
+.second1 {
+  border-radius: 15px;
   position: relative;
   left: 50%;
   top: 50%;
@@ -65,8 +54,7 @@ color: #fff !important;
   max-height: 80%;
 }
 
-.img1
-{
+.img1 {
   margin-top: 17px !important;
   height: 55px !important;
   min-width: 100% !important;
@@ -74,75 +62,65 @@ color: #fff !important;
   margin-left: -7px !important;
 }
 
-.logo
-{
+.logo {
   min-width: 10%;
   max-width: 100%;
 }
 
-.second
-{
+.mainloginformdiv {
   border-radius: 5px;
-  border:1px solid;
-  padding:28px;
-  height:478px !important;
+  border: 1px solid;
+  padding: 28px;
+  height: 478px !important;
   background: #ffffff;
   width: 388px !important;
   position: absolute;
   margin: auto;
   top: 18%;
   left: 47%;
-
 }
 
-.second2
-{
+.siderimagediv {
   border-radius: 5px;
-  border:1px solid;
-  padding:28px;
-  height:478px !important;
+  border: 1px solid;
+  padding: 28px;
+  height: 478px !important;
   background: #ffffff;
   width: 320px !important;
   position: absolute;
   margin: auto;
   top: 18%;
   left: 24%;
-
 }
 
-.second3
-{
+.second3 {
   border-radius: 5px;
-  border:1px solid #ffffff;
-  padding:28px;
-  height:420px !important;
+  border: 1px solid #ffffff;
+  padding: 28px;
+  height: 420px !important;
   background: #ffffff;
   width: 604px !important;
   position: absolute;
   margin: auto;
   top: 23%;
   left: 36%;
-
 }
-.Back
-{
+.Back {
   background-position: center center !important;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: Black;
   max-height: 100%;
   margin-bottom: -10px;
   overflow: auto !important;
 }
-.img
-{
-borderRadius:10px;
-width:96%;
-height:510px;
+.img {
+  borderradius: 10px;
+  width: 96%;
+  height: 510px;
 }
 
-.App-header
-{
+.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -153,14 +131,11 @@ height:510px;
   color: white;
 }
 
-.App-link
-{
+.App-link {
   color: #61dafb;
 }
 
-
-@keyframes App-logo-spin
-{
+@keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -168,14 +143,753 @@ height:510px;
     transform: rotate(360deg);
   }
 }
-.ellipsisVisible h4:hover{
+.ellipsisVisible h4:hover {
   overflow: visible !important;
 }
 
 [class*="ant-tooltip-inner"] {
-    border : 1px solid rgba(0, 0, 0, 0.65) !important;
-    color: rgb(131, 10, 58) !important;
-    width : 230px !important;
-    background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.65) !important;
+  color: rgb(131, 10, 58) !important;
+  width: 230px !important;
+  background-color: #ffffff !important;
+}
 
+.mobileviewregistertitle {
+  color: #f8a500;
+  margin-top: 10px;
+  font-weight: Bold;
+  margin-left: 350px;
+}
+
+.mobileviewform {
+  margin-left: 100px;
+}
+
+.termsandcondition {
+  margin-left: 100px;
+}
+
+.continuebutton {
+  width: 50%;
+  left: 250px;
+  border-radius: 25px;
+  background: #f8a500;
+}
+
+.backtologin {
+  font-size: 14px;
+  margin-left: 300px;
+}
+
+.signupwithtext {
+  margin-top: -10px;
+  margin-left: 310px;
+}
+
+.fbbuttoncol {
+  width: 130px;
+  height: 15px;
+  margin-left: 180px;
+}
+
+.googleButtonRegisterCss{
+  position: relative !important;
+  left: 220px !important;
+  top: 15px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-size: 13px;
+  height: 45px;
+}
+
+.googleButtonRegisterCss:focus{
+  outline: none !important;
+}
+
+.googleButtonRegisterCss div{
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 0px !important;
+  width: 50px !important;
+  position: relative !important;
+  top: 2px !important;
+
+}
+
+.googleButtonCss {
+  position: relative !important;
+  left: 10px !important;
+  top: 25px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-size: 13px;
+  height: 40px;
+}
+
+.googleButtonCss:focus {
+  outline: none !important;
+}
+
+.googleButtonCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+.fbbuttonregisetercss{
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  position: relative !important;
+  left: 150px !important;
+  top: 15px !important;
+  height: 45px;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.fbbuttonregisetercss:focus{
+  outline: none !important;
+}
+
+.fbbuttonregisetercss i {
+  padding: 10px;
+}
+
+.fbbuttonregisetercss div{
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+
+
+.fbbuttoncss{
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  position: relative !important;
+  left: 0px !important;
+  top: 25px !important;
+  height: 40px;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.fbbuttoncss:focus{
+  outline: none !important;
+}
+.fbbuttoncss i{
+  padding: 10px;
+}
+.fbbuttoncss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+.myprofiletext {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.mainlayout {
+  overflow: hidden;
+  background: white;
+  overflow: unset;
+  margin-left: 0px;
+}
+
+.uploadbuttoncss {
+  margin: 15px 0px 0px 42px;
+}
+
+.editprofileupdatebutton{
+  margin: 21px 0px 0px 42px;
+}
+
+.donorformlabelname {
+  margin-bottom: -18px;
+  margin-left: 72px;
+}
+
+.donorformitemnamecss {
+  width: 55%;
+  align-content: center;
+  position: relative;
+  top: 21px;
+  left: 70px;
+}
+
+.donorformlabelage {
+  margin-top: -41px;
+  margin-left: 427px;
+}
+
+.donorformitemagecss {
+  position: relative;
+  align-content: center;
+  top: -19px;
+  left: 422px;
+  width: 53%;
+}
+
+.donoroccupationlabel {
+  margin-top: -80px;
+  margin-left: 521px;
+}
+
+.donoroccupationitemcss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 520px;
+  top: -60px;
+}
+
+.donorformcitylabel {
+  position: relative;
+  top: -118px;
+  left: 669px;
+}
+
+.donorformitemcitycss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 668px;
+  top: -125px;
+}
+
+.donorformaddresslabel {
+  margin-top: -46px;
+  margin-left: 72px;
+}
+
+.donorformitemaddresscss {
+  width: 123%;
+  left: 69px;
+  top: -90px;
+}
+
+.donoremaillabel{
+  margin-top: -46px;
+  margin-left: 72px;
+}
+
+.donoremailformitemcss{
+  width: 84%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 70px;
+}
+
+.donorphonenumberlabel{
+  margin-top: -127px;
+  position: relative;
+  left: 452px;
+  top: 35px;
+}
+
+.donorformitemphonenumbercss{
+  width: 60%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 450px;
+  top: -99px;
+}
+
+.verifynumbertext{
+  position: relative;
+  color: #000000;
+  top: -64px;
+  left: 150px;
+  text-decoration: underline;
+}
+
+.donorformpancardtext{
+  margin-top: -127px;
+  position: relative;
+  left: 72px;
+  top: 54px;
+  width: 50%;
+}
+
+.donorformitempancardcss{
+  width: 58.6%;
+  display: inline-block;
+  position: relative;
+  align-content: center;
+  left: 70px;
+  top: -81px;
+}
+
+.donorprofileupdatebutton{
+  width: 32%;
+  border-radius: 25px;
+  background: #f8a500;
+  color: black;
+  border-color: white;
+}
+
+.movileviewnavigation{
+  display: none;
+}
+
+.myprofiletextupdate{
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 130px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.donoreditppancardtext{
+  margin-top: -127px;
+  position: relative;
+  left: 72px;
+  top: 54px;
+  width: 50%;
+}
+
+.donorformitempancardcssprofileu{
+  width: 58.6%;
+  display: inline-block;
+  position: relative;
+  align-content: center;
+  left: 70px;
+  top: -81px;
+}
+
+.mobileviewregistersider{
+  width: auto;
+  height: 550px;
+  top: 0px;
+  left: 0px;
+}
+
+
+
+@media only screen and (max-width: 770px) {
+  .mainlayout {
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+  }
+
+  .movileviewnavigation{
+    overflow: hidden;
+    position: relative;
+    background-color: #000000;
+
+  }
+
+  .otherlinksinmobileview{
+    display: none;
+  }
+
+  .movileviewnavigation a{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline;
+  }
+
+  .movileviewnavigation a.icon{
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .movileviewnavigation a:hover{
+    background-color: #ddd;
+    color: black;
+  }
+
+  .activelinkclass{
+    background-color: #f8a500;
+    color: white;
+  }
+
+
+
+  .mainloginformdiv {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: 350px !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 1%;
+  }
+
+
+  .forgetpasswordtext {
+    color: #000000;
+    margin-left: 105px !important;
+    text-decoration: underline;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -10px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+  .googleButtonCss {
+    position: relative !important;
+    left: 145px !important;
+    top: -15px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .googleButtonRegisterCss{
+    position: relative !important;
+    left: 145px !important;
+    top: -20px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .fbbuttonregisetercss{
+    position: relative !important;
+    left: -20px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .fbbuttoncss{
+    position: relative !important;
+    left: -25px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .siderimagediv {
+    display: none;
+    overflow: hidden;
+  }
+
+  .maindiv {
+    overflow: hidden;
+  }
+  .body {
+    overflow: hidden;
+  }
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto;
+    overflow: hidden;
+    margin-left: -20px;
+
+  }
+
+  .mobileviewheaderdiv{
+    width: auto;
+    background: white;
+  }
+
+  .mobileviewregistersider{
+    display: none;
+  }
+
+
+
+  .mobileviewsiderimage {
+    display: none;
+  }
+
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 60px;
+  }
+
+  .ant-layout-sider-children {
+    display: none;
+  }
+
+  .mobileviewform {
+    margin-left: 30px;
+    width: 80%;
+  }
+
+  .termsandcondition {
+    margin-left: -110px;
+  }
+
+  .continuebutton {
+    width: 50%;
+    left: 90px;
+    border-radius: 25px;
+    background: #f8a500;
+  }
+
+  .backtologin {
+    font-size: 14px;
+    margin-left: 100px;
+  }
+
+  .signupwithtext {
+    margin-top: -10px;
+    margin-left: 110px;
+  }
+
+  .fbbuttoncol {
+    margin-top: -10px;
+    width: 125px;
+    height: 5px;
+    margin-left: -10px;
+  }
+
+  .myprofiletext {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .myprofiletextupdate {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .staticprofileimage {
+    size: 100px;
+    width: 50px;
+    height: 59px;
+    margin-left: -90px;
+  }
+
+  .uploadbuttoncss {
+    margin-top: -70px;
+    height: 10px;
+    width: 10%;
+    margin-left: 60px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .editprofileupdatebutton{
+    margin-top: -70px;
+    height: 10px;
+    width: 10%;
+    margin-left: 60px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .donorformmaindiv {
+    margin-top: 320px;
+    margin-left: -325px;
+  }
+
+  .donoreditprofile{
+    margin-left: -325px;
+    margin-top: 350px;
+  }
+
+  .donorformlabelname {
+    font-size: 14px;
+    margin-bottom: -30px;
+    margin-left: 72px;
+  }
+
+  .donorformlabelage {
+    font-size: 14px;
+    margin-left: 72px;
+    margin-top: 30px;
+  }
+
+  .donorformitemnamecss {
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  }
+
+  .donorformitemagecss {
+    width: 75%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -5px;
+  }
+
+  .donoroccupationlabel {
+    margin-top: 5px;
+    margin-left: 72px;
+    margin-bottom: 20px;
+  }
+
+  .donoroccupationitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+
+  .donorformcitylabel {
+    position: relative;
+    top: -15px;
+    left: 72px;
+  }
+
+  .donorformitemcitycss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+
+  .donorformaddresslabel {
+    margin-top: 30px;
+    margin-left: 72px;
+  }
+
+  .donorformitemaddresscss {
+    width: 50%;
+    left: 72px;
+    top: -70px;
+  }
+
+  .donoremaillabel{
+    margin-top: -25px;
+    margin-left: 72px;
+  }
+
+  .donoremailformitemcss{
+    width: 70%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -60px;
+    left: 72px;
+  }
+
+  .donorphonenumberlabel{
+    margin-top: -60px;
+    position: relative;
+    left: 72px;
+
+  }
+
+  .donorformitemphonenumbercss{
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -30px;
+  }
+
+  .verifynumbertext{
+    position: relative;
+    color: #000000;
+    left: -130px;
+    top: 10px;
+    text-decoration: underline;
+  }
+
+  .donorformpancardtext{
+    margin-top: -5px;
+    position: relative;
+    left: 72px;
+    top: 30px;
+    width: 50%;
+  }
+
+  .donoreditppancardtext{
+    margin-top: -5px;
+    position: relative;
+    left: 72px;
+    top: 10px;
+    width: 50%;
+  }
+
+  .donorformitempancardcssprofileu{
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -40px;
+  }
+
+  .donorformitempancardcss{
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -25px;
+  }
+
+  .donorprofileupdatebutton{
+    width: 30%;
+    top:60px;
+    left: -520px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+  [class*="ant-layout-sider "] {
+    display: none;
+  }
 }

@@ -104,7 +104,17 @@ class Loginpage extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.successModal = this.successModal.bind(this);
     this.errorModal = this.errorModal.bind(this);
+    this.responseFacebook= this.responseFacebook.bind(this)
+    this.fbClicked= this.fbClicked.bind(this)
   }; // End Constructor
+  componentDidMount() {
+    try{
+    window.FB.logout()
+    }
+    catch{
+      console.log();
+    }
+  }
    onGoogleFail=(e)=>{
     console.log(e);
   }
@@ -164,6 +174,80 @@ class Loginpage extends React.Component {
       content: 'Something Went Wrong Try Again Later...',
     });
   }
+
+  fbClicked=()=>{
+    console.log('clicked');
+  }
+
+  responseFacebook = response => {
+    console.log(response)
+    const superagent = require('superagent');
+    superagent
+    .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/facebooklogin')
+    .send({
+            "IdToken":response.accessToken,
+            "email":response.email,
+            "name":response.name
+          })
+    .set('X-API-Key', 'foobar')
+    .set('accept', 'application/json')
+    .set('accept', '*/*')
+    .set('Access-Control-Request-Headers','content-type,x-api-key')
+    .set('Access-Control-Request-Method','POST')
+    .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+    .set('Origin','http://localhost:3000')
+    .set('Accept-Encoding','gzip, deflate, br')
+    .set('Sec-Fetch-Dest','empty')
+    .set('Sec-Fetch-Mode', 'cors')
+    .end((err, res) => {
+      console.log(res)
+      console.log(err)
+      let loginRespJson = JSON.parse(res.text);
+      //console.log(typeof(loginRespJson))
+      //console.log(loginRespJson.body[0].updateflag);
+      if (loginRespJson.success === true && loginRespJson.updateflag === "N") {
+        //this.setState({loginFlag:true})
+        console.log("In the edit profile")
+        setTimeout(() => {
+         ReactDOM.render(<WrappedDonorEditProfile  email={response.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
+        }, 5000);
+        //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+        console.log(loginRespJson)
+      }else if (loginRespJson.user == "D" && loginRespJson.success == true){
+        let loginRequest = {
+          "email": response.email,
+        };
+        const superagent = require('superagent');
+        superagent
+          .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+          .send(loginRequest)                                 // sends a JSON post body
+          .set('X-API-Key', 'foobar')
+          .set('Content-Type','application/json')
+          .set('accept', '*/*')
+          .set('Access-Control-Request-Headers','content-type,x-api-key')
+          .set('Access-Control-Request-Method','POST')
+          .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+          .set('Origin','http://localhost:3000')
+          .set('Accept-Encoding','gzip, deflate, br')
+          .set('Sec-Fetch-Dest','empty')
+          .set('Sec-Fetch-Mode', 'cors')
+          .end((err, res) => {                               // Calling the end function will send the request
+            console.log("service call", res);
+            let fatchDetailsRespJson = JSON.parse(res.text);
+            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+          })
+        //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+      }
+      else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User not registered") { // "I" stand for Inactive user
+
+                this.setState({ mess: response.email+" User is not registered Please Register" })
+
+              }
+    })
+
+  }
+
+
   onGoogleLogin=(e)=>{
     console.log(e);
     console.log({
@@ -184,7 +268,8 @@ class Loginpage extends React.Component {
     .end((err, res) => {
       console.log(res)
       let loginRespJson = JSON.parse(res.text);
-      console.log(typeof(loginRespJson))
+      //console.log(typeof(loginRespJson))
+      //console.log(loginRespJson.body[0].updateflag);
       if (loginRespJson.success === true && loginRespJson.updateflag === "N") {
         //this.setState({loginFlag:true})
         console.log("In the edit profile")
@@ -214,7 +299,7 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout email={e.profileObj.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
@@ -350,11 +435,12 @@ class Loginpage extends React.Component {
     const { getFieldDecorator } = this.props.form;
     if (this.state.flag === true) {
       console.log("flag", this.state.flag);
+
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
-        <Router>
-          <WrappedNormalForPassForm tabFlag={this.state.tabFlag}/>
-        </Router>
+          <Switch>
+            <Route exact component={WrappedNormalForPassForm} />
+          </Switch>
         </div>)
     }
     if (this.state.verifyFlag === true) {
@@ -367,16 +453,18 @@ class Loginpage extends React.Component {
         </div>)
     }
 
+
+
     return (            // Returning HTML on screen
-      <Layout>
-        <div style={{ width: (window.innerWidth), background: 'white' }}>
-          <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '70px', top: '0px', left: '0px' }} />
+      <Layout className={styles.maindiv}>
+        <div className={styles.mobileviewheaderdiv} >
+          <img className={styles.mobileviewiheaderimg} style={{width:'100%'}} src="img/mdHeader.png"  />
         </div>
         <Content >
-          <div style={{ display: 'inlineFlex' }} className={styles.second2}>
-            <img src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
+          <div style={{ display: 'inlineFlex' }} className={styles.siderimagediv}>
+            <img className={styles.mobileviewsiderimage} src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
           </div>
-          <div className={styles.second} >
+          <div className={styles.mainloginformdiv} >
 
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
@@ -388,7 +476,7 @@ class Loginpage extends React.Component {
             </Tabs>
 
             <Form >
-              <h4 style={{ marginTop: '20px', marginBottom: '7px' }}>USER ID(E-MAIL) </h4>
+              <h4 style={{ marginTop: '20px', marginBottom: '7px' }}>User ID(E-MAIL) </h4>
               <Form.Item >
                 {getFieldDecorator('email', {
                   rules: [
@@ -407,7 +495,7 @@ class Loginpage extends React.Component {
               </Form.Item>
               <div style={{ marginBottom: '7px' }}>
                 <h4 style={{ marginTop: '7px', marginBottom: '-1px', display: 'contents' }}>PASSWORD</h4>
-                <a style={{ color: '#000000', marginLeft: '145px', textDecoration: 'underline' }} onClick={this.handleClick}><Link to={"ForgotPassword"} style={{ color: '#000' }}>Forgot Password?</Link></a>
+                <a style={{ color: '#000000', marginLeft: '145px', textDecoration: 'underline' }} className={styles.forgetpasswordtext} onClick={this.handleClick}><Link to={"ForgotPassword"} style={{ color: '#000' }}>Forgot Password?</Link></a>
               </div>
 
               <Form.Item >
@@ -428,24 +516,32 @@ class Loginpage extends React.Component {
               </Form.Item>
             </Form>
 
-            <a href="" style={{ color: '#AB1B5C', textDecoration: 'underline', position: 'relative', top: '55px', left: '134px' }} onClick={this.handleSubmit}><Link style={{ color: '#000' }}> Register</Link></a>
+            <a href="" className={styles.loginscreenregistertext} style={{ color: '#AB1B5C', textDecoration: 'underline', position: 'relative', top: '55px', left: '134px' }} onClick={this.handleSubmit}><Link style={{ color: '#000' }}> Register</Link></a>
             <Spin spinning={this.state.loading ? true : false} >
               <Button type="submit" onClick={this.handleLogin}
-                style={{ background: '#f8a500', color: 'Black', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
+                style={{ background: '#f8a500', color: 'Black', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >Login</Button><br></br>
             </Spin>
             <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Please update profile")? 'blue': 'red', textAlign: 'center' }}>{this.state.mess}</h4>
+
+            <FacebookLogin
+              appId="622990185060497"
+              fields="name,email,picture"
+              onClick={this.fbClicked}
+              textButton="Login with Facebook"
+              callback={this.responseFacebook}
+              cssClass={styles.fbbuttoncss}
+              icon="fa-facebook"
+
+            />
+
             <GoogleLogin
               clientId={clientId}
+              buttonText="Login with Google"
               onSuccess={this.onGoogleLogin}
               onFailure={this.onGoogleFail}
-              isSignedIn={true}
-              className="googleButtonCss"
-            ><span style={{fontWeight: 800}}>LOGIN WITH GOOGLE</span></GoogleLogin>
-            <FacebookLogin
-              icon="fa-facebook"
-              textButton = "LOGIN WITH FACEBOOK"
-              cssClass="facebookButtonCss"
-            ></FacebookLogin>
+              isSignedIn={false}
+              className={styles.googleButtonCss}
+            />
             <div style={{ width: '105%', height: '185px', maxHeight: '150px' }} className={styles.pass}>
 
             </div>

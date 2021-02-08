@@ -5,33 +5,39 @@ const clientId= '124654413589-6fetlcfplfted7k6hbl8nib9s7qcduso.apps.googleuserco
 
 function Logout(){
 const onLogoutSuccess =(res) => {
+    alert('Logged out Successfully');
     window.location.reload();
 
   };
   const onFailure = ()=>{
     console.log('handle failure cases');
-    window.location.reload();
+    try {
+      window.FB.logout()
+    } catch (error) {
+      window.location.reload();
+    }
+    
   };
-
+  
   const {signOut} = useGoogleLogout({
     clientId,
     onLogoutSuccess,
     onFailure,
   });
   return(
-
+    
         <GoogleLogout
             clientId={clientId}
             render={renderProps=>(
                 <a style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#1890ff',right:'-950px'}} onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                    LOGOUT
+                    Logout
                 </a>
             )}
             buttonText="Logout"
             onLogoutSuccess={onLogoutSuccess}
             onFailure={onFailure}>
         </GoogleLogout>
-
+    
   );
 }
 export default Logout;

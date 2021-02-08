@@ -3,8 +3,8 @@ import React from 'react';
 import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
-import WrappedOtpVerifyForm from "./OtpVerify.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
+import WrappedOtpVerifyForm from "./OtpVerify.js"
 import '../index.css';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import { Layout, Menu, Row, Col, Collapse, Result,Modal, Breadcrumb, Radio, Icon, Button, Select, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge,message, Upload } from 'antd';
@@ -83,8 +83,7 @@ class EditProfile extends React.Component {
         console.log("DONOR CATEGORY", this.state.donorcategorys)
 
       }
-
-       console.log("Donor Category",this.state.donorcategorys)
+      console.log("Donor Category",this.state.donorcategorys)
      })
  }
   componentWillReceiveProps(nextProps) {
@@ -101,7 +100,7 @@ class EditProfile extends React.Component {
     this.setState({ value: event.target.value });
     window.location.reload();
   }
-
+ 
   showModal = (e) => {
     console.log("In showModal");
 
@@ -159,6 +158,7 @@ class EditProfile extends React.Component {
 //       return false;
 //     }
 
+
 // }
 
   handleSubmit(e) {
@@ -168,7 +168,7 @@ class EditProfile extends React.Component {
       // var mobilen
       // console.log("Mobile",mobilenumber);
 
-
+      
       if (!err) {
 
         let updateProfileRequest = {
@@ -212,7 +212,7 @@ class EditProfile extends React.Component {
             }
           });
       }
-
+    
 
     })
   }
@@ -310,8 +310,8 @@ class EditProfile extends React.Component {
   render() {
     console.log("Donor Details", this.props.donorfetchdata)
     //var bgimg = "url('"+ window.origin+"/background.png')";
-    const { visible} = this.state;
     const { loading, imageUrl } = this.state;
+    const { visible} = this.state;
     const uploadButton = (
       <div style={{ marginTop: 8 }}>Upload</div>
     );
@@ -320,19 +320,20 @@ class EditProfile extends React.Component {
     const { posts } = this.state;
 
     return (
-      <div style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
-        <Layout>
-          <Content style={{ background: 'white', marginLeft: '2px', overflow: 'unset' }}>
+      <div className={styles.mainlayout} style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
+        <Layout className={styles.mainlayout}>
+          <Content className={styles.mainlayout} style={{ background: 'white', marginLeft: '2px', overflow: 'unset' }}>
           <div style={{}}>
-            <h5 style={{ display: 'block', position: 'relative', left: '70px', top: '130px', fontWeight: 800, color: '#f8a500', fontSize: 'x-large' }}>MY PROFILE</h5>
+            <h5  className={styles.myprofiletextupdate}>MY PROFILE</h5>
           <span style={{ margin: '80px 0px 0px 105px' }}>
-            <Avatar size={64} shape="circle" src="img/NGO.png" style={{marginTop:'130px'}}/>
+            <Avatar className={styles.staticprofileimage} size={64} shape="circle" src="img/NGO.png" style={{marginTop:'130px'}}/>
           </span>
-          <div style={{ margin: '40px 0px 0px 85px ' }}>
+          <div className={styles.editprofileupdatebutton} >
             <Upload
               name="avatar"
               listType="picture-card"
-              className="avatar-uploader"
+              className={styles.editprofileupdatebutton}
+              //lassName="avatar-uploader"
               showUploadList={false}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               beforeUpload={beforeUpload}
@@ -346,15 +347,15 @@ class EditProfile extends React.Component {
             {/* <h1 style={{ display: 'block', position: 'relative', left: '680px', fontWeight: 900, color: '#f8a500', top: '135px', fontSize: 'x-large' }}>MY PROFILE</h1> */}
             <div style={{ width: (window.innerWidth - 400), height: (window.innerHeight - 300), margin: '0px 0px 0px 160px', border: '1px solid #ffffff' }}>
 
-              <Form {...layout}>
+              <Form className={styles.donoreditprofile} {...layout}>
 
 
                 <div style={{ width: (window.innerWidth - 450), height: (window.innerHeight - 300), margin: '-250px 0px 0px 100px', border: '1px solid #ffffff' }}>
                   <div style={{ background: '#FFFFFF' }}>
-                    <h4 style={{ marginBottom: '-18px', marginLeft: '72px' }}>NAME</h4>
-                    <Form.Item
+                    <h4 className={styles.donorformlabelname} >NAME</h4>
+                    <Form.Item className={styles.donorformitemnamecss}
 
-                      style={{ width: '55%', alignContent: 'center', position: 'relative', top: '21px', left: '70px' }}
+                      // style={{ width: '55%', alignContent: 'center', position: 'relative', top: '21px', left: '70px' }}
                     >
                       {getFieldDecorator('name', {
                         // rules:[
@@ -367,10 +368,10 @@ class EditProfile extends React.Component {
                       })(
                         <Input type="text" style={{ borderRadius: '25px' }} />)}
                     </Form.Item>
-                    <h4 style={{ marginTop: '-41px', marginLeft: '427px' }}>AGE</h4>
-                    <Form.Item
+                    <h4 className={styles.donorformlabelage} >AGE</h4>
+                    <Form.Item className={styles.donorformitemagecss}
 
-                      style={{ width: '53%', alignContent: 'center', position: 'relative', left: '422px', top: '-19px' }}
+                      // style={{ width: '53%', alignContent: 'center', position: 'relative', left: '422px', top: '-19px' }}
                     >
                       {getFieldDecorator('age', {
                         rules:[
@@ -384,7 +385,7 @@ class EditProfile extends React.Component {
                           const {value} = e.target;
                           const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
                                    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-
+    
                                    }
                                    else{
                                      e.target.value = e.target.value.substring(0,e.target.value.length-1);
@@ -392,12 +393,12 @@ class EditProfile extends React.Component {
                                    }
                           }} style={{ borderRadius: '25px', width: '24%' }} />)}
                     </Form.Item>
-                    <h4 style={{ marginTop: '-80px', marginLeft: '521px' }}>OCCUPATION </h4>
-                    <Form.Item
+                    <h4 className={styles.donoroccupationlabel} >OCCUPATION </h4>
+                    <Form.Item className={styles.donoroccupationitemcss}
 
-                      style={{ width: '100%', alignContent: 'center', position: 'relative', left: '518px', top: '-58px' }}
+                      // style={{ width: '100%', alignContent: 'center', position: 'relative', left: '518px', top: '-58px' }}
                     >
-                    {getFieldDecorator('occupation', {
+                      {getFieldDecorator('occupation', {
                       rules: [
                        {
                          required: true,
@@ -415,11 +416,11 @@ class EditProfile extends React.Component {
                }
              </Select>
                      )}</Form.Item>
-                    <h4 style={{ marginTop: '-119px', marginLeft: '670px' }}>CITY</h4>
+                    <h4 className={styles.donorformcitylabel} >CITY</h4>
 
-                    <Form.Item
+                    <Form.Item className={styles.donorformitemcitycss}
 
-                      style={{ width: '68%', alignContent: 'center', position: 'relative', left: '668px', top: '-98px' }}
+                      // style={{ width: '68%', alignContent: 'center', position: 'relative', left: '668px', top: '-98px' }}
                     >
                       {getFieldDecorator('city', {
                         //  rules:[
@@ -434,10 +435,10 @@ class EditProfile extends React.Component {
                     </Form.Item>
                   </div>
                   <Form.Item style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-55px' }}>
-                    <h4 style={{ marginTop: '-46px', marginLeft: '72px' }}>ADDRESS</h4>
+                    <h4 className={styles.donorformaddresslabel} >ADDRESS</h4>
                   </Form.Item>
-                  <Form.Item
-                    style={{ width: '123%', left: '69px', top: '-90px' }}
+                  <Form.Item className={styles.donorformitemaddresscss}
+                    // style={{ width: '123%', left: '69px', top: '-90px' }}
                   >{getFieldDecorator('address', {
                     // rules:[
                     //   {
@@ -450,11 +451,11 @@ class EditProfile extends React.Component {
                     <Input type="text" style={{ borderRadius: '25px' }} />)}
                   </Form.Item>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-45px' }}>
-                    <h4 style={{ marginTop: '-46px', marginLeft: '72px' }}>E-MAIL ID</h4>
+                    <h4 className={styles.donoremaillabel}>E-MAIL ID</h4>
                   </Form.Item>
-                  <Form.Item
+                  <Form.Item className={styles.donoremailformitemcss}
 
-                    style={{ width: '84%', display: 'inline-block', alignContent: 'center', position: 'relative', top: '-60px', left: '70px' }}
+                    // style={{ width: '84%', display: 'inline-block', alignContent: 'center', position: 'relative', top: '-60px', left: '70px' }}
                   >
                     {getFieldDecorator('email', {
 
@@ -469,11 +470,11 @@ class EditProfile extends React.Component {
                   </Form.Item>
 
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
-                    <h4 style={{ marginTop: '-127px', position: 'relative', left: '452px', top: '35px' }}>PHONE NUMBER</h4>
+                    <h4 className={styles.donorphonenumberlabel} >PHONE NUMBER</h4>
                   </Form.Item>
-                  <Form.Item
+                  <Form.Item className={styles.donorformitemphonenumbercss}
 
-                    style={{ width: '60%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '450px', top: '-99px' }}
+                    // style={{ width: '60%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '450px', top: '-99px' }}
                   > {getFieldDecorator('mobile', {
                     rules:[
                       {
@@ -520,11 +521,11 @@ class EditProfile extends React.Component {
                     </Modal>
                   </div>
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
-                    <h4 style={{ marginTop: '-127px', position: 'relative', left: '72px', top: '54px' }}>PAN CARD</h4>
+                    <h4 className={styles.donoreditppancardtext} >PAN CARD</h4>
                   </Form.Item>
-                  <Form.Item
+                  <Form.Item className={styles.donorformitempancardcssprofileu}
 
-                    style={{ width: '58.6%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '70px', top: '-81px' }}
+                    // style={{ width: '58.6%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '70px', top: '-81px' }}
                   >{getFieldDecorator('pancard', {
                     // rules:[
                     //   {
@@ -547,7 +548,7 @@ class EditProfile extends React.Component {
                     <h4 style={{ marginTop: '-110px', position: 'relative', left: '72px', top: '54px' }}>Required Fields <span style={{color:'red'}}>*</span></h4>
                   </Form.Item> */}
                   <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-80px' }}>
-                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '32%', borderRadius: '25px', background: '#f8a500', color: 'Black', borderColor: 'white' }}>
+                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} className={styles.donorprofileupdatebutton}>
                       Update
                         </Button>
                   </Form.Item>
@@ -557,7 +558,7 @@ class EditProfile extends React.Component {
                 </div>
                 <h4 style={{ position: 'relative', top: '-5px', color: 'blue', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
                 <h4 style={{ position: 'relative', top: '-5px', color: 'red', textAlign: 'center', right: '-86px' }}>{this.state.failedmess}</h4>
-
+                
 
               </Form>
 

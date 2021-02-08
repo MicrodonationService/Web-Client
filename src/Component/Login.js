@@ -469,9 +469,9 @@ class Loginpage extends React.Component {
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
             <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
-              <TabPane tab="Login As Donar" key="D" >
+              <TabPane tab="LOGIN AS DONOR" key="D" >
               </TabPane>
-              <TabPane tab="Login As NGO" key="N" >
+              <TabPane tab="LOGIN AS NGO" key="N" >
               </TabPane>
             </Tabs>
 

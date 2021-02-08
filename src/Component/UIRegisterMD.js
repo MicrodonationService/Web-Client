@@ -13,14 +13,19 @@ import WrappedVerificationMDForm from "./verificationMD.js"
 import WrappedNormalLoginForm from "./Login.js";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import LoginHooks from './GoogleRegisterHook';
-
+import MainLayout from "./MainLayout.js";
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
+import WrappedDonorEditProfile from './DonorEditProfile.js'
 var styles = require('../App.module.css');
-var usertypedisplay=""
+var usertypedisplay = ""
 const { Header, Sider, Content, Footer } = Layout;
 const { Group } = Radio;
 const { Option } = Select;
 const { TabPane } = Tabs;
 const AutoCompleteOption = AutoComplete.Option
+const clientId = '124654413589-6fetlcfplfted7k6hbl8nib9s7qcduso.apps.googleusercontent.com';
+
 const layout = {
   labelCol: {
     span: 4,
@@ -50,13 +55,14 @@ class UIregisterMD extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flag: false, mailResp: undefined, phoneResp: undefined, mess: "",mess1:"", roll: this.props.tabFlag, userId: undefined, userType: this.props.tabFlag, isprofileupdatedflag: 0, email: ""
+      flag: false, mailResp: undefined, phoneResp: undefined, mess: "", mess1: "", mess2: "", roll: this.props.tabFlag, userId: undefined, userType: this.props.tabFlag, isprofileupdatedflag: 0, email: "", checkedcheckbox: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.HandleSubmit = this.HandleSubmit.bind(this);
     this.isValidPassword = this.isValidPassword.bind(this);
     this.callback = this.callback.bind(this);
-
+    this.checkboxchange = this.checkboxchange.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this)
   }
 
 
@@ -75,6 +81,138 @@ class UIregisterMD extends React.Component {
     console.log(key);
   }
 
+  checkboxchange(e) {
+    console.log(e.target.checked)
+    this.setState({ checkedcheckbox: e.target.checked })
+  }
+  responseFacebook = response => {
+    const superagent = require('superagent');
+    superagent
+      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerwithfacebook')
+      .send({
+        "IdToken": response.accessToken,
+        "email": response.email,
+        "name": response.name,
+        "utype": "DONOR"
+      })
+      .set('X-API-Key', 'foobar')
+      .set('Content-Type', 'application/json')
+      .set('accept', '*/*')
+      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+      .set('Origin', 'http://localhost:3000')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .end((err, res) => {
+        console.log(res)
+        let loginRespJson = JSON.parse(res.text);
+        console.log(typeof (loginRespJson))
+        if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
+          //this.setState({loginFlag:true})
+          setTimeout(() => {
+            ReactDOM.render(<WrappedDonorEditProfile email={response.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
+          }, 5000);
+          //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+          console.log(loginRespJson)
+        } else if (loginRespJson.Status === "FAILED" && loginRespJson.Body === "Error :User already exists") {
+          this.setState({ mess1: response.email + " User is already registered " })
+        }
+
+        else if (loginRespJson.user == "D" && loginRespJson.success == true) {
+          let loginRequest = {
+            "email": response.email,
+          };
+          const superagent = require('superagent');
+          superagent
+            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+            .send(loginRequest)                                 // sends a JSON post body
+            .set('X-API-Key', 'foobar')
+            .set('Content-Type', 'application/json')
+            .set('accept', '*/*')
+            .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+            .set('Access-Control-Request-Method', 'POST')
+            .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+            .set('Origin', 'http://localhost:3000')
+            .set('Accept-Encoding', 'gzip, deflate, br')
+            .set('Sec-Fetch-Dest', 'empty')
+            .set('Sec-Fetch-Mode', 'cors')
+            .end((err, res) => {                               // Calling the end function will send the request
+              console.log("service call", res);
+              let fatchDetailsRespJson = JSON.parse(res.text);
+              ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
+            })
+          //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+        }
+      })
+  };
+
+  onFailure = (res) => {
+    console.log(res)
+  }
+  onSuccess = (e) => {
+    const superagent = require('superagent');
+    superagent
+      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerwithgoogle')
+      .send({
+        "IdToken": e.tokenId,
+        "email": e.profileObj.email,
+        "name": e.profileObj.name,
+        "utype": "DONOR"
+      })
+      .set('X-API-Key', 'foobar')
+      .set('Content-Type', 'application/json')
+      .set('accept', '*/*')
+      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+      .set('Origin', 'http://localhost:3000')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .end((err, res) => {
+        console.log(res)
+        let loginRespJson = JSON.parse(res.text);
+        console.log(typeof (loginRespJson))
+        if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
+          //this.setState({loginFlag:true})
+          setTimeout(() => {
+            ReactDOM.render(<WrappedDonorEditProfile email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
+          }, 5000);
+          //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+          console.log(loginRespJson)
+        } else if (loginRespJson.Status === "FAILED" && loginRespJson.Body === "Error :User already exists") {
+          console.log("USer exists")
+          this.setState({ mess1: e.profileObj.email + " User is already registered " })
+        }
+        else if (loginRespJson.user == "D" && loginRespJson.success == true) {
+          let loginRequest = {
+            "email": e.profileObj.email,
+          };
+          const superagent = require('superagent');
+          superagent
+            .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donarfetchdata') // Ajax call
+            .send(loginRequest)                                 // sends a JSON post body
+            .set('X-API-Key', 'foobar')
+            .set('Content-Type', 'application/json')
+            .set('accept', '*/*')
+            .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+            .set('Access-Control-Request-Method', 'POST')
+            .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+            .set('Origin', 'http://localhost:3000')
+            .set('Accept-Encoding', 'gzip, deflate, br')
+            .set('Sec-Fetch-Dest', 'empty')
+            .set('Sec-Fetch-Mode', 'cors')
+            .end((err, res) => {                               // Calling the end function will send the request
+              console.log("service call", res);
+              let fatchDetailsRespJson = JSON.parse(res.text);
+              ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
+            })
+          //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+        }
+      })
+  };
 
   // HandleSubmit(e) {
   //   e.preventDefault();
@@ -144,14 +282,14 @@ class UIregisterMD extends React.Component {
 
           };
           var url = "";
-          if(this.props.tabFlag == "N"){
+          if (this.props.tabFlag == "N") {
             url = 'https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerngo';
-          }else{
-           url = "https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerdonor";
+          } else {
+            url = "https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerdonor";
           }                                            // End Post Request
           const superagent = require('superagent');
           superagent
-          .post(url)// Ajax Call
+            .post(url)// Ajax Call
             .send(registerRequest)                              // Sends a JSON post body
             .set('X-API-Key', 'foobar')
             .set('Content-Type', 'application/json')
@@ -187,18 +325,17 @@ class UIregisterMD extends React.Component {
     })
   }
 
-
   render() {            // Start Render();
 
     const { visible, confirmLoading } = this.state;
     const { getFieldDecorator } = this.props.form;
     console.log("Tabflag", this.props.tabFlag);
-    if (this.state.userType=="D"){
-      usertypedisplay= "DONOR"
+    if (this.state.userType == "D") {
+      usertypedisplay = "DONOR"
     }
-    else if (this.state.userType=="N"){
-        usertypedisplay= "NGO"
-      }
+    else if (this.state.userType == "N") {
+      usertypedisplay = "NGO"
+    }
     if (this.state.flag === true) {
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
@@ -223,26 +360,26 @@ class UIregisterMD extends React.Component {
 
     // }
     return (     // Returning HTML on screen
-      <div>
-        <Layout>
-          <Header>
-            <div style={{ marginLeft: '-50px', width: (window.innerWidth), background: 'white' }}>
-              <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '70px', top: '0px', left: '0px' }} />
-            </div>
-          </Header>
-          <Layout style={{ marginTop: '6px', height: (window.innerHeight - 107) }}>
+      <div className={styles.maindiv}>
+        <Layout className={styles.mainlayout}>
+        
+          <div className={styles.mobileviewheaderdiv}  >
+          <img className={styles.mobileviewiheaderimg} src="img/mdHeader.png"  />
+        </div>
+        
+          <Layout style={{ marginTop: '0px', height: (window.innerHeight - 107) }}>
             <Sider style={{ background: 'white', width: '400px', flex: '0 0 0px', minWidth: "400px" }}>
-              <img src="img/siderMD.png" style={{ width: window.innerWidth - 966, height: '550px', top: '0px', left: '0px' }} />
+              <img className={styles.mobileviewregistersider} src="img/siderMD.png"  />
             </Sider>
             <Content style={{ background: 'white', top: '30px', overflow: 'unset' }}>
 
 
               <div className="tabCss">
-              <h2 style={{ color: '#f8a500', marginTop:'10px', fontWeight: 'Bold',marginLeft:'350px' }}>
-                REGISTER AS {usertypedisplay}
+                <h2 className={styles.mobileviewregistertitle} >
+                  REGISTER AS {usertypedisplay}
                 </h2>
 
-                <div style={{ marginLeft: '180px' }}>
+                <div className={styles.mobileviewform} >
 
                   <div style={{ marginTop: '40px' }}>
 
@@ -255,7 +392,7 @@ class UIregisterMD extends React.Component {
                         >
 
                           {getFieldDecorator('email', {
-                            rules:[
+                            rules: [
                               {
                                 required: true,
                                 message: 'Please Enter Email Address',
@@ -263,15 +400,15 @@ class UIregisterMD extends React.Component {
                             ]
 
                           })(
-                            <Input placeholder="EMAIL ID" autoComplete="off" />)}
+                            <Input className={styles.mobileviewform} placeholder="EMAIL ID" autoComplete="off" />)}
                         </Form.Item>
 
                         <Form.Item>
 
                           {getFieldDecorator('Password', {
-                            rules:[
+                            rules: [
                               {
-                                required:true,
+                                required: true,
                                 message: "Please Enter Password",
                               },
                               {
@@ -290,7 +427,7 @@ class UIregisterMD extends React.Component {
                           })(
                             <Input.Password
                               //style={{ borderRadius: '15px' }}
-                              //className={styless.inputBoxCss}
+                              className={styles.mobileviewform}
                               placeholder='PASSWORD'
                               autoComplete="off"
                             />)}
@@ -300,9 +437,9 @@ class UIregisterMD extends React.Component {
                         <Form.Item>
 
                           {getFieldDecorator('confirmPin', {
-                            rules:[
+                            rules: [
                               {
-                                required:true,
+                                required: true,
                                 message: "Please Re-Enter Password",
                               },
                               {
@@ -320,6 +457,7 @@ class UIregisterMD extends React.Component {
                           })(<Input.Password
                             //style={{ borderRadius: '15px' }}
                             //className={styless.inputBoxCss}
+                            className={styles.mobileviewform}
                             autoComplete="off"
                             placeholder='CONFIRM PASSWORD'
                           />)}
@@ -340,8 +478,8 @@ class UIregisterMD extends React.Component {
                           ]}
                         >
 
-                          <Checkbox>
-                            I agreed to the <a >Term and Conditions</a>
+                          <Checkbox className={styles.termsandcondition} onChange={this.checkboxchange}>
+                            I agreed to the <a href="https://ngouploads.s3.ap-south-1.amazonaws.com/public/termsandconditions.txt">Term and Conditions</a>
                           </Checkbox>
 
 
@@ -349,25 +487,57 @@ class UIregisterMD extends React.Component {
 
 
                         <Form.Item style={{ width: '85%', display: 'inline-block', position: 'relative', top: '-12px' }}>
-                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%',left:"78px", borderRadius: '25px', background: '#f8a500' }}>
+                          <Button type="primary" htmlType="submit" onClick={this.handleSubmit} className={styles.continuebutton}>
                             Continue
                         </Button>
                           <br />
-                        <a href="" style={{fontSize:'16px',marginLeft:'200px'}}>BACK TO LOGIN</a>
+                          <a href="" className={styles.backtologin}>BACK TO LOGIN</a>
 
-                          <h4 style={{marginLeft:'200px'}}>Or Sign Up With</h4>
+                          <h4 className={styles.signupwithtext}>Or Sign Up With</h4>
 
 
-                          <Row >
+                          {/* <Row >
                             <Col span={8} >
-                              <FacebookLoginButton onClick={() => alert("Hello")} style={{ width: '130px', height: '30px' ,marginLeft:"80px" }}>
-                                <span>Facebook</span>
-                              </FacebookLoginButton>
+                            <FacebookLogin
+                              appId="622990185060497"
+                              autoLoad={true}
+                              isDisabled={!this.state.checkedcheckbox}
+                              fields="name,email,picture"
+                              onClick={this.fbClicked}
+                              callback={this.responseFacebook}
+                            
+                            />
                             </Col>
                             <Col span={8} >
-                            <LoginHooks tabFlag={usertypedisplay}/>
+                            <GoogleLogin
+                              clientId={clientId}
+                              buttonText="Login with Google"
+                              onSuccess={this.onSuccess}
+                              onFailure={this.onFailure}
+                              isSignedIn={false}
+                              disabled={!this.state.checkedcheckbox}
+                              className={styles.googleButtonCss}
+                            />
                             </Col>
-                          </Row>
+                          </Row> */}
+                          <FacebookLogin
+                            appId="622990185060497"
+                            fields="name,email,picture"
+                            onClick={this.fbClicked}
+                            callback={this.responseFacebook}
+                            cssClass={styles.fbbuttonregisetercss}
+                            icon="fa-facebook"
+
+                          />
+
+                          <GoogleLogin
+                            clientId={clientId}
+                            buttonText="Login with Google"
+                            onSuccess={this.onGoogleLogin}
+                            onFailure={this.onGoogleFail}
+                            isSignedIn={false}
+                            className={styles.googleButtonRegisterCss}
+                          />
                         </Form.Item>
                       </div>
                     </Form>

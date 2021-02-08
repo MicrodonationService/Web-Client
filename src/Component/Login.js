@@ -458,7 +458,7 @@ class Loginpage extends React.Component {
     return (            // Returning HTML on screen
       <Layout className={styles.maindiv}>
         <div className={styles.mobileviewheaderdiv} >
-          <img className={styles.mobileviewiheaderimg} style={{width:'100%'}} src="img/mdHeader.png"  />
+          <img className={styles.mobileviewiheaderimg} style={{width:window.innerWidth}} src="img/mdHeader.png"  />
         </div>
         <Content >
           <div style={{ display: 'inlineFlex' }} className={styles.siderimagediv}>

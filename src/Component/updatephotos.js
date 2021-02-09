@@ -215,7 +215,7 @@ class Update_photos extends React.Component
                       cursor: 'pointer'}}
                       onClick={this.handlesubmit}> Update</Button>
           </div>
-            <div style={{display:'flex', justifyContent:'flex-start', position:'fixed' }}>
+            <div style={{display:'flex', justifyContent:'flex-start', overflowX:'scroll' }}>
                 {images}
                       {this.state.showModal ? (
                             <Popup

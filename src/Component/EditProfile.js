@@ -54,14 +54,16 @@ class EditProfile extends React.Component {
     this.donorFetchname = this.donorFetchname.bind(this);
     // this.pancardValidation = this.pancardValidation.bind(this);
 
-    this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
-    this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
-    this.city = this.props.donorfetchdata.body.SZ_CITY;
-    this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
-    this.email = this.props.donorfetchdata.body.SZ_EMAIL;
-    this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
-    this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
-    this.age = this.props.donorfetchdata.Body1.SZ_AGE;
+    // this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
+    // this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
+    // this.city = this.props.donorfetchdata.body.SZ_CITY;
+    // this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
+    // this.email = this.props.donorfetchdata.body.SZ_EMAIL;
+    // this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
+    // this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
+    // this.age = this.props.donorfetchdata.Body1.SZ_AGE;
+
+    // this.federated = this.props.federated
     this.donorFetchname();
 
   }
@@ -288,34 +290,34 @@ class EditProfile extends React.Component {
     document.getElementById("pancard").value = this.pancard;
     document.getElementById("age").value = this.age;
 
-    let loginRequest = {
-      "cognitoId": this.props.donorfetchdata.body.SZ_COGNITO_ID
-    }
+    // let loginRequest = {
+    //   "cognitoId": this.props.donorfetchdata.body.SZ_COGNITO_ID
+    // }
 
-    const superagent = require('superagent');
+    // const superagent = require('superagent');
 
-    superagent
-      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
-      .send(loginRequest)
-      .set('X-API-Key', 'foobar')
-      .set('Content-Type', 'application/json')
-      .set('accept', '*/*')
-      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
-      .set('Access-Control-Request-Method', 'POST')
-      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-      .set('Origin', 'http://localhost:3000')
-      .set('Accept-Encoding', 'gzip, deflate, br')
-      .set('Sec-Fetch-Dest', 'empty')
-      .set('Sec-Fetch-Mode', 'cors')
-      .end((err, res) => {
-        //console.log("Response:",res)
-        this.setState({
-          donorprofileimage: JSON.parse(res.text),
-        })
-        console.log("Res", JSON.parse(res.text));
-        console.log("Rsss", this.state.donorprofileimage);
-        // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
-      });
+    // superagent
+    //   .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
+    //   .send(loginRequest)
+    //   .set('X-API-Key', 'foobar')
+    //   .set('Content-Type', 'application/json')
+    //   .set('accept', '*/*')
+    //   .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+    //   .set('Access-Control-Request-Method', 'POST')
+    //   .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+    //   .set('Origin', 'http://localhost:3000')
+    //   .set('Accept-Encoding', 'gzip, deflate, br')
+    //   .set('Sec-Fetch-Dest', 'empty')
+    //   .set('Sec-Fetch-Mode', 'cors')
+    //   .end((err, res) => {
+    //     //console.log("Response:",res)
+    //     this.setState({
+    //       donorprofileimage: JSON.parse(res.text),
+    //     })
+    //     console.log("Res", JSON.parse(res.text));
+    //     console.log("Rsss", this.state.donorprofileimage);
+    //     // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+    //   });
     //},500)
   }
   componentDidUpdate(prevProps, prevState) {
@@ -395,6 +397,35 @@ class EditProfile extends React.Component {
 
 
   render() {
+    console.log("Federated", this.props.federated);
+    let profilepicinput;
+    if (this.federated === "Y") {
+      profilepicinput =
+        <div>
+          <span style={{ margin: '80px 0px 0px 105px' }}>
+            <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.props.profilepic} style={{ marginTop: '130px' }} />
+          </span>
+
+        </div>
+
+    }
+    else {
+      profilepicinput = <div>
+        <span style={{ margin: '80px 0px 0px 105px' }}>
+          <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.state.donorprofileimage} style={{ marginTop: '130px' }} />
+        </span>
+        <div className={styles.editprofileupdatebutton} >
+          <label for="file-upload" className={styles.customfileupload}>
+            <i class="fa fa-upload" aria-hidden="true"></i>Upload
+</label>
+          <input id="file-upload" type="file" style={{ display: 'none', borderRadius: '25px' }} onChange={(e) => this.onPhotoupload(e)} />
+          {/* <input type="file" className={styles.donorprofilebutton}  onChange={(e)=>this.onPhotoupload(e)}></input> */}
+        </div>
+      </div>
+
+
+
+    }
     console.log("Donor Details", this.props.donorfetchdata)
     //var bgimg = "url('"+ window.origin+"/background.png')";
     const { loading, imageUrl } = this.state;
@@ -406,7 +437,7 @@ class EditProfile extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const { posts } = this.state;
 
-      console.log("In Render",this.state.donorprofileimage)
+    console.log("In Render", this.state.donorprofileimage)
 
     return (
       <div className={styles.mainlayout} style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
@@ -414,18 +445,7 @@ class EditProfile extends React.Component {
           <Content className={styles.mainlayout} style={{ background: 'white', marginLeft: '2px', overflow: 'unset' }}>
             <div style={{}}>
               <h5 className={styles.myprofiletextupdate}>MY PROFILE</h5>
-              <span style={{ margin: '80px 0px 0px 105px' }}>
-                <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.state.donorprofileimage} style={{ marginTop: '130px' }} />
-              </span>
-              <div className={styles.editprofileupdatebutton} >
-              <label for="file-upload" className={styles.customfileupload}>
-                <i class="fa fa-upload" aria-hidden="true"></i>Upload
-</label>
-              <input id="file-upload" type="file" style={{ display: 'none',borderRadius:'25px' }} onChange={(e) => this.onPhotoupload(e)} />
-                {/* <input type="file" className={styles.donorprofilebutton}  onChange={(e)=>this.onPhotoupload(e)}></input> */}
-              </div>
-
-             
+              {profilepicinput}
 
               {/* <input type="file"  onChange={(e)=>this.onPhotoupload(e)}></input> */}
             </div>

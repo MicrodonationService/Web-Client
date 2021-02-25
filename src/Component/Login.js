@@ -234,7 +234,7 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            ReactDOM.render(<MainLayout federated="Y"  profilepic={response.picture.data.url} data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
@@ -299,7 +299,7 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout   data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            ReactDOM.render(<MainLayout federated="Y" profilepic={e.profileObj.imageUrl}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
@@ -388,7 +388,7 @@ class Loginpage extends React.Component {
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-                  ReactDOM.render(<MainLayout email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                  ReactDOM.render(<MainLayout federated="N" email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
                 })
 
               //this.setState({loginFlag:true})

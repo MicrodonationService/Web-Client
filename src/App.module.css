@@ -2732,7 +2732,7 @@
 .editprofileaboveform{
   width: auto;
   height: auto;
-  margin: 0px 0px 0px 160px;
+  margin: 1px 0px 0px 160px;
   border: 1px solid #ffffff;
 }
 
@@ -4559,7 +4559,7 @@ input[type='file'] { color: transparent }
 .editprofileaboveform{
   width: auto;
   height: auto;
-  margin: 101px 0px 0px 235px;
+  margin: 92px 0px 0px 235px;
   border: 1px solid #ffffff;
 }
 
@@ -5277,7 +5277,7 @@ input[type='file'] { color: transparent }
   .editprofileaboveform{
     width: auto;
     height: auto;
-    margin: -26px 0px 0px 160px;
+    margin: -19px 0px 0px 160px;
     border: 1px solid #ffffff;
   }
 
@@ -5626,7 +5626,7 @@ input[type='file'] { color: transparent }
     width: auto;
     height: 90%;
     margin-top: -124px;
-    margin-left: -21px;
+    margin-left: 100px;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -5637,7 +5637,7 @@ input[type='file'] { color: transparent }
   }
   
   .ngonameformitemcss {
-    width: 45%;
+    width: 50%;
     align-content: center;
     position: relative;
     top: 0px;
@@ -5646,11 +5646,11 @@ input[type='file'] { color: transparent }
   
   .ngocategory {
     margin-top: -67px;
-    margin-left: 496px;
+    margin-left: 545px;
   }
   
   .ngocategoryformitemcss {
-    left: 496px;
+    left: 545px;
     top: -40px;
     width: 34%;
   }
@@ -5668,11 +5668,11 @@ input[type='file'] { color: transparent }
   
   .ngotypeoforg {
     margin-top: -76px;
-    margin-left: 496px;
+    margin-left: 545px;
   }
   
   .ngotypeoforgformitemcss {
-    left: 496px;
+    left: 545px;
     top: -50px;
     width: 44%;
   }
@@ -5718,7 +5718,7 @@ input[type='file'] { color: transparent }
   
   .ngoemailabel {
     margin-top: -52px;
-    margin-left: 70px;
+    margin-left: 64px;
   }
   
   .ngoemailformitemcss{
@@ -5726,16 +5726,16 @@ input[type='file'] { color: transparent }
     align-content: center;
     position: relative;
     top: -18px;
-    left: 220px;
+    left: 214px;
   }
   
   .ngowebsite{
-    margin-top: -29px;
+    margin-top: -22px;
     margin-left: 70px;
   }
   
   .ngowebsiteformitemcss{
-    width: 35%;
+    width: 30%;
     align-content: center;
     position: relative;
     top: -20px;
@@ -5744,7 +5744,7 @@ input[type='file'] { color: transparent }
   
   .ngooperationalsince{
     margin-top: -86px;
-    margin-left: 349px;
+    margin-left: 383px;
   }
   
   .ngooperationalsinceformitemcss{
@@ -5752,7 +5752,7 @@ input[type='file'] { color: transparent }
     align-content: center;
     position: relative;
     top: -62px;
-    left: 496px;
+    left: 525px;
   }
   
   .ngoregistartionnumber{
@@ -5790,7 +5790,7 @@ input[type='file'] { color: transparent }
   }
   
   .ngobanksectiondiv{
-    width: auto;
+    width: 450px;
     height: 340px;
     margin-left: 220px;
     margin-top: -54px;
@@ -6165,7 +6165,7 @@ input[type='file'] { color: transparent }
   .editprofileaboveform{
     width: auto;
     height: auto;
-    margin: -26px 0px 0px 160px;
+    margin: -66px 0px 0px 160px;
     border: 1px solid #ffffff;
   }
 
@@ -6594,7 +6594,7 @@ input[type='file'] { color: transparent }
     width: auto;
     height: 90%;
     margin-top: -124px;
-    margin-left: -21px;
+    margin-left: 94px;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -6758,7 +6758,7 @@ input[type='file'] { color: transparent }
   }
   
   .ngobanksectiondiv{
-    width: auto;
+    width: 450px;
     height: 340px;
     margin-left: 220px;
     margin-top: -54px;

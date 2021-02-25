@@ -7,10 +7,14 @@ import "antd/dist/antd.css"
 // import { useGoogleLogout } from 'react-google-login';
 import UIregisterMD from "./UIRegisterMD.js";
 import PasswordSetSuccess from "./PasswordSetSuccess.js"
+import MyDonation from "./myDonation.js"
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import WrappedNormalReferPage from "./ReferPage.js"
 import WrappedNormalEditProfileForm from "./EditProfile.js"
-import MyDonation from "./myDonation.js"
+// import MyNGO from "./MyNGO.js"
+// import OneTimeDonation from './onetimedonation.js';
+// import RecurringDonation from './donatetocharity.js';
+
 import { Chart, registerShape, Geom, Axis, Interval, Interaction, Coordinate } from 'bizcharts';
 
 import { Link, Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
@@ -51,22 +55,17 @@ const data = [
 class MainLayout extends React.Component {
   constructor(props) {
     super(props);
-    this.lastdonation()
+
     this.state = {
       flag: "",
       flag1: "",
-      email:"",
       profileUpdateFlag: "",
+      myDonatiion:"",
       changePasswordFlag: "",
-      mydonation:"",
-      donordetails:undefined,
       MycHarity: "",//MY CHARITY APP
       oneTimeDonation: "", //onetimeDonation
       recurringDonation: "", //recurringDonation
       donorfetchdata:undefined,
-      LastDate:"0",
-      Amount:"0",
-      Ngoname:"0",
       labels: ['Under18', 'Age 18-54', 'Age 55+'],
       datasets: [{
         data: [2000, 4000, 2850],
@@ -76,6 +75,7 @@ class MainLayout extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.myDonatiion = this.myDonatiion.bind(this);
 
     //this.userName1 = this.props.data.data.user.name;
   }
@@ -85,7 +85,14 @@ class MainLayout extends React.Component {
     this.setState({ changePasswordFlag: "" })
   }
 
-
+  myDonatiion(data){
+    this.setState({myDonatiion:data})
+    this.setState({ flag1: "" })
+    this.setState({ changePasswordFlag: "" })
+    this.setState({ flag: "" })
+    this.setState({ profileUpdateFlag: "" })
+    this.setState({ oneTimeDonation: "" })
+  }
   handleSubmit(data) {
     this.setState({ flag: data })
     this.setState({ profileUpdateFlag: "" })
@@ -119,7 +126,7 @@ class MainLayout extends React.Component {
     this.setState({ oneTimeDonation: "" })
 
     let loginRequest = {
-      "email": this.props.email 
+      "email": this.props.email
     };
     const superagent = require('superagent');
     superagent
@@ -162,46 +169,9 @@ class MainLayout extends React.Component {
     this.setState({ MycHarity: "" })
   }
 
-  mydonation(e){
-    this.setState({mydonation:e})
-  }
-  lastdonation(e)
-  {
-    console.log("Last Donation",this.props.donorfetchdata.body.SZ_EMAIL);
-            let confirmOtpOnPhoneRequest= {
-               // "email": "pranavvikh03@gmail.com"
-                "email": this.props.donorfetchdata.body.SZ_EMAIL
-            };
-            let ngoupdateres;
-            const superagent = require('superagent');
-             superagent
-              .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lastdonation')
-              .send(confirmOtpOnPhoneRequest)
-              .set('X-API-Key', 'foobar')
-              .set('Content-Type', 'application/json')
-              .set('accept', '*/*')
-              .set('Access-Control-Request-Headers', 'content-type,x-api-key')
-              .set('Access-Control-Request-Method', 'POST')
-              .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-              .set('Origin', 'http://localhost:3000')
-              .set('Accept-Encoding', 'gzip, deflate, br')
-              .set('Sec-Fetch-Dest', 'empty')
-              .set('Sec-Fetch-Mode', 'cors')
-              .end((err, res)=>{
-                console.log("Last Donation", res);
-                let detailsRespJSOn = JSON.parse(res.text);
-                    console.log("respjson", detailsRespJSOn);
-                    this.setState({ ngodetails: detailsRespJSOn})
-                    this.setState({LastDate: detailsRespJSOn.Body[0].DT_PAYMENT})
-                    this.setState({Amount: detailsRespJSOn.Body[0].F_GROSS_AMOUNT})
-                    this.setState({Ngoname: detailsRespJSOn.Body[0].SZ_NGO_NAME})
-                   
-                    console.log("Last Donation",this.state.ngodetails)       
-              })
-                };
-            
-  render() {
 
+  render() {
+    console.log("this.props.email",this.props.email);
     /*if(this.state.flag === true){
       return(
         <div style={{display:"inline-block",height:"100%",width:"100%"}}>
@@ -222,7 +192,6 @@ class MainLayout extends React.Component {
       )
 }*/
 
-
     return (
       <div>
         <Layout>
@@ -230,12 +199,12 @@ class MainLayout extends React.Component {
             <div style={{ marginLeft: '-50px', width: (window.innerWidth), background: 'white' }}>
               <img src="img/mdHeader.png" style={{ width: window.innerWidth, height: '70px', top: '0px', left: '0px' }} />
 
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', left: '-500px', float: 'right', color: '40a9ff' }} onClick={this.homeClick.bind(this, "home")}><Router><Link >HOME</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-800px' }} onClick={this.profileUpdateClick.bind(this, "profile_update")}><Router><Link >MY PROFILE</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-820px' }} onClick={this.handleSubmit.bind(this, "refer")}><Router><Link >REFER</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-850px' }} onClick={this.handleChange.bind(this, "change_password")}><Router><Link >CHANGE PASSWORD</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-761px' }} onClick={this.MyCharity.bind(this, "my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
-              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-779px'}} onClick={this.mydonation.bind(this,"mydonation")}><Router><Link >MY DONATION</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', left: '-580px', float: 'right', color: '40a9ff' }} onClick={this.homeClick.bind(this, "home")}><Router><Link >HOME</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-818px' }} onClick={this.profileUpdateClick.bind(this, "profile_update")}><Router><Link >MY PROFILE</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-853px' }} onClick={this.handleSubmit.bind(this, "refer")}><Router><Link >REFER</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-881px' }} onClick={this.handleChange.bind(this, "change_password")}><Router><Link >CHANGE PASSWORD</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-917px', display: "none" }} onClick={this.MyCharity.bind(this, "my_charity")}><Router><Link >MY CHARITY</Link></Router></a>
+              <a style={{ textDecoration: 'underline', position: 'relative', top: '-57px', color: '#FFFFFF', right: '-913px' }} onClick={this.myDonatiion.bind(this, "myDonatiion")}><Router><Link >MY DONATION</Link></Router></a>
               <Logout />
             </div>
             <Row style={{ width: window.innerWidth, position: 'relative', left: '-50px', top: '-64px', height: '100px', boxShadow: '0 2px 5px #efc940', border: '1px solid #efc940' }}>
@@ -250,7 +219,7 @@ class MainLayout extends React.Component {
                   <Col span={4} style={{ width: '38%', maxWidth: '215px', top: '4px', minWidth: '150px', position: 'relative', right: '441px' }}>
                     <div style={{ position: 'relative', left: '43px' }}>
                       <h1 style={{ color: "#000", fontWeight: "bold" }}>Last Donation</h1>
-                      <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold" }}>{this.state.Ngoname}</h2>
+                      <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold" }}>₹ 10,000</h2>
                     </div>
                   </Col>
                   <Col span={4} style={{ width: '38%', maxWidth: '254px', minWidth: '150px', height: '65px' }}>
@@ -258,22 +227,22 @@ class MainLayout extends React.Component {
 
                     <div style={{ position: 'relative', left: '238px', bottom: '177px' }}>
                       <h1 style={{ color: "#000", fontWeight: "bold" }}>Last Donation Date</h1>
-                      <h2 style={{ fontSize: "medium", marginTop: '-9px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold",left:'-70px' }}>{this.state.LastDate}</h2>
+                      <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold" }}>20th June, 2020</h2>
                     </div>
                   </Col>
                   <Col span={4} style={{ width: '38%', maxWidth: '234px', minWidth: '150px', height: '65px' }}>
                     <Divider type="vertical" style={{ height: '35px', position: 'relative', right: '-160px', top: '-105px' }} />
 
-                    <div style={{ position: 'relative', left: '168px', bottom: '177px' }}>
-                      <h1 style={{ color: "#000", fontWeight: "bold",marginTop: '60px' }}>Amount</h1>
-    <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold" }}>{this.state.Amount}</h2>
+                    <div style={{ position: 'relative', left: '217px', bottom: '177px' }}>
+                      <h1 style={{ color: "#000", fontWeight: "bold" }}>Amount</h1>
+                      <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold" }}>₹ 500</h2>
                     </div>
                   </Col>
                   <Col span={4} style={{ width: '35%', maxWidth: '215px', minWidth: '150px', height: '65px' }}>
                     <Divider type="vertical" style={{ height: '35px', position: 'relative', right: '-100px', top: '-105px' }} />
-                    <div style={{ position: 'relative', left: '300px', bottom: '175px' }}>
-                      <h1 style={{ color: "#000", fontWeight: "bold",marginTop:'-10px'}}>Last Donation Date</h1>
-                      <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold",left:"42px"}}>{this.state.LastDate}</h2>
+                    <div style={{ position: 'relative', left: '165px', bottom: '175px' }}>
+                      <h1 style={{ color: "#000", fontWeight: "bold" }}>View</h1>
+                      <h2 style={{ fontSize: "medium", marginTop: '-29px', position: 'relative', top: '-23px', color: "#000", fontWeight: "bold" }}>Recurrence: 10th of month</h2>
                     </div>
                   </Col>
                 </Row>
@@ -299,14 +268,14 @@ class MainLayout extends React.Component {
               </Row>
 </div>*/}
               {
-                (this.state.profileUpdateFlag === "profile_update") ? <WrappedNormalEditProfileForm data={this.props.data}  donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={(this.state.donorfetchdata == undefined)? this.props.donorfetchdata : this.state.donorfetchdata} />
+                (this.state.profileUpdateFlag === "profile_update") ? <WrappedNormalEditProfileForm federated={this.props.federated} profilepic={this.props.profilepic}  data={this.props.data}  donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={(this.state.donorfetchdata == undefined)? this.props.donorfetchdata : this.state.donorfetchdata} />
                   : null
-              }
-               {
-                (this.state.mydonation === "mydonation") ?<MyDonation   email={this.props.donorfetchdata.body.SZ_EMAIL}/> : null
               }
               {
                 (this.state.flag === "refer") ? <WrappedNormalReferPage /> : null
+              }
+              {
+                (this.state.myDonatiion === "myDonatiion") ? <MyDonation email={this.props.donorfetchdata.body.SZ_EMAIL} /> : null
               }
               {/* {
                              (this.state.MycHarity=== "my_charity")?<MyNGO />:null

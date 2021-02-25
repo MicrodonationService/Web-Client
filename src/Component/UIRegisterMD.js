@@ -112,7 +112,7 @@ class UIregisterMD extends React.Component {
         if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
           //this.setState({loginFlag:true})
           setTimeout(() => {
-            ReactDOM.render(<WrappedDonorEditProfile email={response.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
+            ReactDOM.render(<WrappedDonorEditProfile federated="Y" username={response.name} profilepic={response.picture.data.url}  email={response.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
           }, 5000);
           //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
           console.log(loginRespJson)
@@ -151,7 +151,7 @@ class UIregisterMD extends React.Component {
   onFailure = (res) => {
     console.log(res)
   }
-  onSuccess = (e) => {
+  onGoogleLogin = (e) => {
     const superagent = require('superagent');
     superagent
       .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/registerwithgoogle')
@@ -178,7 +178,7 @@ class UIregisterMD extends React.Component {
         if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
           //this.setState({loginFlag:true})
           setTimeout(() => {
-            ReactDOM.render(<WrappedDonorEditProfile email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
+            ReactDOM.render(<WrappedDonorEditProfile federated="Y" username={e.profileObj.name} profilepic={e.profileObj.imageUrl}  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
           }, 5000);
           //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
           console.log(loginRespJson)
@@ -363,12 +363,12 @@ class UIregisterMD extends React.Component {
       <div className={styles.maindiv}>
         <Layout className={styles.mainlayout}>
         
-          <div className={styles.mobileviewheaderdiv}  >
-          <img className={styles.mobileviewiheaderimg} src="img/mdHeader.png"  />
+          <div className={styles.mobileviewheaderdiv}   >
+          <img className={styles.mobileviewiheaderimg}  src="img/mdHeader.png"  />
         </div>
         
           <Layout style={{ marginTop: '0px', height: (window.innerHeight - 107) }}>
-            <Sider style={{ background: 'white', width: '400px', flex: '0 0 0px', minWidth: "400px" }}>
+            <Sider  style={{ background: 'white', width: '400px', flex: '0 0 0px', minWidth: "400px" }}>
               <img className={styles.mobileviewregistersider} src="img/siderMD.png"  />
             </Sider>
             <Content style={{ background: 'white', top: '30px', overflow: 'unset' }}>
@@ -466,7 +466,7 @@ class UIregisterMD extends React.Component {
 
 
 
-                        <Form.Item
+                        {/* <Form.Item
                           name="agreement"
                           style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '150px', top: '-11px' }}
                           valuePropName="checked"
@@ -483,7 +483,7 @@ class UIregisterMD extends React.Component {
                           </Checkbox>
 
 
-                        </Form.Item>
+                        </Form.Item> */}
 
 
                         <Form.Item style={{ width: '85%', display: 'inline-block', position: 'relative', top: '-12px' }}>
@@ -527,12 +527,12 @@ class UIregisterMD extends React.Component {
                             callback={this.responseFacebook}
                             cssClass={styles.fbbuttonregisetercss}
                             icon="fa-facebook"
-
+                            textButton="Register with Facebook"
                           />
 
                           <GoogleLogin
                             clientId={clientId}
-                            buttonText="Login with Google"
+                            buttonText="Register with Google"
                             onSuccess={this.onGoogleLogin}
                             onFailure={this.onGoogleFail}
                             isSignedIn={false}
@@ -545,13 +545,13 @@ class UIregisterMD extends React.Component {
                 </div>
 
               </div>
-              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess}</h4>
-              <h4 style={{ color: "red", position: 'relative', left: '-22px', top: "-10px", textAlign: 'center' }}>{this.state.mess1}</h4>
+              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "16px", textAlign: 'center' }}>{this.state.mess}</h4>
+              <h4 style={{ color: "red", position: 'relative', left: '-22px', top: "4px", textAlign: 'center' }}>{this.state.mess1}</h4>
             </Content>
           </Layout>
           <Footer style={{ padding: '0px' }}>
-            <div style={{ width: (window.innerWidth), background: 'white' }}>
-              <img src="img/footerMD.png" style={{ width: window.innerWidth + 24, height: '50px', marginLeft: '-8px' }} />
+            <div className={styles.registerpagefooterdiv}>
+              <img src="img/footerMD.png" className={styles.registerpagefooterimg} />
             </div>
           </Footer>
         </Layout>

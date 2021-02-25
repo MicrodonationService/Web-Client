@@ -8,6 +8,10 @@
   color: #fff !important;
 }
 
+/* [class*="ant-form-item-control "] {
+    border-radius: 25px;
+  }  */
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -67,7 +71,7 @@
   max-width: 100%;
 }
 
-.mainloginformdiv {
+/* .mainloginformdiv {
   border-radius: 5px;
   border: 1px solid;
   padding: 28px;
@@ -78,9 +82,9 @@
   margin: auto;
   top: 18%;
   left: 47%;
-}
+} */
 
-.siderimagediv {
+/* .siderimagediv {
   border-radius: 5px;
   border: 1px solid;
   padding: 28px;
@@ -91,7 +95,7 @@
   margin: auto;
   top: 18%;
   left: 24%;
-}
+} */
 
 .second3 {
   border-radius: 5px;
@@ -168,23 +172,23 @@
 .termsandcondition {
   margin-left: 100px;
 }
-
+/* 
 .continuebutton {
   width: 50%;
   left: 250px;
   border-radius: 25px;
   background: #f8a500;
-}
+} */
 
 .backtologin {
   font-size: 14px;
   margin-left: 300px;
 }
 
-.signupwithtext {
+/* .signupwithtext {
   margin-top: -10px;
   margin-left: 310px;
-}
+} */
 
 .fbbuttoncol {
   width: 130px;
@@ -192,7 +196,7 @@
   margin-left: 180px;
 }
 
-.googleButtonRegisterCss{
+.googleButtonRegisterCss {
   position: relative !important;
   left: 220px !important;
   top: 15px !important;
@@ -205,11 +209,11 @@
   height: 45px;
 }
 
-.googleButtonRegisterCss:focus{
+.googleButtonRegisterCss:focus {
   outline: none !important;
 }
 
-.googleButtonRegisterCss div{
+.googleButtonRegisterCss div {
   border-radius: 25px !important;
   margin-right: 1px !important;
   background: #f8a500 !important;
@@ -217,10 +221,9 @@
   width: 50px !important;
   position: relative !important;
   top: 2px !important;
-
 }
 
-.googleButtonCss {
+ .googleButtonCss {
   position: relative !important;
   left: 10px !important;
   top: 25px !important;
@@ -245,9 +248,9 @@
   width: 45px !important;
   position: relative !important;
   top: 3px !important;
-}
+} 
 
-.fbbuttonregisetercss{
+.fbbuttonregisetercss {
   font-family: Roboto, sans-serif;
   font-size: 13px;
   position: relative !important;
@@ -261,7 +264,7 @@
   border: none !important;
 }
 
-.fbbuttonregisetercss:focus{
+.fbbuttonregisetercss:focus {
   outline: none !important;
 }
 
@@ -269,7 +272,7 @@
   padding: 10px;
 }
 
-.fbbuttonregisetercss div{
+.fbbuttonregisetercss div {
   border-radius: 25px !important;
   margin-right: 1px !important;
   background: #f8a500 !important;
@@ -279,10 +282,7 @@
   top: 3px !important;
 }
 
-
-
-
-.fbbuttoncss{
+.fbbuttoncss {
   font-family: Roboto, sans-serif;
   font-size: 13px;
   position: relative !important;
@@ -295,10 +295,10 @@
   box-shadow: none !important;
   border: none !important;
 }
-.fbbuttoncss:focus{
+.fbbuttoncss:focus {
   outline: none !important;
 }
-.fbbuttoncss i{
+.fbbuttoncss i {
   padding: 10px;
 }
 .fbbuttoncss div {
@@ -309,7 +309,7 @@
   width: 45px !important;
   position: relative !important;
   top: 3px !important;
-}
+} 
 .myprofiletext {
   display: block;
   position: relative;
@@ -331,9 +331,9 @@
   margin: 15px 0px 0px 42px;
 }
 
-.editprofileupdatebutton{
+/* .editprofileupdatebutton {
   margin: 21px 0px 0px 42px;
-}
+} */
 
 .donorformlabelname {
   margin-bottom: -18px;
@@ -399,12 +399,12 @@
   top: -90px;
 }
 
-.donoremaillabel{
+.donoremaillabel {
   margin-top: -46px;
   margin-left: 72px;
 }
 
-.donoremailformitemcss{
+.donoremailformitemcss {
   width: 84%;
   display: inline-block;
   align-content: center;
@@ -413,14 +413,14 @@
   left: 70px;
 }
 
-.donorphonenumberlabel{
+.donorphonenumberlabel {
   margin-top: -127px;
   position: relative;
   left: 452px;
   top: 35px;
 }
 
-.donorformitemphonenumbercss{
+.donorformitemphonenumbercss {
   width: 60%;
   display: inline-block;
   align-content: center;
@@ -429,7 +429,7 @@
   top: -99px;
 }
 
-.verifynumbertext{
+.verifynumbertext {
   position: relative;
   color: #000000;
   top: -64px;
@@ -437,7 +437,7 @@
   text-decoration: underline;
 }
 
-.donorformpancardtext{
+.donorformpancardtext {
   margin-top: -127px;
   position: relative;
   left: 72px;
@@ -445,7 +445,7 @@
   width: 50%;
 }
 
-.donorformitempancardcss{
+.donorformitempancardcss {
   width: 58.6%;
   display: inline-block;
   position: relative;
@@ -454,7 +454,7 @@
   top: -81px;
 }
 
-.donorprofileupdatebutton{
+.donorprofileupdatebutton {
   width: 32%;
   border-radius: 25px;
   background: #f8a500;
@@ -462,11 +462,11 @@
   border-color: white;
 }
 
-.movileviewnavigation{
+.movileviewnavigation {
   display: none;
 }
 
-.myprofiletextupdate{
+.myprofiletextupdate {
   display: block;
   position: relative;
   left: 70px;
@@ -476,7 +476,7 @@
   font-size: x-large;
 }
 
-.donoreditppancardtext{
+.donoreditppancardtext {
   margin-top: -127px;
   position: relative;
   left: 72px;
@@ -484,7 +484,7 @@
   width: 50%;
 }
 
-.donorformitempancardcssprofileu{
+.donorformitempancardcssprofileu {
   width: 58.6%;
   display: inline-block;
   position: relative;
@@ -493,59 +493,290 @@
   top: -81px;
 }
 
-.mobileviewregistersider{
+.mobileviewregistersider {
   width: auto;
   height: 550px;
   top: 0px;
   left: 0px;
 }
 
+/* .ngoeditprofilediv {
+  width: 90%;
+  height: 100%;
+  margin-left: 0px;
+} */
+
+/* .ngoeprofilemydetailstext {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+} */
+
+/* .ngpprofiledivbeforeform {
+  width: 80%;
+  height: 90%;
+  margin-top: -240px;
+  margin-left: 50px;
+  overflow-x: hidden;
+  overflow-y: auto;
+} */
+
+/* .ngoname {
+  margin-left: 220px;
+  margin-top: -5px;
+} */
+
+/* .ngonameformitemcss {
+  width: 45%;
+  align-content: center;
+  position: relative;
+  top: 0px;
+  left: 220px;
+} */
+
+/* .ngocategory {
+  margin-top: -69px;
+  margin-left: 530px;
+}
+
+.ngocategoryformitemcss {
+  left: 530px;
+  top: -41px;
+  width: 53%;
+}
+
+.ngocategoryotherlabel {
+  margin-top: 0px;
+  margin-left: 227px;
+}
+
+.ngocategoryotherformitemcss {
+  left: 225px;
+  top: -10px;
+  width: 53%;
+}
+
+.ngotypeoforg {
+  margin-top: -70px;
+  margin-left: 525px;
+}
+
+.ngotypeoforgformitemcss {
+  left: 525px;
+  top: -50px;
+  width: 53%;
+} */
+
+/* .ngoaddresslabel {
+  margin-top: -65px;
+  margin-left: 70px;
+}
+
+.ngoaddressformitemcss {
+  width: 45%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 220px;
+} */
+
+/* .ngocitylabel {
+  margin-top: -75px;
+  margin-left: 530px;
+}
+
+.ngocityformitemcss {
+  width: 86%;
+  align-content: center;
+  position: relative;
+  left: 530px;
+  top: -55px;
+}
+
+.ngopincodelabel {
+  margin-top: -115px;
+  margin-left: 680px;
+}
+
+.ngopincodeformitemcss {
+  width: 100%;
+  align-content: center;
+  position: relative;
+  left: 680px;
+  top: -95px;
+} */
+
+/* .ngoemailabel {
+  margin-top: -97px;
+  margin-left: 70px;
+} */
+
+.donoreditprofileverifyphonecss {
+  position: relative;
+  color: #000000;
+  top: -60px;
+  left: -43px;
+  text-decoration: underline;
+}
+
+.ngoeditprofileverifyphonecss {
+  position: relative;
+  color: #000000;
+  top: -10px;
+  left: 0px;
+  text-decoration: underline;
+}
 
 
-@media only screen and (max-width: 770px) {
-  .mainlayout {
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-  }
-
-  .movileviewnavigation{
+@media only screen and (max-width:320px)  {
+  .maindiv {
     overflow: hidden;
-    position: relative;
-    background-color: #000000;
-
   }
 
-  .otherlinksinmobileview{
+  .ant-layout-sider-children {
     display: none;
   }
 
-  .movileviewnavigation a{
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    display: inline;
+  .mobileviewregistersider {
+    display: none;
+  }
+  .mobileviewheaderdiv {
+    width: auto;
+    background: #272D3D;
   }
 
-  .movileviewnavigation a.icon{
-    background: black;
-    display: block;
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto ;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .siderimagediv {
+    display: none;
+    overflow: hidden;
+  }
+
+  .mobileviewsiderimage {
+    display: none;
+  }
+
+  .mainloginformdiv {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: 350px !important;
     position: absolute;
-    right: 0;
-    top: 0;
+    margin: auto;
+    top: 18%;
+    left: -1%;
   }
 
-  .movileviewnavigation a:hover{
-    background-color: #ddd;
-    color: black;
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 60px;
   }
 
-  .activelinkclass{
-    background-color: #f8a500;
-    color: white;
+  .mobileviewregistersider {
+    display: none;
   }
 
+  [class*="ant-layout-sider "] {
+    display: none;
+  }
 
+}
+
+
+@media only screen and (max-width:360px)  {
+  .maindiv {
+    overflow: hidden;
+    
+  }
+
+  .mainlayout {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .donorformabovediv{
+    width: auto;
+    height: auto;
+    margin: 0px 0px 0px 157px;
+    position: relative;
+    border: 1px solid #ffffff;
+  }
+  .mobileviewheaderdiv {
+    width: auto;
+    background:#272D3D;
+  }
+
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto ;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .mobileviewregistersider {
+    display: none;
+  }
+
+  .siderimagediv {
+    display: none;
+    overflow: hidden;
+  }
+
+  .mobileviewsiderimage {
+    display: none;
+  }
+
+  .ant-layout-sider-children {
+    display: none;
+  }
+
+  .forgetpasswordtext {
+    color: #000000;
+    margin-left: 100px !important;
+    text-decoration: underline;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -20px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+
+  .fbbuttoncss {
+    position: relative !important;
+    left: -25px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .googleButtonCss {
+    position: relative !important;
+    left: 145px !important;
+    top: -15px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 
   .mainloginformdiv {
     overflow: hidden;
@@ -561,43 +792,52 @@
     left: 1%;
   }
 
-
-  .forgetpasswordtext {
-    color: #000000;
-    margin-left: 105px !important;
-    text-decoration: underline;
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 60px;
   }
 
-  .loginscreenregistertext {
-    color: #000000;
-    margin-left: -10px;
-    text-decoration: underline;
+  .mobileviewregistersider {
+    display: none;
+  }
+
+  [class*="ant-layout-sider "] {
+    display: none;
+  }
+
+  .mobileviewform {
+    margin-left: 31px;
+    width: 80%;
+  }
+
+  .termsandcondition {
+    margin-left: 37px;
+    width: 80%;
+    display: inline-block;
+    align-content: center;
     position: relative;
-    top: 5px;
-  }
-  .googleButtonCss {
-    position: relative !important;
-    left: 145px !important;
-    top: -15px !important;
-    color: black !important;
-    border-radius: 25px !important;
-    background: #f8a500 !important;
-    box-shadow: none !important;
-    border: none !important;
+    top: 6px;
   }
 
-  .googleButtonRegisterCss{
-    position: relative !important;
-    left: 145px !important;
-    top: -20px !important;
-    color: black !important;
-    border-radius: 25px !important;
-    background: #f8a500 !important;
-    box-shadow: none !important;
-    border: none !important;
+  .continuebutton {
+    width: 50%;
+    left: 90px;
+    border-radius: 25px;
+    background: #f8a500;
+    top: 12px;
   }
 
-  .fbbuttonregisetercss{
+  .backtologin {
+    font-size: 14px;
+    margin-left: 100px;
+  }
+
+  .signupwithtext {
+    margin-top: -8px;
+    margin-left: 110px;
+  }
+
+  .fbbuttonregisetercss {
     position: relative !important;
     left: -20px !important;
     top: 25px !important;
@@ -608,10 +848,10 @@
     border: none !important;
   }
 
-  .fbbuttoncss{
+  .googleButtonRegisterCss {
     position: relative !important;
-    left: -25px !important;
-    top: 25px !important;
+    left: 145px !important;
+    top: -20px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -619,88 +859,20 @@
     border: none !important;
   }
 
-  .siderimagediv {
-    display: none;
-    overflow: hidden;
-  }
 
-  .maindiv {
-    overflow: hidden;
-  }
-  .body {
-    overflow: hidden;
-  }
-  .mobileviewiheaderimg {
-    height: 60px;
+  
+  .registerpagefooterdiv{
     width: auto;
-    overflow: hidden;
-    margin-left: -20px;
-
+    background: #272D3D;
   }
 
-  .mobileviewheaderdiv{
+  .registerpagefooterimg{
     width: auto;
-    background: white;
-  }
-
-  .mobileviewregistersider{
-    display: none;
-  }
-
-
-
-  .mobileviewsiderimage {
-    display: none;
-  }
-
-  .mobileviewregistertitle {
-    margin-top: 0px !important;
-    margin-left: 60px;
-  }
-
-  .ant-layout-sider-children {
-    display: none;
-  }
-
-  .mobileviewform {
-    margin-left: 30px;
-    width: 80%;
-  }
-
-  .termsandcondition {
-    margin-left: -110px;
-  }
-
-  .continuebutton {
-    width: 50%;
-    left: 90px;
-    border-radius: 25px;
-    background: #f8a500;
-  }
-
-  .backtologin {
-    font-size: 14px;
-    margin-left: 100px;
-  }
-
-  .signupwithtext {
-    margin-top: -10px;
-    margin-left: 110px;
-  }
-
-  .fbbuttoncol {
-    margin-top: -10px;
-    width: 125px;
-    height: 5px;
-    margin-left: -10px;
+    height: 50px;
+    margin-left: -8px;
   }
 
   .myprofiletext {
-    margin-left: -55px;
-    font-size: 16px;
-  }
-
-  .myprofiletextupdate {
     margin-left: -55px;
     font-size: 16px;
   }
@@ -712,32 +884,41 @@
     margin-left: -90px;
   }
 
-  .uploadbuttoncss {
-    margin-top: -70px;
-    height: 10px;
-    width: 10%;
-    margin-left: 60px;
-    margin-right: 0px;
-    margin-bottom: 0px;
+  .editprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: -26px 0px 0px 160px;
+    border: 1px solid #ffffff;
   }
 
-  .editprofileupdatebutton{
+  /* .uploadbuttoncss {
     margin-top: -70px;
     height: 10px;
     width: 10%;
     margin-left: 60px;
     margin-right: 0px;
     margin-bottom: 0px;
+  } */
+
+  .uploadbuttoncss {
+    margin: -51px 0px 0px 187px;
   }
+
+  .donoreditprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: -110px 0px 0px 160px;
+    position: relative;
+    bottom: 40px;
+    border: 1px solid rgb(255, 255, 255);
+  }
+
+
 
   .donorformmaindiv {
-    margin-top: 320px;
+    margin-top: 357px;
     margin-left: -325px;
-  }
-
-  .donoreditprofile{
-    margin-left: -325px;
-    margin-top: 350px;
+  
   }
 
   .donorformlabelname {
@@ -746,18 +927,25 @@
     margin-left: 72px;
   }
 
-  .donorformlabelage {
-    font-size: 14px;
-    margin-left: 72px;
-    margin-top: 30px;
-  }
-
   .donorformitemnamecss {
     width: 50%;
     align-content: center;
     position: relative;
     top: 30px;
     left: 70px;
+  }
+
+  .donorformitemnamecsseditprofile {
+    width: 53%;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  }
+  .donorformlabelage {
+    font-size: 14px;
+    margin-left: 72px;
+    margin-top: 30px;
   }
 
   .donorformitemagecss {
@@ -788,6 +976,13 @@
     left: 72px;
   }
 
+  .donorformitemcitynewlabel{
+    position: relative;
+    top: -15px;
+    left: 71px;
+  }
+  
+
   .donorformitemcitycss {
     width: 100%;
     align-content: center;
@@ -797,23 +992,4472 @@
   }
 
   .donorformaddresslabel {
-    margin-top: 30px;
-    margin-left: 72px;
+    margin-top: -26px;
+    margin-left: 37px;
   }
+
+  
+.donorformaddressnewlabel {
+  margin-top: -26px;
+  margin-left: 39px;
+}
+
 
   .donorformitemaddresscss {
     width: 50%;
     left: 72px;
-    top: -70px;
+    top: -15px;
   }
 
-  .donoremaillabel{
+  .donoremaillabel {
+    margin-top: -24px;
+    margin-left: 36px;
+  }
+
+  .donoremailnewlabel {
+    margin-top: -23px;
+    margin-left: 37px;
+  }
+
+  .donoremailformitemcss {
+    width: 70%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 72px;
+  }
+
+  .donorphonenumberlabel {
     margin-top: -25px;
+    position: relative;
+    left: 72px;
+  }
+
+  .donorphonenumbernewlabel {
+    margin-top: -95px;
+    position: relative;
+    left: 480px;
+    top: 35px;
+  }
+  
+
+  .donorformitemphonenumbercss {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -17px;
+  }
+
+  .donoreditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 19px;
+    left: -56px;
+    text-decoration: underline;
+  }
+
+  .ngoeditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 10px;
+    left: -413px;
+    text-decoration: underline;
+  }
+
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .verifynumbertext {
+    position: relative;
+    color: #000000;
+    left: -130px;
+    top: 29px;
+    text-decoration: underline;
+  }
+
+  .donorformpancardtext {
+    margin-top: -15px;
+    position: relative;
+    left: 38px;
+    top: 8px;
+    width: 50%;
+  }
+
+  .donoreditppancardtext {
+    margin-top: -15px;
+    position: relative;
+    left: 38px;
+    top: 17px;
+    width: 50%;
+  }
+
+  .donorformitempancardcssprofileu {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: 0px;
+  }
+
+  .donorformitempancardcss {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: 19px;
+  }
+
+  
+  .donorprofileupdatebutton {
+    width: 43%;
+    top: 107px;
+    left: -525px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+  .myprofiletextupdate {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .editprofileupdatebutton {
+    margin-top: -46px;
+    height: 10px;
+    width: 10%;
+    margin-left: 138px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .donoreditprofile {
+    margin-left: -325px;
+    margin-top: 350px;
+  }
+
+  .donorformitemagecsseditprofile {
+    width: 150%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -5px;
+  }
+  
+   .donoroccupationitemcsseditprofile {
+    width: 250%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+  
+  
+  .donorformitemcitycsseditprofile {
+    width: 150%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+  
+  .donorformitemaddresscsseditprofile {
+    width: 55%;
+    left: 72px;
+    top: -15px;
+  }
+  
+   .donoremailformitemcsseditprofile {
+    width: 81%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 72px;
+  }
+
+
+ .donorformitemphonenumbercsseditprofile {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -17px;
+  } 
+  
+    .donoreditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 15px;
+    left: -131px;
+    text-decoration: underline;
+  }
+  
+  
+  .donorformitempancardcssprofileu {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: 7px;
+  }
+
+  .donoreditprofileupdatebutton{
+    width: 35%;
+    top: 97px;
+    left: -535px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+  /*NGO CCS Begins*/
+  .ngoeditprofilediv {
+    width: 90%;
+    height: 100%;
+    margin-left: 0px;
+  }
+  
+  .staticprofileimagengo {
+    size: 100px;
+    width: 55px;
+    height: 65px;
+    margin-left: -69px;
+  }
+  
+  .ngpprofiledivbeforeform {
+    width: auto;
+    height: 90%;
+    margin-top: 42px;
+    margin-left: -200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .ngoname {
+    margin-left: 220px;
+    margin-top: -5px;
+  }
+  
+  .ngonameformitemcss {
+    width: 45%;
+    align-content: center;
+    position: relative;
+    top: 0px;
+    left: 220px;
+  }
+  
+  .ngocategory {
+    margin-top: 6px;
+    margin-left: 220px;
+  }
+  
+  .ngocategoryformitemcss {
+    left: 220px;
+    top: -4px;
+    width: 34%;
+  }
+  
+  .ngocategoryotherlabel {
+    margin-top: 0px;
+    margin-left: 220px;
+  }
+  
+  .ngocategoryotherformitemcss {
+    left: 225px;
+    top: -10px;
+    width: 34%;
+  }
+  
+  .ngotypeoforg {
+    margin-top: -8px;
+    margin-left: 220px;
+  }
+  
+  .ngotypeoforgformitemcss {
+    left: 220px;
+    top: -10px;
+    width: 44%;
+  }
+  
+  .ngoaddresslabel {
+    margin-top: -35px;
+    margin-left: 70px;
+  }
+  
+  .ngoaddressformitemcss {
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: 0px;
+    left: 220px;
+  }
+  
+  .ngocitylabel {
+    margin-top: 4px;
+    margin-left: 220px;
+  }
+  
+  .ngocityformitemcss {
+    width: 86%;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top: -8px;
+  }
+  
+  .ngopincodelabel {
+    margin-top: 12px;
+    margin-left: 220px;
+  }
+  
+  .ngopincodeformitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top: -8px;
+  }
+  
+  .ngoemailabel {
+    margin-top: -13px;
+    margin-left: 70px;
+  }
+  
+  .ngoemailformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 220px;
+  }
+  
+  .ngowebsite{
+    margin-top: -29px;
+    margin-left: 70px;
+  }
+  
+  .ngowebsiteformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -20px;
+    left: 220px;
+  }
+  
+  .ngooperationalsince{
+    margin-top: -27px;
+    margin-left: 70px;
+  }
+  
+  .ngooperationalsinceformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -20px;
+    left: 220px;
+  }
+  
+  .ngoregistartionnumber{
+    margin-top: -32px;
+    margin-left: 71px;
+  }
+  
+  .ngoregistartionnumberformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -19px;
+    left: 220px;
+  }
+  
+  .ngoreferer{
+    margin-top: -29px;
+    margin-left: 71px;
+  }
+  
+  .ngorefererformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -21px;
+    left: 220px;
+  }
+  
+  .ngobanksection{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top:-20px
+  }
+  
+  .ngobanksectiondiv{
+    width: auto;
+    height: 340px;
+    margin-left: 220px;
+    margin-top: -21px;
+    background: #e8e8e8;
+  }
+  
+  .ngobankname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngobanknameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngobankaccountnumber{
+    margin-top: -20px;
+    margin-left: 10px;
+  
+  }
+  
+  .ngobankaccountnumberformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngoifsccode{
+    margin-top: -15px;
+    margin-left: 10px;
+  }
+  
+  .ngoifsccodeformitemcss{
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngobranch{
+    margin-top: -25px;
+    margin-left: 10px;
+  }
+  
+  .ngobranchformitemcss{
+    width: 53%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngoaccountholdername{
+    margin-top: -27px;
+    margin-left: 10px;
+  }
+  
+  .ngoaccountholdernameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -21px;
+    left: 10px;
+  }
+  
+  .ngocontactpersondetails{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 0px;
+    top: 25px;
+  }
+  
+  .ngocontactpersondetailsdiv{
+    width: auto;
+    height: 225px;
+    margin-left: 0px;
+    margin-top: 20px;
+    background: #e8e8e8;
+  }
+  
+  .ngocontactpersonname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngocontactpersonnameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngocontactpersonphone{
+    margin-top: -10px;
+    margin-left: 3px;
+  }
+  
+  .ngocontactpersonphone{
+    width: 95%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 10px;
+    top: -15px;
+  }
+  
+  .ngotermscondition{
+    width: 122%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    margin-left: 3px;
+  }
+  
+  .ngoupdatebutton{
+    width: 50%;
+    border-radius: 25px;
+    background: #f8a500;
+    border: #FFFFFF;
+    color: #000000;
+    
+  }
+  
+  .ngoupdatebuttonformitem{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 87px;
+    top: -2px;
+  }
+  
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .ngoeprofilemydetailstext {
+    display: block;
+    position: relative;
+    left: 14px;
+    top: 7px;
+    font-weight: 800;
+    color: #f8a500;
+    font-size: x-large;
+  }
+  
+  
+  
+  
+}
+
+
+
+@media only screen and (max-width:414px ) and (min-height:731px){
+  .maindiv {
+    overflow: hidden;
+  }
+
+  .mainlayout {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .mobileviewheaderdiv {
+    width: auto;
+    background: #272D3D;
+  }
+
+  .donorformabovediv{
+    width: auto;
+    height: auto;
+    margin: 0px 0px 0px 157px;
+    position: relative;
+    border: 1px solid #ffffff;
+  }
+
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .siderimagediv {
+    display: none;
+    overflow: hidden;
+  }
+
+  .mobileviewsiderimage {
+    display: none;
+  }
+
+  .mobileviewregistersider {
+    display: none;
+  }
+
+  .forgetpasswordtext {
+    color: #000000;
+    margin-left: 100px !important;
+    text-decoration: underline;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -20px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+
+  .fbbuttoncss {
+    position: relative !important;
+    left: -25px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .googleButtonCss {
+    position: relative !important;
+    left: 145px !important;
+    top: -15px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+
+  .mainloginformdiv {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: 350px !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 5%;
+  }
+
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 60px;
+  }
+
+  .mobileviewregistersider {
+    display: none;
+  }
+
+  [class*="ant-layout-sider "] {
+    display: none;
+  }
+
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 80px;
+  }
+
+
+  .mobileviewform {
+    margin-left: 31px;
+    width: 80%;
+  }
+
+  .termsandcondition {
+    margin-left: 37px;
+    width: 80%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -5px;
+  }
+
+  .continuebutton {
+    width: 50%;
+    left: 90px;
+    border-radius: 25px;
+    background: #f8a500;
+    top: 12px;
+  }
+
+  .backtologin {
+    font-size: 14px;
+    margin-left: 100px;
+  }
+
+  .signupwithtext {
+    margin-top: -8px;
+    margin-left: 110px;
+  }
+
+  .fbbuttonregisetercss {
+    position: relative !important;
+    left: -5px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .googleButtonRegisterCss {
+    position: relative !important;
+    left: 165px !important;
+    top: -20px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .registerpagefooterdiv{
+    width: auto;
+    background: #272D3D;
+    position: fixed;
+    bottom: 0px;
+  }
+  
+
+  .registerpagefooterimg{
+    width: auto;
+    height: 50px;
+    margin-left: -8px;
+  }
+
+  .myprofiletext {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .staticprofileimage {
+    size: 100px;
+    width: 50px;
+    height: 59px;
+    margin-left: -90px;
+  }
+
+  /* .uploadbuttoncss {
+    margin-top: -70px;
+    height: 10px;
+    width: 10%;
+    margin-left: 60px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  } */
+
+  
+  .uploadbuttoncss {
+    margin: -51px 0px 0px 187px;
+  }
+
+  .donorformmaindiv {
+    margin-top: 357px;
+    margin-left: -325px;
+    width: 562px;
+  }
+
+  .donorformlabelname {
+    font-size: 14px;
+    margin-bottom: -30px;
     margin-left: 72px;
   }
 
-  .donoremailformitemcss{
+  .donoreditprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: -65px 0px 0px 160px;
+    position: relative;
+    bottom: 40px;
+    border: 1px solid rgb(255, 255, 255);
+  }
+
+  .donorformitemnamecss {
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  }
+
+  .donorformitemnamecsseditprofile {
+    width: 53%;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  }
+
+  .donorformlabelage {
+    font-size: 14px;
+    margin-left: 72px;
+    margin-top: 30px;
+  }
+
+  .donorformitemagecss {
+    width: 75%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -5px;
+  }
+
+  .donorformitemagecsseditprofile {
+    width: 50%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -5px;
+  }
+
+  .donoroccupationlabel {
+    margin-top: 5px;
+    margin-left: 72px;
+    margin-bottom: 20px;
+  }
+
+  .editprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: -26px 0px 0px 160px;
+    border: 1px solid #ffffff;
+  }
+
+  .donoroccupationitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+
+  .donoroccupationitemcsseditprofile {
+    width: 200%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+
+  .donorformcitylabel {
+    position: relative;
+    top: -15px;
+    left: 72px;
+  }
+
+  .donorformitemcitynewlabel{
+    position: relative;
+    top: -15px;
+    left: 71px;
+  }
+  
+
+  .donorformitemcitycss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+
+  .donorformitemcitycsseditprofile {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -20px;
+  }
+
+
+  .donorformaddresslabel {
+    margin-top: -26px;
+    margin-left: 37px;
+  }
+
+  .donorformaddressnewlabel {
+    margin-top: -26px;
+    margin-left: 39px;
+  }
+  
+
+  .donorformitemaddresscss {
+    width: 50%;
+    left: 72px;
+    top: -15px;
+  }
+
+  .donorformitemaddresscsseditprofile {
+    width: 80%;
+    left: 72px;
+    top: -15px;
+  }
+
+
+  .donoremaillabel {
+    margin-top: -24px;
+    margin-left: 36px;
+  }
+
+  .donoremailnewlabel {
+    margin-top: -23px;
+    margin-left: 37px;
+  }
+
+
+  .donoremailformitemcss {
     width: 70%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 72px;
+  }
+
+  .donoremailformitemcsseditprofile {
+    width: 100%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 72px;
+  }
+
+  .donorphonenumberlabel {
+    margin-top: -25px;
+    position: relative;
+    left: 72px;
+  }
+
+  .donorphonenumbernewlabel {
+    margin-top: -95px;
+    position: relative;
+    left: 480px;
+    top: 35px;
+  }
+
+  .donorformitemphonenumbercss {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -17px;
+  } 
+
+  .donorformitemphonenumbercsseditprofile {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -17px;
+  } 
+
+  .donoreditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 24px;
+    left: -139px;
+    text-decoration: underline;
+  }
+
+  .ngoeditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 10px;
+    left: -413px;
+    text-decoration: underline;
+  }
+
+  .verifynumbertext {
+    position: relative;
+    color: #000000;
+    left: -152px;
+    top: 29px;
+    text-decoration: underline;
+  }
+
+  .donorformpancardtext {
+    margin-top: -9px;
+    position: relative;
+    left: 38px;
+    top: 11px;
+    width: 75%;
+  }
+
+  
+
+  .donorformitempancardcssprofileu {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: 7px;
+  }
+
+  
+  .donoreditppancardtext {
+    margin-top: -5px;
+    position: relative;
+    left: 40px;
+    top: 5px;
+    width: 50%;
+  }
+
+  .donorformitempancardcss {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -3px;
+  }
+
+  .donorprofileupdatebutton {
+    width: 50%;
+    top: 109px;
+    left: -473px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+  .myprofiletextupdate {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .editprofileupdatebutton {
+    margin-top: -46px;
+    height: 10px;
+    width: 10%;
+    margin-left: 138px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  .donoreditprofile {
+    margin-left: -325px;
+    margin-top: 350px;
+  }
+
+  .donoreditprofileupdatebutton{
+    width: 35%;
+    top: 97px;
+    left: -535px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+  /*NGO CCS Begins*/
+  .ngoeditprofilediv {
+    width: 90%;
+    height: 100%;
+    margin-left: 0px;
+  }
+  
+  .staticprofileimagengo {
+    size: 100px;
+    width: 55px;
+    height: 65px;
+    margin-left: -69px;
+  }
+  
+  .ngpprofiledivbeforeform {
+    width: auto;
+    height: 90%;
+    margin-top: 42px;
+    margin-left: -200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .ngoname {
+    margin-left: 210px;
+    margin-top: -5px;
+  }
+  
+  .ngonameformitemcss {
+    width: 45%;
+    align-content: center;
+    position: relative;
+    top: 0px;
+    left: 210px;
+  }
+  
+  .ngocategory {
+    margin-top: 6px;
+    margin-left: 220px;
+  }
+  
+  .ngocategoryformitemcss {
+    left: 220px;
+    top: -4px;
+    width: 34%;
+  }
+  
+  .ngocategoryotherlabel {
+    margin-top: 0px;
+    margin-left: 220px;
+  }
+  
+  .ngocategoryotherformitemcss {
+    left: 225px;
+    top: -10px;
+    width: 34%;
+  }
+  
+  .ngotypeoforg {
+    margin-top: -8px;
+    margin-left: 220px;
+  }
+  
+  .ngotypeoforgformitemcss {
+    left: 220px;
+    top: -10px;
+    width: 44%;
+  }
+  
+  .ngoaddresslabel {
+    margin-top: -35px;
+    margin-left: 70px;
+  }
+  
+  .ngoaddressformitemcss {
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: 0px;
+    left: 220px;
+  }
+  
+  .ngocitylabel {
+    margin-top: 4px;
+    margin-left: 220px;
+  }
+  
+  .ngocityformitemcss {
+    width: 86%;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top: -8px;
+  }
+  
+  .ngopincodelabel {
+    margin-top: 12px;
+    margin-left: 220px;
+  }
+  
+  .ngopincodeformitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top: -8px;
+  }
+  
+  .ngoemailabel {
+    margin-top: -13px;
+    margin-left: 70px;
+  }
+  
+  .ngoemailformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 220px;
+  }
+  
+  .ngowebsite{
+    margin-top: -29px;
+    margin-left: 70px;
+  }
+  
+  .ngowebsiteformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -20px;
+    left: 220px;
+  }
+  
+  .ngooperationalsince{
+    margin-top: -27px;
+    margin-left: 70px;
+  }
+  
+  .ngooperationalsinceformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -20px;
+    left: 220px;
+  }
+  
+  .ngoregistartionnumber{
+    margin-top: -32px;
+    margin-left: 71px;
+  }
+  
+  .ngoregistartionnumberformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -19px;
+    left: 220px;
+  }
+  
+  .ngoreferer{
+    margin-top: -29px;
+    margin-left: 71px;
+  }
+  
+  .ngorefererformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -21px;
+    left: 220px;
+  }
+  
+  .ngobanksection{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top:-20px
+  }
+  
+  .ngobanksectiondiv{
+    width: auto;
+    height: 340px;
+    margin-left: 220px;
+    margin-top: -21px;
+    background: #e8e8e8;
+  }
+  
+  .ngobankname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngobanknameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngobankaccountnumber{
+    margin-top: -20px;
+    margin-left: 10px;
+  
+  }
+  
+  .ngobankaccountnumberformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngoifsccode{
+    margin-top: -15px;
+    margin-left: 10px;
+  }
+  
+  .ngoifsccodeformitemcss{
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngobranch{
+    margin-top: -25px;
+    margin-left: 10px;
+  }
+  
+  .ngobranchformitemcss{
+    width: 53%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngoaccountholdername{
+    margin-top: -27px;
+    margin-left: 10px;
+  }
+  
+  .ngoaccountholdernameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -21px;
+    left: 10px;
+  }
+  
+  .ngocontactpersondetails{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 0px;
+    top: 25px;
+  }
+  
+  .ngocontactpersondetailsdiv{
+    width: auto;
+    height: 225px;
+    margin-left: 0px;
+    margin-top: 20px;
+    background: #e8e8e8;
+  }
+  
+  .ngocontactpersonname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngocontactpersonnameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngocontactpersonphone{
+    margin-top: -10px;
+    margin-left: 3px;
+  }
+  
+  .ngocontactpersonphone{
+    width: 95%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 10px;
+    top: -15px;
+  }
+  
+  .ngotermscondition{
+    width: 122%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    margin-left: 3px;
+  }
+  
+  .ngoupdatebutton{
+    width: 50%;
+    border-radius: 25px;
+    background: #f8a500;
+    border: #FFFFFF;
+    color: #000000;
+    
+  }
+  
+  .ngoupdatebuttonformitem{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 87px;
+    top: -2px;
+  }
+  
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .ngoeprofilemydetailstext {
+    display: block;
+    position: relative;
+    left: 14px;
+    top: 7px;
+    font-weight: 800;
+    color: #f8a500;
+    font-size: x-large;
+  }
+  
+  
+  
+
+
+}
+
+@media only screen and (min-width:1280px) and (min-height:578px){
+  .maindiv {
+    overflow: hidden;
+  }
+
+  .mobileviewheaderdiv {
+    width: auto;
+    background: #272D3D;
+  }
+
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto ;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .siderimagediv {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: auto !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 24%;
+  }
+
+  .mobileviewsiderimage{
+    width: auto !important;
+    height: 478px;
+    position: absolute;
+    border-radius: 5px;
+    left: 0px;
+    top: 0px;
+  }
+
+  .mobileviewregistersider {
+    width: auto;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+  }
+
+  .mainloginformdiv {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: auto !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 47%;
+  }
+
+  .tab [class*="ant-tabs-tab-active"] {
+    background: #f8a500 !important;
+    border-radius: 5px !important;
+    color: #fff !important;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -20px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+
+  
+.fbbuttoncss {
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  position: relative !important;
+  left: 0px !important;
+  top: 25px !important;
+  height: 40px;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.fbbuttoncss:focus {
+  outline: none !important;
+}
+.fbbuttoncss i {
+  padding: 10px;
+}
+.fbbuttoncss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+.googleButtonCss {
+  position: relative !important;
+  left: 10px !important;
+  top: 25px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-size: 13px;
+  height: 40px;
+}
+
+.googleButtonCss:focus {
+  outline: none !important;
+}
+
+.googleButtonCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+.forgetpasswordtext {
+  color: #000000;
+  margin-left: 100px !important;
+  text-decoration: underline;
+}
+
+
+.registerpagefooterdiv{
+  width: auto;
+  background: #272D3D;
+  position: fixed;
+  bottom: 0px;
+}
+
+
+.registerpagefooterimg{
+  width: auto;
+  height: 50px;
+  margin-left: -8px;
+}
+
+.mobileviewregistertitle {
+  margin-top: 0px !important;
+  margin-left: 300px;
+}
+
+.mobileviewform {
+  margin-left: 120px;
+  width: 80%;
+}
+
+/* .termsandcondition {
+  margin-left: 35px;
+} */
+
+
+.termsandcondition {
+  margin-left: 151px;
+  width: 80%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -42px;
+}
+
+.continuebutton {
+  width: 50%;
+  left: 200px;
+  border-radius: 25px;
+  background: #f8a500;
+  top: 12px;
+}
+
+.backtologin {
+  font-size: 14px;
+  margin-left: 250px;
+}
+
+.signupwithtext {
+  margin-top: -8px;
+  margin-left: 255px;
+}
+
+.fbbuttonregisetercss {
+  position: relative !important;
+  left: 130px !important;
+  top: 3px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+.fbbuttonregisetercss:focus {
+  outline: none !important;
+}
+
+.fbbuttonregisetercss i {
+  padding: 10px;
+}
+
+.fbbuttonregisetercss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+.googleButtonRegisterCss {
+  position: relative !important;
+  left: 145px !important;
+  top: 3px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.googleButtonRegisterCss:focus {
+  outline: none !important;
+}
+
+.googleButtonRegisterCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 0px !important;
+  width: 50px !important;
+  position: relative !important;
+  top: 2px !important;
+}
+
+.myprofiletext {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.mainlayout {
+  overflow: hidden;
+  background: white;
+  overflow: unset;
+  margin-left: 0px;
+}
+
+.uploadbuttoncss {
+  margin: 28px 0px 0px 99px;
+}
+
+.editprofileupdatebutton {
+  margin: 21px 0px 0px 98px;
+}
+
+.editprofileaboveform{
+  width: auto;
+  height: auto;
+  margin: 0px 0px 0px 160px;
+  border: 1px solid #ffffff;
+}
+
+.donorformlabelname {
+  margin-bottom: -24px;
+  margin-left: 72px;
+}
+
+.donorformitemnamecss {
+  width: 55%;
+  align-content: center;
+  position: relative;
+  top: 21px;
+  left: 70px;
+}
+
+.donorformitemnamecsseditprofile {
+  width: 53%;
+  align-content: center;
+  position: relative;
+  top: 30px;
+  left: 70px;
+}
+
+.donoreditprofileaboveform{
+  width: auto;
+  height: auto;
+  margin: 138px 0px 0px 160px;
+  position: relative;
+  bottom: 40px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.donorformlabelage {
+  margin-top: -41px;
+  margin-left: 427px;
+}
+
+.donorformitemagecss {
+  position: relative;
+  align-content: center;
+  top: -19px;
+  left: 422px;
+  width: 53%;
+}
+
+.donorformitemagecsseditprofile {
+  width: 50%;
+  align-content: center;
+  position: relative;
+  left: 420px;
+  top: -13px;
+}
+
+.donoroccupationlabel {
+  margin-top: -80px;
+  margin-left: 521px;
+}
+
+
+
+.donoroccupationitemcss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 520px;
+  top: -60px;
+}
+
+.donoroccupationitemcsseditprofile {
+  width: 125%;
+  align-content: center;
+  position: relative;
+  left: 245px;
+  top: -13px;
+}
+
+.donorformcitylabel {
+  position: relative;
+  top: -80px;
+  left: 694px;
+}
+
+.donorformitemcitynewlabel{
+  position: relative;
+  top: -118px;
+  left: 669px;
+}
+
+.donorformitemcitycss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 668px;
+  top: -125px;
+}
+
+
+.donorformitemcitycsseditprofile {
+  width: 100%;
+  align-content: center;
+  position: relative;
+  left: 690px;
+  top: -81px;
+}
+
+.donorformaddresslabel {
+  margin-top: -79px;
+  margin-left: 38px;
+}
+
+
+.donorformaddressnewlabel {
+  margin-top: -122px;
+  margin-left: 38px;
+}
+
+.donorformitemaddresscss {
+  width: 123%;
+  left: 69px;
+  top: -90px;
+}
+
+.donorformitemaddresscsseditprofile {
+  width: 80%;
+  left: 72px;
+  top: -47px;
+}
+
+.donoremaillabel {
+  margin-top: -60px;
+  margin-left: 37px;
+}
+
+.donoremailnewlabel {
+  margin-top: -91px;
+  margin-left: 37px;
+}
+
+.donoremailformitemcss {
+  width: 84%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 70px;
+}
+
+.donoremailformitemcsseditprofile {
+  width: 100%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -29px;
+  left: 72px;
+}
+
+.donorphonenumberlabel {
+  margin-top: -99px;
+  position: relative;
+  left: 479px;
+  top: 35px;
+}
+
+
+.donorphonenumbernewlabel {
+  margin-top: -95px;
+  position: relative;
+  left: 480px;
+  top: 35px;
+}
+
+.donorformitemphonenumbercss {
+  width: 60%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 450px;
+  top: -99px;
+}
+
+.donorformitemphonenumbercsseditprofile {
+  width: 50%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 473px;
+  top: -70px;
+} 
+
+.donoreditprofileverifyphonecss {
+  position: relative;
+  color: #000000;
+  top: -31px;
+  left: 67px;
+  text-decoration: underline;
+}
+
+.ngoeprofilemydetailstext {
+  display: block;
+  position: relative;
+  left: 62px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.verifynumbertext {
+  position: relative;
+  color: #000000;
+  top: -64px;
+  left: 150px;
+  text-decoration: underline;
+}
+
+.donorformpancardtext {
+  margin-top: -139px;
+  position: relative;
+  left: 39px;
+  top: 54px;
+  width: 50%;
+}
+
+.donorformitempancardcss {
+  width: 58.6%;
+  display: inline-block;
+  position: relative;
+  align-content: center;
+  left: 70px;
+  top: -81px;
+}
+
+.donorprofileupdatebutton {
+  width: 32%;
+  border-radius: 25px;
+  background: #f8a500;
+  color: black;
+  border-color: white;
+  top: 50px;
+}
+
+.movileviewnavigation {
+  display: none;
+}
+
+.myprofiletextupdate {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 130px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.donorformitempancardcss {
+  width: 50%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 72px;
+  top: -96px;
+}
+
+ 
+.donoreditppancardtext {
+  margin-top: -5px;
+  position: relative;
+  left: 37px;
+  top: -42px;
+  width: 50%;
+}
+
+.donorprofileupdatebutton {
+  width: 30%;
+  top: -10px;
+  left: -298px;
+  border-radius: 25px;
+  background: #f8a500;
+  color: black;
+  border-color: white;
+}
+
+
+.donorformitempancardcssprofileu {
+  width: 50%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 72px;
+  top: 5px;
+}
+
+
+.donoreditprofileupdatebutton{
+  width: 35%;
+  top: 95px;
+  left: -100px;
+  border-radius: 25px;
+  background: #f8a500;
+  color: black;
+  border-color: white;
+}
+
+
+.donoreditprofile {
+  margin-left: 2px;
+  margin-top: 92px;
+}
+
+/* .customfileinput::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+input[type='file'] { color: transparent }
+
+.customfileinput::before {
+  content: 'Select some files';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.customfileinput:hover::before {
+  border-color: black;
+}
+.customfileinput:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+ */
+
+/*NGO CSS BEGINS*/
+ .ngoeditprofilediv {
+  width: 90%;
+  height: 100%;
+  margin-left: 0px;
+}
+
+.staticprofileimagengo {
+  size: 100px;
+  width: 55px;
+  height: 65px;
+  margin-left: -5px;
+}
+
+.ngpprofiledivbeforeform {
+  width: 80%;
+  height: 90%;
+  margin-top: -146px;
+  margin-left: 162px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ngoname {
+  margin-left: 220px;
+  margin-top: -5px;
+}
+
+.ngonameformitemcss {
+  width: 45%;
+  align-content: center;
+  position: relative;
+  top: 0px;
+  left: 220px;
+}
+
+.ngocategory {
+  margin-top: -69px;
+  margin-left: 530px;
+}
+
+.ngocategoryformitemcss {
+  left: 530px;
+  top: -41px;
+  width: 53%;
+}
+
+.ngocategoryotherlabel {
+  margin-top: 0px;
+  margin-left: 227px;
+}
+
+.ngocategoryotherformitemcss {
+  left: 225px;
+  top: -10px;
+  width: 53%;
+}
+
+.ngotypeoforg {
+  margin-top: -70px;
+  margin-left: 525px;
+}
+
+.ngotypeoforgformitemcss {
+  left: 525px;
+  top: -50px;
+  width: 53%;
+}
+
+.ngoaddresslabel {
+  margin-top: -65px;
+  margin-left: 70px;
+}
+
+.ngoaddressformitemcss {
+  width: 45%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 220px;
+}
+
+.ngocitylabel {
+  margin-top: -75px;
+  margin-left: 530px;
+}
+
+.ngocityformitemcss {
+  width: 86%;
+  align-content: center;
+  position: relative;
+  left: 530px;
+  top: -55px;
+}
+
+.ngopincodelabel {
+  margin-top: -115px;
+  margin-left: 680px;
+}
+
+.ngopincodeformitemcss {
+  width: 100%;
+  align-content: center;
+  position: relative;
+  left: 680px;
+  top: -95px;
+}
+
+.ngoemailabel {
+  margin-top: -97px;
+  margin-left: 70px;
+}
+
+.ngoemailformitemcss{
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: -65px;
+  left: 220px;
+}
+
+.ngowebsite{
+  margin-top: -71px;
+  margin-left: 70px;
+}
+
+.ngowebsiteformitemcss{
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: -40px;
+  left: 220px;
+}
+
+.ngooperationalsince{
+  margin-top: -50px;
+  margin-left: 70px;
+}
+
+.ngooperationalsinceformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -20px;
+  left: 220px;
+}
+
+.ngoregistartionnumber{
+  margin-top: -90px;
+  margin-left: 280px;
+}
+
+.ngoregistartionnumberformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 425px;
+}
+
+.ngoreferer{
+  margin-top: -130px;
+  margin-left: 475px;
+}
+
+.ngorefererformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -100px;
+  left: 625px;
+}
+
+.ngobanksection{
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 220px;
+  top:-70px
+}
+
+.ngobanksectiondiv{
+  width: 63%;
+  height: 325px;
+  margin-left: 220px;
+  margin-top: -68px;
+  background: #e8e8e8;
+}
+
+.ngobankname{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.ngobanknameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngobankaccountnumber{
+  margin-top: -20px;
+  margin-left: 10px;
+
+}
+
+.ngobankaccountnumberformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngoifsccode{
+  margin-top: -15px;
+  margin-left: 10px;
+}
+
+.ngoifsccodeformitemcss{
+  width: 50%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 10px;
+}
+
+.ngobranch{
+  margin-top: -86px;
+  margin-left: 370px;
+}
+
+.ngobranchformitemcss{
+  width: 53%;
+  align-content: center;
+  position: relative;
+  top: -54px;
+  left: 360px;
+}
+
+.ngoaccountholdername{
+  margin-top: -60px;
+  margin-left: 10px;
+}
+
+.ngoaccountholdernameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -32px;
+  left: 10px;
+}
+
+.ngocontactpersondetails{
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 0px;
+  top: 25px;
+}
+
+.ngocontactpersondetailsdiv{
+  width: 100%;
+  height: 225px;
+  margin-left: 0px;
+  margin-top: 20px;
+  background: #e8e8e8;
+}
+
+.ngocontactpersonname{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.ngocontactpersonnameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngocontactpersonphone{
+  margin-top: -10px;
+  margin-left: 3px;
+}
+
+.ngocontactpersonphone{
+  width: 100%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 10px;
+  top: -15px;
+}
+
+.ngotermscondition{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  margin-left: 24px;
+}
+
+.ngoupdatebutton{
+  width: 50%;
+  border-radius: 25px;
+  background: #f8a500;
+  border: #FFFFFF;
+  color: #000000;
+}
+
+.ngoupdatebuttonformitem{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 410px;
+  top: -42px;
+}
+
+.customfileupload {
+  border-radius:'20px';
+  background-color:'#f8a500';
+  font-size:'30px';
+  font-weight:'bold';
+  
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+}
+
+@media only screen and (min-width:1422px) and (min-height:642px){
+  .maindiv {
+    overflow: hidden;
+  }
+
+  .mobileviewheaderdiv {
+    width: auto;
+    background: #272D3D;
+  }
+
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto ;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .siderimagediv {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: auto !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 24%;
+  }
+
+  .mobileviewsiderimage{
+    width: auto !important;
+    height: 478px;
+    position: absolute;
+    border-radius: 5px;
+    left: 0px;
+    top: 0px;
+  }
+
+  .mobileviewregistersider {
+    width: auto;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+  }
+
+  .mainloginformdiv {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: auto !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 47%;
+  }
+
+  .tab [class*="ant-tabs-tab-active"] {
+    background: #f8a500 !important;
+    border-radius: 5px !important;
+    color: #fff !important;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -20px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+
+  
+.fbbuttoncss {
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  position: relative !important;
+  left: 0px !important;
+  top: 25px !important;
+  height: 40px;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.fbbuttoncss:focus {
+  outline: none !important;
+}
+.fbbuttoncss i {
+  padding: 10px;
+}
+.fbbuttoncss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+.googleButtonCss {
+  position: relative !important;
+  left: 10px !important;
+  top: 25px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-size: 13px;
+  height: 40px;
+}
+
+.googleButtonCss:focus {
+  outline: none !important;
+}
+
+.googleButtonCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+.forgetpasswordtext {
+  color: #000000;
+  margin-left: 100px !important;
+  text-decoration: underline;
+}
+
+
+.registerpagefooterdiv{
+  width: auto;
+  background: #272D3D;
+  position: fixed;
+  bottom: 0px;
+}
+
+.registerpagefooterimg{
+  width: auto;
+  height: 50px;
+  margin-left: -8px;
+}
+
+.mobileviewregistertitle {
+  margin-top: 0px !important;
+  margin-left: 300px;
+}
+
+.mobileviewform {
+  margin-left: 120px;
+  width: 80%;
+}
+
+/* .termsandcondition {
+  margin-left: 35px;
+} */
+
+.termsandcondition {
+  margin-left: 151px;
+  width: 80%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -40px;
+}
+
+.continuebutton {
+  width: 50%;
+  left: 200px;
+  border-radius: 25px;
+  background: #f8a500;
+  top: 12px;
+}
+
+.backtologin {
+  font-size: 14px;
+  margin-left: 250px;
+}
+
+.signupwithtext {
+  margin-top: -8px;
+  margin-left: 255px;
+}
+
+.fbbuttonregisetercss {
+  position: relative !important;
+  left: 130px !important;
+  top: 3px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+.fbbuttonregisetercss:focus {
+  outline: none !important;
+}
+
+.fbbuttonregisetercss i {
+  padding: 10px;
+}
+
+.donoreditprofileaboveform{
+  width: auto;
+  height: auto;
+  margin: 138px 0px 0px 160px;
+  position: relative;
+  bottom: 40px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.customfileupload {
+  border-radius:'20px';
+  background-color:'#f8a500';
+  font-size:'30px';
+  font-weight:'bold';
+  
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.fbbuttonregisetercss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+.googleButtonRegisterCss {
+  position: relative !important;
+  left: 145px !important;
+  top: 3px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.googleButtonRegisterCss:focus {
+  outline: none !important;
+}
+
+.googleButtonRegisterCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 0px !important;
+  width: 50px !important;
+  position: relative !important;
+  top: 2px !important;
+}
+
+.myprofiletext {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.mainlayout {
+  overflow: hidden;
+  background: white;
+  overflow: unset;
+  margin-left: 0px;
+}
+
+.uploadbuttoncss {
+  margin: 28px 0px 0px 99px;
+}
+
+.editprofileupdatebutton {
+  margin: 21px 0px 0px 98px;
+}
+
+.editprofileaboveform{
+  width: auto;
+  height: auto;
+  margin: 92px 0px 0px 160px;
+  border: 1px solid #ffffff;
+}
+
+.donorformlabelname {
+  margin-bottom: -24px;
+  margin-left: 72px;
+}
+
+.donorformitemnamecss {
+  width: 55%;
+  align-content: center;
+  position: relative;
+  top: 21px;
+  left: 70px;
+}
+
+.donorformlabelage {
+  margin-top: -41px;
+  margin-left: 427px;
+}
+
+.donorformitemagecss {
+  position: relative;
+  align-content: center;
+  top: -19px;
+  left: 422px;
+  width: 53%;
+}
+
+.donoroccupationlabel {
+  margin-top: -80px;
+  margin-left: 521px;
+}
+
+.donoroccupationitemcss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 520px;
+  top: -60px;
+}
+
+.donorformcitylabel {
+  position: relative;
+  top: -80px;
+  left: 694px;
+}
+
+
+.donorformitemcitynewlabel{
+  position: relative;
+  top: -118px;
+  left: 669px;
+}
+
+.donorformitemcitycss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 668px;
+  top: -125px;
+}
+
+
+
+.donorformaddresslabel {
+  margin-top: -79px;
+  margin-left: 38px;
+}
+
+
+.donorformaddressnewlabel {
+  margin-top: -122px;
+  margin-left: 38px;
+}
+
+.donorformitemaddresscss {
+  width: 123%;
+  left: 69px;
+  top: -90px;
+}
+
+.donoremaillabel {
+  margin-top: -60px;
+  margin-left: 37px;
+}
+
+
+.donoremailnewlabel {
+  margin-top: -91px;
+  margin-left: 37px;
+}
+
+
+.donoremailformitemcss {
+  width: 84%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 70px;
+}
+
+.donorphonenumberlabel {
+  margin-top: -99px;
+  position: relative;
+  left: 479px;
+  top: 35px;
+}
+.donorphonenumbernewlabel {
+  margin-top: -95px;
+  position: relative;
+  left: 480px;
+  top: 35px;
+}
+
+
+.donorformitemphonenumbercss {
+  width: 60%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 450px;
+  top: -99px;
+}
+
+.verifynumbertext {
+  position: relative;
+  color: #000000;
+  top: -64px;
+  left: 150px;
+  text-decoration: underline;
+}
+
+.donorformpancardtext {
+  margin-top: -139px;
+  position: relative;
+  left: 39px;
+  top: 54px;
+  width: 50%;
+}
+
+
+.donorformitempancardcss {
+  width: 58.6%;
+  display: inline-block;
+  position: relative;
+  align-content: center;
+  left: 70px;
+  top: -81px;
+}
+
+.donorprofileupdatebutton {
+  width: 32%;
+  border-radius: 25px;
+  background: #f8a500;
+  color: black;
+  border-color: white;
+  top: -10px;
+}
+
+.movileviewnavigation {
+  display: none;
+}
+
+.myprofiletextupdate {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 130px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.donoreditppancardtext {
+  margin-top: -9px;
+  position: relative;
+  left: 35px;
+  width: 100%;
+}
+.donorformitempancardcss {
+  width: 40%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 71px;
+  top: -95px;
+}
+
+.donorformitempancardcssprofileu {
+  width: 50%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 72px;
+  top: 5px;
+}
+
+.donoreditprofile {
+  margin-left: 2px;
+  margin-top: -28px;
+}
+
+/*NGO CSS BEGINS*/
+.ngoeditprofilediv {
+  width: 90%;
+  height: 100%;
+  margin-left: 0px;
+}
+
+.staticprofileimagengo {
+  size: 100px;
+  width: 55px;
+  height: 65px;
+  margin-left: -5px;
+}
+
+/* .ngpprofiledivbeforeform {
+  width: 80%;
+  height: 90%;
+  margin-top: -240px;
+  margin-left: 140px;
+  overflow-x: hidden;
+  overflow-y: auto;
+} */
+
+.ngpprofiledivbeforeform {
+  width: 80%;
+  height: 90%;
+  margin-top: -146px;
+  margin-left: 135px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ngoname {
+  margin-left: 220px;
+  margin-top: -5px;
+}
+
+.ngoeprofilemydetailstext {
+  display: block;
+  position: relative;
+  left: 62px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+
+.ngonameformitemcss {
+  width: 40%;
+  align-content: center;
+  position: relative;
+  top: 0px;
+  left: 220px;
+}
+
+.ngocategory {
+  margin-top: -69px;
+  margin-left: 530px;
+}
+
+.ngocategoryformitemcss {
+  left: 530px;
+  top: -41px;
+  width: 45%;
+}
+
+.ngocategoryotherlabel {
+  margin-top: 0px;
+  margin-left: 227px;
+}
+
+.ngocategoryotherformitemcss {
+  left: 225px;
+  top: -10px;
+  width: 45%;
+}
+
+.ngotypeoforg {
+  margin-top: -70px;
+  margin-left: 525px;
+}
+
+.ngotypeoforgformitemcss {
+  left: 525px;
+  top: -50px;
+  width: 53%;
+}
+
+.ngoaddresslabel {
+  margin-top: -65px;
+  margin-left: 70px;
+}
+
+.ngoaddressformitemcss {
+  width: 45%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 220px;
+}
+
+.ngocitylabel {
+  margin-top: -75px;
+  margin-left: 530px;
+}
+
+.ngocityformitemcss {
+  width: 86%;
+  align-content: center;
+  position: relative;
+  left: 530px;
+  top: -55px;
+}
+
+.ngopincodelabel {
+  margin-top: -115px;
+  margin-left: 680px;
+}
+
+.ngopincodeformitemcss {
+  width: 100%;
+  align-content: center;
+  position: relative;
+  left: 680px;
+  top: -95px;
+}
+
+.ngoemailabel {
+  margin-top: -97px;
+  margin-left: 70px;
+}
+
+.ngoemailformitemcss{
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: -65px;
+  left: 220px;
+}
+
+.ngowebsite{
+  margin-top: -71px;
+  margin-left: 70px;
+}
+
+.ngowebsiteformitemcss{
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: -40px;
+  left: 220px;
+}
+
+.ngooperationalsince{
+  margin-top: -50px;
+  margin-left: 70px;
+}
+
+.ngooperationalsinceformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -20px;
+  left: 220px;
+}
+
+.ngoregistartionnumber{
+  margin-top: -90px;
+  margin-left: 280px;
+}
+
+.ngoregistartionnumberformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 425px;
+}
+
+.ngoreferer{
+  margin-top: -130px;
+  margin-left: 475px;
+}
+
+.ngorefererformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -100px;
+  left: 625px;
+}
+
+.ngobanksection{
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 220px;
+  top:-70px
+}
+
+.ngobanksectiondiv{
+  width: 63%;
+  height: 325px;
+  margin-left: 220px;
+  margin-top: -68px;
+  background: #e8e8e8;
+}
+
+.ngobankname{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.ngobanknameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngobankaccountnumber{
+  margin-top: -20px;
+  margin-left: 10px;
+
+}
+
+.ngobankaccountnumberformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngoifsccode{
+  margin-top: -15px;
+  margin-left: 10px;
+}
+
+.ngoifsccodeformitemcss{
+  width: 50%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 10px;
+}
+
+.ngobranch{
+  margin-top: -86px;
+  margin-left: 370px;
+}
+
+.ngobranchformitemcss{
+  width: 53%;
+  align-content: center;
+  position: relative;
+  top: -54px;
+  left: 360px;
+}
+
+.ngoaccountholdername{
+  margin-top: -60px;
+  margin-left: 10px;
+}
+
+.ngoaccountholdernameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -32px;
+  left: 10px;
+}
+
+.ngocontactpersondetails{
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 0px;
+  top: 25px;
+}
+
+.ngocontactpersondetailsdiv{
+  width: 100%;
+  height: 225px;
+  margin-left: 0px;
+  margin-top: 20px;
+  background: #e8e8e8;
+}
+
+.ngocontactpersonname{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.ngocontactpersonnameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngocontactpersonphone{
+  margin-top: -10px;
+  margin-left: 3px;
+}
+
+.ngocontactpersonphone{
+  width: 100%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 10px;
+  top: -15px;
+}
+
+.ngotermscondition{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  margin-left: 24px;
+}
+
+.ngoupdatebutton{
+  width: 50%;
+  border-radius: 25px;
+  background: #f8a500;
+  border: #FFFFFF;
+  color: #000000;
+}
+
+.ngoupdatebuttonformitem{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 410px;
+  top: -42px;
+}
+
+
+
+
+}
+
+@media only screen and (min-width:1600px) and (min-height:722px){
+  .maindiv {
+    overflow: hidden;
+  }
+
+  .mobileviewheaderdiv {
+    width: auto;
+    background:#272D3D;
+  }
+
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto ;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .siderimagediv {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: auto !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 24%;
+  }
+
+  .mobileviewsiderimage{
+    width: auto ;
+    height: 478px;
+    position: absolute;
+    border-radius: 5px;
+    left: 0px;
+    top: 0px;
+  }
+
+  .mobileviewregistersider {
+    width: auto;
+    height: 120%;
+    top: 0px;
+    left: 0px;
+  }
+
+  .mainloginformdiv {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: auto !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 45%;
+  }
+
+  .tab [class*="ant-tabs-tab-active"] {
+    background: #f8a500 !important;
+    border-radius: 5px !important;
+    color: #fff !important;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -20px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  
+.fbbuttoncss {
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  position: relative !important;
+  left: 0px !important;
+  top: 25px !important;
+  height: 40px;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.fbbuttoncss:focus {
+  outline: none !important;
+}
+.fbbuttoncss i {
+  padding: 10px;
+}
+.fbbuttoncss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+.googleButtonCss {
+  position: relative !important;
+  left: 10px !important;
+  top: 25px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-size: 13px;
+  height: 40px;
+}
+
+.googleButtonCss:focus {
+  outline: none !important;
+}
+
+.googleButtonCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+.forgetpasswordtext {
+  color: #000000;
+  margin-left: 100px !important;
+  text-decoration: underline;
+}
+
+
+.registerpagefooterdiv{
+  width: auto;
+  background: #272D3D;
+  position: fixed;
+  bottom: 0px;
+}
+
+.registerpagefooterimg{
+  width: auto;
+  height: 50px;
+  margin-left: -8px;
+}
+
+.mobileviewregistertitle {
+  margin-top: 35px !important;
+  margin-left: 487px;
+}
+
+.mobileviewform {
+  margin-left: 176px;
+  width: 80%;
+}
+
+/* .termsandcondition {
+  margin-left: 35px;
+} */
+
+.termsandcondition {
+  margin-left: 151px;
+  width: 80%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -45px;
+}
+
+.donoreditprofileaboveform{
+  width: auto;
+  height: auto;
+  margin: 138px 0px 0px 160px;
+  position: relative;
+  bottom: 40px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.continuebutton {
+  width: 50%;
+  left: 308px;
+  border-radius: 25px;
+  background: #f8a500;
+  top: 12px;
+
+}
+
+.backtologin {
+  font-size: 14px;
+  margin-left: 387px;
+}
+
+.signupwithtext {
+  margin-top: -8px;
+  margin-left: 395px;
+}
+
+.fbbuttonregisetercss {
+  position: relative !important;
+  left: 265px !important;
+  top: 3px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+.fbbuttonregisetercss:focus {
+  outline: none !important;
+}
+
+.fbbuttonregisetercss i {
+  padding: 10px;
+}
+
+.fbbuttonregisetercss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 5px !important;
+  width: 45px !important;
+  position: relative !important;
+  top: 3px !important;
+}
+
+
+.googleButtonRegisterCss {
+  position: relative !important;
+  left: 280px !important;
+  top: 3px !important;
+  color: black !important;
+  border-radius: 25px !important;
+  background: #f8a500 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.googleButtonRegisterCss:focus {
+  outline: none !important;
+}
+
+.googleButtonRegisterCss div {
+  border-radius: 25px !important;
+  margin-right: 1px !important;
+  background: #f8a500 !important;
+  padding: 0px !important;
+  width: 50px !important;
+  position: relative !important;
+  top: 2px !important;
+}
+
+.myprofiletext {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.mainlayout {
+  overflow: hidden;
+  background: white;
+  overflow: unset;
+  margin-left: 0px;
+}
+
+.uploadbuttoncss {
+  margin: 28px 0px 0px 99px;
+}
+
+.editprofileupdatebutton {
+  margin: 21px 0px 0px 98px;
+}
+
+.editprofileaboveform{
+  width: auto;
+  height: auto;
+  margin: 101px 0px 0px 235px;
+  border: 1px solid #ffffff;
+}
+
+.donorformlabelname {
+  margin-bottom: -24px;
+  margin-left: 72px;
+}
+
+.donorformitemnamecss {
+  width: 55%;
+  align-content: center;
+  position: relative;
+  top: 21px;
+  left: 70px;
+}
+
+.donorformlabelage {
+  margin-top: -41px;
+  margin-left: 427px;
+}
+
+.donorformitemagecss {
+  position: relative;
+  align-content: center;
+  top: -19px;
+  left: 422px;
+  width: 53%;
+}
+
+.donoroccupationlabel {
+  margin-top: -80px;
+  margin-left: 521px;
+}
+
+.donoroccupationitemcss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 520px;
+  top: -60px;
+}
+
+.donorformcitylabel {
+  position: relative;
+  top: -80px;
+  left: 694px;
+}
+.donorformitemcitynewlabel{
+  position: relative;
+  top: -118px;
+  left: 669px;
+}
+
+.donorformitemcitycss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 668px;
+  top: -125px;
+}
+
+
+.donorformaddresslabel {
+  margin-top: -79px;
+  margin-left: 38px;
+}
+
+
+.donorformaddressnewlabel {
+  margin-top: -122px;
+  margin-left: 38px;
+}
+
+
+.donorformitemaddresscss {
+  width: 123%;
+  left: 69px;
+  top: -90px;
+}
+
+.donoremaillabel {
+  margin-top: -60px;
+  margin-left: 37px;
+}
+
+.donoremailnewlabel {
+  margin-top: -91px;
+  margin-left: 37px;
+}
+
+.donoremailformitemcss {
+  width: 84%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 70px;
+}
+
+.donorphonenumberlabel {
+  margin-top: -99px;
+  position: relative;
+  left: 479px;
+  top: 35px;
+}
+
+.donorphonenumbernewlabel {
+  margin-top: -95px;
+  position: relative;
+  left: 480px;
+  top: 35px;
+}
+
+.donorformitemphonenumbercss {
+  width: 60%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 450px;
+  top: -99px;
+}
+
+.verifynumbertext {
+  position: relative;
+  color: #000000;
+  top: -64px;
+  left: 150px;
+  text-decoration: underline;
+}
+.donorformpancardtext {
+  margin-top: -139px;
+  position: relative;
+  left: 39px;
+  top: 54px;
+  width: 50%;
+}
+
+
+.donorformitempancardcss {
+  width: 58.6%;
+  display: inline-block;
+  position: relative;
+  align-content: center;
+  left: 70px;
+  top: -81px;
+}
+
+.donorprofileupdatebutton {
+  width: 32%;
+  border-radius: 25px;
+  background: #f8a500;
+  color: black;
+  border-color: white;
+  top: -10px
+}
+
+.movileviewnavigation {
+  display: none;
+}
+
+.myprofiletextupdate {
+  display: block;
+  position: relative;
+  left: 70px;
+  top: 130px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+.ngoeprofilemydetailstext {
+  display: block;
+  position: relative;
+  left: 62px;
+  top: 7px;
+  font-weight: 800;
+  color: #f8a500;
+  font-size: x-large;
+}
+
+
+.donoreditppancardtext {
+  margin-top: -9px;
+  position: relative;
+  left: 35px;
+  width: 100%;
+}
+.donorformitempancardcss {
+  width: 40%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 71px;
+  top: -95px;
+}
+.donorformitempancardcssprofileu {
+  width: 50%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 72px;
+  top: 5px;
+}
+
+.donoreditprofile {
+  margin-left: 2px;
+  margin-top: -28px;
+}
+
+/*NGO CSS BEGINS*/
+.ngoeditprofilediv {
+  width: 90%;
+  height: 100%;
+  margin-left: 0px;
+}
+
+.staticprofileimagengo {
+  size: 100px;
+  width: 55px;
+  height: 65px;
+  margin-left: -5px;
+}
+
+.ngpprofiledivbeforeform {
+  width: 80%;
+  height: 90%;
+  margin-top: -146px;
+  margin-left: 130px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ngoname {
+  margin-left: 220px;
+  margin-top: -5px;
+}
+
+.ngonameformitemcss {
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: 0px;
+  left: 220px;
+}
+
+.ngocategory {
+  margin-top: -69px;
+  margin-left: 530px;
+}
+
+.ngocategoryformitemcss {
+  left: 530px;
+  top: -41px;
+  width: 45%;
+}
+
+.ngocategoryotherlabel {
+  margin-top: 0px;
+  margin-left: 227px;
+}
+
+.ngocategoryotherformitemcss {
+  left: 225px;
+  top: -10px;
+  width: 40%;
+}
+
+.ngotypeoforg {
+  margin-top: -70px;
+  margin-left: 525px;
+}
+
+.ngotypeoforgformitemcss {
+  left: 525px;
+  top: -50px;
+  width: 45%;
+}
+
+.ngoaddresslabel {
+  margin-top: -65px;
+  margin-left: 70px;
+}
+
+.ngoaddressformitemcss {
+  width: 40%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 220px;
+}
+
+.ngocitylabel {
+  margin-top: -75px;
+  margin-left: 555px;
+}
+
+.ngocityformitemcss {
+  width: 68%;
+  align-content: center;
+  position: relative;
+  left: 552px;
+  top: -55px;
+}
+
+.ngopincodelabel {
+  margin-top: -115px;
+  margin-left: 700px;
+}
+
+.ngopincodeformitemcss {
+  width: 69%;
+  align-content: center;
+  position: relative;
+  left: 695px;
+  top: -95px;
+}
+
+.ngoemailabel {
+  margin-top: -97px;
+  margin-left: 70px;
+}
+
+.ngoemailformitemcss{
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: -65px;
+  left: 220px;
+}
+
+.ngowebsite{
+  margin-top: -71px;
+  margin-left: 70px;
+}
+
+.ngowebsiteformitemcss{
+  width: 35%;
+  align-content: center;
+  position: relative;
+  top: -40px;
+  left: 220px;
+}
+
+.ngooperationalsince{
+  margin-top: -50px;
+  margin-left: 70px;
+}
+
+.ngooperationalsinceformitemcss{
+  width: 18%;
+  align-content: center;
+  position: relative;
+  top: -20px;
+  left: 220px;
+}
+
+.ngoregistartionnumber{
+  margin-top: -90px;
+  margin-left: 280px;
+}
+
+.ngoregistartionnumberformitemcss{
+  width: 18%;
+  align-content: center;
+  position: relative;
+  top: -60px;
+  left: 425px;
+}
+
+.ngoreferer{
+  margin-top: -130px;
+  margin-left: 485px;
+}
+
+.ngorefererformitemcss{
+  width: 20%;
+  align-content: center;
+  position: relative;
+  top: -100px;
+  left: 630px;
+}
+
+.ngobanksection{
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 220px;
+  top:-70px
+}
+
+.ngobanksectiondiv{
+  width: 63%;
+  height: 325px;
+  margin-left: 220px;
+  margin-top: -68px;
+  background: #e8e8e8;
+}
+
+.ngobankname{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.ngobanknameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngobankaccountnumber{
+  margin-top: -20px;
+  margin-left: 10px;
+
+}
+
+.ngobankaccountnumberformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngoifsccode{
+  margin-top: -15px;
+  margin-left: 10px;
+}
+
+.ngoifsccodeformitemcss{
+  width: 50%;
+  align-content: center;
+  position: relative;
+  top: -15px;
+  left: 10px;
+}
+
+.ngobranch{
+  margin-top: -86px;
+  margin-left: 370px;
+}
+
+.ngobranchformitemcss{
+  width: 53%;
+  align-content: center;
+  position: relative;
+  top: -54px;
+  left: 360px;
+}
+
+.ngoaccountholdername{
+  margin-top: -60px;
+  margin-left: 10px;
+}
+
+.ngoaccountholdernameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -32px;
+  left: 10px;
+}
+
+.ngocontactpersondetails{
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 0px;
+  top: 25px;
+}
+
+.ngocontactpersondetailsdiv{
+  width: 100%;
+  height: 225px;
+  margin-left: 0px;
+  margin-top: 20px;
+  background: #e8e8e8;
+}
+
+.ngocontactpersonname{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.ngocontactpersonnameformitemcss{
+  width: 100%;
+  align-content: center;
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+.ngocontactpersonphone{
+  margin-top: -10px;
+  margin-left: 3px;
+}
+
+.ngocontactpersonphone{
+  width: 100%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 10px;
+  top: -15px;
+}
+
+.ngotermscondition{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  margin-left: 74px;
+}
+
+.ngoupdatebutton{
+  width: 50%;
+  border-radius: 25px;
+  background: #f8a500;
+  border: #FFFFFF;
+  color: #000000;
+}
+
+.ngoupdatebuttonformitem{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 410px;
+  top: -42px;
+}
+
+
+
+
+
+}
+
+
+
+@media only screen and (min-width:1024px) and (min-height:1366px){
+  .maindiv {
+    overflow: hidden;
+  }
+
+  .mainlayout {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .mobileviewregistersider {
+    width: 100%;
+    height: 550px;
+    top: 0px;
+    left: 0px;
+    
+  }
+
+  .mobileviewheaderdiv {
+    width: auto;
+    background: #272D3D;
+  }
+
+  .mobileviewiheaderimg {
+    height: 60px;
+    width: auto;
+    overflow: hidden;
+    margin-left: -20px;
+  }
+
+  .siderimagediv {
+    left: 150px;
+    overflow: hidden;
+  }
+
+ 
+  .mobileviewsiderimage {
+    width: 316px;
+    height: 478px;
+    position: absolute;
+    border-radius: 5px;
+    left: 14%;
+    top: 244px;
+  }
+
+
+  .forgetpasswordtext {
+    color: #000000;
+    margin-left: 100px !important;
+    text-decoration: underline;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -20px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+
+  .fbbuttoncss {
+    position: relative !important;
+    left: -25px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .googleButtonCss {
+    position: relative !important;
+    left: 145px !important;
+    top: -15px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+
+  .mainloginformdiv {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: 350px !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 45%;
+  }
+
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 175px;
+  }
+
+  .mobileviewform {
+    margin-left: 40px;
+    width: 100%;
+  }
+
+  .termsandcondition {
+    margin-left: 89px;
+    width: 115%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -2px;
+  }
+  .continuebutton {
+    width: 50%;
+    left: 150px;
+    border-radius: 25px;
+    background: #f8a500;
+    top: 12px;
+  }
+
+  .backtologin {
+    font-size: 14px;
+    margin-left: 180px;
+  }
+
+  .signupwithtext {
+    margin-top: -8px;
+    margin-left: 185px;
+  }
+
+  .googleButtonRegisterCss {
+    position: relative !important;
+    left: 100px !important;
+    top: -10px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .fbbuttonregisetercss {
+    position: relative !important;
+    left: 50px !important;
+    top: -10px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+ 
+  .registerpagefooterdiv{
+    width: auto;
+    background: #272D3D;
+    position: fixed;
+    bottom: 0px;
+  }
+
+  .registerpagefooterimg{
+    width: auto;
+    height: 50px;
+    margin-left: -8px;
+  }
+
+  .myprofiletext {
+    margin-left: -31px;
+    font-size: 16px;
+  }
+
+  .editprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: -26px 0px 0px 160px;
+    border: 1px solid #ffffff;
+  }
+
+  .staticprofileimage {
+    size: 100px;
+    width: 50px;
+    height: 59px;
+    margin-left: -55px;
+  }
+
+  /* .uploadbuttoncss {
+    margin-top: 6px;
+    height: 10px;
+    width: 10%;
+    margin-left: 17px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  } */
+
+  .uploadbuttoncss {
+    margin: 15px 0px 0px 29px;
+  }
+
+
+  .donorformmaindiv {
+  
+    margin-left: 66px;
+    margin-top: 67px;
+
+  }
+
+  .donorformlabelname {
+    font-size: 14px;
+    margin-bottom: -30px;
+    margin-left: 72px;
+  } 
+
+   .donorformlabelage {
+    font-size: 14px;
+    margin-left: 280px;
+    margin-top: -30px;
+  } 
+
+   .donorformitemnamecss {
+    width: 250px;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  } 
+
+  .donorformitemnamecsseditprofile {
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  }
+
+   .donorformitemagecss {
+    width: 400px;
+    align-content: center;
+    position: relative;
+    left: 271px;
+    top: -9px;
+  } 
+
+  .donorformitemagecsseditprofile {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 80px;
+    top: -10px;
+  }
+
+  .donoroccupationlabel {
+    margin-top: -70px;
+    margin-left: 396px;
+    margin-bottom: 20px;
+  } 
+
+  .donoroccupationitemcss {
+    width: 600px;
+    align-content: center;
+    position: relative;
+    left: 394px;
+    top: -50px
+  } 
+
+  .donoroccupationitemcsseditprofile {
+    width: 250%;
+    align-content: center;
+    position: relative;
+    left: 392px;
+    top: -49px;
+  }
+
+  .donoreditprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: 76px 0px 0px 31px;
+    position: relative;
+    bottom: 40px;
+    border: 1px solid rgb(255, 255, 255);
+  }
+  
+
+   .donorformcitylabel {
+    position: relative;
+    top: -42px;
+    left: 72px;
+  }
+
+  .donorformitemcitynewlabel{
+    position: relative;
+    top: -39px;
+    left: 71px;
+  }
+
+  .donorformitemcitycss {
+    width: 500px;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -51px
+  }
+
+  .donorformitemcitycsseditprofile {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -50px;
+  }
+
+  .donorformaddresslabel {
+    margin-top: -120px;
+    margin-left: 106px;
+  }
+  
+
+  .donorformaddressnewlabel {
+    margin-top: -117px;
+    margin-left: 107px;
+  }
+  
+
+  .donorformitemaddresscss {
+    width: 123%;
+    left: 209px;
+    top: -90px;
+  }
+
+  .donorformitemaddresscsseditprofile {
+    width: 107%;
+    left: 215px;
+    top: -91px;
+  }
+  
+  .donoremaillabel {
+    margin-top: -90px;
+    margin-left: 37px;
+  }
+
+  .donoremailnewlabel {
+    margin-top: -89px;
+    margin-left: 37px;
+  }
+
+  .donoremailformitemcss {
+    width: 150%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -60px;
+    left: 70px;
+  }
+
+  .donoremailformitemcsseditprofile {
+    width: 125%;
     display: inline-block;
     align-content: center;
     position: relative;
@@ -821,14 +5465,13 @@
     left: 72px;
   }
 
-  .donorphonenumberlabel{
+  .donorphonenumberlabel {
     margin-top: -60px;
     position: relative;
     left: 72px;
-
   }
 
-  .donorformitemphonenumbercss{
+  .donorformitemphonenumbercss {
     width: 50%;
     display: inline-block;
     align-content: center;
@@ -837,31 +5480,1048 @@
     top: -30px;
   }
 
-  .verifynumbertext{
+  .donorformitemphonenumbercsseditprofile {
+    width: 80%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -31px;
+  } 
+
+  .donorformabovediv{
+    width: auto;
+    height: auto;
+    margin: 0px 0px 0px 157px;
+    position: relative;
+    border: 1px solid #ffffff;
+  }
+
+  .verifynumbertext {
     position: relative;
     color: #000000;
-    left: -130px;
-    top: 10px;
+    left: -207px;
+    top: 9px;
+    text-decoration: underline;
+  }
+
+  .donoreditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 7px;
+    left: -384px;
     text-decoration: underline;
   }
 
   .donorformpancardtext{
-    margin-top: -5px;
+    margin-top: -15px;
     position: relative;
-    left: 72px;
+    left: 204px;
+    top: -47px;
+    width: 80%;
+  }
+
+  .donorformitempancardcssprofileu {
+    width: 70%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 404px;
+    top: -110px;
+  }
+
+  .donoreditprofileupdatebutton{
+    width: 70%;
+    top: 21px;
+    left: -417px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+
+  .donoreditppancardtext {
+    margin-top: -169px;
+    position: relative;
+    left: 154px;
+  
+    width: 100%;
+  }
+
+  .donorformitempancardcss {
+    width: 50%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 304px;
+    top: -32px;
+  }
+
+  .donorprofileupdatebutton {
+    width: 70%;
+    top: 99px;
+    left: -431px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  }
+
+  .myprofiletextupdate {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+
+  .staticprofileimage {
+    size: 100px;
+    width: 50px;
+    height: 59px;
+    margin-left: -74px;
+  }
+
+  
+  .editprofileupdatebutton {
+    margin-top: 27px;
+    height: 10px;
+    width: 10%;
+    margin-left: 29px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .donoreditprofile {
+    margin-left: -90px;
+    margin-top: 139px;
+  }
+
+  /*NGO CCS Begins*/
+  .ngoeditprofilediv {
+    width: 100%;
+    height: 100%;
+    margin-left: 0px;
+  }
+  
+  .staticprofileimagengo {
+    size: 100px;
+    width: 55px;
+    height: 65px;
+    margin-left: -69px;
+  }
+  
+  .ngpprofiledivbeforeform {
+    width: auto;
+    height: 90%;
+    margin-top: -124px;
+    margin-left: -21px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .ngoname {
+    margin-left: 210px;
+    margin-top: -5px;
+  }
+  
+  .ngonameformitemcss {
+    width: 45%;
+    align-content: center;
+    position: relative;
+    top: 0px;
+    left: 210px;
+  }
+  
+  .ngocategory {
+    margin-top: -67px;
+    margin-left: 496px;
+  }
+  
+  .ngocategoryformitemcss {
+    left: 496px;
+    top: -40px;
+    width: 34%;
+  }
+  
+  .ngocategoryotherlabel {
+    margin-top: -36px;
+    margin-left: 211px;
+  }
+  
+  .ngocategoryotherformitemcss {
+    left: 211px;
+    top: -10px;
+    width: 34%;
+  }
+  
+  .ngotypeoforg {
+    margin-top: -76px;
+    margin-left: 496px;
+  }
+  
+  .ngotypeoforgformitemcss {
+    left: 496px;
+    top: -50px;
+    width: 44%;
+  }
+  
+  .ngoaddresslabel {
+    margin-top: -69px;
+    margin-left: 63px;
+  }
+  
+  .ngoaddressformitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    top: -16px;
+    left: 211px;
+  }
+  
+  .ngocitylabel {
+    /* margin-top: 4px; */
+    margin-left: 211px;
+  }
+  
+  .ngocityformitemcss {
+    width: 125%;
+    align-content: center;
+    position: relative;
+    left: 211px;
+    top: -8px;
+  }
+  
+  .ngopincodelabel {
+    margin-top: -66px;
+    margin-left: 496px;
+  }
+  
+  .ngopincodeformitemcss {
+    width: 125%;
+    align-content: center;
+    position: relative;
+    left: 496px;
+    top: -48px;
+  }
+  
+  .ngoemailabel {
+    margin-top: -52px;
+    margin-left: 70px;
+  }
+  
+  .ngoemailformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 220px;
+  }
+  
+  .ngowebsite{
+    margin-top: -29px;
+    margin-left: 70px;
+  }
+  
+  .ngowebsiteformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -20px;
+    left: 220px;
+  }
+  
+  .ngooperationalsince{
+    margin-top: -86px;
+    margin-left: 349px;
+  }
+  
+  .ngooperationalsinceformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -62px;
+    left: 496px;
+  }
+  
+  .ngoregistartionnumber{
+    margin-top: -67px;
+    margin-left: 71px;
+  }
+  
+  .ngoregistartionnumberformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -38px;
+    left: 220px;
+  }
+  
+  .ngoreferer{
+    margin-top: -107px;
+    margin-left: 351px;
+  }
+  
+  .ngorefererformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -79px;
+    left: 496px;
+  }
+  
+  .ngobanksection{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top:-55px
+  }
+  
+  .ngobanksectiondiv{
+    width: auto;
+    height: 340px;
+    margin-left: 220px;
+    margin-top: -54px;
+    background: #e8e8e8;
+  }
+  
+  .ngobankname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngobanknameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngobankaccountnumber{
+    margin-top: -20px;
+    margin-left: 10px;
+  
+  }
+  
+  .ngobankaccountnumberformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngoifsccode{
+    margin-top: -15px;
+    margin-left: 10px;
+  }
+  
+  .ngoifsccodeformitemcss{
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngobranch{
+    margin-top: -25px;
+    margin-left: 10px;
+  }
+  
+  .ngobranchformitemcss{
+    width: 53%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngoaccountholdername{
+    margin-top: -27px;
+    margin-left: 10px;
+  }
+  
+  .ngoaccountholdernameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -21px;
+    left: 10px;
+  }
+  
+  .ngocontactpersondetails{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 0px;
+    top: 25px;
+  }
+  
+  .ngocontactpersondetailsdiv{
+    width: auto;
+    height: 225px;
+    margin-left: 0px;
+    margin-top: 20px;
+    background: #e8e8e8;
+  }
+  
+  .ngocontactpersonname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngocontactpersonnameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngocontactpersonphone{
+    margin-top: -10px;
+    margin-left: 3px;
+  }
+  
+  .ngocontactpersonphone{
+    width: 95%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 10px;
+    top: -15px;
+  }
+  
+  .ngotermscondition{
+    width: 122%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    margin-left: 65px;
+  }
+  
+  .ngoupdatebutton{
+    width: 50%;
+    border-radius: 25px;
+    background: #f8a500;
+    border: #FFFFFF;
+    color: #000000;
+    
+  }
+  
+  .ngoupdatebuttonformitem{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 195px;
+    top: -2px;
+  }
+  
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .ngoeprofilemydetailstext {
+    display: block;
+    position: relative;
+    left: 14px;
+    top: 7px;
+    font-weight: 800;
+    color: #f8a500;
+    font-size: x-large;
+  }
+  
+
+
+  
+
+  
+
+
+}
+
+
+@media only screen and (max-width: 768px) and (min-height:1024px) {
+  .mainlayout {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .registerpagefooterdiv{
+    width: auto;
+    background: #272D3D;
+    position: fixed;
+    bottom: 0px;
+  }
+
+  .donorformabovediv{
+    width: auto;
+    height: auto;
+    margin: 0px 0px 0px 157px;
+    position: relative;
+    border: 1px solid #ffffff;
+  }
+
+  /* .ngpprofiledivbeforeform {
+    width: 180%;
+    height: 100%;
+    margin-top: 118px;
+    margin-left: -270px;
+    overflow-y: scroll;
+    overflow-x: auto;
+  } */
+
+  /* .ngoeditprofilediv {
+    width: auto;
+    height: 100%;
+    margin-left: 72px;
+  } */
+/* 
+  .ngoeprofilemydetailstext {
+    margin-left: -125px;
+    font-size: 18px;
+  } */
+/* 
+  .movileviewnavigation {
+    overflow: hidden;
+    position: relative;
+    background-color: #000000;
+  }
+
+  .otherlinksinmobileview {
+    display: none;
+  }
+
+  .movileviewnavigation a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline;
+  }
+
+  .movileviewnavigation a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .movileviewnavigation a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .activelinkclass {
+    background-color: #f8a500;
+    color: white;
+  } */
+
+  .mainloginformdiv {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 28px;
+    height: 478px !important;
+    background: #ffffff;
+    width: 350px !important;
+    position: absolute;
+    margin: auto;
+    top: 18%;
+    left: 49%;
+  }
+
+  .forgetpasswordtext {
+    color: #000000;
+    margin-left: 105px !important;
+    text-decoration: underline;
+  }
+
+  .loginscreenregistertext {
+    color: #000000;
+    margin-left: -10px;
+    text-decoration: underline;
+    position: relative;
+    top: 5px;
+  }
+  .googleButtonCss {
+    position: relative !important;
+    left: 145px !important;
+    top: -15px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .googleButtonRegisterCss {
+    position: relative !important;
+    left: 145px !important;
+    top: -20px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .fbbuttonregisetercss {
+    position: relative !important;
+    left: -20px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .fbbuttoncss {
+    position: relative !important;
+    left: -25px !important;
+    top: 25px !important;
+    color: black !important;
+    border-radius: 25px !important;
+    background: #f8a500 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .registerpagefooterdiv{
+    width: auto;
+    background: #272D3D;
+  }
+
+  .registerpagefooterimg{
+    width: auto;
+    height: 50px;
+    margin-left: -8px;
+  }
+
+
+  .siderimagediv {
+    left: 73px;
+    overflow: hidden;
+  }
+
+  .maindiv {
+    overflow: hidden;
+  }
+  .body {
+    overflow: hidden;
+  }
+  /* .mobileviewiheaderimg {
+    height: 60px;
+    width: auto;
+    overflow: hidden;
+    margin-left: -20px;
+  } */
+
+  /* .mobileviewheaderdiv {
+    width: auto;
+    background: white;
+  } */
+
+  .mobileviewregistersider {
+    width: 80%;
+    height: 550px;
+    top: 0px;
+    left: 0px;
+  }
+
+  .mobileviewsiderimage {
+    width: 316px;
+    height: 478px;
+    position: absolute;
+    border-radius: 5px;
+    left: 8%;
+    top: 184px;
+  }
+
+  .editprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: -26px 0px 0px 160px;
+    border: 1px solid #ffffff;
+  }
+
+  .mobileviewregistertitle {
+    margin-top: 0px !important;
+    margin-left: 30px;
+  }
+
+  /* .ant-layout-sider-children {
+    display: none;
+  } */
+
+  .mobileviewform {
+    margin-left: 15px;
+    width: 100%;
+  }
+
+  .termsandcondition {
+    margin-left: 89px;
+    width: 115%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -2px;
+  }
+
+  .continuebutton {
+    width: 50%;
+    left: 90px;
+    border-radius: 25px;
+    background: #f8a500;
+    top: 12px;
+  }
+
+  .backtologin {
+    font-size: 14px;
+    margin-left: 85px;
+  }
+
+  .signupwithtext {
+    margin-top: -8px;
+    margin-left: 95px;
+  }
+
+  .fbbuttoncol {
+    margin-top: -10px;
+    width: 125px;
+    height: 5px;
+    margin-left: -10px;
+  }
+
+  .myprofiletext {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .myprofiletextupdate {
+    margin-left: -55px;
+    font-size: 16px;
+  }
+
+  .staticprofileimage {
+    size: 100px;
+    width: 50px;
+    height: 59px;
+    margin-left: -90px;
+  }
+
+  .staticprofileimagengo {
+    size: 100px;
+    width: 55px;
+    height: 65px;
+    margin-left: -74px;
+  }
+
+  /* .uploadbuttoncss {
+    margin-top: 6px;
+    height: 10px;
+    width: 10%;
+    margin-left: 5px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  } */
+
+  .uploadbuttoncss {
+    margin: 15px 0px 0px 30px;
+  }
+
+
+  .donorformabovediv{
+    width: auto;
+    height: auto;
+    margin: 0px 0px 0px 157px;
+    position: relative;
+    border: 1px solid #ffffff;
+  }
+
+
+  .editprofileupdatebutton {
+    margin-top: 27px;
+    height: 10px;
+    width: 10%;
+    margin-left: 16px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+  }
+
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .donoreditprofile {
+    margin-left: -90px;
+    margin-top: 139px;
+  }
+
+  .donorformmaindiv {
+    
+    margin-left: -42px;
+    margin-top: 102px;
+
+  }
+
+  .ngoprofileform {
+    border: 1px solid #ffffff;
+    margin-top: 5px;
+    margin-left: -47px;
+  }
+
+  .donoreditprofile {
+    margin-left: -90px;
+    margin-top: 185px;
+  }
+
+   .donorformlabelname {
+    font-size: 14px;
+    margin-bottom: -30px;
+    margin-left: 72px;
+  } 
+
+   .donorformlabelage {
+    font-size: 14px;
+    margin-left: 280px;
+    margin-top: -30px;
+  } 
+
+   .donorformitemnamecss {
+    width: 250px;
+    align-content: center;
+    position: relative;
     top: 30px;
-    width: 50%;
+    left: 70px;
+  }
+  
+  .donoreditprofileaboveform{
+    width: auto;
+    height: auto;
+    margin: 55px 0px 0px 31px;
+    position: relative;
+    bottom: 40px;
+    border: 1px solid rgb(255, 255, 255);
   }
 
-  .donoreditppancardtext{
-    margin-top: -5px;
+  .donorformitemnamecsseditprofile {
+    width: 80%;
+    align-content: center;
+    position: relative;
+    top: 30px;
+    left: 70px;
+  }
+
+   .donorformitemagecss {
+    width: 400px;
+    align-content: center;
+    position: relative;
+    left: 271px;
+    top: -9px;
+  } 
+
+  
+  .donorformitemagecsseditprofile {
+    width: 150%;
+    align-content: center;
+    position: relative;
+    left: 277px;
+    top: -10px;
+  }
+
+  .donoroccupationlabel {
+    margin-top: -70px;
+    margin-left: 396px;
+    margin-bottom: 20px;
+  } 
+
+  .donoroccupationitemcss {
+    width: 600px;
+    align-content: center;
+    position: relative;
+    left: 394px;
+    top: -50px
+  } 
+
+  .donoroccupationitemcsseditprofile {
+    width: 250%;
+    align-content: center;
+    position: relative;
+    left: 392px;
+    top: -49px;
+  }
+  
+
+   .donorformcitylabel {
+    position: relative;
+    top: -42px;
+    left: 72px;
+  }
+
+  .donorformitemcitynewlabel{
+    position: relative;
+    top: -39px;
+    left: 71px;
+  }
+
+  .donorformitemcitycss {
+    width: 500px;
+    align-content: center;
     position: relative;
     left: 72px;
-    top: 10px;
-    width: 50%;
+    top: -51px
   }
 
-  .donorformitempancardcssprofileu{
+  .donorformitemcitycsseditprofile {
+    width: 150%;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -50px;
+  }
+
+  .donorformaddresslabel {
+    margin-top: -120px;
+    margin-left: 106px;
+  }
+
+  .donorformaddressnewlabel {
+    margin-top: -117px;
+    margin-left: 107px;
+  }
+  
+  .donorformitemaddresscss {
+    width: 123%;
+    left: 209px;
+    top: -90px;
+  }
+
+  .donorformitemaddresscsseditprofile {
+    width: 145%;
+    left: 205px;
+    top: -91px;
+  }
+  
+  .donoremaillabel {
+    margin-top: -90px;
+    margin-left: 37px;
+  }
+
+  .donoremailnewlabel {
+    margin-top: -89px;
+    margin-left: 37px;
+  }
+
+  .donoremailformitemcss {
+    width: 150%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -60px;
+    left: 70px;
+  }
+
+  .donoremailformitemcsseditprofile {
+    width: 135%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    top: -60px;
+    left: 72px;
+  }
+
+  .donorphonenumberlabel {
+    margin-top: -60px;
+    position: relative;
+    left: 72px;
+  }
+
+  .donorformitemphonenumbercss {
+    width: 100%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -30px;
+  }
+
+  .donorformitemphonenumbercsseditprofile {
+    width: 95%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 72px;
+    top: -33px;
+  } 
+
+  .donoreditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: -34px;
+    left: 76px;
+    text-decoration: underline;
+  }
+
+  .ngoeditprofileverifyphonecss {
+    position: relative;
+    color: #000000;
+    top: 10px;
+    left: -413px;
+    text-decoration: underline;
+  }
+
+  .verifynumbertext {
+    position: relative;
+    color: #000000;
+    left: 72px;
+    top: -38px;
+    text-decoration: underline;
+  }
+
+  
+
+  .donoreditppancardtext {
+    margin-top: -169px;
+    position: relative;
+    left: 154px;
+  
+    width: 100%;
+  }
+
+  .signupwithtext {
     width: 50%;
     display: inline-block;
     align-content: center;
@@ -870,26 +6530,400 @@
     top: -40px;
   }
 
-  .donorformitempancardcss{
-    width: 50%;
+  .donorformitempancardcss {
+    width: 100%;
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 72px;
-    top: -25px;
+    left: 304px;
+    top: -32px;
   }
 
-  .donorprofileupdatebutton{
-    width: 30%;
-    top:60px;
-    left: -520px;
+  .donorformitempancardcssprofileu {
+    width: 90%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 292px;
+    top: -110px;
+  }
+
+  .donorformpancardtext{
+    margin-top: -15px;
+    position: relative;
+    left: 150px;
+    top: -47px;
+    width: 80%;
+  }
+
+  .donorprofileupdatebutton {
+    width: 70%;
+    top: 81px;
+    left: -417px;
+    border-radius: 25px;
+    background: #f8a500;
+    color: black;
+    border-color: white;
+  } 
+
+  .donoreditprofileupdatebutton{
+    width: 70%;
+    top: 21px;
+    left: -417px;
     border-radius: 25px;
     background: #f8a500;
     color: black;
     border-color: white;
   }
 
-  [class*="ant-layout-sider "] {
-    display: none;
+  /*NGO CCS Begins*/
+  .ngoeditprofilediv {
+    width: 100%;
+    height: 100%;
+    margin-left: 0px;
   }
+  
+  .staticprofileimagengo {
+    size: 100px;
+    width: 55px;
+    height: 65px;
+    margin-left: -69px;
+  }
+  
+  .ngpprofiledivbeforeform {
+    width: auto;
+    height: 90%;
+    margin-top: -124px;
+    margin-left: -21px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .ngoname {
+    margin-left: 210px;
+    margin-top: -5px;
+  }
+  
+  .ngonameformitemcss {
+    width: 45%;
+    align-content: center;
+    position: relative;
+    top: 0px;
+    left: 210px;
+  }
+  
+  .ngocategory {
+    margin-top: -67px;
+    margin-left: 496px;
+  }
+  
+  .ngocategoryformitemcss {
+    left: 496px;
+    top: -40px;
+    width: 34%;
+  }
+  
+  .ngocategoryotherlabel {
+    margin-top: -36px;
+    margin-left: 211px;
+  }
+  
+  .ngocategoryotherformitemcss {
+    left: 211px;
+    top: -10px;
+    width: 34%;
+  }
+  
+  .ngotypeoforg {
+    margin-top: -76px;
+    margin-left: 496px;
+  }
+  
+  .ngotypeoforgformitemcss {
+    left: 496px;
+    top: -50px;
+    width: 44%;
+  }
+  
+  .ngoaddresslabel {
+    margin-top: -69px;
+    margin-left: 63px;
+  }
+  
+  .ngoaddressformitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    top: -16px;
+    left: 211px;
+  }
+  
+  .ngocitylabel {
+    /* margin-top: 4px; */
+    margin-left: 211px;
+  }
+  
+  .ngocityformitemcss {
+    width: 125%;
+    align-content: center;
+    position: relative;
+    left: 211px;
+    top: -8px;
+  }
+  
+  .ngopincodelabel {
+    margin-top: -66px;
+    margin-left: 496px;
+  }
+  
+  .ngopincodeformitemcss {
+    width: 125%;
+    align-content: center;
+    position: relative;
+    left: 496px;
+    top: -48px;
+  }
+  
+  .ngoemailabel {
+    margin-top: -52px;
+    margin-left: 70px;
+  }
+  
+  .ngoemailformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -18px;
+    left: 220px;
+  }
+  
+  .ngowebsite{
+    margin-top: -29px;
+    margin-left: 70px;
+  }
+  
+  .ngowebsiteformitemcss{
+    width: 35%;
+    align-content: center;
+    position: relative;
+    top: -20px;
+    left: 220px;
+  }
+  
+  .ngooperationalsince{
+    margin-top: -86px;
+    margin-left: 349px;
+  }
+  
+  .ngooperationalsinceformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -62px;
+    left: 496px;
+  }
+  
+  .ngoregistartionnumber{
+    margin-top: -67px;
+    margin-left: 71px;
+  }
+  
+  .ngoregistartionnumberformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -38px;
+    left: 220px;
+  }
+  
+  .ngoreferer{
+    margin-top: -107px;
+    margin-left: 351px;
+  }
+  
+  .ngorefererformitemcss{
+    width: 20%;
+    align-content: center;
+    position: relative;
+    top: -79px;
+    left: 496px;
+  }
+  
+  .ngobanksection{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 220px;
+    top:-55px
+  }
+  
+  .ngobanksectiondiv{
+    width: auto;
+    height: 340px;
+    margin-left: 220px;
+    margin-top: -54px;
+    background: #e8e8e8;
+  }
+  
+  .ngobankname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngobanknameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngobankaccountnumber{
+    margin-top: -20px;
+    margin-left: 10px;
+  
+  }
+  
+  .ngobankaccountnumberformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngoifsccode{
+    margin-top: -15px;
+    margin-left: 10px;
+  }
+  
+  .ngoifsccodeformitemcss{
+    width: 50%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngobranch{
+    margin-top: -25px;
+    margin-left: 10px;
+  }
+  
+  .ngobranchformitemcss{
+    width: 53%;
+    align-content: center;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .ngoaccountholdername{
+    margin-top: -27px;
+    margin-left: 10px;
+  }
+  
+  .ngoaccountholdernameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -21px;
+    left: 10px;
+  }
+  
+  .ngocontactpersondetails{
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 0px;
+    top: 25px;
+  }
+  
+  .ngocontactpersondetailsdiv{
+    width: auto;
+    height: 225px;
+    margin-left: 0px;
+    margin-top: 20px;
+    background: #e8e8e8;
+  }
+  
+  .ngocontactpersonname{
+    margin-top: 0px;
+    margin-left: 10px;
+  }
+  
+  .ngocontactpersonnameformitemcss{
+    width: 95%;
+    align-content: center;
+    position: relative;
+    top: -10px;
+    left: 10px;
+  }
+  
+  .ngocontactpersonphone{
+    margin-top: -10px;
+    margin-left: 3px;
+  }
+  
+  .ngocontactpersonphone{
+    width: 95%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 10px;
+    top: -15px;
+  }
+  
+  .ngotermscondition{
+    width: 122%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    margin-left: 65px;
+  }
+  
+  .ngoupdatebutton{
+    width: 50%;
+    border-radius: 25px;
+    background: #f8a500;
+    border: #FFFFFF;
+    color: #000000;
+    
+  }
+  
+  .ngoupdatebuttonformitem{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 195px;
+    top: -2px;
+  }
+  
+  .customfileupload {
+    border-radius:'20px';
+    background-color:'#f8a500';
+    font-size:'30px';
+    font-weight:'bold';
+    
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .ngoeprofilemydetailstext {
+    display: block;
+    position: relative;
+    left: 14px;
+    top: 7px;
+    font-weight: 800;
+    color: #f8a500;
+    font-size: x-large;
+  }
+  
+  
+  /* [class*="ant-layout-sider "] {
+    display: none;
+  } */
 }

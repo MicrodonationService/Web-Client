@@ -1,19 +1,23 @@
-
 import ReactDOM from 'react-dom';
 import React,{Component} from 'react';
-import './css/images.css';
-import { Button } from 'antd';
+import './Images.css';
+import { Button , Modal} from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import Update_photos_1 from './UpdatePhotos';
+
 
 
 class App extends Component
 {
-
+    
     constructor(props)
     {
         super(props);
         this.DeleteImage=this.DeleteImage.bind(this);
     }
 
+    
+    
     DeleteImage=()=>{
             console.log('Delete Image Functiona')
             let arr= this.props.popImageUrl.split('?')
@@ -53,6 +57,7 @@ class App extends Component
         });
 
    }
+   
 
 
 
@@ -61,22 +66,26 @@ class App extends Component
     render()
     {
         return(
-            <div className='popupParent'>
+            <div className='popupParent' onClick={this.props.closepopup}>
                 <div className='popupImage'>
+                
 
-                <Button className='imageClosingButton'
-                    onClick={this.props.closepopup}>
-                    X
+                <Button className='imageClosingButton' 
 
+                   onClick={()=>{
+                        if (window.confirm("Delete the Image?")) {
+              let removeToCollection = this.removeToCollection.bind(this, this.props.popImageUrl);
+              removeToCollection();
+            }
+                         }}>
+
+
+                       <i class=" fa fa-trash fa-10x" ></i>
+                       {/* <i class="fa fa-upload" aria-hidden="true"></i> */}
 
                     </Button>
 
-                    <button className='imageDeleteButton'
-                     onClick={this.DeleteImage}>
-                        Delete
-
-                    </button>
-
+                   
 
                     <img src={this.props.popImageUrl}>
 
@@ -86,6 +95,48 @@ class App extends Component
             </div>
         );
     }
+
+    removeToCollection(key, e) {
+        console.log(key);
+            console.log('Delete Image Functiona')
+            let arr= this.props.popImageUrl.split('?')
+            let arr2=arr[0].split('/')
+            var ngoname=arr2[3]
+            var filename=arr2[4]
+            console.log(filename)
+
+
+            let loginRequest = {
+                "ngoname": ngoname,
+                "filename": filename //event.file.name //
+            };
+
+            const superagent=require('superagent');
+
+    superagent
+        .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/deletefileuploadsfroms3')
+        .send(loginRequest)
+        .set('X-API-Key', 'foobar')
+        .set('Content-Type','application/json')
+        .set('accept', '*/*')
+        .set('Access-Control-Request-Headers','content-type,x-api-key')
+        .set('Access-Control-Request-Method','PUT')
+        .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+        .set('Origin','http://localhost:3000')
+        .set('Accept-Encoding','gzip, deflate, br')
+        .set('Sec-Fetch-Dest','empty')
+        .set('Sec-Fetch-Mode', 'cors')
+        .end((err,res)=>{
+            let responseJson=JSON.parse(res.text);
+
+            console.log(responseJson.message)
+            // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+            ReactDOM.render(<Update_photos_1 ngoname1={this.props.ngoname1} />, document.getElementById('root'));
+            
+        });
+
+   
+      }
 }
 
 export default App;

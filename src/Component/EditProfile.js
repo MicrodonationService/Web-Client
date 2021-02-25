@@ -3,11 +3,11 @@ import React from 'react';
 import App from '../App';
 import 'antd/dist/antd.css';
 import '../App.module.css';
-import GlobalHelper from '../utils/GlobalHelper.js'
 import WrappedOtpVerifyForm from "./OtpVerify.js"
+import GlobalHelper from '../utils/GlobalHelper.js'
 import '../index.css';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Row, Col, Collapse, Result,Modal, Breadcrumb, Radio, Icon, Button, Select, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge,message, Upload } from 'antd';
+import { Layout, Menu, Select, Row, Col, Modal, Collapse, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, message, Upload } from 'antd';
 
 import { Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
@@ -44,12 +44,13 @@ function beforeUpload(file) {
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", visible: false, value: 1, handleFlag: true,message1:"",failedmess:"",donorcategorys:"", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false };
+    this.state = { posts: "", visible: false, value: 1, handleFlag: true, message1: "", failedmess: "", donorcategorys: "", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false, mobileverifyflag: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { mess: "", loading: false }
+    this.state = { mess: "", loading: false, donorprofileimage: "", base64TextString: "" }
     this.onChange = this.onChange.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.onPhotoupload = this.onPhotoupload.bind(this);
     this.donorFetchname = this.donorFetchname.bind(this);
     // this.pancardValidation = this.pancardValidation.bind(this);
 
@@ -62,30 +63,32 @@ class EditProfile extends React.Component {
     this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
     this.age = this.props.donorfetchdata.Body1.SZ_AGE;
     this.donorFetchname();
-  }
-  donorFetchname(){
-    let donorcategory = {
-     "lookuptype":"DONOR_OCC"
-    }
-   const superagent = require('superagent');
-   superagent
-     .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
-     .send(donorcategory)
-     .set('X-API-Key', 'foobar')
-     .set('accept', 'application/json')
-     .end((err, res) => {
-       console.log("Response", res);
-       let detailsRespJSOn = JSON.parse(res.text);
-       console.log("respjson", detailsRespJSOn);
-       if (detailsRespJSOn.Status == "SUCCESS") {
-        console.log("DONOR Data", detailsRespJSOn)
-        this.setState({ donorcategorys: detailsRespJSOn })
-        console.log("DONOR CATEGORY", this.state.donorcategorys)
 
-      }
-      console.log("Donor Category",this.state.donorcategorys)
-     })
- }
+  }
+  donorFetchname() {
+    let donorcategory = {
+      "lookuptype": "DONOR_OCC"
+    }
+    const superagent = require('superagent');
+    superagent
+      .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
+      .send(donorcategory)
+      .set('X-API-Key', 'foobar')
+      .set('accept', 'application/json')
+      .end((err, res) => {
+        console.log("Response", res);
+        let detailsRespJSOn = JSON.parse(res.text);
+        console.log("respjson", detailsRespJSOn);
+        if (detailsRespJSOn.Status == "SUCCESS") {
+          console.log("DONOR Data", detailsRespJSOn)
+          this.setState({ donorcategorys: detailsRespJSOn })
+          console.log("DONOR CATEGORY", this.state.donorcategorys)
+
+        }
+        console.log("Donor Category", this.state.donorcategorys)
+      })
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
   };
@@ -100,7 +103,7 @@ class EditProfile extends React.Component {
     this.setState({ value: event.target.value });
     window.location.reload();
   }
- 
+
   showModal = (e) => {
     console.log("In showModal");
 
@@ -143,23 +146,25 @@ class EditProfile extends React.Component {
     })
   };
 
-//   pancardValidation(value) {
-//     let  regex = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
-//     console.log(`selected${value}`);
-//     if(regex.test(value)) {
-//       console.log("In True");
-//          return true;
-//     }
-//     else{
-//       console.log("In False");
-//       this.setState({
-//         mess:"Pan Invalid"
-//       })
-//       return false;
-//     }
 
 
-// }
+
+  //   pancardValidation(value) {
+  //     let  regex = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+  //     console.log(`selected${value}`);
+  //     if(regex.test(value)) {
+  //       console.log("In True");
+  //          return true;
+  //     }
+  //     else{
+  //       console.log("In False");
+  //       this.setState({
+  //         mess:"Pan Invalid"
+  //       })
+  //       return false;
+  //     }
+
+  // }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -168,7 +173,7 @@ class EditProfile extends React.Component {
       // var mobilen
       // console.log("Mobile",mobilenumber);
 
-      
+
       if (!err) {
 
         let updateProfileRequest = {
@@ -212,10 +217,63 @@ class EditProfile extends React.Component {
             }
           });
       }
-    
+
 
     })
   }
+
+  onPhotoupload = (e) => {
+    console.log("In Photo Upload")
+    let file = e.target.files[0];//parameter to pass
+    this.state.filename = e.target.files[0].name;
+
+    if (file) {
+      const reader = new FileReader();
+      console.log(reader)
+      reader.onload = this._handleReaderLoader.bind(this);
+      reader.readAsBinaryString(file);
+    }
+
+  }
+  _handleReaderLoader = (readerEvt) => {
+    let binaryString = readerEvt.target.result;
+
+    this.setState({ base64TextString: btoa(binaryString) });
+
+    console.log("Photo", this.state.base64TextString);
+
+    let loginRequest = {
+      "cognitoId": this.props.donorfetchdata.body.SZ_COGNITO_ID,
+      "user_avatar": this.state.base64TextString
+    }
+
+    const superagent = require('superagent');
+
+    superagent
+      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/uploadprofileimagedonor')
+      .send(loginRequest)
+      .set('X-API-Key', 'foobar')
+      .set('Content-Type', 'application/json')
+      .set('accept', '*/*')
+      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+      .set('Origin', 'http://localhost:3000')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .end((err, res) => {
+        console.log("Response:", res)
+        this.componentDidMount();
+        // this.setState({
+        //   donorprofileimage: JSON.parse(res.text),
+        // })
+        //  window.location.reload();
+        // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+      });
+
+  }
+
 
   componentDidMount() {
     //setTimeout(()=>{
@@ -229,6 +287,35 @@ class EditProfile extends React.Component {
     document.getElementById("mobile").value = this.mobile;
     document.getElementById("pancard").value = this.pancard;
     document.getElementById("age").value = this.age;
+
+    let loginRequest = {
+      "cognitoId": this.props.donorfetchdata.body.SZ_COGNITO_ID
+    }
+
+    const superagent = require('superagent');
+
+    superagent
+      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
+      .send(loginRequest)
+      .set('X-API-Key', 'foobar')
+      .set('Content-Type', 'application/json')
+      .set('accept', '*/*')
+      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+      .set('Origin', 'http://localhost:3000')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .end((err, res) => {
+        //console.log("Response:",res)
+        this.setState({
+          donorprofileimage: JSON.parse(res.text),
+        })
+        console.log("Res", JSON.parse(res.text));
+        console.log("Rsss", this.state.donorprofileimage);
+        // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+      });
     //},500)
   }
   componentDidUpdate(prevProps, prevState) {
@@ -311,7 +398,7 @@ class EditProfile extends React.Component {
     console.log("Donor Details", this.props.donorfetchdata)
     //var bgimg = "url('"+ window.origin+"/background.png')";
     const { loading, imageUrl } = this.state;
-    const { visible} = this.state;
+    const { visible } = this.state;
     const uploadButton = (
       <div style={{ marginTop: 8 }}>Upload</div>
     );
@@ -319,33 +406,31 @@ class EditProfile extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const { posts } = this.state;
 
+      console.log("In Render",this.state.donorprofileimage)
+
     return (
       <div className={styles.mainlayout} style={{ height: (window.innerHeight), backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed', backgroundSize: 'cover' }}>
         <Layout className={styles.mainlayout}>
           <Content className={styles.mainlayout} style={{ background: 'white', marginLeft: '2px', overflow: 'unset' }}>
-          <div style={{}}>
-            <h5  className={styles.myprofiletextupdate}>MY PROFILE</h5>
-          <span style={{ margin: '80px 0px 0px 105px' }}>
-            <Avatar className={styles.staticprofileimage} size={64} shape="circle" src="img/NGO.png" style={{marginTop:'130px'}}/>
-          </span>
-          <div className={styles.editprofileupdatebutton} >
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className={styles.editprofileupdatebutton}
-              //lassName="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={this.handleChange1}
-            >
-              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-            </Upload>
+            <div style={{}}>
+              <h5 className={styles.myprofiletextupdate}>MY PROFILE</h5>
+              <span style={{ margin: '80px 0px 0px 105px' }}>
+                <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.state.donorprofileimage} style={{ marginTop: '130px' }} />
+              </span>
+              <div className={styles.editprofileupdatebutton} >
+              <label for="file-upload" className={styles.customfileupload}>
+                <i class="fa fa-upload" aria-hidden="true"></i>Upload
+</label>
+              <input id="file-upload" type="file" style={{ display: 'none',borderRadius:'25px' }} onChange={(e) => this.onPhotoupload(e)} />
+                {/* <input type="file" className={styles.donorprofilebutton}  onChange={(e)=>this.onPhotoupload(e)}></input> */}
+              </div>
 
-          </div>
+             
+
+              {/* <input type="file"  onChange={(e)=>this.onPhotoupload(e)}></input> */}
             </div>
             {/* <h1 style={{ display: 'block', position: 'relative', left: '680px', fontWeight: 900, color: '#f8a500', top: '135px', fontSize: 'x-large' }}>MY PROFILE</h1> */}
-            <div style={{ width: (window.innerWidth - 400), height: (window.innerHeight - 300), margin: '0px 0px 0px 160px', border: '1px solid #ffffff' }}>
+            <div className={styles.editprofileaboveform} >
 
               <Form className={styles.donoreditprofile} {...layout}>
 
@@ -353,9 +438,9 @@ class EditProfile extends React.Component {
                 <div style={{ width: (window.innerWidth - 450), height: (window.innerHeight - 300), margin: '-250px 0px 0px 100px', border: '1px solid #ffffff' }}>
                   <div style={{ background: '#FFFFFF' }}>
                     <h4 className={styles.donorformlabelname} >NAME</h4>
-                    <Form.Item className={styles.donorformitemnamecss}
+                    <Form.Item className={styles.donorformitemnamecsseditprofile}
 
-                      // style={{ width: '55%', alignContent: 'center', position: 'relative', top: '21px', left: '70px' }}
+                    // style={{ width: '55%', alignContent: 'center', position: 'relative', top: '21px', left: '70px' }}
                     >
                       {getFieldDecorator('name', {
                         // rules:[
@@ -369,58 +454,58 @@ class EditProfile extends React.Component {
                         <Input type="text" style={{ borderRadius: '25px' }} />)}
                     </Form.Item>
                     <h4 className={styles.donorformlabelage} >AGE</h4>
-                    <Form.Item className={styles.donorformitemagecss}
+                    <Form.Item className={styles.donorformitemagecsseditprofile}
 
-                      // style={{ width: '53%', alignContent: 'center', position: 'relative', left: '422px', top: '-19px' }}
+                    // style={{ width: '53%', alignContent: 'center', position: 'relative', left: '422px', top: '-19px' }}
                     >
                       {getFieldDecorator('age', {
-                        rules:[
+                        rules: [
                           {
-                            max:2
+                            max: 2
                           }
                         ]
 
                       })(
-                        <Input maxLength={2} onChange={(e) =>{
-                          const {value} = e.target;
+                        <Input maxLength={2} onChange={(e) => {
+                          const { value } = e.target;
                           const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-                                   if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-    
-                                   }
-                                   else{
-                                     e.target.value = e.target.value.substring(0,e.target.value.length-1);
-                                     return ;
-                                   }
-                          }} style={{ borderRadius: '25px', width: '24%' }} />)}
+                          if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+
+                          }
+                          else {
+                            e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+                            return;
+                          }
+                        }} style={{ borderRadius: '25px', width: '24%' }} />)}
                     </Form.Item>
                     <h4 className={styles.donoroccupationlabel} >OCCUPATION </h4>
-                    <Form.Item className={styles.donoroccupationitemcss}
+                    <Form.Item className={styles.donoroccupationitemcsseditprofile}
 
-                      // style={{ width: '100%', alignContent: 'center', position: 'relative', left: '518px', top: '-58px' }}
+                    // style={{ width: '100%', alignContent: 'center', position: 'relative', left: '518px', top: '-58px' }}
                     >
                       {getFieldDecorator('occupation', {
-                      rules: [
-                       {
-                         required: true,
-                         message: 'Select Occupation',
-                       }
-                     ],
+                        // rules: [
+                        //   {
+                        //     required: true,
+                        //     message: 'Select Occupation',
+                        //   }
+                        // ],
 
-                   })(
-                     <Select placeholder="Select Occupation"  onChange={this.clickChange}  style={{ width: '22%' }} >
-                 {
-                 (this.state.donorcategorys !== undefined ) ?
-                 this.state.donorcategorys.Body.map((value) => (
-                   <option value={value}>{value}</option>
-                 )):""
-               }
-             </Select>
-                     )}</Form.Item>
+                      })(
+                        <Select placeholder="Select Occupation" onChange={this.clickChange} style={{ width: '22%' }} >
+                          {
+                            (this.state.donorcategorys !== undefined) ?
+                              this.state.donorcategorys.Body.map((value) => (
+                                <option value={value}>{value}</option>
+                              )) : ""
+                          }
+                        </Select>)}
+                    </Form.Item>
                     <h4 className={styles.donorformcitylabel} >CITY</h4>
 
-                    <Form.Item className={styles.donorformitemcitycss}
+                    <Form.Item className={styles.donorformitemcitycsseditprofile}
 
-                      // style={{ width: '68%', alignContent: 'center', position: 'relative', left: '668px', top: '-98px' }}
+                    // style={{ width: '68%', alignContent: 'center', position: 'relative', left: '668px', top: '-98px' }}
                     >
                       {getFieldDecorator('city', {
                         //  rules:[
@@ -434,11 +519,11 @@ class EditProfile extends React.Component {
                         <Input type="text" style={{ borderRadius: '25px', width: '36%' }} />)}
                     </Form.Item>
                   </div>
-                  <Form.Item style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '-55px' }}>
+                  <Form.Item className={styles.donorformaddresslabel} >
                     <h4 className={styles.donorformaddresslabel} >ADDRESS</h4>
                   </Form.Item>
-                  <Form.Item className={styles.donorformitemaddresscss}
-                    // style={{ width: '123%', left: '69px', top: '-90px' }}
+                  <Form.Item className={styles.donorformitemaddresscsseditprofile}
+                  // style={{ width: '123%', left: '69px', top: '-90px' }}
                   >{getFieldDecorator('address', {
                     // rules:[
                     //   {
@@ -450,17 +535,17 @@ class EditProfile extends React.Component {
                   })(
                     <Input type="text" style={{ borderRadius: '25px' }} />)}
                   </Form.Item>
-                  <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-45px' }}>
+                  <Form.Item className={styles.donoremaillabel} >
                     <h4 className={styles.donoremaillabel}>E-MAIL ID</h4>
                   </Form.Item>
-                  <Form.Item className={styles.donoremailformitemcss}
+                  <Form.Item className={styles.donoremailformitemcsseditprofile}
 
-                    // style={{ width: '84%', display: 'inline-block', alignContent: 'center', position: 'relative', top: '-60px', left: '70px' }}
+                  // style={{ width: '84%', display: 'inline-block', alignContent: 'center', position: 'relative', top: '-60px', left: '70px' }}
                   >
                     {getFieldDecorator('email', {
 
                     })(
-                      <Input readOnly={true} style={{ borderRadius: '25px', width: '70%',backgroundColor:'	#E0E0E0' }}
+                      <Input readOnly={true} style={{ borderRadius: '25px', width: '70%', backgroundColor: '	#E0E0E0' }}
                         onChange={
                           (e) => {
                             this.setState({ verifyFlag1: true })
@@ -472,14 +557,16 @@ class EditProfile extends React.Component {
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
                     <h4 className={styles.donorphonenumberlabel} >PHONE NUMBER</h4>
                   </Form.Item>
-                  <Form.Item className={styles.donorformitemphonenumbercss}
+                  <Form.Item className={styles.donorformitemphonenumbercsseditprofile}
 
-                    // style={{ width: '60%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '450px', top: '-99px' }}
+
+
+                  // style={{ width: '60%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '450px', top: '-99px' }}
                   > {getFieldDecorator('mobile', {
-                    rules:[
+                    rules: [
                       {
-                        min:10,
-                        message:"Please enter minimum 10 digits"
+                        min: 10,
+                        message: "Please enter minimum 10 digits"
                       }
                     ]
                     // rules:[
@@ -490,21 +577,22 @@ class EditProfile extends React.Component {
                     // ],
 
                   })(
-                    <Input maxLength={10}  style={{ borderRadius: '25px', width: '100%' }}
-                    onChange={(e) =>{
-                      const {value} = e.target;
-                      const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-                               if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+                    <Input maxLength={10} style={{ borderRadius: '25px', width: '100%' }}
+                      onChange={(e) => {
+                        this.setState({ mobileverifyflag: true });
+                        const { value } = e.target;
+                        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                        if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
 
-                               }
-                               else{
-                                 e.target.value = e.target.value.substring(0,e.target.value.length-1);
-                                 return ;
-                               }
+                        }
+                        else {
+                          e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+                          return;
+                        }
                       }}
                     />)}
                   </Form.Item>
-                  <a onClick={this.showModal} style={{ position: 'relative', color: '#000000', top: '-64px', left: '150px', textDecoration: 'underline' }}>Verify Mobile Number</a>
+                  <a onClick={this.showModal} className={styles.donoreditprofileverifyphonecss} style={{ display: this.state.mobileverifyflag === true ? 'inline' : 'none' }}>Verify Mobile Number</a>
                   <div>
                     <Modal
                       title="Verify Mobile"
@@ -520,12 +608,12 @@ class EditProfile extends React.Component {
                       <WrappedOtpVerifyForm mobileReadOnlyField={this.state.mobileReadOnlyField} onCancel={this.handleCancel} />
                     </Modal>
                   </div>
-                  <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
-                    <h4 className={styles.donoreditppancardtext} >PAN CARD</h4>
+                  <Form.Item className={styles.donorformpancardtext} >
+                    <h4 className={styles.donorformpancardtext} >PAN CARD</h4>
                   </Form.Item>
                   <Form.Item className={styles.donorformitempancardcssprofileu}
 
-                    // style={{ width: '58.6%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '70px', top: '-81px' }}
+                  // style={{ width: '58.6%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '70px', top: '-81px' }}
                   >{getFieldDecorator('pancard', {
                     // rules:[
                     //   {
@@ -536,7 +624,7 @@ class EditProfile extends React.Component {
 
                   })(
                     <Input
-                    readOnly={true}
+                      readOnly={true}
                       onChange={
                         (e) => {
                           this.setState({ verifyFlag2: true })
@@ -548,7 +636,7 @@ class EditProfile extends React.Component {
                     <h4 style={{ marginTop: '-110px', position: 'relative', left: '72px', top: '54px' }}>Required Fields <span style={{color:'red'}}>*</span></h4>
                   </Form.Item> */}
                   <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '649px', top: '-80px' }}>
-                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} className={styles.donorprofileupdatebutton}>
+                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} className={styles.donoreditprofileupdatebutton}>
                       Update
                         </Button>
                   </Form.Item>
@@ -558,7 +646,7 @@ class EditProfile extends React.Component {
                 </div>
                 <h4 style={{ position: 'relative', top: '-5px', color: 'blue', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
                 <h4 style={{ position: 'relative', top: '-5px', color: 'red', textAlign: 'center', right: '-86px' }}>{this.state.failedmess}</h4>
-                
+
 
               </Form>
 

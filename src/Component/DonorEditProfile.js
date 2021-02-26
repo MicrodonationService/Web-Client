@@ -753,8 +753,8 @@ class DonorEditProfile extends React.Component {
 
 
               </Form>
-              <h4 style={{ position: 'relative', top: '127px', color: 'blue', textAlign: 'center', right: '-90px' }}>{this.state.mess}</h4>
-              <h4 style={{ position: 'relative', top: '127px', color: 'red', textAlign: 'center', right: '218px' }}>{this.state.failedmess}</h4>
+              <h4 className={styles.donoreditprofilescreenbluemess} >{this.state.mess}</h4>
+              <h4 className={styles.donoreditprofilescreenredmess} >{this.state.failedmess}</h4>
 
             </div>
           </Content>

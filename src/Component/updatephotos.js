@@ -10,7 +10,7 @@ import { event, nodeName } from 'jquery';
 import { previewImage } from 'antd/lib/upload/utils';
 import Popup from './Popup.js';
 import { FormInstance } from 'antd/lib/form';
-import './Images.css';
+import './images.css';
 class Update_photos extends React.Component
 {   
     constructor(props)

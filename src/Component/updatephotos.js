@@ -256,7 +256,7 @@ class Update_photos extends React.Component
                     disabled
                     autoComplete="off"
                     maxLength={30}
-                    placeholder={(this.props.ngoupdateprofile.Body.SZ_NGO_NAME === undefined)?this.props.ngoname1:this.props.ngoupdateprofile.Body.SZ_NGO_NAME}
+//                     placeholder={(this.props.ngoupdateprofile.Body.SZ_NGO_NAME === undefined)?this.props.ngoname1:this.props.ngoupdateprofile.Body.SZ_NGO_NAME}
                     style={{  borderRadius: '20px', height: '32px' ,width:'50%' ,color:'black'}}
                   />)}
               </Form.Item>

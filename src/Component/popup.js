@@ -131,7 +131,7 @@ class App extends Component
 
             console.log(responseJson.message)
             // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
-            ReactDOM.render(<Update_photos_1 ngoname1={this.props.ngoname1} />, document.getElementById('root'));
+           window.location.reload()
             
         });
 

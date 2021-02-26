@@ -3618,7 +3618,7 @@ input[type='file'] { color: transparent }
   .donorformmaindiv {
   
     margin-left: 3px;
-    margin-top: 67px;
+    margin-top: -14px;
 
   }
 
@@ -3849,7 +3849,7 @@ input[type='file'] { color: transparent }
   height: auto;
   margin: 42px 0px 0px 207px;
   position: relative;
-  bottom: 40px;
+  bottom: -33px;
   border: 1px solid rgb(255, 255, 255);
 }
 
@@ -4545,7 +4545,7 @@ input[type='file'] { color: transparent }
   .donorformmaindiv {
   
     margin-left: 3px;
-    margin-top: 67px;
+    margin-top: -14px;
 
   }
   
@@ -4733,9 +4733,9 @@ input[type='file'] { color: transparent }
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 65px 0px 0px 207px;
+  margin: 42px 0px 0px 207px;
   position: relative;
-  bottom: 98px;
+  bottom: -33px;
   border: 1px solid rgb(255, 255, 255);
 }
 

@@ -294,7 +294,8 @@ handleSubmit(){
                    (this.state.varDetail=== "my_detail")?<WrappedNormalMyDetailsPage ngocategorydropdown={this.props.ngocategorydropdown}  ngoupdateprofile={(this.state.ngoupdateprofile == undefined)? this.props.ngoupdateprofile : this.state.ngoupdateprofile}/>:null
                  }
                  {
-                   (this.state.uploadPhoto=== "photos")?<Update_photos_1 />:null
+                                      (this.state.uploadPhoto=== "photos")?<Update_photos_1 ngoupdateprofile={(this.state.ngoupdateprofile == undefined)? this.props.ngoupdateprofile : this.state.ngoupdateprofile}/>:null
+
                  }
                  <div>
                       <img src="img/NGOLanding.png" style={{width: '100%', height: '100%'}}/>

@@ -384,32 +384,32 @@ class DonorEditProfile extends React.Component {
       "cognitoId": this.props.loginResponse
     }
 
-    const superagent=require('superagent');
+    const superagent = require('superagent');
 
-          superagent
-              .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
-              .send(loginRequest)
-              .set('X-API-Key', 'foobar')
-              .set('Content-Type','application/json')
-              .set('accept', '*/*')
-              .set('Access-Control-Request-Headers','content-type,x-api-key')
-              .set('Access-Control-Request-Method','POST')
-              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-              .set('Origin','http://localhost:3000')
-              .set('Accept-Encoding','gzip, deflate, br')
-              .set('Sec-Fetch-Dest','empty')
-              .set('Sec-Fetch-Mode', 'cors')
-              .end((err,res)=>{
-                  //console.log("Response:",res)
-                  this.setState({
-                    donorprofileimage : JSON.parse(res.text),
-                  })
-                  console.log("Res",JSON.parse(res.text));
-                  console.log("Rsss",this.state.donorprofileimage);
-                  // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
-              });
+    superagent
+      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
+      .send(loginRequest)
+      .set('X-API-Key', 'foobar')
+      .set('Content-Type', 'application/json')
+      .set('accept', '*/*')
+      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+      .set('Origin', 'http://localhost:3000')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .end((err, res) => {
+        //console.log("Response:",res)
+        this.setState({
+          donorprofileimage: JSON.parse(res.text),
+        })
+        console.log("Res", JSON.parse(res.text));
+        console.log("Rsss", this.state.donorprofileimage);
+        // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+      });
 
-     //},500)
+    //},500)
   }
 
   // startTimer() {
@@ -449,14 +449,16 @@ class DonorEditProfile extends React.Component {
   render() {
     let profilepicinput;
     if (this.federated === "Y") {
-      profilepicinput = <div>
+      profilepicinput =<div>
         <span style={{ margin: '60px 0px 0px 105px' }}>
           <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.props.profilepic} />
         </span>
+        </div>
         
-      </div>
+
+
     }
-    else{
+    else {
       profilepicinput = <div>
         <span style={{ margin: '60px 0px 0px 105px' }}>
                 <Avatar className={styles.staticprofileimage} size={64} shape="circle"  src={this.state.donorprofileimage} />
@@ -471,8 +473,9 @@ class DonorEditProfile extends React.Component {
               
 
               </div>
-        </div>
-      
+              </div>
+
+
     }
     console.log("Donor Details", this.props.donorfetchdata)
     const { visible, confirmLoading } = this.state;

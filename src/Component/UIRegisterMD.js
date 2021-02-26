@@ -545,8 +545,8 @@ class UIregisterMD extends React.Component {
                 </div>
 
               </div>
-              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "16px", textAlign: 'center' }}>{this.state.mess}</h4>
-              <h4 style={{ color: "red", position: 'relative', left: '-22px', top: "4px", textAlign: 'center' }}>{this.state.mess1}</h4>
+              <h4 className={styles.registerscreenbluemess} >{this.state.mess}</h4>
+              <h4 className={styles.registerscreenredmess} >{this.state.mess1}</h4>
             </Content>
           </Layout>
           <Footer style={{ padding: '0px' }}>

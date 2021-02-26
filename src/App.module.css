@@ -2591,6 +2591,13 @@
     top: 0px;
   }
 
+  .donorformmaindiv {
+  
+    margin-left: 3px;
+    margin-top: -14px;
+
+  }
+
   .mobileviewregistersider {
     width: auto;
     height: 100%;
@@ -2784,6 +2791,11 @@
   top: 12px;
 }
 
+.donorfederateddiv{
+  margin-top: 9px;
+  margin-left: -1px;
+}
+
 .backtologin {
   font-size: 14px;
   margin-left: 250px;
@@ -2906,9 +2918,9 @@
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 68px 0px 0px 160px;
+  margin: 42px 0px 0px 207px;
   position: relative;
-  bottom: 40px;
+  bottom: -33px;
   border: 1px solid rgb(255, 255, 255);
 }
 
@@ -3039,8 +3051,8 @@
 .donorphonenumberlabel {
   margin-top: -99px;
   position: relative;
-  left: 479px;
-  top: 35px;
+  left: 454px;
+  top: 9px;
 }
 
 
@@ -3603,6 +3615,13 @@ input[type='file'] { color: transparent }
     left: 0px;
   }
 
+  .donorformmaindiv {
+  
+    margin-left: 3px;
+    margin-top: 67px;
+
+  }
+
   .mainloginformdiv {
     border-radius: 5px;
     border: 1px solid;
@@ -3645,6 +3664,12 @@ input[type='file'] { color: transparent }
     top: 4px;
     text-align: center;
   }
+
+  
+.donorfederateddiv{
+  margin-top: 9px;
+  margin-left: -1px;
+}
 
   .donoreditprofilescreenbluemess{
     position: relative;
@@ -3817,10 +3842,12 @@ input[type='file'] { color: transparent }
   padding: 10px;
 }
 
+
+
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 70px 0px 0px 160px;
+  margin: 42px 0px 0px 207px;
   position: relative;
   bottom: 40px;
   border: 1px solid rgb(255, 255, 255);
@@ -4009,8 +4036,8 @@ input[type='file'] { color: transparent }
 .donorphonenumberlabel {
   margin-top: -99px;
   position: relative;
-  left: 479px;
-  top: 35px;
+  left: 454px;
+  top: 9px;
 }
 .donorphonenumbernewlabel {
   margin-top: -95px;
@@ -4514,6 +4541,19 @@ input[type='file'] { color: transparent }
     left: 45%;
   }
 
+
+  .donorformmaindiv {
+  
+    margin-left: 3px;
+    margin-top: 67px;
+
+  }
+  
+.donorfederateddiv{
+  margin-top: 9px;
+  margin-left: -1px;
+}
+
   .tab [class*="ant-tabs-tab-active"] {
     background: #f8a500 !important;
     border-radius: 5px !important;
@@ -4688,12 +4728,14 @@ input[type='file'] { color: transparent }
   top: -45px;
 }
 
+
+
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 65px 0px 0px 270px;
+  margin: 65px 0px 0px 207px;
   position: relative;
-  bottom: 40px;
+  bottom: 98px;
   border: 1px solid rgb(255, 255, 255);
 }
 
@@ -4903,8 +4945,8 @@ input[type='file'] { color: transparent }
 .donorphonenumberlabel {
   margin-top: -99px;
   position: relative;
-  left: 479px;
-  top: 35px;
+  left: 454px;
+  top: 9px;
 }
 
 .donorphonenumbernewlabel {

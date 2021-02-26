@@ -8,7 +8,7 @@ import { event, nodeName } from 'jquery';
 //import NgoGetPhotos from './NgoGetPhotos.js';
 //import FilesUploader from './fileuploader.js';
 import { previewImage } from 'antd/lib/upload/utils';
-import Popup from './Popup.js';
+import Popup from './popup.js';
 import { FormInstance } from 'antd/lib/form';
 import './css/images.css';
 class Update_photos extends React.Component

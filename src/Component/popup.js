@@ -3,7 +3,7 @@ import React,{Component} from 'react';
 import './Images.css';
 import { Button , Modal} from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import Update_photos_1 from './UpdatePhotos';
+import Update_photos_1 from './updatephotos';
 
 
 

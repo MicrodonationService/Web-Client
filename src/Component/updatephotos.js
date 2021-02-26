@@ -293,14 +293,10 @@ class Update_photos extends React.Component
                       cursor: 'pointer'}}
                       onClick={this.handlesubmit} > Update</Button> */}
           </div>
-<<<<<<< HEAD
           <div style={{overflowX:'scroll'}} > 
             <div style={{display:'flex',justifyContent:'flex-start' }}>
                 
                 
-=======
-            <div style={{display:'flex', justifyContent:'flex-start', overflowX:'scroll' }}>
->>>>>>> 848c36bbf6c6c5d5cf1e8aa7f65bb45264f13719
                 {images}
                 
                       {this.state.showModal ? (
@@ -331,4 +327,3 @@ class Update_photos extends React.Component
 
 const Update_photos_1=  Form.create()(Update_photos)
 export default Update_photos_1;
-

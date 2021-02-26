@@ -1052,4 +1052,3 @@ class MyDetailsPage extends React.Component {
 }
 const WrappedNormalMyDetailsPage = Form.create()(MyDetailsPage);
 export default WrappedNormalMyDetailsPage;
-export default WrappedNormalMyDetailsPage;

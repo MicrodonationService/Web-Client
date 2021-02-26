@@ -54,16 +54,16 @@ class EditProfile extends React.Component {
     this.donorFetchname = this.donorFetchname.bind(this);
     // this.pancardValidation = this.pancardValidation.bind(this);
 
-    // this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
-    // this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
-    // this.city = this.props.donorfetchdata.body.SZ_CITY;
-    // this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
-    // this.email = this.props.donorfetchdata.body.SZ_EMAIL;
-    // this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
-    // this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
-    // this.age = this.props.donorfetchdata.Body1.SZ_AGE;
+    this.name = this.props.donorfetchdata.body.SZ_DONOR_NAME;
+    this.occupation = this.props.donorfetchdata.body.SZ_OCCUPATION;
+    this.city = this.props.donorfetchdata.body.SZ_CITY;
+    this.address = this.props.donorfetchdata.body.SZ_ADDRESS_LINE1;
+    this.email = this.props.donorfetchdata.body.SZ_EMAIL;
+    this.mobile = this.props.donorfetchdata.body.SZ_PHONE;
+    this.pancard = this.props.donorfetchdata.body.SZ_PANCARD;
+    this.age = this.props.donorfetchdata.Body1.SZ_AGE;
 
-    // this.federated = this.props.federated
+    this.federated = this.props.federated
     this.donorFetchname();
 
   }
@@ -290,34 +290,34 @@ class EditProfile extends React.Component {
     document.getElementById("pancard").value = this.pancard;
     document.getElementById("age").value = this.age;
 
-    // let loginRequest = {
-    //   "cognitoId": this.props.donorfetchdata.body.SZ_COGNITO_ID
-    // }
+    let loginRequest = {
+      "cognitoId": this.props.donorfetchdata.body.SZ_COGNITO_ID
+    }
 
-    // const superagent = require('superagent');
+    const superagent = require('superagent');
 
-    // superagent
-    //   .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
-    //   .send(loginRequest)
-    //   .set('X-API-Key', 'foobar')
-    //   .set('Content-Type', 'application/json')
-    //   .set('accept', '*/*')
-    //   .set('Access-Control-Request-Headers', 'content-type,x-api-key')
-    //   .set('Access-Control-Request-Method', 'POST')
-    //   .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-    //   .set('Origin', 'http://localhost:3000')
-    //   .set('Accept-Encoding', 'gzip, deflate, br')
-    //   .set('Sec-Fetch-Dest', 'empty')
-    //   .set('Sec-Fetch-Mode', 'cors')
-    //   .end((err, res) => {
-    //     //console.log("Response:",res)
-    //     this.setState({
-    //       donorprofileimage: JSON.parse(res.text),
-    //     })
-    //     console.log("Res", JSON.parse(res.text));
-    //     console.log("Rsss", this.state.donorprofileimage);
-    //     // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
-    //   });
+    superagent
+      .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/donorprofileimagepresignedgeturl')
+      .send(loginRequest)
+      .set('X-API-Key', 'foobar')
+      .set('Content-Type', 'application/json')
+      .set('accept', '*/*')
+      .set('Access-Control-Request-Headers', 'content-type,x-api-key')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Host', 'ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+      .set('Origin', 'http://localhost:3000')
+      .set('Accept-Encoding', 'gzip, deflate, br')
+      .set('Sec-Fetch-Dest', 'empty')
+      .set('Sec-Fetch-Mode', 'cors')
+      .end((err, res) => {
+        //console.log("Response:",res)
+        this.setState({
+          donorprofileimage: JSON.parse(res.text),
+        })
+        console.log("Res", JSON.parse(res.text));
+        console.log("Rsss", this.state.donorprofileimage);
+        // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+      });
     //},500)
   }
   componentDidUpdate(prevProps, prevState) {
@@ -664,8 +664,8 @@ class EditProfile extends React.Component {
 
 
                 </div>
-                <h4 style={{ position: 'relative', top: '-5px', color: 'blue', textAlign: 'center', right: '-86px' }}>{this.state.mess}</h4>
-                <h4 style={{ position: 'relative', top: '-5px', color: 'red', textAlign: 'center', right: '-86px' }}>{this.state.failedmess}</h4>
+                <h4 className={styles.editprofilebluemess} >{this.state.mess}</h4>
+                <h4 className={styles.editprofileredmess} >{this.state.failedmess}</h4>
 
 
               </Form>

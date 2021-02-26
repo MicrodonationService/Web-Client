@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React,{Component} from 'react';
-import './Images.css';
+import './css/images.css';
 import { Button , Modal} from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Update_photos_1 from './updatephotos';

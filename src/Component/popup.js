@@ -79,7 +79,7 @@ class App extends Component
             }
                          }}>
 
-
+                            X
                        <i class=" fa fa-trash fa-10x" ></i>
                        {/* <i class="fa fa-upload" aria-hidden="true"></i> */}
 

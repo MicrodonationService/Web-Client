@@ -767,6 +767,55 @@
     border: none !important;
   }
 
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: 5px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: 5px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: 300px;
+    color: blue;
+    text-align: center;
+    right: 107px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: 300px;
+    color: red;
+    text-align: center;
+    right: 107px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: 240px;
+    color: blue;
+    text-align: center;
+    right: 4px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: 240px;
+    color: red;
+    text-align: center;
+    right: 4px;
+  }
+  
+
   .googleButtonCss {
     position: relative !important;
     left: 145px !important;
@@ -839,8 +888,8 @@
 
   .fbbuttonregisetercss {
     position: relative !important;
-    left: -20px !important;
-    top: 25px !important;
+    left: 66px !important;
+    top: -7px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -850,8 +899,8 @@
 
   .googleButtonRegisterCss {
     position: relative !important;
-    left: 145px !important;
-    top: -20px !important;
+    left: 61px !important;
+    top: 4px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -1661,6 +1710,55 @@
     border: none !important;
   }
 
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: 6px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: 6px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: 300px;
+    color: blue;
+    text-align: center;
+    right: 107px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: 300px;
+    color: red;
+    text-align: center;
+    right: 107px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: 250px;
+    color: blue;
+    text-align: center;
+    right: 4px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: 250px;
+    color: red;
+    text-align: center;
+    right: 4px;
+  }
+
+
 
   .mainloginformdiv {
     overflow: hidden;
@@ -1729,8 +1827,8 @@
 
   .fbbuttonregisetercss {
     position: relative !important;
-    left: -5px !important;
-    top: 25px !important;
+    left: 78px !important;
+    top: -7px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -1740,8 +1838,8 @@
 
   .googleButtonRegisterCss {
     position: relative !important;
-    left: 165px !important;
-    top: -20px !important;
+    left: 70px !important;
+    top: 4px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -2500,6 +2598,54 @@
     left: 0px;
   }
 
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: -22px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: -22px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: 125px;
+    color: blue;
+    text-align: center;
+    right: 50px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: 125px;
+    color: red;
+    text-align: center;
+    right: 50px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: 51px;
+    color: blue;
+    text-align: center;
+    right: 41px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: 51px;
+    color: red;
+    text-align: center;
+    right: 41px;
+  }
+
   .mainloginformdiv {
     border-radius: 5px;
     border: 1px solid;
@@ -2760,7 +2906,7 @@
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 138px 0px 0px 160px;
+  margin: 68px 0px 0px 160px;
   position: relative;
   bottom: 40px;
   border: 1px solid rgb(255, 255, 255);
@@ -3394,7 +3540,7 @@ input[type='file'] { color: transparent }
   align-content: center;
   position: relative;
   left: 410px;
-  top: -42px;
+  top: 4px;
 }
 
 .customfileupload {
@@ -3482,6 +3628,54 @@ input[type='file'] { color: transparent }
     text-decoration: underline;
     position: relative;
     top: 5px;
+  }
+
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: -22px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: -22px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: 125px;
+    color: blue;
+    text-align: center;
+    right: 50px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: 125px;
+    color: red;
+    text-align: center;
+    right: 50px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: 51px;
+    color: blue;
+    text-align: center;
+    right: 41px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: 51px;
+    color: red;
+    text-align: center;
+    right: 41px;
   }
 
   
@@ -3626,7 +3820,7 @@ input[type='file'] { color: transparent }
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 138px 0px 0px 160px;
+  margin: 70px 0px 0px 160px;
   position: relative;
   bottom: 40px;
   border: 1px solid rgb(255, 255, 255);
@@ -4253,7 +4447,7 @@ input[type='file'] { color: transparent }
   align-content: center;
   position: relative;
   left: 410px;
-  top: -42px;
+  top: 4px;
 }
 
 
@@ -4346,6 +4540,53 @@ input[type='file'] { color: transparent }
     cursor: pointer;
   }
 
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: 42px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: 42px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: 125px;
+    color: blue;
+    text-align: center;
+    right: 50px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: 125px;
+    color: red;
+    text-align: center;
+    right: 50px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: 51px;
+    color: blue;
+    text-align: center;
+    right: 41px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: 51px;
+    color: red;
+    text-align: center;
+    right: 41px;
+  }
   
 .fbbuttoncss {
   font-family: Roboto, sans-serif;
@@ -4450,7 +4691,7 @@ input[type='file'] { color: transparent }
 .donoreditprofileaboveform{
   width: auto;
   height: auto;
-  margin: 138px 0px 0px 160px;
+  margin: 65px 0px 0px 270px;
   position: relative;
   bottom: 40px;
   border: 1px solid rgb(255, 255, 255);
@@ -5089,7 +5330,7 @@ input[type='file'] { color: transparent }
   align-content: center;
   position: relative;
   left: 410px;
-  top: -42px;
+  top: 4px;
 }
 
 
@@ -5158,6 +5399,54 @@ input[type='file'] { color: transparent }
     text-decoration: underline;
     position: relative;
     top: 5px;
+  }
+
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: 4px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: 4px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: -600px;
+    color: blue;
+    text-align: center;
+    right: 15px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: -600px;
+    color: red;
+    text-align: center;
+    right: 15px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: -700px;
+    color: blue;
+    text-align: center;
+    right: 4px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: -700px;
+    color: red;
+    text-align: center;
+    right: 4px;
   }
 
   .fbbuttoncss {
@@ -5235,8 +5524,8 @@ input[type='file'] { color: transparent }
 
   .googleButtonRegisterCss {
     position: relative !important;
-    left: 100px !important;
-    top: -10px !important;
+    left: 244px !important;
+    top: -54px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -5378,7 +5667,7 @@ input[type='file'] { color: transparent }
   .donoreditprofileaboveform{
     width: auto;
     height: auto;
-    margin: 76px 0px 0px 31px;
+    margin: 39px 0px 0px 31px;
     position: relative;
     bottom: 40px;
     border: 1px solid rgb(255, 255, 255);
@@ -6080,8 +6369,8 @@ input[type='file'] { color: transparent }
 
   .googleButtonRegisterCss {
     position: relative !important;
-    left: 145px !important;
-    top: -20px !important;
+    left: 140px !important;
+    top: -66px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -6089,10 +6378,59 @@ input[type='file'] { color: transparent }
     border: none !important;
   }
 
+  .registerscreenbluemess{
+    color: blue;
+    position: relative;
+    left: -22px;
+    top: 16px;
+    text-align: center;
+  }
+
+  .registerscreenredmess{
+    color: red;
+    position: relative;
+    left: -22px;
+    top: 4px;
+    text-align: center;
+  }
+
+  .donoreditprofilescreenbluemess{
+    position: relative;
+    top: -299px;
+    color: blue;
+    text-align: center;
+    right: 15px;
+  }
+
+  .donoreditprofilescreenredmess{
+    position: relative;
+    top: -299px;
+    color: red;
+    text-align: center;
+    right: 15px;
+  }
+
+  .editprofilebluemess{
+    position: relative;
+    top: -350px;
+    color: blue;
+    text-align: center;
+    right: 4px;
+  }
+
+  .editprofileredmess{
+    position: relative;
+    top: -350px;
+    color: red;
+    text-align: center;
+    right: 4px;
+  }
+
+
   .fbbuttonregisetercss {
     position: relative !important;
-    left: -20px !important;
-    top: 25px !important;
+    left: -45px !important;
+    top: -21px !important;
     color: black !important;
     border-radius: 25px !important;
     background: #f8a500 !important;
@@ -6205,10 +6543,10 @@ input[type='file'] { color: transparent }
     margin-left: 85px;
   }
 
-  .signupwithtext {
+  /* .signupwithtext {
     margin-top: -8px;
     margin-left: 95px;
-  }
+  } */
 
   .fbbuttoncol {
     margin-top: -10px;
@@ -6331,7 +6669,7 @@ input[type='file'] { color: transparent }
   .donoreditprofileaboveform{
     width: auto;
     height: auto;
-    margin: 55px 0px 0px 31px;
+    margin: -3px 0px 0px 100px;
     position: relative;
     bottom: 40px;
     border: 1px solid rgb(255, 255, 255);
@@ -6526,8 +6864,8 @@ input[type='file'] { color: transparent }
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 72px;
-    top: -40px;
+    left: 95px;
+    top: -18px;
   }
 
   .donorformitempancardcss {

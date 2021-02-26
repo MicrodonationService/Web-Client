@@ -28,7 +28,7 @@ class Update_photos extends React.Component
         previewImage: '',
         previewTitle: '',
         PresignedUrlToShowInImgSrc:'',
-        ngoname:''
+        ngoname:this.props.ngoupdateprofile.Body.SZ_NGO_NAME
 
         
         
@@ -55,7 +55,7 @@ class Update_photos extends React.Component
       }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ngoname:''})
+//         this.setState({ngoname:''})
         
       };
 
@@ -63,7 +63,7 @@ class Update_photos extends React.Component
     {
         // console.log(this.state.Filnames[0].slice(1,-1));
         let loginRequest = {
-            "ngoname": this.props.ngoupdateprofile.Body.SZ_NGO_NAME,
+            "ngoname": this.state.ngoname
 
             // "filename":this.state.Filnames[1].slice(1,-1)///event.file.name //
         };
@@ -151,7 +151,7 @@ class Update_photos extends React.Component
             console.log(this.state.filename);
 
             let loginRequest = {
-                "ngoname":this.props.ngoupdateprofile.Body.SZ_NGO_NAME,
+                "ngoname":this.state.ngoname,
                 "ngo_id" :"1",
                 "filename": this.state.filename,
                 "image_description":values.filedesc,

@@ -53,31 +53,69 @@ class MyDetailsPage extends React.Component {
     this.showModal = this.showModal.bind(this);
     //this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
-    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",updatefail:"", ngocatgdropdown: "" }
+    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",updatefail:"", ngocatgdropdown: "",ngocategoryother:"",ngoorgtype:"",ngotypeoforg:"" }
     this.onChange = this.onChange.bind(this);
+    this.ngoCategoryOther = this.ngoCategoryOther.bind(this);
+    this.ngoOrgType = this.ngoOrgType.bind(this);
     this.onPhotoupload = this.onPhotoupload.bind(this);
-    this.ngoFetchname();
+    this.ngoFetchname = this.ngoFetchname.bind(this);
+    this.typeoforganization = this.typeoforganization.bind(this);
     this.state = { ngoupdatedetails: "",visible:"", ngoupdateprofile: "", ngocategorydropdown: "" , base64TextString:"",ngoprofileimage:""};
 
-    this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
-    this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
-    this.city = this.props.ngoupdateprofile.Body.SZ_CITY;
-    this.name = this.props.ngoupdateprofile.Body.SZ_NGO_NAME;
-    this.website = this.props.ngoupdateprofile.Body.SZ_WEBSITE;
-    this.accountnumber = this.props.ngoupdateprofile.Body.SZ_BANK_ACCOUNT_NO;
-    this.accname = this.props.ngoupdateprofile.Body.SZ_BANK_ACCT_NAME;
-    this.ifsccode = this.props.ngoupdateprofile.Body.SZ_IFSC_CODE;
-    this.address = this.props.ngoupdateprofile.Body.SZ_ADDRESS_LINE1;
-    this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
-    this.ngocategory = this.props.ngoupdateprofile.Body.SZ_CATEGORY_PRIMARY;
-    this.operationalsince = this.props.ngoupdateprofile.Body1.I_OPERATIONAL_SINCE;
-    this.bankname = this.props.ngoupdateprofile.Body.SZ_BANK_NAME;
-    this.bankbranch = this.props.ngoupdateprofile.Body.SZ_BANK_BRANCH;
-    this.contactpersonname = this.props.ngoupdateprofile.Body.SZ_CONTACT_PERSON_NAME;
-    this.registrationnumber = this.props.ngoupdateprofile.Body.SZ_REGISTRATION_ID;
-    this.ngocategoryother = this.props.ngoupdateprofile.Body.SZ_CATEGORY_SECONDARY;
-    this.typeoforganization = this.props.ngoupdateprofile.Body.SZ_TYPE_OF_ORAGANIZATION;
+    // this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
+    // this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
+    // this.city = this.props.ngoupdateprofile.Body.SZ_CITY;
+    // this.name = this.props.ngoupdateprofile.Body.SZ_NGO_NAME;
+    // this.website = this.props.ngoupdateprofile.Body.SZ_WEBSITE;
+    // this.accountnumber = this.props.ngoupdateprofile.Body.SZ_BANK_ACCOUNT_NO;
+    // this.accname = this.props.ngoupdateprofile.Body.SZ_BANK_ACCT_NAME;
+    // this.ifsccode = this.props.ngoupdateprofile.Body.SZ_IFSC_CODE;
+    // this.address = this.props.ngoupdateprofile.Body.SZ_ADDRESS_LINE1;
+    // this.pincode = this.props.ngoupdateprofile.Body1.SZ_POSTAL_CODE;
+    // this.ngocategory = this.props.ngoupdateprofile.Body.SZ_CATEGORY_PRIMARY;
+    // this.operationalsince = this.props.ngoupdateprofile.Body1.I_OPERATIONAL_SINCE;
+    // this.bankname = this.props.ngoupdateprofile.Body.SZ_BANK_NAME;
+    // this.bankbranch = this.props.ngoupdateprofile.Body.SZ_BANK_BRANCH;
+    // this.contactpersonname = this.props.ngoupdateprofile.Body.SZ_CONTACT_PERSON_NAME;
+    // this.registrationnumber = this.props.ngoupdateprofile.Body.SZ_REGISTRATION_ID;
+    // this.ngocategoryother = this.props.ngoupdateprofile.Body.SZ_CATEGORY_SECONDARY;
+    // this.typeoforganization = this.props.ngoupdateprofile.Body.SZ_TYPE_OF_ORAGANIZATION;
 
+    this.ngoFetchname();
+    this.ngoOrgType();
+
+
+  }
+
+  clickChange(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngocatgdropdown: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngocatgdropdown)
+  }
+
+  
+  ngoCategoryOther(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngocatgdropdownother: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngocatgdropdownother)
+  }
+
+  typeoforganization(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngotypeoforg: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngotypeoforg)
   }
 
   showModal = (e) => {
@@ -143,6 +181,32 @@ class MyDetailsPage extends React.Component {
       })
   }
 
+  ngoOrgType() {
+    let ngoCategoryOther = {
+      "lookuptype": "ORG_TYPE"
+    }
+    const superagent = require('superagent');
+    superagent
+      .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
+      .send(ngoCategoryOther)
+      .set('X-API-Key', 'foobar')
+      .set('accept', 'application/json')
+      .end((err, res) => {
+        console.log("Response", res);
+        let detailsRespJSOn = JSON.parse(res.text);
+        console.log("respjson", detailsRespJSOn);
+        if (detailsRespJSOn.Status == "SUCCESS") {
+          console.log("NGO Data", detailsRespJSOn)
+          this.setState({ ngoorgtype: detailsRespJSOn })
+          console.log("NGO CATEGORY", this.state.ngoorgtype)
+
+        }
+
+        console.log("Ngo Category", this.state.ngoorgtype)
+      })
+
+  }
+
   onChange = e => {
     console.log('radio checked', e.target.value);
     this.setState({
@@ -170,15 +234,7 @@ class MyDetailsPage extends React.Component {
   //   }
   // };
 
-  clickChange(value) {
-    console.log(`selected ${value}`);
-    this.NGOCATEGORY = value;
-    this.setState({
-      ngocatgdropdown: value
-
-    })
-    console.log("NGO CATG Drop Down", this.state.ngocatgdropdown)
-  }
+  
 
 
   onPhotoupload=(e)=>
@@ -330,34 +386,34 @@ class MyDetailsPage extends React.Component {
     document.getElementById("typeoforganization").value = this.typeoforganization;
     //document.getElementById("ngoprofileimage").value = this.
 
-    let loginRequest = {
-      "cognitoId": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID
-    }
+    // let loginRequest = {
+    //   "cognitoId": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID
+    // }
 
-    const superagent=require('superagent');
+    // const superagent=require('superagent');
 
-          superagent
-              .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoprofileimagepresignedgeturl')
-              .send(loginRequest)
-              .set('X-API-Key', 'foobar')
-              .set('Content-Type','application/json')
-              .set('accept', '*/*')
-              .set('Access-Control-Request-Headers','content-type,x-api-key')
-              .set('Access-Control-Request-Method','POST')
-              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
-              .set('Origin','http://localhost:3000')
-              .set('Accept-Encoding','gzip, deflate, br')
-              .set('Sec-Fetch-Dest','empty')
-              .set('Sec-Fetch-Mode', 'cors')
-              .end((err,res)=>{
-                  //console.log("Response:",res)
-                  this.setState({
-                    ngoprofileimage : JSON.parse(res.text),
-                  })
-                  console.log("Res",JSON.parse(res.text));
-                  console.log("Rsss",this.state.ngoprofileimage);
-                  // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
-              });
+    //       superagent
+    //           .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoprofileimagepresignedgeturl')
+    //           .send(loginRequest)
+    //           .set('X-API-Key', 'foobar')
+    //           .set('Content-Type','application/json')
+    //           .set('accept', '*/*')
+    //           .set('Access-Control-Request-Headers','content-type,x-api-key')
+    //           .set('Access-Control-Request-Method','POST')
+    //           .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+    //           .set('Origin','http://localhost:3000')
+    //           .set('Accept-Encoding','gzip, deflate, br')
+    //           .set('Sec-Fetch-Dest','empty')
+    //           .set('Sec-Fetch-Mode', 'cors')
+    //           .end((err,res)=>{
+    //               //console.log("Response:",res)
+    //               this.setState({
+    //                 ngoprofileimage : JSON.parse(res.text),
+    //               })
+    //               console.log("Res",JSON.parse(res.text));
+    //               console.log("Rsss",this.state.ngoprofileimage);
+    //               // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+    //           });
 
     //},500)
   }
@@ -613,7 +669,16 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('ngocategoryother', {
 
               })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
+                <Select placeholder='Select Category' onChange={this.ngoCategoryOther} style={{ width: '85%' }} >
+
+                    {
+                      (this.state.ngocategory !== undefined) ?
+                        this.state.ngocategory.Body.map((value) => (
+                          <option value={value}>{value}</option>
+                        )) : ""
+                    }
+                  </Select>
+               )}
             </Form.Item>
 
             <h4 className={styles.ngotypeoforg} >TYPE OF ORGANIZATION</h4>
@@ -628,7 +693,16 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('typeoforganization', {
 
               })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
+                <Select placeholder='Select Organization Type' onChange={this.ngoCategoryOther} style={{ width: '85%' }} >
+
+                {
+                  (this.state.ngoorgtype !== undefined) ?
+                    this.state.ngoorgtype.Body.map((value) => (
+                      <option value={value}>{value}</option>
+                    )) : ""
+                }
+              </Select>
+               )}
             </Form.Item>
 
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>

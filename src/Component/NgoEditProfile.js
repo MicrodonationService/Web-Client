@@ -613,7 +613,7 @@ class NgoEditProfile extends React.Component {
               </Form.Item>
 
               <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '20px' }}>
-                <h4 className={styles.ngoaddresslabel} >NGO ADDRESS <span style={{ color: 'red' }}>*</span></h4>
+                <h4 className={styles.ngoaddressngoeditprofilelabel} >NGO ADDRESS <span style={{ color: 'red' }}>*</span></h4>
               </Form.Item>
               <Form.Item className={styles.ngoaddressformitemcss}
 
@@ -1068,7 +1068,7 @@ class NgoEditProfile extends React.Component {
 
                 </Form.Item>
 
-                <Form.Item className={styles.ngoupdatebuttonformitem} >
+                <Form.Item className={styles.ngoupdatebuttonformitemeditprofile} >
                   <Button className={styles.ngoupdatebutton} type="primary" htmlType="submit" onClick={this.handleSubmit} >
                     Update
                       </Button>

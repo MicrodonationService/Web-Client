@@ -51,16 +51,17 @@ function beforeUpload(file) {
 class DonorEditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", visible: false, value: 1, mobileReadOnlyField: "", message1: "", handleFlag: true, updatefail: "", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false, donorcatgdropdown: "", donorcategorys: "", ispanvalid: "", time: {}, seconds: 59 };
+    this.state = { posts: "", visible: false, value: 1, mobileReadOnlyField: "", message1: "", handleFlag: true, updatefail: "", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false, donorcatgdropdown: "", donorcategorys: "", ispanvalid: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { mess: "", loading: false, donorprofileimage: "", base64TextString: "" }
+    this.state = { mess: "", loading: false, donorprofileimage: "", base64TextString: "" ,minutes:2,seconds:0,resendotpflag:false}
     this.onChange = this.onChange.bind(this);
     this.showModal = this.showModal.bind(this);
     this.donorFetchname = this.donorFetchname.bind(this);
     this.clickChange = this.clickChange.bind(this);
     this.pancardValidation = this.pancardValidation.bind(this);
     this.onPhotoupload = this.onPhotoupload.bind(this);
+    this.startTimer = this.startTimer.bind(this);
     // this.timer = 0; //Added
     // this.startTimer = this.startTimer.bind(this); //Added
     // this.countDown = this.countDown.bind(this); //Added
@@ -71,6 +72,9 @@ class DonorEditProfile extends React.Component {
     this.username = this.props.username
     this.profilepic = this.props.profilepic
     this.federated = this.props.federated
+
+    this.disablep = this.props.disablep
+    console.log("DisableP",this.disablep);
 
     this.donorFetchname();
 
@@ -123,6 +127,18 @@ class DonorEditProfile extends React.Component {
     console.log("DONOR CATG Drop Down", this.state.donorcatgdropdown)
   }
 
+  startTimer() {
+    console.log("In Start Timer");
+    this.setState({
+      minutes:2,
+      seconds:0
+    })
+    this.componentDidMount();
+    this.componentWillUnmount();
+    // const Countdown = Statistic;
+    // const deadline = Date.now() + 1000 * 145;
+  }
+
   showModal = (e) => {
     console.log("In showModal");
 
@@ -151,7 +167,7 @@ class DonorEditProfile extends React.Component {
             let respJson = JSON.parse(res.text);
             console.log("respJson11", respJson);
             if (respJson.Status === "SUCCESS") {
-
+              this.startTimer();
               this.setState({ mess: respJson.Message, visible: true, mobileReadOnlyField: respJson.Body })
             } else if (respJson.Status === "FAILED") {
               this.setState({ mess: respJson.message })
@@ -253,7 +269,6 @@ class DonorEditProfile extends React.Component {
         if (!err) {
 
           let updateProfileRequest = {
-            "CognitoID": this.props.loginResponse,
             "name": values.name,
             "age": "" + values.age,
             "address": values.address,
@@ -308,7 +323,7 @@ class DonorEditProfile extends React.Component {
                   .end((err, res) => {                               // Calling the end function will send the request
                     console.log("service call", res);
                     let fatchDetailsRespJson = JSON.parse(res.text);
-                    ReactDOM.render(<MainLayout donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
+                    ReactDOM.render(<MainLayout federated={this.props.federated} profilepic={this.props.profilepic} donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
                   })
               } else if (respJson.Status === "FAILED") {
                 this.setState({ failedmess: "Failed In Updated Data..." })
@@ -380,6 +395,25 @@ class DonorEditProfile extends React.Component {
 
     document.getElementById("email").value = this.email;
 
+    this.myInterval = setInterval(() => {
+      const { seconds, minutes } = this.state
+      if (seconds > 0) {
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }))
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(this.myInterval)
+        } else {
+          this.setState(({ minutes }) => ({
+            minutes: minutes - 1,
+            seconds: 59
+          }))
+        }
+      }
+    }, 1000)
+
     let loginRequest = {
       "cognitoId": this.props.loginResponse
     }
@@ -411,6 +445,10 @@ class DonorEditProfile extends React.Component {
 
     //},500)
   }
+
+  componentWillUnmount() {
+    clearInterval(this.myInterval)
+}
 
   // startTimer() {
   //   if (this.timer == 0 && this.state.seconds > 0) {
@@ -447,6 +485,8 @@ class DonorEditProfile extends React.Component {
   }
 
   render() {
+
+    const {minutes,seconds} = this.state
     let profilepicinput;
     if (this.federated === "Y") {
       profilepicinput =<div>
@@ -670,7 +710,7 @@ class DonorEditProfile extends React.Component {
                     />)}
 
                   </Form.Item>
-                  <a onClick={this.showModal} className={styles.verifynumbertext} >Verify Mobile Number</a>
+                  <a onClick={this.showModal} style={{display: this.state.disablelink===true ? 'none' : 'inline'}} className={styles.verifynumbertext} >Verify Mobile Number</a>
                   <div>
                     <Modal
 

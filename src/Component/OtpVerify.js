@@ -12,14 +12,13 @@ class OtpVerify extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = { mess: "" ,minutes:2,seconds:0,resendotpflag:false}
+    this.state = { mess: "" ,minutes:2,seconds:0,resendotpflag:false,disablelink:false,disablep:""}
     this.readOnlyPhoneText = this.props.mobileReadOnlyField;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.ondeadlinefinish = this.ondeadlinefinish.bind(this);
     this.resendOtp = this.resendOtp.bind(this);
     this.startTimer = this.startTimer.bind(this);
-
     
   }
 
@@ -45,7 +44,8 @@ class OtpVerify extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.myInterval)
+    clearInterval(this.myInterval);
+  
 }
 
   /*componentDidUpdate(prevProps, prevState) {
@@ -90,12 +90,16 @@ class OtpVerify extends React.Component {
               setTimeout(() => {
                 this.props.onCancel();
                 this.handleCancel();
+                this.componentWillUnmount();
+                this.startTimer();
               }, 3000);
             } else if (respJson.Status === "FAILED" && respJson.Message === "Expired") {
               this.setState({ mess: "Expired OTP" })
               setTimeout(() => {
                 this.props.onCancel();
                 this.handleCancel();
+                this.componentWillUnmount();
+                this.startTimer();
               }, 3000);
             }
           })
@@ -134,10 +138,10 @@ class OtpVerify extends React.Component {
             let respJson = JSON.parse(res.text);
             console.log("respJson11", respJson);
             if (respJson.Status === "SUCCESS") {
-
+              this.startTimer();
               this.setState({ mess: respJson.Message, visible: true, mobileReadOnlyField: respJson.Body })
             } else if (respJson.Status === "FAILED") {
-              this.startTimer();
+              
               this.setState({ mess: respJson.message })
             }
           })
@@ -157,6 +161,7 @@ class OtpVerify extends React.Component {
       seconds:0
     })
     this.componentDidMount();
+    
     // const Countdown = Statistic;
     // const deadline = Date.now() + 1000 * 145;
   }

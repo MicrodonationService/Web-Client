@@ -179,7 +179,6 @@ class EditProfile extends React.Component {
       if (!err) {
 
         let updateProfileRequest = {
-          "CognitoID": this.props.donorfetchdata.body.SZ_COGNITO_ID,
           "name": (this.handleFlag === undefined ? this.name : values.name),
           "age": "" + (this.handleFlag === undefined ? this.age : values.age),
           "address": (this.handleFlag === undefined ? this.address : values.address),

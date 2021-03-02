@@ -551,7 +551,6 @@ class Loginpage extends React.Component {
     );// END_return_Desktop
   } // END_render();
 }
-               
 
 const WrappedNormalLoginForm = Form.create()(Loginpage);
 export default WrappedNormalLoginForm;

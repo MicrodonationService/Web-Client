@@ -1351,6 +1351,12 @@
     margin-top: -35px;
     margin-left: 70px;
   }
+
+  
+.ngoaddressngoeditprofilelabel{
+  margin-top: -35px;
+  margin-left: 70px;
+}
   
   .ngoaddressformitemcss {
     width: 50%;
@@ -1374,7 +1380,7 @@
   }
   
   .ngopincodelabel {
-    margin-top: 12px;
+    margin-top: 1px;
     margin-left: 220px;
   }
   
@@ -1602,6 +1608,16 @@
     top: -2px;
   }
   
+  .ngoupdatebuttonformitemeditprofile{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 88px;
+    top: -2px;
+  }
+  
+  
   .customfileupload {
     border-radius:'20px';
     background-color:'#f8a500';
@@ -1622,6 +1638,108 @@
     font-weight: 800;
     color: #f8a500;
     font-size: x-large;
+  }
+
+  .updatephotostext {
+    color: #f8a500;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  .updatephotosdiv {
+    margin-left: 40px;
+    height: auto;
+    width: auto;
+
+    margin-top: 133px;
+  }
+
+  .ngophotosform {
+    width: auto;
+  }
+
+  .ngophotosngoformname {
+    display: block;
+    position: relative;
+    top: -21px;
+  }
+
+  .updatephotosngoinput {
+    border-radius: 20px;
+    height: 32px;
+    width: 85%;
+    color: black;
+  }
+
+  .ngophotosformlabeldesc {
+    display: block;
+    position: relative;
+    top: -21px;
+  }
+
+  .updatephotosngoinputdesc {
+    color: black;
+    border-radius: 20px;
+    width: 85%;
+
+    margin-bottom: 2px;
+  }
+.ngophotosimageupload {
+    display: flex;
+    margin-top: -21px;
+    margin-left: 25.5%;
+    margin-bottom: 11px;
+  }
+
+  .ngophotosfileupload {
+    border-radius: 25px;
+    margin-left: -78px;
+    margin-top: 10px;
+    background-color: "#f8a500";
+    font-size: "30px";
+    font-weight: "bold";
+    color: black;
+    border: 4px solid black;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .ngophotosimagemaindiv {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 100%;
+  }
+.ngophotosimagemainsubdiv {
+    display: flex;
+    overflow-x: hidden;
+
+    overflow-y: scroll;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .ngophotosuploadimagedescp {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ngophotosuploadsingleImage {
+    padding: 0 20px 20px;
+    height: auto;
+    width: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 34px;
+  }
+
+  .ngophotosuploadsingleImage:hover {
+    padding: 5px;
+    /* opacity: .5; */
+    transition: 0.9s;
+    transform: scale(1.24);
   }
   
   
@@ -2273,6 +2391,12 @@
     margin-top: -35px;
     margin-left: 70px;
   }
+
+  
+.ngoaddressngoeditprofilelabel{
+  margin-top: -35px;
+  margin-left: 70px;
+}
   
   .ngoaddressformitemcss {
     width: 50%;
@@ -2296,7 +2420,7 @@
   }
   
   .ngopincodelabel {
-    margin-top: 12px;
+    margin-top: 1px;
     margin-left: 220px;
   }
   
@@ -2545,6 +2669,16 @@
     color: #f8a500;
     font-size: x-large;
   }
+
+  .ngoupdatebuttonformitemeditprofile{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 88px;
+    top: -2px;
+  }
+  
   
   
   
@@ -2890,7 +3024,7 @@
 .editprofileaboveform{
   width: auto;
   height: auto;
-  margin: 1px 0px 0px 160px;
+  margin: 59px 0px 0px 160px;
   border: 1px solid #ffffff;
 }
 
@@ -3049,9 +3183,9 @@
 }
 
 .donorphonenumberlabel {
-  margin-top: -99px;
+  margin-top: -71px;
   position: relative;
-  left: 454px;
+  left: 476px;
   top: 9px;
 }
 
@@ -3306,6 +3440,11 @@ input[type='file'] { color: transparent }
   margin-left: 70px;
 }
 
+.ngoaddressngoeditprofilelabel{
+  margin-top: -63px;
+  margin-left: 70px;
+}
+
 .ngoaddressformitemcss {
   width: 45%;
   align-content: center;
@@ -3535,7 +3674,8 @@ input[type='file'] { color: transparent }
   display: inline-block;
   align-content: center;
   position: relative;
-  margin-left: 24px;
+  margin-left: -140px;
+  top: 37px;
 }
 
 .ngoupdatebutton{
@@ -3551,8 +3691,17 @@ input[type='file'] { color: transparent }
   display: inline-block;
   align-content: center;
   position: relative;
-  left: 410px;
-  top: 4px;
+  left: 386px;
+  top: 3px;
+}
+
+.ngoupdatebuttonformitemeditprofile{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 386px;
+  top: -34px;
 }
 
 .customfileupload {
@@ -4034,9 +4183,9 @@ input[type='file'] { color: transparent }
 }
 
 .donorphonenumberlabel {
-  margin-top: -99px;
+  margin-top: -71px;
   position: relative;
-  left: 454px;
+  left: 475px;
   top: 9px;
 }
 .donorphonenumbernewlabel {
@@ -4131,7 +4280,7 @@ input[type='file'] { color: transparent }
 
 .donoreditprofile {
   margin-left: 2px;
-  margin-top: -28px;
+  margin-top: 60px;
 }
 
 /*NGO CSS BEGINS*/
@@ -4227,6 +4376,12 @@ input[type='file'] { color: transparent }
   margin-top: -44px;
   margin-left: 70px;
 }
+
+.ngoaddressngoeditprofilelabel{
+  margin-top: -63px;
+  margin-left: 70px;
+}
+
 
 .ngoaddressformitemcss {
   width: 45%;
@@ -4457,7 +4612,7 @@ input[type='file'] { color: transparent }
   display: inline-block;
   align-content: center;
   position: relative;
-  margin-left: 24px;
+  margin-left: -126px;
 }
 
 .ngoupdatebutton{
@@ -4474,7 +4629,17 @@ input[type='file'] { color: transparent }
   align-content: center;
   position: relative;
   left: 410px;
-  top: 4px;
+  top: 3px;
+}
+
+
+.ngoupdatebuttonformitemeditprofile{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 386px;
+  top: -34px;
 }
 
 
@@ -4943,9 +5108,9 @@ input[type='file'] { color: transparent }
 }
 
 .donorphonenumberlabel {
-  margin-top: -99px;
+  margin-top: -71px;
   position: relative;
-  left: 454px;
+  left: 480px;
   top: 9px;
 }
 
@@ -5049,7 +5214,7 @@ input[type='file'] { color: transparent }
 
 .donoreditprofile {
   margin-left: 2px;
-  margin-top: -28px;
+  margin-top: 60px;
 }
 
 /*NGO CSS BEGINS*/
@@ -5125,6 +5290,14 @@ input[type='file'] { color: transparent }
   margin-top: -44px;
   margin-left: 70px;
 }
+
+
+
+.ngoaddressngoeditprofilelabel{
+  margin-top: -63px;
+  margin-left: 70px;
+}
+
 
 .ngoaddressformitemcss {
   width: 40%;
@@ -5355,7 +5528,8 @@ input[type='file'] { color: transparent }
   display: inline-block;
   align-content: center;
   position: relative;
-  margin-left: 74px;
+  margin-left: -127px;
+  top: 48px;
 }
 
 .ngoupdatebutton{
@@ -5371,9 +5545,19 @@ input[type='file'] { color: transparent }
   display: inline-block;
   align-content: center;
   position: relative;
-  left: 410px;
-  top: 4px;
+  left: 456px;
+  top: 3px;
 }
+
+.ngoupdatebuttonformitemeditprofile{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 386px;
+  top: -34px;
+}
+  
 
 
 
@@ -6012,6 +6196,12 @@ input[type='file'] { color: transparent }
     margin-top: -69px;
     margin-left: 63px;
   }
+
+  
+.ngoaddressngoeditprofilelabel{
+  margin-top: -67px;
+  margin-left: 62px;
+}
   
   .ngoaddressformitemcss {
     width: 100%;
@@ -6242,7 +6432,7 @@ input[type='file'] { color: transparent }
     display: inline-block;
     align-content: center;
     position: relative;
-    margin-left: 65px;
+    margin-left: 25px;
   }
   
   .ngoupdatebutton{
@@ -6259,7 +6449,7 @@ input[type='file'] { color: transparent }
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 195px;
+    left: 167px;
     top: -2px;
   }
   
@@ -6284,11 +6474,16 @@ input[type='file'] { color: transparent }
     color: #f8a500;
     font-size: x-large;
   }
-  
-
 
   
-
+.ngoupdatebuttonformitemeditprofile{
+  width: 85%;
+  display: inline-block;
+  align-content: center;
+  position: relative;
+  left: 165px;
+  top: -12px;
+}
   
 
 
@@ -6980,7 +7175,7 @@ input[type='file'] { color: transparent }
   }
   
   .ngoname {
-    margin-left: 210px;
+    margin-left: 120px;
     margin-top: -5px;
   }
   
@@ -6989,123 +7184,129 @@ input[type='file'] { color: transparent }
     align-content: center;
     position: relative;
     top: 0px;
-    left: 210px;
+    left: 116px;
   }
   
   .ngocategory {
     margin-top: -67px;
-    margin-left: 496px;
+    margin-left: 347px;
   }
   
   .ngocategoryformitemcss {
-    left: 496px;
+    left: 348px;
     top: -40px;
-    width: 34%;
+    width: 37%;
   }
   
   .ngocategoryotherlabel {
-    margin-top: -36px;
-    margin-left: 211px;
+  
+    margin-left: 124px;
   }
   
   .ngocategoryotherformitemcss {
-    left: 211px;
-    top: -10px;
-    width: 34%;
+    left: 124px;
+    top: -6px;
+    width: 36%;
   }
   
   .ngotypeoforg {
-    margin-top: -76px;
-    margin-left: 496px;
+    margin-top: -69px;
+    margin-left: 350px;
   }
   
   .ngotypeoforgformitemcss {
-    left: 496px;
+    left: 350px;
     top: -50px;
-    width: 44%;
+    width: 46%;
   }
   
   .ngoaddresslabel {
     margin-top: -69px;
     margin-left: 63px;
   }
+
+  
+.ngoaddressngoeditprofilelabel{
+  margin-top: -67px;
+  margin-left: -23px;
+}
   
   .ngoaddressformitemcss {
     width: 100%;
     align-content: center;
     position: relative;
     top: -16px;
-    left: 211px;
+    left: 123px;
   }
   
   .ngocitylabel {
     /* margin-top: 4px; */
-    margin-left: 211px;
+    margin-left: 129px;
   }
   
   .ngocityformitemcss {
-    width: 125%;
+    width: 200%;
     align-content: center;
     position: relative;
-    left: 211px;
+    left: 126px;
     top: -8px;
   }
   
   .ngopincodelabel {
     margin-top: -66px;
-    margin-left: 496px;
+    margin-left: 372px;
   }
   
   .ngopincodeformitemcss {
     width: 125%;
     align-content: center;
     position: relative;
-    left: 496px;
+    left: 364px;
     top: -48px;
   }
   
   .ngoemailabel {
     margin-top: -52px;
-    margin-left: 70px;
+    margin-left: -16px;
   }
   
   .ngoemailformitemcss{
-    width: 35%;
+    width: 40%;
     align-content: center;
     position: relative;
     top: -18px;
-    left: 220px;
+    left: 130px;
   }
   
   .ngowebsite{
-    margin-top: -29px;
-    margin-left: 70px;
+    margin-top: -22px;
+    margin-left: -14px;
   }
   
   .ngowebsiteformitemcss{
     width: 35%;
     align-content: center;
     position: relative;
-    top: -20px;
-    left: 220px;
+    top: -18px;
+    left: 132px;
   }
   
   .ngooperationalsince{
-    margin-top: -86px;
-    margin-left: 349px;
+    margin-top: -85px;
+    margin-left: 241px;
   }
   
   .ngooperationalsinceformitemcss{
     width: 20%;
     align-content: center;
     position: relative;
-    top: -62px;
-    left: 496px;
+    top: -60px;
+    left: 388px;
   }
   
   .ngoregistartionnumber{
     margin-top: -67px;
-    margin-left: 71px;
+    margin-left: -11px;
   }
   
   .ngoregistartionnumberformitemcss{
@@ -7113,12 +7314,12 @@ input[type='file'] { color: transparent }
     align-content: center;
     position: relative;
     top: -38px;
-    left: 220px;
+    left: 138px;
   }
   
   .ngoreferer{
     margin-top: -107px;
-    margin-left: 351px;
+    margin-left: 244px;
   }
   
   .ngorefererformitemcss{
@@ -7126,21 +7327,21 @@ input[type='file'] { color: transparent }
     align-content: center;
     position: relative;
     top: -79px;
-    left: 496px;
+    left: 393px;
   }
   
   .ngobanksection{
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 220px;
+    left: 143px;
     top:-55px
   }
   
   .ngobanksectiondiv{
     width: 450px;
     height: 340px;
-    margin-left: 220px;
+    margin-left: 141px;
     margin-top: -54px;
     background: #e8e8e8;
   }
@@ -7259,7 +7460,7 @@ input[type='file'] { color: transparent }
     display: inline-block;
     align-content: center;
     position: relative;
-    margin-left: 65px;
+    margin-left: 30px;
   }
   
   .ngoupdatebutton{
@@ -7279,6 +7480,16 @@ input[type='file'] { color: transparent }
     left: 195px;
     top: -2px;
   }
+
+  .ngoupdatebuttonformitemeditprofile{
+    width: 85%;
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    left: 170px;
+    top: -11px;
+  }
+  
   
   .customfileupload {
     border-radius:'20px';

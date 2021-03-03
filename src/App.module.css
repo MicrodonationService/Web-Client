@@ -1337,18 +1337,18 @@
   }
   
   .ngotypeoforg {
-    margin-top: -8px;
+    margin-top: -4px;
     margin-left: 220px;
   }
   
   .ngotypeoforgformitemcss {
     left: 220px;
-    top: -10px;
+    top: -6px;
     width: 44%;
   }
   
   .ngoaddresslabel {
-    margin-top: -35px;
+    margin-top: -5px;
     margin-left: 70px;
   }
 
@@ -1359,32 +1359,19 @@
 }
   
   .ngoaddressformitemcss {
-    width: 50%;
+    width: 55%;
     align-content: center;
     position: relative;
-    top: 0px;
+    top: -17px;
     left: 220px;
   }
   
   .ngocitylabel {
-    margin-top: 4px;
-    margin-left: 220px;
-  }
-  
-  .ngocityformitemcss {
-    width: 86%;
-    align-content: center;
-    position: relative;
-    left: 220px;
-    top: -8px;
-  }
-  
-  .ngopincodelabel {
     margin-top: 1px;
     margin-left: 220px;
   }
   
-  .ngopincodeformitemcss {
+  .ngocityformitemcss {
     width: 100%;
     align-content: center;
     position: relative;
@@ -1392,8 +1379,21 @@
     top: -8px;
   }
   
+  .ngopincodelabel {
+    margin-top: -68px;
+    margin-left: 375px;
+  }
+  
+  .ngopincodeformitemcss {
+    width: 100%;
+    align-content: center;
+    position: relative;
+    left: 375px;
+    top: -48px;
+  }
+  
   .ngoemailabel {
-    margin-top: -13px;
+    margin-top: -52px;
     margin-left: 70px;
   }
   
@@ -1406,7 +1406,7 @@
   }
   
   .ngowebsite{
-    margin-top: -29px;
+    margin-top: -25px;
     margin-left: 70px;
   }
   
@@ -1605,7 +1605,7 @@
     align-content: center;
     position: relative;
     left: 87px;
-    top: -2px;
+    top: 6px;
   }
   
   .ngoupdatebuttonformitemeditprofile{
@@ -2356,40 +2356,40 @@
   
   .ngocategory {
     margin-top: 6px;
-    margin-left: 220px;
+    margin-left: 211px;
   }
   
   .ngocategoryformitemcss {
-    left: 220px;
+    left: 211px;
     top: -4px;
     width: 34%;
   }
   
   .ngocategoryotherlabel {
-    margin-top: 0px;
-    margin-left: 220px;
+    margin-top: 2px;
+    margin-left: 211px;
   }
   
   .ngocategoryotherformitemcss {
-    left: 225px;
-    top: -10px;
+    left: 211px;
+    top: -7px;
     width: 34%;
   }
   
   .ngotypeoforg {
-    margin-top: -8px;
-    margin-left: 220px;
+    margin-top: -3px;
+    margin-left: 211px;
   }
   
   .ngotypeoforgformitemcss {
-    left: 220px;
-    top: -10px;
+    left: 211px;
+    top: -6px;
     width: 44%;
   }
   
   .ngoaddresslabel {
-    margin-top: -35px;
-    margin-left: 70px;
+    margin-top: -11px;
+    margin-left: 62px;
   }
 
   
@@ -2402,39 +2402,39 @@
     width: 50%;
     align-content: center;
     position: relative;
-    top: 0px;
-    left: 220px;
+    top: -16px;
+    left: 209px;
   }
   
   .ngocitylabel {
-    margin-top: 4px;
-    margin-left: 220px;
+    margin-top: 1px;
+    margin-left: 212px;
   }
   
   .ngocityformitemcss {
-    width: 86%;
+    width: 120%;
     align-content: center;
     position: relative;
-    left: 220px;
+    left: 211px;
     top: -8px;
   }
   
   .ngopincodelabel {
-    margin-top: 1px;
-    margin-left: 220px;
+    margin-top: -69px;
+    margin-left: 402px;
   }
   
   .ngopincodeformitemcss {
     width: 100%;
     align-content: center;
     position: relative;
-    left: 220px;
-    top: -8px;
+    left: 400px;
+    top: -49px;
   }
   
   .ngoemailabel {
-    margin-top: -13px;
-    margin-left: 70px;
+    margin-top: -50px;
+    margin-left: 64px;
   }
   
   .ngoemailformitemcss{
@@ -2442,38 +2442,38 @@
     align-content: center;
     position: relative;
     top: -18px;
-    left: 220px;
+    left: 211px;
   }
   
   .ngowebsite{
-    margin-top: -29px;
-    margin-left: 70px;
+    margin-top: -22px;
+    margin-left: 64px;
   }
   
   .ngowebsiteformitemcss{
     width: 35%;
     align-content: center;
     position: relative;
-    top: -20px;
-    left: 220px;
+    top: -16px;
+    left: 212px;
   }
   
   .ngooperationalsince{
-    margin-top: -27px;
-    margin-left: 70px;
+    margin-top: -22px;
+    margin-left: 64px;
   }
   
   .ngooperationalsinceformitemcss{
     width: 20%;
     align-content: center;
     position: relative;
-    top: -20px;
-    left: 220px;
+    top: -17px;
+    left: 211px;
   }
   
   .ngoregistartionnumber{
-    margin-top: -32px;
-    margin-left: 71px;
+    margin-top: -21px;
+    margin-left: 64px;
   }
   
   .ngoregistartionnumberformitemcss{
@@ -2481,35 +2481,35 @@
     align-content: center;
     position: relative;
     top: -19px;
-    left: 220px;
+    left: 211px;
   }
   
   .ngoreferer{
-    margin-top: -29px;
-    margin-left: 71px;
+    margin-top: -28px;
+    margin-left: 64px;
   }
   
   .ngorefererformitemcss{
     width: 20%;
     align-content: center;
     position: relative;
-    top: -21px;
-    left: 220px;
+    top: -17px;
+    left: 211px;
   }
   
   .ngobanksection{
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 220px;
-    top:-20px
+    left: 214px;
+    top:-8px
   }
   
   .ngobanksectiondiv{
     width: auto;
     height: 340px;
-    margin-left: 220px;
-    margin-top: -21px;
+    margin-left: 213px;
+    margin-top: -9px;
     background: #e8e8e8;
   }
   
@@ -2645,7 +2645,7 @@
     align-content: center;
     position: relative;
     left: 87px;
-    top: -2px;
+    top: 7px;
   }
   
   .customfileupload {
@@ -3014,11 +3014,11 @@
 }
 
 .uploadbuttoncss {
-  margin: 28px 0px 0px 99px;
+  margin: 28px 0px -55px 99px;
 }
 
 .editprofileupdatebutton {
-  margin: 21px 0px 0px 98px;
+  margin: 13px 0px -67px 69px;
 }
 
 .editprofileaboveform{
@@ -3185,8 +3185,8 @@
 .donorphonenumberlabel {
   margin-top: -71px;
   position: relative;
-  left: 476px;
-  top: 9px;
+  left: 454px;
+  top: -18px;
 }
 
 
@@ -3274,7 +3274,7 @@
 .myprofiletextupdate {
   display: block;
   position: relative;
-  left: 70px;
+  left: 69px;
   top: 130px;
   font-weight: 800;
   color: #f8a500;
@@ -4068,11 +4068,11 @@ input[type='file'] { color: transparent }
 }
 
 .uploadbuttoncss {
-  margin: 28px 0px 0px 99px;
+  margin: 28px 0px -42px 99px;
 }
 
 .editprofileupdatebutton {
-  margin: 21px 0px 0px 98px;
+  margin: 13px 0px -67px 69px;
 }
 
 .editprofileaboveform{
@@ -4088,7 +4088,7 @@ input[type='file'] { color: transparent }
 }
 
 .donorformitemnamecss {
-  width: 55%;
+  width: 42%;
   align-content: center;
   position: relative;
   top: 21px;
@@ -4105,7 +4105,7 @@ input[type='file'] { color: transparent }
   align-content: center;
   top: -19px;
   left: 422px;
-  width: 53%;
+  width: 42%;
 }
 
 .donoroccupationlabel {
@@ -4131,14 +4131,14 @@ input[type='file'] { color: transparent }
 .donorformitemcitynewlabel{
   position: relative;
   top: -118px;
-  left: 669px;
+  left: 695px;
 }
 
 .donorformitemcitycss {
   width: 68%;
   align-content: center;
   position: relative;
-  left: 668px;
+  left: 695px;
   top: -125px;
 }
 
@@ -4156,7 +4156,7 @@ input[type='file'] { color: transparent }
 }
 
 .donorformitemaddresscss {
-  width: 123%;
+  width: 85%;
   left: 69px;
   top: -90px;
 }
@@ -4174,7 +4174,7 @@ input[type='file'] { color: transparent }
 
 
 .donoremailformitemcss {
-  width: 84%;
+  width: 65%;
   display: inline-block;
   align-content: center;
   position: relative;
@@ -4185,8 +4185,8 @@ input[type='file'] { color: transparent }
 .donorphonenumberlabel {
   margin-top: -71px;
   position: relative;
-  left: 475px;
-  top: 9px;
+  left: 454px;
+  top: -18px;
 }
 .donorphonenumbernewlabel {
   margin-top: -95px;
@@ -4197,7 +4197,7 @@ input[type='file'] { color: transparent }
 
 
 .donorformitemphonenumbercss {
-  width: 60%;
+  width: 45%;
   display: inline-block;
   align-content: center;
   position: relative;
@@ -4247,7 +4247,7 @@ input[type='file'] { color: transparent }
 .myprofiletextupdate {
   display: block;
   position: relative;
-  left: 70px;
+  left: 69px;
   top: 130px;
   font-weight: 800;
   color: #f8a500;
@@ -4997,12 +4997,13 @@ input[type='file'] { color: transparent }
 }
 
 .uploadbuttoncss {
-  margin: 28px 0px 0px 99px;
+  margin: 28px 0px -50px 99px;
 }
 
 .editprofileupdatebutton {
-  margin: 21px 0px 0px 98px;
+  margin: 13px 0px -67px 69px;
 }
+
 
 .editprofileaboveform{
   width: auto;
@@ -5017,7 +5018,7 @@ input[type='file'] { color: transparent }
 }
 
 .donorformitemnamecss {
-  width: 55%;
+  width: 42%;
   align-content: center;
   position: relative;
   top: 21px;
@@ -5034,7 +5035,7 @@ input[type='file'] { color: transparent }
   align-content: center;
   top: -19px;
   left: 422px;
-  width: 53%;
+  width: 42%;
 }
 
 .donoroccupationlabel {
@@ -5058,14 +5059,14 @@ input[type='file'] { color: transparent }
 .donorformitemcitynewlabel{
   position: relative;
   top: -118px;
-  left: 669px;
+  left: 695px;
 }
 
 .donorformitemcitycss {
   width: 68%;
   align-content: center;
   position: relative;
-  left: 668px;
+  left: 695px;
   top: -125px;
 }
 
@@ -5083,7 +5084,7 @@ input[type='file'] { color: transparent }
 
 
 .donorformitemaddresscss {
-  width: 123%;
+  width: 85%;
   left: 69px;
   top: -90px;
 }
@@ -5099,7 +5100,7 @@ input[type='file'] { color: transparent }
 }
 
 .donoremailformitemcss {
-  width: 84%;
+  width: 65%;
   display: inline-block;
   align-content: center;
   position: relative;
@@ -5110,8 +5111,8 @@ input[type='file'] { color: transparent }
 .donorphonenumberlabel {
   margin-top: -71px;
   position: relative;
-  left: 480px;
-  top: 9px;
+  left: 454px;
+  top: -18px;
 }
 
 .donorphonenumbernewlabel {
@@ -5122,7 +5123,7 @@ input[type='file'] { color: transparent }
 }
 
 .donorformitemphonenumbercss {
-  width: 60%;
+  width: 45%;
   display: inline-block;
   align-content: center;
   position: relative;
@@ -7175,7 +7176,7 @@ input[type='file'] { color: transparent }
   }
   
   .ngoname {
-    margin-left: 120px;
+    margin-left: 124px;
     margin-top: -5px;
   }
   
@@ -7184,7 +7185,7 @@ input[type='file'] { color: transparent }
     align-content: center;
     position: relative;
     top: 0px;
-    left: 116px;
+    left: 120px;
   }
   
   .ngocategory {
@@ -7221,8 +7222,8 @@ input[type='file'] { color: transparent }
   }
   
   .ngoaddresslabel {
-    margin-top: -69px;
-    margin-left: 63px;
+    margin-top: -49px;
+    margin-left: -25px;
   }
 
   
@@ -7241,7 +7242,7 @@ input[type='file'] { color: transparent }
   
   .ngocitylabel {
     /* margin-top: 4px; */
-    margin-left: 129px;
+    margin-left: 126px;
   }
   
   .ngocityformitemcss {
@@ -7267,7 +7268,7 @@ input[type='file'] { color: transparent }
   
   .ngoemailabel {
     margin-top: -52px;
-    margin-left: -16px;
+    margin-left: -22px;
   }
   
   .ngoemailformitemcss{
@@ -7280,7 +7281,7 @@ input[type='file'] { color: transparent }
   
   .ngowebsite{
     margin-top: -22px;
-    margin-left: -14px;
+    margin-left: -22px;
   }
   
   .ngowebsiteformitemcss{
@@ -7306,7 +7307,7 @@ input[type='file'] { color: transparent }
   
   .ngoregistartionnumber{
     margin-top: -67px;
-    margin-left: -11px;
+    margin-left: -22px;
   }
   
   .ngoregistartionnumberformitemcss{
@@ -7334,14 +7335,14 @@ input[type='file'] { color: transparent }
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 143px;
+    left: 129px;
     top:-55px
   }
   
   .ngobanksectiondiv{
     width: 450px;
     height: 340px;
-    margin-left: 141px;
+    margin-left: 128px;
     margin-top: -54px;
     background: #e8e8e8;
   }
@@ -7477,8 +7478,8 @@ input[type='file'] { color: transparent }
     display: inline-block;
     align-content: center;
     position: relative;
-    left: 195px;
-    top: -2px;
+    left: 155px;
+    top: 7px;
   }
 
   .ngoupdatebuttonformitemeditprofile{

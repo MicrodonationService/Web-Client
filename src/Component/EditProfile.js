@@ -410,16 +410,17 @@ class EditProfile extends React.Component {
     }
     else {
       profilepicinput = <div>
-        <span style={{ margin: '80px 0px 0px 105px' }}>
+        <span style={{ margin: '80px 0px 0px 74px' }}>
           <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.state.donorprofileimage} style={{ marginTop: '130px' }} />
-        </span>
-        <div className={styles.editprofileupdatebutton} >
+ <div className={styles.editprofileupdatebutton} >
           <label for="file-upload" className={styles.customfileupload}>
             <i class="fa fa-upload" aria-hidden="true"></i>Upload
 </label>
           <input id="file-upload" type="file" style={{ display: 'none', borderRadius: '25px' }} onChange={(e) => this.onPhotoupload(e)} />
           {/* <input type="file" className={styles.donorprofilebutton}  onChange={(e)=>this.onPhotoupload(e)}></input> */}
         </div>
+        </span>
+       
       </div>
 
 

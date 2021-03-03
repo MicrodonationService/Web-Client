@@ -63,7 +63,7 @@ class Update_photos extends React.Component
     {
         // console.log(this.state.Filnames[0].slice(1,-1));
         let loginRequest = {
-            "ngoname": this.state.ngoname
+            "ngoname": this.state.ngoname.split(' ').join('_')
 
             // "filename":this.state.Filnames[1].slice(1,-1)///event.file.name //
         };
@@ -113,7 +113,7 @@ class Update_photos extends React.Component
    {
 
         let file= e.target.files[0] ;//parameter to pass
-        this.state.filename= e.target.files[0].name;
+        this.state.filename= e.target.files[0].name.split(' ').join('_');
         
         if(file)
         {
@@ -151,7 +151,7 @@ class Update_photos extends React.Component
             console.log(this.state.filename);
 
             let loginRequest = {
-                "ngoname":this.state.ngoname,
+                "ngoname":this.state.ngoname.split(' ').join('_'),
                 "ngo_id" :"1",
                 "filename": this.state.filename,
                 "image_description":values.filedesc,

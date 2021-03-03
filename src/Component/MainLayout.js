@@ -293,20 +293,9 @@ class MainLayout extends React.Component {
               }
 
 
-              <div>
+              <div style={{display:(this.state.myDonatiion === "myDonatiion")? 'none':'block'}}>
                 <br></br>
 
-
-                {/* <Card
-                                     style={{ width: 300, marginTop: 60}}    >
-                                <Meta
-                          avatar={
-                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                             }
-                                  title="Card title"
-                              description="This is the description"
-                         />
-                        </Card> */}
                 <Row style={{ marginTop: 40 }}>
                   <Row style={{ position: "absolute" }}>
                     <Col span={4} style={{ position: "absolute" }} >

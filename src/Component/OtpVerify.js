@@ -9,7 +9,7 @@ const { Countdown } = Statistic;
 const deadline = Date.now() + 1000 * 145;
 
 class OtpVerify extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = { mess: "" ,minutes:2,seconds:0,resendotpflag:false,disablelink:false,disablep:""}
@@ -19,7 +19,7 @@ class OtpVerify extends React.Component {
     this.ondeadlinefinish = this.ondeadlinefinish.bind(this);
     this.resendOtp = this.resendOtp.bind(this);
     this.startTimer = this.startTimer.bind(this);
-    
+
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class OtpVerify extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.myInterval);
-  
+
 }
 
   /*componentDidUpdate(prevProps, prevState) {
@@ -83,7 +83,7 @@ class OtpVerify extends React.Component {
               this.setState({ mess: "Mobile Number Verified Successfully!" })
               setTimeout(() => {
                 this.props.onCancel();
-              }, 5000);
+              }, 3000);
 
             } else if (respJson.Status === "FAILED" && respJson.Message === "Invalid OTP") {
               this.setState({ mess: respJson.Message })
@@ -141,7 +141,7 @@ class OtpVerify extends React.Component {
               this.startTimer();
               this.setState({ mess: respJson.Message, visible: true, mobileReadOnlyField: respJson.Body })
             } else if (respJson.Status === "FAILED") {
-              
+
               this.setState({ mess: respJson.message })
             }
           })
@@ -161,7 +161,7 @@ class OtpVerify extends React.Component {
       seconds:0
     })
     this.componentDidMount();
-    
+
     // const Countdown = Statistic;
     // const deadline = Date.now() + 1000 * 145;
   }
@@ -225,7 +225,7 @@ class OtpVerify extends React.Component {
              </Button>
           </Form.Item>
 
-          {/* {this.state.resendotpflag === true ? 
+          {/* {this.state.resendotpflag === true ?
           <Form.Item style={{ width: '90%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '156px', top: '-39px' }}>
             <Button onClick={this.resendOtp} type="primary"  style={{ width: '50%', borderRadius: '25px', background: '#f8a500' }}>
               RESEND OTP
@@ -233,16 +233,16 @@ class OtpVerify extends React.Component {
           </Form.Item>
           :""
           } */}
-          
+
           <Form.Item style={{ width: '90%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '156px', top: '-39px' }} >
-            <div >{minutes === 0 && seconds === 0  ? 
-            
+            <div >{minutes === 0 && seconds === 0  ?
+
              <Form.Item style={{ width: '90%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '-6px' }}>
             <Button onClick={this.resendOtp} type="primary"  style={{ width: '50%', borderRadius: '25px', background: '#f8a500' }}>
               RESEND OTP
              </Button>
           </Form.Item> : <h4>OTP EXPIRES IN:{minutes}:{seconds<10 ? `0${seconds}`:seconds} </h4>}
-              
+
               </div>
             {/* <Countdown title="OTP EXPIRES IN" value={deadline} onFinish={this.ondeadlinefinish} style={{ width: '90%', position: 'relative', left: '-59px', color: 'red' }} /> */}
           </Form.Item>

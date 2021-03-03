@@ -25,7 +25,7 @@ const columns = [
     title: 'NGO NAME',
     dataIndex: 'ngo_name',
     key: 'ngo_name',
-  },  
+  },
   {
       title: 'DONATION AMOUNT',
       dataIndex: 'amount',
@@ -36,7 +36,7 @@ const columns = [
 const data = [];
 class MyDonation extends React.Component
 {
-    
+
 constructor(props)
                         {
                           super(props);
@@ -53,7 +53,7 @@ constructor(props)
                             span: 16,
                           },
                           };
-                        
+
                         this.Export=this.Export.bind(this);
                         this.FetchData=this.FetchData.bind(this);
                         this.FetchData();
@@ -66,17 +66,17 @@ Export(csvData,fileName){
                            const ws = XLSX.utils.json_to_sheet(csvData);
 
                            const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-                   
+
                            const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-                   
+
                            const data = new Blob([excelBuffer], {type: fileType});
-                   
+
                            FileSaver.saveAs(data, fileName + fileExtension);
                         };
-            
+
     FetchData(e){
                           console.log("Fetch Data");
-                         
+
                           let confirmOtpOnPhoneRequest= {
                               "email": this.props.email
                              // "email": "pranavvikh03@gmail.com"
@@ -92,7 +92,7 @@ Export(csvData,fileName){
                           let detailsRespJSOn = JSON.parse(res.text);
                               console.log("respjson", detailsRespJSOn.Body);
                               this.setState({ ngodetails: detailsRespJSOn})
-                              console.log("Donation Details",(this.state.ngodetails))       
+                              console.log("Donation Details",(this.state.ngodetails))
                         })
                     console.log(data)
     };
@@ -109,17 +109,17 @@ Export(csvData,fileName){
                               category:i1.SZ_NGO_NAME,
                               ngo_name:i1.SZ_CATEGORY_PRIMARY,
                               amount:i1.F_GROSS_AMOUNT
-               
+
                           });
-                          
+
                           })
                           console.log(data)
-                        } 
-                      return( 
+                        }
+                      return(
                         <div>
-                      
-                        <Layout style={{ background: "white"}}> 
-                            
+
+                        <Layout style={{ background: "white"}}>
+
                           <Row style={{marginTop:'100px',marginLeft:'30px'}}>
                           <Col>
                                          <span style={{fontSize: "medium",fontWeight: "bold"}}> Donation Summary
@@ -128,35 +128,35 @@ Export(csvData,fileName){
                                             Download
                         </Button>
                            </Col>
-                                   
-                                      
-                                         
+
+
+
                           </Row>
-                    
-                              
-                                {<Table id={"t1"}  
+
+
+                                {<Table id={"t1"}
                                       style={{margin:'30px', color: 'black',fontSize: "medium",fontWeight: "bold"}}
                                       bordered
-                                      columns={columns} dataSource={data} 
-                                      scroll={{  y: 300 }} 
+                                      columns={columns} dataSource={data}
+                                      scroll={{  y: 300 }}
                                 />
-                                
+
                                 }
                                 {/*
                                 <table  border="1">
-                                  
+
                                   <tr>
                                     <th>
                                       date
-                                    
+
                                     </th>
                                     <th>
                                     NGO CATEGORY
-                                  
+
                                     </th>
                                     <th>
                                     NGO NAME
-                                  
+
                                     </th>
                                     <th>
                                     DONATION AMOUNT
@@ -165,7 +165,7 @@ Export(csvData,fileName){
                                     SHARE
                                     </th>
                                   </tr>
-                                
+
                                 { (this.state.ngodetails!=undefined)?this.state.ngodetails.Body.map((i1)=>{
                             console.log(i1.DT_PAYMENT)
                             return(
@@ -185,18 +185,18 @@ Export(csvData,fileName){
                               </tr>
                             )
                           }):null}
-                                  
+
                                 </table>
 
-                      
+
                         */}
-                         
+
                             </Layout>
-                       
-                           
+
+
                         </div>
-                        
-       
+
+
      );
   }
 }

@@ -16,28 +16,28 @@ const onLogoutSuccess =(res) => {
     } catch (error) {
       window.location.reload();
     }
-    
+
   };
-  
+
   const {signOut} = useGoogleLogout({
     clientId,
     onLogoutSuccess,
     onFailure,
   });
   return(
-    
+
         <GoogleLogout
             clientId={clientId}
             render={renderProps=>(
                 <a style={{textDecoration:'underline',position: 'relative', top: '-57px', color:'#1890ff',right:'-950px'}} onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                    Logout
+                    LOGOUT
                 </a>
             )}
             buttonText="Logout"
             onLogoutSuccess={onLogoutSuccess}
             onFailure={onFailure}>
         </GoogleLogout>
-    
+
   );
 }
 export default Logout;

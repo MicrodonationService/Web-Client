@@ -51,7 +51,7 @@ function beforeUpload(file) {
 class DonorEditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", visible: false, value: 1, mobileReadOnlyField: "", message1: "", handleFlag: true, updatefail: "", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false, donorcatgdropdown: "", donorcategorys: "", ispanvalid: "" };
+    this.state = { posts: "", visible: false, value: 1, mobileReadOnlyField: "", message1: "", handleFlag: true, updatefail: "", mess: "", verifyFlag1: false, verifyFlag2: true, updateFlag: false,otpFlag:false, donorcatgdropdown: "", donorcategorys: "", ispanvalid: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { mess: "", loading: false, donorprofileimage: "", base64TextString: "" ,minutes:2,seconds:0,resendotpflag:false}
@@ -168,7 +168,7 @@ class DonorEditProfile extends React.Component {
             console.log("respJson11", respJson);
             if (respJson.Status === "SUCCESS") {
               this.startTimer();
-              this.setState({ mess: respJson.Message, visible: true, mobileReadOnlyField: respJson.Body })
+              this.setState({ mess: respJson.Message, visible: true, mobileReadOnlyField: respJson.Body,otpFlag:true })
             } else if (respJson.Status === "FAILED") {
               this.setState({ mess: respJson.message })
             }
@@ -494,7 +494,7 @@ class DonorEditProfile extends React.Component {
           <Avatar className={styles.staticprofileimage} size={64} shape="circle" src={this.props.profilepic} />
         </span>
         </div>
-        
+
 
 
     }
@@ -504,13 +504,13 @@ class DonorEditProfile extends React.Component {
                 <Avatar className={styles.staticprofileimage} size={64} shape="circle"  src={this.state.donorprofileimage} />
               </span>
               <div className={styles.uploadbuttoncss} >
-            
+
               <label for="file-upload" className={styles.customfileupload}>
                 <i class="fa fa-upload" aria-hidden="true"></i>Upload
 </label>
               <input id="file-upload" type="file" style={{ display: 'none',borderRadius:'25px' }} onChange={(e) => this.onPhotoupload(e)} />
                 {/* <input type="file" className={styles.donorprofilebutton}  onChange={(e)=>this.onPhotoupload(e)}></input> */}
-              
+
 
               </div>
               </div>
@@ -710,7 +710,7 @@ class DonorEditProfile extends React.Component {
                     />)}
 
                   </Form.Item>
-                  <a onClick={this.showModal} style={{display: this.state.disablelink===true ? 'none' : 'inline'}} className={styles.verifynumbertext} >Verify Mobile Number</a>
+                  <a onClick={this.showModal} style={{display: this.state.disablelink===true ? 'none' : 'inline'}} className={styles.verifynumbertext} disabled={(this.state.otpFlag)?true:false}>Verify Mobile Number</a>
                   <div>
                     <Modal
 

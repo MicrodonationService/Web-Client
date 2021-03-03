@@ -511,7 +511,7 @@ class EditProfile extends React.Component {
                         // ],
 
                       })(
-                        <Select placeholder="Select Occupation" onChange={this.clickChange} style={{ width: '22%' }} >
+                        <Select placeholder={this.props.donorfetchdata.body.SZ_OCCUPATION } onChange={this.clickChange} style={{ width: '22%' }} >
                           {
                             (this.state.donorcategorys !== undefined) ?
                               this.state.donorcategorys.Body.map((value) => (

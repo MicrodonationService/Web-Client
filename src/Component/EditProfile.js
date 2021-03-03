@@ -575,7 +575,7 @@ class EditProfile extends React.Component {
                   </Form.Item>
 
                   <Form.Item style={{ alignContent: 'center', position: 'relative', left: '0px', top: '-38px' }}>
-                    <h4 className={styles.donorphonenumberlabel} >PHONE NUMBER</h4>
+                    <h4 className={styles.donorphonenumbernewlabel} >PHONE NUMBER</h4>
                   </Form.Item>
                   <Form.Item className={styles.donorformitemphonenumbercsseditprofile}
 

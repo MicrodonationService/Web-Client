@@ -287,7 +287,7 @@ class DonorEditProfile extends React.Component {
                   .end((err, res) => {                               // Calling the end function will send the request
                     console.log("service call", res);
                     let fatchDetailsRespJson = JSON.parse(res.text);
-                    ReactDOM.render(<MainLayout email={this.props.email} donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
+                    // ReactDOM.render(<MainLayout email={this.props.email} donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
                   })
               } else if (respJson.Status === "FAILED") {
                 this.setState({ failedmess: "Failed In Updated Data..." })

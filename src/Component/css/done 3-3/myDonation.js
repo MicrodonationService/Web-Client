@@ -3,6 +3,11 @@ import React from 'react';
 import {Layout, Form, Button,Col,Input,Tooltip,Checkbox, Row,Card, Cascader,Divider, Select, AutoComplete,Tabs, Radio} from 'antd';
 
 import "antd/dist/antd.css"
+import UIregisterMD from "./UIRegisterMD.js";
+import PasswordSetSuccess from "./PasswordSetSuccess.js"
+import WrappedNormalChangePasswordForm from "./ChangePassword.js"
+// import WrappedNormalReferPage from "./ReferPage.js"
+import WrappedNormalEditProfileForm from "./EditProfile.js"
 import { Link,Route,Switch,Redirect,BrowserRouter as Router} from "react-router-dom";
 import { Table, Tag } from 'antd';
 import "../App.css"

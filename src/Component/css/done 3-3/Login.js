@@ -7,8 +7,6 @@ import WrappedVerificationMDForm from "./verificationMD.js";
 import MainLayout from "./MainLayout.js";
 import GlobalHelper from '../utils/GlobalHelper.js';
 import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js";
-import WrappedNormalEditProfileForm from "./EditProfile.js"
-import WrappedNormalCreateProfileForm from "./DonorEditProfile.js"
 import { Layout, Tabs, Button, Form, Input, Modal } from 'antd';
 import WrappedNormalForPassForm from './ForgotPassword.js'
 import WrappedDonorEditProfile from './DonorEditProfile.js'
@@ -234,7 +232,7 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            // ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
@@ -299,7 +297,7 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            // ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
@@ -363,7 +361,7 @@ class Loginpage extends React.Component {
               this.successModal();
               setTimeout(() => {
 
-               ReactDOM.render(<WrappedNgoEditProfile  email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
+              //  ReactDOM.render(<WrappedNgoEditProfile  email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
               }, 5000);
             }
 
@@ -388,7 +386,7 @@ class Loginpage extends React.Component {
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-                  ReactDOM.render(<MainLayout email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                  // ReactDOM.render(<MainLayout email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
                 })
 
               //this.setState({loginFlag:true})
@@ -414,7 +412,7 @@ class Loginpage extends React.Component {
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-              ReactDOM.render(<WrappedNormalMainLayoutNGO email={values.email} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
+              // ReactDOM.render(<WrappedNormalMainLayoutNGO email={values.email} ngoupdateprofile={fatchDetailsRespJson} />, document.getElementById('root'));
             })
           }else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User is not Confirmed.") { // "I" stand for Inactive user
 
@@ -438,18 +436,18 @@ class Loginpage extends React.Component {
 
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
-          <Switch>
+          {/* <Switch>
             <Route exact component={WrappedNormalForPassForm} />
-          </Switch>
+          </Switch> */}
         </div>)
     }
     if (this.state.verifyFlag === true) {
       console.log("flag", this.state.flag);
       return (
         <div style={{ display: "inline-block", height: "100%", width: "100%" }}>
-          <Router>
+          {/* <Router>
             <WrappedVerificationMDForm mailResp={this.state.mailResp} phoneResp={this.state.phoneResp} />
-          </Router>
+          </Router> */}
         </div>)
     }
 
@@ -495,7 +493,7 @@ class Loginpage extends React.Component {
               </Form.Item>
               <div style={{ marginBottom: '7px' }}>
                 <h4 style={{ marginTop: '7px', marginBottom: '-1px', display: 'contents' }}>PASSWORD</h4>
-                <a style={{ color: '#000000', marginLeft: '145px', textDecoration: 'underline' }} className={styles.forgetpasswordtext} onClick={this.handleClick}><Link to={"ForgotPassword"} style={{ color: '#000' }}>Forgot Password?</Link></a>
+                {/* <a style={{ color: '#000000', marginLeft: '145px', textDecoration: 'underline' }} className={styles.forgetpasswordtext} onClick={this.handleClick}><Link to={"ForgotPassword"} style={{ color: '#000' }}>Forgot Password?</Link></a> */}
               </div>
 
               <Form.Item >

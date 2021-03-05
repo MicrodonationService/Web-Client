@@ -9,11 +9,11 @@ import "antd/dist/antd.css"
 import WrappedNormalCreateProfileForm from "./DonorEditProfile.js"
 import GlobalHelper from '../utils/GlobalHelper.js'
 import WrappedUISetNewPasswordForm from "./UISetNewPassword.js";
-import WrappedVerificationMDForm from "./verificationMD.js"
+// import WrappedVerificationMDForm from "./verificationMD.js"
 import WrappedNormalLoginForm from "./Login.js";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 // import LoginHooks from './GoogleRegisterHook';
-import MainLayout from "./MainLayout.js";
+// import MainLayout from "./MainLayout.js";
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import WrappedDonorEditProfile from './DonorEditProfile.js'
@@ -141,7 +141,7 @@ class UIregisterMD extends React.Component {
             .end((err, res) => {                               // Calling the end function will send the request
               console.log("service call", res);
               let fatchDetailsRespJson = JSON.parse(res.text);
-              ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
+              // ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
             })
           //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
         }
@@ -207,7 +207,7 @@ class UIregisterMD extends React.Component {
             .end((err, res) => {                               // Calling the end function will send the request
               console.log("service call", res);
               let fatchDetailsRespJson = JSON.parse(res.text);
-              ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
+              // ReactDOM.render(<MainLayout data={loginRespJson} donorfetchdata={fatchDetailsRespJson} />, document.getElementById('root'));
             })
           //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
         }

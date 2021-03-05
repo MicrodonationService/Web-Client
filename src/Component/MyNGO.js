@@ -4,7 +4,6 @@ import './css/MyNgo.css';
 import "antd/dist/antd.css"
 import ReactDOM from 'react-dom';
 import { Link, Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
-// import DonateToCharity from './message.js'
 const { Header, Content } = Layout;
 const { Search } = Input;
 const { Option } = Select;

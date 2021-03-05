@@ -4,10 +4,13 @@ import { Layout, Avatar, Form, Button, Col, Input, Tooltip, Checkbox, Row, Card,
 //import {Pie} from 'react-chartjs-2';
 import "../App.css"
 import "antd/dist/antd.css"
+// import { useGoogleLogout } from 'react-google-login';
+import UIregisterMD from "./UIRegisterMD.js";
+import PasswordSetSuccess from "./PasswordSetSuccess.js"
 import MyDonation from "./myDonation.js"
-import WrappedNormalChangePasswordForm from "./ChangePassword.js"
-import WrappedNormalReferPage from "./ReferPage.js"
-import WrappedNormalEditProfileForm from "./EditProfile.js"
+// import WrappedNormalChangePasswordForm from "./ChangePassword.js"
+// import WrappedNormalReferPage from "./ReferPage.js"
+// import WrappedNormalEditProfileForm from "./EditProfile.js"
 // import MyNGO from "./MyNGO.js"
 // import OneTimeDonation from './onetimedonation.js';
 // import RecurringDonation from './donatetocharity.js';
@@ -94,11 +97,11 @@ class MainLayout extends React.Component {
     this.setState({ flag: data })
     this.setState({ profileUpdateFlag: "" })
     this.setState({ changePasswordFlag: "" })
-    ReactDOM.render(<WrappedNormalReferPage />,document.getElementById('root'));
+    //ReactDOM.render(<WrappedNormalReferPage />,document.getElementById('root'));
   }
   handleChange(data) {
     this.setState({ changePasswordFlag: data })
-    ReactDOM.render(<WrappedNormalChangePasswordForm data={this.props.data} />, document.getElementById('root'));
+    // ReactDOM.render(<WrappedNormalChangePasswordForm data={this.props.data} />, document.getElementById('root'));
   }
 
   homeClick(data) {
@@ -265,11 +268,11 @@ class MainLayout extends React.Component {
               </Row>
 </div>*/}
               {
-                (this.state.profileUpdateFlag === "profile_update") ? <WrappedNormalEditProfileForm data={this.props.data}  donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={(this.state.donorfetchdata == undefined)? this.props.donorfetchdata : this.state.donorfetchdata} />
-                  : null
+                // (this.state.profileUpdateFlag === "profile_update") ? <WrappedNormalEditProfileForm data={this.props.data}  donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={(this.state.donorfetchdata == undefined)? this.props.donorfetchdata : this.state.donorfetchdata} />
+                //   : null
               }
               {
-                (this.state.flag === "refer") ? <WrappedNormalReferPage /> : null
+                // (this.state.flag === "refer") ? <WrappedNormalReferPage /> : null
               }
               {
                 (this.state.myDonatiion === "myDonatiion") ? <MyDonation email={this.props.donorfetchdata.body.SZ_EMAIL} /> : null

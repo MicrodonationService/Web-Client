@@ -175,7 +175,7 @@ class Loginpage extends React.Component {
     });
   }
 
-  fbClicked=()=>{
+  fbClicked=()=>{ 
     console.log('clicked');
   }
 
@@ -205,13 +205,13 @@ class Loginpage extends React.Component {
       let loginRespJson = JSON.parse(res.text);
       //console.log(typeof(loginRespJson))
       //console.log(loginRespJson.body[0].updateflag);
-      if (loginRespJson.success === true && loginRespJson.updateflag === "N") {
+      if (loginRespJson.success === true && loginRespJson.updateflag === "N" ) {
         //this.setState({loginFlag:true})
         console.log("In the edit profile")
         setTimeout(() => {
-         ReactDOM.render(<WrappedDonorEditProfile  email={response.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
+         ReactDOM.render(<WrappedDonorEditProfile federated="Y" username={response.name} profilepic={response.picture.data.url} email={response.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
         }, 5000);
-        ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+        //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
         console.log(loginRespJson)
       }else if (loginRespJson.user == "D" && loginRespJson.success == true){
         let loginRequest = {
@@ -234,17 +234,17 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            ReactDOM.render(<MainLayout federated="Y"  profilepic={response.picture.data.url} data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
       else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User not registered") { // "I" stand for Inactive user
-
+  
                 this.setState({ mess: response.email+" User is not registered Please Register" })
-
+  
               }
     })
-
+  
   }
 
 
@@ -274,9 +274,9 @@ class Loginpage extends React.Component {
         //this.setState({loginFlag:true})
         console.log("In the edit profile")
         setTimeout(() => {
-         ReactDOM.render(<WrappedDonorEditProfile  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
+         ReactDOM.render(<WrappedDonorEditProfile federated="Y" username={e.profileObj.name} profilepic={e.profileObj.imageUrl}   email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />,document.getElementById('root'))
         }, 5000);
-        ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
+        //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
         console.log(loginRespJson)
       }else if (loginRespJson.user == "D" && loginRespJson.success == true){
         let loginRequest = {
@@ -299,17 +299,17 @@ class Loginpage extends React.Component {
           .end((err, res) => {                               // Calling the end function will send the request
             console.log("service call", res);
             let fatchDetailsRespJson = JSON.parse(res.text);
-            ReactDOM.render(<MainLayout  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+            ReactDOM.render(<MainLayout federated="Y" profilepic={e.profileObj.imageUrl}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
           })
         //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
       }
       else if (loginRespJson.Status === "FAILED" && loginRespJson.Message === "User not registered") { // "I" stand for Inactive user
-
+  
                 this.setState({ mess: e.profileObj.email+" User is not registered Please Register" })
-
+  
               }
     })
-
+  
   }
 
   handleLogin(e) {
@@ -354,7 +354,7 @@ class Loginpage extends React.Component {
               this.successModal();
               setTimeout(() => {
 
-               ReactDOM.render(<WrappedDonorEditProfile donordropdown={this.state.donorcategorys} email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
+               ReactDOM.render(<WrappedDonorEditProfile federated="N"  donordropdown={this.state.donorcategorys} email={values.email} loginResponse={loginRespJson.Body.SZ_COGNITO_USER_ID}/>,document.getElementById('root'))
               }, 5000);
             }
             else if(loginRespJson.Status == "SUCCESS" && loginRespJson.Body.B_IS_PROFILE_UPDATED === "N" &&loginRespJson.Body.SZ_USER_TYPE === "N" ){
@@ -388,7 +388,7 @@ class Loginpage extends React.Component {
                 .end((err, res) => {                               // Calling the end function will send the request
                   console.log("service call", res);
                   let fatchDetailsRespJson = JSON.parse(res.text);
-                  ReactDOM.render(<MainLayout email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
+                  ReactDOM.render(<MainLayout federated="N" email={values.email}  data={loginRespJson} donorfetchdata={fatchDetailsRespJson}/>, document.getElementById('root'));
                 })
 
               //this.setState({loginFlag:true})
@@ -454,24 +454,24 @@ class Loginpage extends React.Component {
     }
 
 
-
+    
     return (            // Returning HTML on screen
       <Layout className={styles.maindiv}>
         <div className={styles.mobileviewheaderdiv} >
-          <img className={styles.mobileviewiheaderimg} style={{width:window.innerWidth}} src="img/mdHeader.png"  />
+          <img className={styles.mobileviewiheaderimg}   src="img/mdHeader.png"  />
         </div>
         <Content >
           <div style={{ display: 'inlineFlex' }} className={styles.siderimagediv}>
-            <img className={styles.mobileviewsiderimage} src="img/siderMD.png" style={{ width: '316px', height: '478px', position: 'absolute', borderRadius: '5px', left: '0px', top: '0px' }} />
+            <img className={styles.mobileviewsiderimage} src="img/siderMD.png"  />
           </div>
           <div className={styles.mainloginformdiv} >
 
             <h2 style={{ color: '#f8a500', margin: '-15px 0px 10px -244px', fontWeight: 'Bold', textAlign: 'center' }}>LOGIN</h2>
 
             <Tabs defaultActiveKey="1" onChange={this.callback} className={styles.tab}>
-              <TabPane tab="LOGIN AS DONOR" key="D" >
+              <TabPane tab="Login As Donar" key="D" >
               </TabPane>
-              <TabPane tab="LOGIN AS NGO" key="N" >
+              <TabPane tab="Login As NGO" key="N" >
               </TabPane>
             </Tabs>
 
@@ -488,7 +488,7 @@ class Loginpage extends React.Component {
                 })(
                   <Input
                     autoComplete="off"
-                    maxLength={30}
+                    maxLength={50}
                     placeholder="Enter Email-Id"
                     style={{ textAlign: 'left', borderRadius: '20px', height: '40px', marginBottom: '4px' }}
                   />)}
@@ -503,7 +503,7 @@ class Loginpage extends React.Component {
                   rules: [
                     {
                       required: true,
-                      message:  'Please enter password' ,
+                      message: 'Please enter password',
                     }
                   ],
                 })(
@@ -516,22 +516,22 @@ class Loginpage extends React.Component {
               </Form.Item>
             </Form>
 
-            <a href="" className={styles.loginscreenregistertext} style={{ color: '#AB1B5C', textDecoration: 'underline', position: 'relative', top: '55px', left: '134px' }} onClick={this.handleSubmit}><Link style={{ color: '#000' }}> Register</Link></a>
+            <a href="" className={styles.loginscreenregistertext} style={{ color: '#AB1B5C', textDecoration: 'underline', position: 'relative', top: '55px', left: '134px' }} onClick={this.handleSubmit}><Link style={{ color: '#000' }}> REGISTER</Link></a>
             <Spin spinning={this.state.loading ? true : false} >
               <Button type="submit" onClick={this.handleLogin}
-                style={{ background: '#f8a500', color: 'Black', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >Login</Button><br></br>
+                style={{ background: '#f8a500', color: 'Black', height: '', margin: '-40px 0px 5px 75px', borderRadius: '20px', width: '50%', height: '40px' }} >LOGIN</Button><br></br>
             </Spin>
             <h4 style={{ position: 'relative', top: '25px', color:(this.state.mess === "Please update profile")? 'blue': 'red', textAlign: 'center' }}>{this.state.mess}</h4>
-
+            
             <FacebookLogin
               appId="622990185060497"
               fields="name,email,picture"
               onClick={this.fbClicked}
-              textButton="Login with Facebook"
               callback={this.responseFacebook}
               cssClass={styles.fbbuttoncss}
               icon="fa-facebook"
-
+              textButton="Login With Facebook"
+              
             />
 
             <GoogleLogin

@@ -12,7 +12,7 @@ import WrappedUISetNewPasswordForm from "./UISetNewPassword.js";
 import WrappedVerificationMDForm from "./verificationMD.js"
 import WrappedNormalLoginForm from "./Login.js";
 import { QuestionCircleOutlined } from '@ant-design/icons';
-// import LoginHooks from './GoogleRegisterHook';
+import LoginHooks from './GoogleRegisterHook';
 import MainLayout from "./MainLayout.js";
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
@@ -112,7 +112,7 @@ class UIregisterMD extends React.Component {
         if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
           //this.setState({loginFlag:true})
           setTimeout(() => {
-            ReactDOM.render(<WrappedDonorEditProfile username={response.name} profilepic={response.picture.data.url}  email={response.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
+            ReactDOM.render(<WrappedDonorEditProfile federated="Y" username={response.name} profilepic={response.picture.data.url}  email={response.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
           }, 5000);
           //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
           console.log(loginRespJson)
@@ -178,7 +178,7 @@ class UIregisterMD extends React.Component {
         if (loginRespJson.Status === "SUCCESS" && loginRespJson.updateflag === "N") {
           //this.setState({loginFlag:true})
           setTimeout(() => {
-            ReactDOM.render(<WrappedDonorEditProfile username={e.profileObj.name} profilepic={e.profileObj.imageUrl}  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
+            ReactDOM.render(<WrappedDonorEditProfile federated="Y" username={e.profileObj.name} profilepic={e.profileObj.imageUrl}  email={e.profileObj.email} loginResponse={loginRespJson.szCognitoUserID} />, document.getElementById('root'))
           }, 5000);
           //ReactDOM.render(<MainLayout data={loginRespJson} />, document.getElementById('root'));
           console.log(loginRespJson)
@@ -545,8 +545,8 @@ class UIregisterMD extends React.Component {
                 </div>
 
               </div>
-              <h4 style={{ color: "blue", position: 'relative', left: '-22px', top: "16px", textAlign: 'center' }}>{this.state.mess}</h4>
-              <h4 style={{ color: "red", position: 'relative', left: '-22px', top: "4px", textAlign: 'center' }}>{this.state.mess1}</h4>
+              <h4 className={styles.registerscreenbluemess} >{this.state.mess}</h4>
+              <h4 className={styles.registerscreenredmess} >{this.state.mess1}</h4>
             </Content>
           </Layout>
           <Footer style={{ padding: '0px' }}>

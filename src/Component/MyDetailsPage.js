@@ -7,7 +7,7 @@ import WrappedOtpVerifyForm from './OtpVerify.js'
 import '../index.css';
 import WrappedNormalMainLayoutNGO from "./MainLayoutNGO.js";
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Layout, Menu, Collapse, Row, Col,Modal, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select, Upload, message, Tabs } from 'antd';
+import { Layout, Menu, Collapse, Row,Modal, Col, Result, Breadcrumb, Radio, Icon, Button, DatePicker, Carousel, Form, Input, Checkbox, Avatar, Badge, Select, Upload, message, Tabs } from 'antd';
 import { Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 const { TabPane } = Tabs;
@@ -46,17 +46,21 @@ function beforeUpload(file) {
 class MyDetailsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: "", value: 1 };
+    this.state = { posts: "", value: 1,mobileverifyflag:false   };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.ngoFetchname = this.ngoFetchname.bind(this);
     this.showModal = this.showModal.bind(this);
-    this.handleChange1 = this.handleChange1.bind(this);
+    //this.handleChange1 = this.handleChange1.bind(this);
     this.clickChange = this.clickChange.bind(this);
-    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",mobileReadOnlyField:"",updatefail:"", ngocatgdropdown: "" }
+    this.state = { mess: "", loading: false, reqFlag1: true, updatedmessage: "",updatefail:"", ngocatgdropdown: "",ngocategoryother:"",ngoorgtype:"",ngotypeoforg:"" }
     this.onChange = this.onChange.bind(this);
-    this.ngoFetchname();
-    this.state = { ngoupdatedetails: "",visible:"", ngoupdateprofile: "", ngocategorydropdown: "" };
+    this.ngoCategoryOther = this.ngoCategoryOther.bind(this);
+    this.ngoOrgType = this.ngoOrgType.bind(this);
+    this.onPhotoupload = this.onPhotoupload.bind(this);
+    this.ngoFetchname = this.ngoFetchname.bind(this);
+    this.typeoforganization = this.typeoforganization.bind(this);
+    this.state = { ngoupdatedetails: "",visible:"", ngoupdateprofile: "", ngocategorydropdown: "" , base64TextString:"",ngoprofileimage:""};
 
     this.mobile = this.props.ngoupdateprofile.Body.SZ_PHONE1;
     this.email = this.props.ngoupdateprofile.Body.SZ_EMAIL;
@@ -77,6 +81,41 @@ class MyDetailsPage extends React.Component {
     this.ngocategoryother = this.props.ngoupdateprofile.Body.SZ_CATEGORY_SECONDARY;
     this.typeoforganization = this.props.ngoupdateprofile.Body.SZ_TYPE_OF_ORAGANIZATION;
 
+    this.ngoFetchname();
+    this.ngoOrgType();
+
+
+  }
+
+  clickChange(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngocatgdropdown: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngocatgdropdown)
+  }
+
+  
+  ngoCategoryOther(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngocatgdropdownother: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngocatgdropdownother)
+  }
+
+  typeoforganization(value) {
+    console.log(`selected ${value}`);
+    this.NGOCATEGORY = value;
+    this.setState({
+      ngotypeoforg: value
+
+    })
+    console.log("NGO CATG Drop Down", this.state.ngotypeoforg)
   }
 
   showModal = (e) => {
@@ -116,6 +155,7 @@ class MyDetailsPage extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ mess: "" });
   };
+
   ngoFetchname() {
     let ngocategorys = {
       "lookuptype": "NGO_CATG"
@@ -140,6 +180,33 @@ class MyDetailsPage extends React.Component {
         console.log("Ngo Category", this.state.ngocategory)
       })
   }
+
+  ngoOrgType() {
+    let ngoCategoryOther = {
+      "lookuptype": "ORG_TYPE"
+    }
+    const superagent = require('superagent');
+    superagent
+      .post(' https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/lookupfetch') // Ajax Call
+      .send(ngoCategoryOther)
+      .set('X-API-Key', 'foobar')
+      .set('accept', 'application/json')
+      .end((err, res) => {
+        console.log("Response", res);
+        let detailsRespJSOn = JSON.parse(res.text);
+        console.log("respjson", detailsRespJSOn);
+        if (detailsRespJSOn.Status == "SUCCESS") {
+          console.log("NGO Data", detailsRespJSOn)
+          this.setState({ ngoorgtype: detailsRespJSOn })
+          console.log("NGO CATEGORY", this.state.ngoorgtype)
+
+        }
+
+        console.log("Ngo Category", this.state.ngoorgtype)
+      })
+
+  }
+
   onChange = e => {
     console.log('radio checked', e.target.value);
     this.setState({
@@ -151,30 +218,78 @@ class MyDetailsPage extends React.Component {
     window.location.reload();
   }
 
-  handleChange1 = info => {
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          imageUrl,
-          loading: false,
-        }),
-      );
-    }
-  };
-    clickChange(value) {
-    console.log(`selected ${value}`);
-    this.NGOCATEGORY = value;
-    this.setState({
-      ngocatgdropdown: value
+  // handleChange1 = info => {
+  //   if (info.file.status === 'uploading') {
+  //     this.setState({ loading: true });
+  //     return;
+  //   }
+  //   if (info.file.status === 'done') {
+  //     // Get this url from response in real world.
+  //     getBase64(info.file.originFileObj, imageUrl =>
+  //       this.setState({
+  //         imageUrl,
+  //         loading: false,
+  //       }),
+  //     );
+  //   }
+  // };
 
-    })
-    console.log("NGO CATG Drop Down", this.state.ngocatgdropdown)
-  }
+  
+
+
+  onPhotoupload=(e)=>
+   {
+
+        let file= e.target.files[0] ;//parameter to pass
+        this.state.filename= e.target.files[0].name;
+        
+        if(file)
+        {
+            const reader=new FileReader();
+            console.log(reader)
+            reader.onload=this._handleReaderLoader.bind(this);
+            reader.readAsBinaryString(file);
+        }
+
+    }
+    _handleReaderLoader=(readerEvt) =>
+    {
+        let binaryString =readerEvt.target.result;
+
+        this.setState({base64TextString:btoa(binaryString)}) ;
+
+        console.log("Photo",this.state.base64TextString);
+
+        let loginRequest = {
+          "cognitoId": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID,
+          "user_avatar": this.state.base64TextString
+        }
+
+        const superagent=require('superagent');
+
+              superagent
+                  .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoprofileimageupload')
+                  .send(loginRequest)
+                  .set('X-API-Key', 'foobar')
+                  .set('Content-Type','application/json')
+                  .set('accept', '*/*')
+                  .set('Access-Control-Request-Headers','content-type,x-api-key')
+                  .set('Access-Control-Request-Method','POST')
+                  .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+                  .set('Origin','http://localhost:3000')
+                  .set('Accept-Encoding','gzip, deflate, br')
+                  .set('Sec-Fetch-Dest','empty')
+                  .set('Sec-Fetch-Mode', 'cors')
+                  .end((err,res)=>{
+                      console.log("Response:",res)
+                      this.componentDidMount();
+                      //window.location.reload();
+                      // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+                  });
+
+    }
+ 
+  
 
   handleSubmit(e) {
     console.log(this.state.reqFlag1);
@@ -239,7 +354,7 @@ class MyDetailsPage extends React.Component {
                 updatefail : "Failed To Update Profile!!!"
               })
             }
-
+            
 
           })
       }
@@ -247,6 +362,8 @@ class MyDetailsPage extends React.Component {
   }
 
   componentDidMount() {
+
+
     //setTimeout(()=>{
 
     document.getElementById("ngoname").value = this.name;
@@ -267,6 +384,36 @@ class MyDetailsPage extends React.Component {
     document.getElementById("registrationnumber").value = this.registrationnumber;
     document.getElementById("ngocategoryother").value = this.ngocategoryother;
     document.getElementById("typeoforganization").value = this.typeoforganization;
+    //document.getElementById("ngoprofileimage").value = this.
+
+    let loginRequest = {
+      "cognitoId": this.props.ngoupdateprofile.Body.SZ_COGNITO_USER_ID
+    }
+
+    const superagent=require('superagent');
+
+          superagent
+              .post('https://ub9is67wk0.execute-api.ap-south-1.amazonaws.com/dev/api/auth/ngoprofileimagepresignedgeturl')
+              .send(loginRequest)
+              .set('X-API-Key', 'foobar')
+              .set('Content-Type','application/json')
+              .set('accept', '*/*')
+              .set('Access-Control-Request-Headers','content-type,x-api-key')
+              .set('Access-Control-Request-Method','POST')
+              .set('Host','ub9is67wk0.execute-api.ap-south-1.amazonaws.com')
+              .set('Origin','http://localhost:3000')
+              .set('Accept-Encoding','gzip, deflate, br')
+              .set('Sec-Fetch-Dest','empty')
+              .set('Sec-Fetch-Mode', 'cors')
+              .end((err,res)=>{
+                  //console.log("Response:",res)
+                  this.setState({
+                    ngoprofileimage : JSON.parse(res.text),
+                  })
+                  console.log("Res",JSON.parse(res.text));
+                  console.log("Rsss",this.state.ngoprofileimage);
+                  // this.setState({ imgDisplayflag:true,message:'File Deleted Successfully'})
+              });
 
     //},500)
   }
@@ -428,12 +575,14 @@ class MyDetailsPage extends React.Component {
     } catch (e) { console.error(e) }
 
   }
+
   handleCancel = () => {
     this.setState({
       visible: false,
     });
   };
 
+  
 
   render() {
     console.log("Mydetails", this.props.ngoupdateprofile)
@@ -448,32 +597,27 @@ class MyDetailsPage extends React.Component {
     const { posts } = this.state;
 
     return (
-      <div style={{ width: '90%', height: '100%', marginLeft: '0px', border: '1px solid #FFFFFF' }}>
-        <h5 style={{ display: 'block', position: 'relative', left: '70px', top: '7px', fontWeight: 800, color: '#f8a500', fontSize: 'x-large' }}>MY DETAILS</h5>
+      <div className={styles.mainlayout} style={{ width: '90%', height: '100%', marginLeft: '0px', border: '1px solid #FFFFFF' }}>
+        <h5 className={styles.ngoeprofilemydetailstext} >MY DETAILS</h5>
         <span style={{ margin: '60px 0px 0px 105px' }}>
-          <Avatar size={64} shape="circle" src="img/NGO.png" />
+          <Avatar size={64} shape="circle" src={this.state.ngoprofileimage} className={styles.staticprofileimagengo} />
+          
         </span>
-        <div style={{ margin: '15px 0px 0px 85px ' }}>
-          <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            beforeUpload={beforeUpload}
-            onChange={this.handleChange1}
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
+        <div className={styles.uploadbuttoncss}>
+          <label for="file-upload" className={styles.customfileupload}>
+                <i class="fa fa-upload" aria-hidden="true"></i>Upload
+</label>
+              <input id="file-upload" type="file" style={{ display: 'none',borderRadius:'25px' }} onChange={(e) => this.onPhotoupload(e)} />
 
-        </div>
+          </div>
 
-        <div style={{ width: '80%', height: '90%', marginTop: '-240px', marginLeft: '50px', overflowX:'hidden',overflowY:'auto' }}>
+        {/* <input type="file" style={{width:'20'}} onChange={(e)=>this.onPhotoupload(e)}></input> */}
+        <div className={styles.ngpprofiledivbeforeform} >
           <Form {...layout} style={{ border: '1px solid #FFFFFF' }}>
-            <h4 style={{ marginTop: '-05px', marginLeft: '220px' }}>NGO NAME</h4>
-            <Form.Item
+            <h4 className={styles.ngoname} >NGO NAME</h4>
+            <Form.Item className={styles.ngonameformitemcss}
 
-              style={{ width: '45%', alignContent: 'center', position: 'relative', top: '0px', left: '220px' }}
+              // style={{ width: '45%', alignContent: 'center', position: 'relative', top: '0px', left: '220px' }}
             >
               {getFieldDecorator('ngoname', {
                 // rules: [
@@ -490,18 +634,19 @@ class MyDetailsPage extends React.Component {
                   }}*//>)}
 
             </Form.Item>
-            <h4 style={{ marginTop: '-69px', marginLeft: '530px' }}>NGO CATEGORY</h4>
-            <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}>
-            {getFieldDecorator('ngocategory', {
-              rules: [
-               {
-                 //required: true,
-                 //message: 'Select Category',
-               }
-             ],
+            <h4 className={styles.ngocategory} >NGO CATEGORY</h4>
+            <Form.Item className={styles.ngocategoryformitemcss}>
+              {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
+                  {
+                this.props.ngocatgdropdown.Body.map((value) => (
+                <option value={value}>{value}</option>
+      ))
+  }
+                </Select> */}
+              {getFieldDecorator('ngocategory', {
 
-           })(
-             <Select placeholder='Select Category' onChange={this.clickChange} style={{ width: '85%' }} >
+              })(
+                <Select placeholder={this.props.ngoupdateprofile.Body.SZ_CATEGORY_PRIMARY} onChange={this.clickChange} style={{ width: '85%' }} >
 
              {
                (this.state.ngocategory !== undefined ) ?
@@ -509,11 +654,11 @@ class MyDetailsPage extends React.Component {
                  <option value={value}>{value}</option>
                )):""
              }
-           </Select>
-             )}</Form.Item>
+           </Select>)}
+            </Form.Item>
 
-            <h4 style={{ marginTop: '0px', marginLeft: '227px' }}>NGO CATEGORY OTHER</h4>
-            <Form.Item style={{ left: '225px', top: '-10px', width: '53%' }}>
+            <h4 className={styles.ngocategoryotherlabel} >NGO CATEGORY OTHER</h4>
+            <Form.Item className={styles.ngocategoryotherformitemcss} >
               {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
                   {
                 this.props.ngocatgdropdown.Body.map((value) => (
@@ -524,11 +669,20 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('ngocategoryother', {
 
               })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
+                <Select placeholder={this.props.ngoupdateprofile.Body.SZ_CATEGORY_SECONDARY} onChange={this.ngoCategoryOther} style={{ width: '85%' }} >
+
+                    {
+                      (this.state.ngocategory !== undefined) ?
+                        this.state.ngocategory.Body.map((value) => (
+                          <option value={value}>{value}</option>
+                        )) : ""
+                    }
+                  </Select>
+               )}
             </Form.Item>
 
-            <h4 style={{ marginTop: '-69px', marginLeft: '530px' }}>TYPE OF ORGANIZATION</h4>
-            <Form.Item style={{ left: '530px', top: '-41px', width: '53%' }}>
+            <h4 className={styles.ngotypeoforg} >TYPE OF ORGANIZATION</h4>
+            <Form.Item className={styles.ngotypeoforgformitemcss} >
               {/* <Select  onChange={this.clickChange}  style={{ width: '85%' }}>
                   {
                 this.props.ngocatgdropdown.Body.map((value) => (
@@ -539,15 +693,24 @@ class MyDetailsPage extends React.Component {
               {getFieldDecorator('typeoforganization', {
 
               })(
-                <Input readOnly={true} style={{ borderRadius: '25px', width: '30%',backgroundColor:'	#E0E0E0' }} />)}
+                <Select placeholder={this.props.ngoupdateprofile.Body.SZ_TYPE_OF_ORAGANIZATION} onChange={this.ngoCategoryOther} style={{ width: '85%' }} >
+
+                {
+                  (this.state.ngoorgtype !== undefined) ?
+                    this.state.ngoorgtype.Body.map((value) => (
+                      <option value={value}>{value}</option>
+                    )) : ""
+                }
+              </Select>
+               )}
             </Form.Item>
 
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-43px', marginLeft: '70px' }}>NGO ADDRESS</h4>
+              <h4 className={styles.ngoaddresslabel} >NGO ADDRESS</h4>
             </Form.Item>
-            <Form.Item
+            <Form.Item className={styles.ngoaddressformitemcss}
 
-              style={{ width: '45%', alignContent: 'center', position: 'relative', top: '-15px', left: '220px' }}
+              // style={{ width: '45%', alignContent: 'center', position: 'relative', top: '-15px', left: '220px' }}
             >
               {getFieldDecorator('address', {
                 // rules: [
@@ -565,10 +728,11 @@ class MyDetailsPage extends React.Component {
                 />)}
 
             </Form.Item>
-            <h4 style={{ marginTop: '-75px', marginLeft: '530px' }}>CITY</h4>
-            <Form.Item
+            <h4 className={styles.ngocitylabel} >CITY</h4>
+            <Form.Item className={styles.ngocityformitemcss}
 
-              style={{ width: '86%', alignContent: 'center', position: 'relative', left: '530px', top: '-55px' }}
+
+              // style={{ width: '86%', alignContent: 'center', position: 'relative', left: '530px', top: '-55px' }}
             >
               {getFieldDecorator('city', {
                 // rules: [
@@ -586,10 +750,10 @@ class MyDetailsPage extends React.Component {
                 />)}
 
             </Form.Item>
-            <h4 style={{ marginTop: '-115px', marginLeft: '680px' }}>PIN CODE</h4>
-            <Form.Item
+            <h4 className={styles.ngopincodelabel} >PIN CODE</h4>
+            <Form.Item  className={styles.ngopincodeformitemcss}
 
-              style={{ width: '100%', alignContent: 'center', position: 'relative', left: '680px', top: '-95px' }}
+              // style={{ width: '100%', alignContent: 'center', position: 'relative', left: '680px', top: '-95px' }}
             >
               {getFieldDecorator('pincode', {
                 // rules: [
@@ -609,12 +773,12 @@ class MyDetailsPage extends React.Component {
             </Form.Item>
 
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-97px', marginLeft: '70px' }}>E-MAIL ID</h4>
+              <h4 className={styles.ngoemailabel} >E-MAIL ID</h4>
             </Form.Item>
 
-            <Form.Item
+            <Form.Item className={styles.ngoemailformitemcss}
 
-              style={{ width: '65%', alignContent: 'center', position: 'relative', top: '-65px', left: '220px' }}
+              // style={{ width: '65%', alignContent: 'center', position: 'relative', top: '-65px', left: '220px' }}
             >
               {getFieldDecorator('email', {
 
@@ -628,12 +792,12 @@ class MyDetailsPage extends React.Component {
             </Form.Item>
 
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-71px', marginLeft: '70px' }}>WEBSITE</h4>
+              <h4  className={styles.ngowebsite} >WEBSITE</h4>
             </Form.Item>
 
-            <Form.Item
+            <Form.Item className={styles.ngowebsiteformitemcss}
 
-              style={{ width: '65%', alignContent: 'center', position: 'relative', top: '-40px', left: '220px' }}
+              // style={{ width: '65%', alignContent: 'center', position: 'relative', top: '-40px', left: '220px' }}
             >
               {getFieldDecorator('website', {
 
@@ -647,12 +811,12 @@ class MyDetailsPage extends React.Component {
 
             </Form.Item>
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-50px', marginLeft: '70px' }}>OPERATIONAL SINCE</h4>
+              <h4 className={styles.ngooperationalsince} >OPERATIONAL SINCE</h4>
             </Form.Item>
 
-            <Form.Item
+            <Form.Item className={styles.ngooperationalsinceformitemcss}
 
-              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-20px', left: '220px' }}
+              // style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-20px', left: '220px' }}
             >
               {getFieldDecorator('operationalsince', {
                 //  rules: [
@@ -672,12 +836,12 @@ class MyDetailsPage extends React.Component {
 
             </Form.Item>
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-90px', marginLeft: '280px' }}>REGISTRATION NUMBER</h4>
+              <h4 className={styles.ngoregistartionnumber} >REGISTRATION NUMBER</h4>
             </Form.Item>
 
-            <Form.Item
+            <Form.Item className={styles.ngoregistartionnumberformitemcss}
 
-              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '425px' }}
+              // style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-60px', left: '425px' }}
             >
               {getFieldDecorator('registrationnumber', {
                 //  rules: [
@@ -698,12 +862,12 @@ class MyDetailsPage extends React.Component {
             </Form.Item>
 
             <Form.Item style={{ alignContent: 'center', position: 'relative', left: '150px', top: '0px' }}>
-              <h4 style={{ marginTop: '-130px', marginLeft: '475px' }}>REFERRER</h4>
+              <h4 className={styles.ngoreferer} >REFERRER</h4>
             </Form.Item>
 
-            <Form.Item
+            <Form.Item className={styles.ngorefererformitemcss}
 
-              style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-100px', left: '625px' }}
+              // style={{ width: '20%', alignContent: 'center', position: 'relative', top: '-100px', left: '625px' }}
             >
               {getFieldDecorator('referrer', {
                 //  rules: [
@@ -723,16 +887,16 @@ class MyDetailsPage extends React.Component {
 
             </Form.Item>
 
-            <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '220px', top: '-70px' }}>
+            <h4 className={styles.ngobanksection} >
               BANK ACCOUNT DETAILS</h4>
-            <div style={{ width: '63%', height: '325px', marginLeft: '220px', marginTop: '-45px', background: '#e8e8e8' }}>
+            <div className={styles.ngobanksectiondiv} >
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>BANK NAME</h4>
+                <h4 className={styles.ngobankname} >BANK NAME</h4>
               </Form.Item>
 
-              <Form.Item
+              <Form.Item className={styles.ngobanknameformitemcss}
 
-                style={{ width: '100%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
+                // style={{ width: '100%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
               >
                 {getFieldDecorator('bankname', {
                   // rules: [
@@ -751,12 +915,12 @@ class MyDetailsPage extends React.Component {
 
               </Form.Item>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '-20px', marginLeft: '10px' }}>BANK ACCOUNT NUMBER</h4>
+                <h4 className={styles.ngobankaccountnumber} >BANK ACCOUNT NUMBER</h4>
               </Form.Item>
 
-              <Form.Item
+              <Form.Item className={styles.ngobankaccountnumberformitemcss}
 
-                style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
+                // style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
               >
                 {getFieldDecorator('accountnumber', {
                   // rules: [
@@ -776,12 +940,12 @@ class MyDetailsPage extends React.Component {
               </Form.Item>
 
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '-15px', marginLeft: '10px' }}>IFSC CODE</h4>
+                <h4 className={styles.ngoifsccode} >IFSC CODE</h4>
               </Form.Item>
 
-              <Form.Item
+              <Form.Item className={styles.ngoifsccodeformitemcss}
 
-                style={{ width: '90%', alignContent: 'center', position: 'relative', top: '-15px', left: '10px' }}
+                // style={{ width: '90%', alignContent: 'center', position: 'relative', top: '-15px', left: '10px' }}
               >
                 {getFieldDecorator('ifsccode', {
                   // rules: [
@@ -801,12 +965,12 @@ class MyDetailsPage extends React.Component {
               </Form.Item>
 
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '-86px', marginLeft: '370px' }}>BRANCH</h4>
+                <h4 className={styles.ngobranch} >BRANCH</h4>
               </Form.Item>
 
-              <Form.Item
-
-                style={{ width: '53%', alignContent: 'center', position: 'relative', top: '-54px', left: '360px' }}
+              <Form.Item className={styles.ngobranchformitemcss}
+               
+                // style={{ width: '53%', alignContent: 'center', position: 'relative', top: '-54px', left: '360px' }}
               >
                 {getFieldDecorator('bankbranch', {
                   // rules: [
@@ -822,15 +986,15 @@ class MyDetailsPage extends React.Component {
                     this.setState({reqFlag1 : true})
                     }}*/
                   />)}
-
+               
               </Form.Item>
               <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                <h4 style={{ marginTop: '-60px', marginLeft: '10px' }}>ACCOUNT HOLDER NAME</h4>
+                <h4 className={styles.ngoaccountholdername} >ACCOUNT HOLDER NAME</h4>
               </Form.Item>
 
-              <Form.Item
+              <Form.Item className={styles.ngoaccountholdernameformitemcss}
 
-                style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-32px', left: '10px' }}
+                // style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-32px', left: '10px' }}
               >
                 {getFieldDecorator('accname', {
                   // rules: [
@@ -849,17 +1013,17 @@ class MyDetailsPage extends React.Component {
 
               </Form.Item>
 
-              <h4 style={{ display: 'inline-block', alignContent: 'center', position: 'relative', left: '0px', top: '25px' }}>
+              <h4  className={styles.ngocontactpersondetails} >
                 CONTACT PERSON DETAILS</h4>
 
-              <div style={{ width: '100%', height: '225px', marginLeft: '0px', marginTop: '20px', background: '#e8e8e8' }}>
+              <div className={styles.ngocontactpersondetailsdiv} >
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                  <h4 style={{ marginTop: '0px', marginLeft: '10px' }}>NAME</h4>
+                  <h4 className={styles.ngocontactpersonname} >NAME</h4>
                 </Form.Item>
 
-                <Form.Item
-
-                  style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
+                <Form.Item className={styles.ngocontactpersonnameformitemcss}
+                  
+                  // style={{ width: '145%', alignContent: 'center', position: 'relative', top: '-10px', left: '10px' }}
                 >
                   {getFieldDecorator('contactpersonname', {
                   // rules: [
@@ -875,17 +1039,17 @@ class MyDetailsPage extends React.Component {
                     this.setState({reqFlag1 : true})
                     }}*/
                   />)}
-
+                  
                 </Form.Item>
 
                 <Form.Item style={{ alignContent: 'center', position: 'relative', top: '0px' }}>
-                  <h4 style={{ marginTop: '-10px', marginLeft: '10px' }}>PHONE NUMBER</h4>
+                  <h4 className={styles.ngocontactpersonphone} >PHONE NUMBER</h4>
                 </Form.Item>
 
-                <Form.Item
+                <Form.Item className={styles.ngocontactpersonphone}
 
 
-                  style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '10px', top: '-15px' }}
+                  // style={{ width: '100%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '10px', top: '-15px' }}
                 >
                   {getFieldDecorator('mobile', {
                     // rules: [
@@ -897,11 +1061,12 @@ class MyDetailsPage extends React.Component {
 
                   })(
                     <Input type="tel" pattern="[0-9]{3}[0-9]{2}[0-9]{3}[0-9]{2}" maxLength="10" style={{ borderRadius: '25px', width: '100%' }}
-                    /*onChange={(e) =>{
-                      this.setState({reqFlag1 : true})
-                      }}*/
+                    onChange={(e) =>{
+                      this.setState({mobileverifyflag: true});
+                     
+                      }}
                     />)}
-                    <a onClick={this.showModal} style={{ position: 'relative', color: '#000000', top: '-10px', left: '0px', textDecoration: 'underline' }}>Verify Mobile Number</a>
+                    <a onClick={this.showModal} className={styles.ngoeditprofileverifyphonecss}  style={{ display: this.state.mobileverifyflag === true ? 'inline' : 'none' }}>Verify Mobile Number</a>
                     <div>
                       <Modal
                         title="Verify Mobile"
@@ -917,6 +1082,7 @@ class MyDetailsPage extends React.Component {
                         <WrappedOtpVerifyForm mobileReadOnlyField={this.state.mobileReadOnlyField} onCancel={this.handleCancel} />
                       </Modal>
                     </div>
+
                   {/* <a href="" style={{ position: 'relative', right: '0px', top: '-7px', color: '#000000' }}>Verify Phone Number</a> */}
                 </Form.Item>
 
@@ -939,8 +1105,8 @@ class MyDetailsPage extends React.Component {
 
               {/* <a href="" style={{ position: 'relative', left: '10px', top: '20px', color: '#000000' }}>Change Your Password</a> */}
 
-              <Form.Item style={{ width: '85%', display: 'inline-block', alignContent: 'center', position: 'relative', left: '410px', top: '-01px' }}>
-                <Button type="primary" htmlType="submit" onClick={this.handleSubmit} style={{ width: '50%', borderRadius: '25px', background: '#f8a500', border: '#FFFFFF', color: '#000000' }}>
+              <Form.Item className={styles.ngoupdatebuttonformitem}  >
+                <Button className={styles.ngoupdatebutton} type="primary" htmlType="submit" onClick={this.handleSubmit} >
                   Update
                       </Button>
               </Form.Item>

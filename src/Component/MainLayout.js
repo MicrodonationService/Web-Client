@@ -4,6 +4,9 @@ import { Layout, Avatar, Form, Button, Col, Input, Tooltip, Checkbox, Row, Card,
 //import {Pie} from 'react-chartjs-2';
 import "../App.css"
 import "antd/dist/antd.css"
+// import { useGoogleLogout } from 'react-google-login';
+import UIregisterMD from "./UIRegisterMD.js";
+import PasswordSetSuccess from "./PasswordSetSuccess.js"
 import MyDonation from "./myDonation.js"
 import WrappedNormalChangePasswordForm from "./ChangePassword.js"
 import WrappedNormalReferPage from "./ReferPage.js"
@@ -94,7 +97,7 @@ class MainLayout extends React.Component {
     this.setState({ flag: data })
     this.setState({ profileUpdateFlag: "" })
     this.setState({ changePasswordFlag: "" })
-    ReactDOM.render(<WrappedNormalReferPage />,document.getElementById('root'));
+    //ReactDOM.render(<WrappedNormalReferPage />,document.getElementById('root'));
   }
   handleChange(data) {
     this.setState({ changePasswordFlag: data })
@@ -265,7 +268,7 @@ class MainLayout extends React.Component {
               </Row>
 </div>*/}
               {
-                (this.state.profileUpdateFlag === "profile_update") ? <WrappedNormalEditProfileForm data={this.props.data}  donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={(this.state.donorfetchdata == undefined)? this.props.donorfetchdata : this.state.donorfetchdata} />
+                (this.state.profileUpdateFlag === "profile_update") ? <WrappedNormalEditProfileForm federated={this.props.federated} profilepic={this.props.profilepic}  data={this.props.data}  donorcategorydrop={this.props.donorcategorydrop} donorfetchdata={(this.state.donorfetchdata == undefined)? this.props.donorfetchdata : this.state.donorfetchdata} />
                   : null
               }
               {
@@ -290,20 +293,9 @@ class MainLayout extends React.Component {
               }
 
 
-              <div>
+              <div style={{display:(this.state.myDonatiion === "myDonatiion")? 'none':'block'}}>
                 <br></br>
 
-
-                {/* <Card
-                                     style={{ width: 300, marginTop: 60}}    >
-                                <Meta
-                          avatar={
-                                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                             }
-                                  title="Card title"
-                              description="This is the description"
-                         />
-                        </Card> */}
                 <Row style={{ marginTop: 40 }}>
                   <Row style={{ position: "absolute" }}>
                     <Col span={4} style={{ position: "absolute" }} >
